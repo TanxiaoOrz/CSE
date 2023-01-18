@@ -1,11 +1,12 @@
 package com.example.cse.bean.InformationClass;
 
+import com.example.cse.bean.Recommend.MessCal;
 import com.example.cse.bean.Recommend.Model;
 
 import java.util.ArrayList;
 import java.util.Date;
 
-public class Message {
+public class Message implements MessCal {
     private Integer Mid;//唯一消息标识号
     private Visual Visual;//可视化方式
     private String Title;//消息标题
@@ -16,4 +17,9 @@ public class Message {
 
     private ArrayList<InformationClass> classLink; //该消息对类的从属关系
     private Model rankModel;//当排序时调用的模型
+
+    @Override
+    public Integer getMessageScore() {
+        return null;
+    }
 }

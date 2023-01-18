@@ -1,11 +1,12 @@
 package com.example.cse.bean.InformationClass;
 
+import com.example.cse.bean.Recommend.InfCal;
 import com.example.cse.bean.Recommend.Model;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public abstract class InformationClass {
+public abstract class InformationClass implements InfCal {
 
 
     public final static Integer LOCATION = 0;
