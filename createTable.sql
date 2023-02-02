@@ -181,7 +181,7 @@ CREATE TABLE `cse`.`lesson` (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION);
 
-user_hobbyuser_hobby  CREATE TABLE `cse`.`section` (
+CREATE TABLE `cse`.`section` (
   `Sid` INT NOT NULL AUTO_INCREMENT,
   `BasicMessage` INT NULL,
   `Name` VARCHAR(100) NULL,
@@ -286,3 +286,57 @@ CREATE TABLE `cse`.`activity` (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION);
 
+CREATE TABLE `cse`.`calender` (
+                                  `Uid` INT NOT NULL,
+                                  `Time` DATETIME NOT NULL,
+                                  `Description` VARCHAR(100) NULL,
+                                  `RelationFunction` JSON NULL,
+                                  PRIMARY KEY (`Uid`, `Time`));
+
+ALTER TABLE `cse`.`calender`
+    ADD CONSTRAINT `CalenderToUser`
+        FOREIGN KEY (`Uid`)
+            REFERENCES `cse`.`user` (`Uid`)
+            ON DELETE NO ACTION
+            ON UPDATE NO ACTION;
+
+CREATE TABLE `cse`.`classtable` (
+                                    `Uid` INT NOT NULL,
+                                    `Cid` INT NOT NULL,
+                                    `Description` VARCHAR(45) NULL,
+                                    `ClassTime` JSON NULL,
+                                    PRIMARY KEY (`Uid`,`Cid`),
+                                    CONSTRAINT `ClassTableToLesson`
+                                        FOREIGN KEY (`Cid`)
+                                            REFERENCES `cse`.`lesson` (`Lid`)
+                                            ON DELETE NO ACTION
+                                            ON UPDATE NO ACTION,
+                                    CONSTRAINT `ClassTableToUser`
+                                        FOREIGN KEY (`Uid`)
+                                            REFERENCES `cse`.`user` (`Uid`)
+                                            ON DELETE NO ACTION
+                                            ON UPDATE NO ACTION);
+
+CREATE TABLE `cse`.`resourcetable` (
+                                       `Uid` INT NOT NULL,
+                                       `Rid` INT NOT NULL,
+                                       `Descriptiom` VARCHAR(45) NULL,
+                                       `DeprecatedFlag` TINYINT NULL,
+                                       PRIMARY KEY (`Uid`, `Rid`),
+                                       INDEX `ResourceTableToResource_idx` (`Rid` ASC) VISIBLE,
+                                       CONSTRAINT `ResourceTableToResource`
+                                           FOREIGN KEY (`Rid`)
+                                               REFERENCES `cse`.`resource` (`Rid`)
+                                               ON DELETE NO ACTION
+                                               ON UPDATE NO ACTION,
+                                       CONSTRAINT `ResourceTableToUser`
+                                           FOREIGN KEY (`Uid`)
+                                               REFERENCES `cse`.`user` (`Uid`)
+                                               ON DELETE NO ACTION
+                                               ON UPDATE NO ACTION);
+
+ALTER TABLE `cse`.`classtable`
+    ADD COLUMN `DeprecatedFlag` TINYINT NULL AFTER `ClassTime`;
+
+ALTER TABLE `cse`.`calender`
+    ADD COLUMN `DescrationFlag` TINYINT NULL AFTER `RelationFunction`;
