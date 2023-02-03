@@ -1,9 +1,10 @@
 CREATE SCHEMA `cse` ;
 
 CREATE TABLE `cse`.`profession` (
-  `Pid` INT NOT NULL AUTO_INCREMENT,
-  `ProfessionName` VARCHAR(45) NULL,
-  PRIMARY KEY (`Pid`));
+    `Pid` INT NOT NULL AUTO_INCREMENT,
+    `ProfessionName` VARCHAR(45) NULL,
+    PRIMARY KEY (`Pid`)
+);
   
 ALTER TABLE `cse`.`profession` 
 ADD COLUMN `DeprecatedFlag` TINYINT NULL AFTER `ProfessionName`;
@@ -40,10 +41,11 @@ ADD CONSTRAINT `Profession`
   `DeprecatedFlag` TINYINT NULL,
   PRIMARY KEY (`Hid`));
   
-  CREATE TABLE `cse`.`user_hobby` (
-  `Uid` INT NOT NULL,
-  `Hid` INT NOT NULL,
-  PRIMARY KEY (`Uid`, `Hid`));
+CREATE TABLE `cse`.`user_hobby` (
+    `Uid` INT NOT NULL,
+    `Hid` INT NOT NULL,
+    PRIMARY KEY (`Uid` , `Hid`)
+);
   
   ALTER TABLE `cse`.`user_hobby` 
 ADD INDEX `user_hobby_hid_idx` (`Hid` ASC) VISIBLE;
@@ -72,36 +74,35 @@ CREATE TABLE `cse`.`message` (
   PRIMARY KEY (`Mid`));
   
 CREATE TABLE `cse`.`surf` (
-  `Time` DATETIME NOT NULL,
-  `Uid` INT NOT NULL,
-  `Mid` INT NOT NULL,
-  PRIMARY KEY (`Time`, `Uid`, `Mid` ),
-  CONSTRAINT `surf_message`
-    FOREIGN KEY (`Mid`)
-    REFERENCES `cse`.`message` (`Mid`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `surf_user`
-    FOREIGN KEY (`Uid`)
-    REFERENCES `cse`.`user` (`Uid`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION);
+    `Time` DATETIME NOT NULL,
+    `Uid` INT NOT NULL,
+    `Mid` INT NOT NULL,
+    PRIMARY KEY (`Time` , `Uid` , `Mid`),
+    CONSTRAINT `surf_message` FOREIGN KEY (`Mid`)
+        REFERENCES `cse`.`message` (`Mid`)
+        ON DELETE NO ACTION ON UPDATE NO ACTION,
+    CONSTRAINT `surf_user` FOREIGN KEY (`Uid`)
+        REFERENCES `cse`.`user` (`Uid`)
+        ON DELETE NO ACTION ON UPDATE NO ACTION
+);
 
- CREATE TABLE `cse`.`keywordtype` (
-  `Tid` INT NOT NULL,
-  `TypeName` VARCHAR(45) NULL,
-  `TypeResume` VARCHAR(100) NULL,
-  PRIMARY KEY (`Tid`));
+CREATE TABLE `cse`.`keywordtype` (
+    `Tid` INT NOT NULL,
+    `TypeName` VARCHAR(45) NULL,
+    `TypeResume` VARCHAR(100) NULL,
+    PRIMARY KEY (`Tid`)
+);
 
 ALTER TABLE `cse`.`keywordtype` 
 CHANGE COLUMN `Tid` `Tid` INT NOT NULL AUTO_INCREMENT ;
 
 CREATE TABLE `cse`.`keyword` (
-  `Kid` INT NOT NULL AUTO_INCREMENT,
-  `KeyName` VARCHAR(45) NULL,
-  `KeywordType` INT NULL,
-  `KeyResume` VARCHAR(45) NULL,
-  PRIMARY KEY (`Kid`));
+    `Kid` INT NOT NULL AUTO_INCREMENT,
+    `KeyName` VARCHAR(45) NULL,
+    `KeywordType` INT NULL,
+    `KeyResume` VARCHAR(45) NULL,
+    PRIMARY KEY (`Kid`)
+);
   
   ALTER TABLE `cse`.`keyword` 
 ADD INDEX `KeyWordType_idx` (`KeywordType` ASC) VISIBLE;
@@ -114,11 +115,12 @@ ADD CONSTRAINT `KeyWordType`
   ON UPDATE NO ACTION;
 
 CREATE TABLE `cse`.`map` (
-  `Mid` INT NOT NULL AUTO_INCREMENT,
-  `Name` VARCHAR(45) NULL,
-  `Resume` VARCHAR(100) NULL,
-  `Href` VARCHAR(100) NULL,
-  PRIMARY KEY (`Mid`));
+    `Mid` INT NOT NULL AUTO_INCREMENT,
+    `Name` VARCHAR(45) NULL,
+    `Resume` VARCHAR(100) NULL,
+    `Href` VARCHAR(100) NULL,
+    PRIMARY KEY (`Mid`)
+);
 
 CREATE TABLE `cse`.`location` (
   `Lid` INT NOT NULL AUTO_INCREMENT,
@@ -182,24 +184,21 @@ CREATE TABLE `cse`.`lesson` (
     ON UPDATE NO ACTION);
 
 CREATE TABLE `cse`.`section` (
-  `Sid` INT NOT NULL AUTO_INCREMENT,
-  `BasicMessage` INT NULL,
-  `Name` VARCHAR(100) NULL,
-  `Resume` VARCHAR(100) NULL,
-  `DeprecateFlag` TINYINT NULL,
-  PRIMARY KEY (`Sid`),
-  `Location` INT NULL,
-  `Profession` INT NULL,
-  CONSTRAINT `SectionToLccation`
-    FOREIGN KEY (`Location`)
-    REFERENCES `cse`.`location` (`Lid`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-   CONSTRAINT `SectionToProfession`
-    FOREIGN KEY (`Profession`)
-    REFERENCES `cse`.`profession` (`Pid`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION   );
+    `Sid` INT NOT NULL AUTO_INCREMENT,
+    `BasicMessage` INT NULL,
+    `Name` VARCHAR(100) NULL,
+    `Resume` VARCHAR(100) NULL,
+    `DeprecateFlag` TINYINT NULL,
+    PRIMARY KEY (`Sid`),
+    `Location` INT NULL,
+    `Profession` INT NULL,
+    CONSTRAINT `SectionToLccation` FOREIGN KEY (`Location`)
+        REFERENCES `cse`.`location` (`Lid`)
+        ON DELETE NO ACTION ON UPDATE NO ACTION,
+    CONSTRAINT `SectionToProfession` FOREIGN KEY (`Profession`)
+        REFERENCES `cse`.`profession` (`Pid`)
+        ON DELETE NO ACTION ON UPDATE NO ACTION
+);
 
 CREATE TABLE `cse`.`contest` (
   `Cid` INT NOT NULL AUTO_INCREMENT,
@@ -375,72 +374,61 @@ CREATE TABLE `cse`.`message_activity` (
                                                   ON UPDATE NO ACTION);
 
 CREATE TABLE `cse`.`message_lesson` (
-                                        `Mid` INT NOT NULL,
-                                        `Lid` INT NOT NULL,
-                                        PRIMARY KEY (`Mid`, `Lid`),
-                                        CONSTRAINT `LinkLessonToMessage`
-                                            FOREIGN KEY (`Mid`)
-                                                REFERENCES `cse`.`message` (`Mid`)
-                                                ON DELETE NO ACTION
-                                                ON UPDATE NO ACTION,
-                                        CONSTRAINT `LinkMessageToLesson`
-                                            FOREIGN KEY (`Lid`)
-                                                REFERENCES `cse`.`lesson` (`Lid`)
-                                                ON DELETE NO ACTION
-                                                ON UPDATE NO ACTION);
+    `Mid` INT NOT NULL,
+    `Lid` INT NOT NULL,
+    PRIMARY KEY (`Mid` , `Lid`),
+    CONSTRAINT `LinkLessonToMessage` FOREIGN KEY (`Mid`)
+        REFERENCES `cse`.`message` (`Mid`)
+        ON DELETE NO ACTION ON UPDATE NO ACTION,
+    CONSTRAINT `LinkMessageToLesson` FOREIGN KEY (`Lid`)
+        REFERENCES `cse`.`lesson` (`Lid`)
+        ON DELETE NO ACTION ON UPDATE NO ACTION
+);
 
 CREATE TABLE `cse`.`message_contest` (
-                                         `Mid` INT NOT NULL,
-                                         `Cid` INT NOT NULL,
-                                         PRIMARY KEY (`Mid`, `Cid`),
-                                         CONSTRAINT `LinkContestToMessage`
-                                             FOREIGN KEY (`Mid`)
-                                                 REFERENCES `cse`.`message` (`Mid`)
-                                                 ON DELETE NO ACTION
-                                                 ON UPDATE NO ACTION,
-                                         CONSTRAINT `LinkMessageToContest`
-                                             FOREIGN KEY (`Cid`)
-                                                 REFERENCES `cse`.`contest` (`Cid`)
-                                                 ON DELETE NO ACTION
-                                                 ON UPDATE NO ACTION);
+    `Mid` INT NOT NULL,
+    `Cid` INT NOT NULL,
+    PRIMARY KEY (`Mid` , `Cid`),
+    CONSTRAINT `LinkContestToMessage` FOREIGN KEY (`Mid`)
+        REFERENCES `cse`.`message` (`Mid`)
+        ON DELETE NO ACTION ON UPDATE NO ACTION,
+    CONSTRAINT `LinkMessageToContest` FOREIGN KEY (`Cid`)
+        REFERENCES `cse`.`contest` (`Cid`)
+        ON DELETE NO ACTION ON UPDATE NO ACTION
+);
 
 CREATE TABLE `cse`.`message_contest` (
-                                         `Mid` INT NOT NULL,
-                                         `Cid` INT NOT NULL,
-                                         PRIMARY KEY (`Mid` , `Cid`),
-                                         CONSTRAINT `LinkContestToMessage` FOREIGN KEY (`Mid`)
-                                             REFERENCES `cse`.`message` (`Mid`)
-                                             ON DELETE NO ACTION ON UPDATE NO ACTION,
-                                         CONSTRAINT `LinkMessageToContest` FOREIGN KEY (`Cid`)
-                                             REFERENCES `cse`.`contest` (`Cid`)
-                                             ON DELETE NO ACTION ON UPDATE NO ACTION);
+    `Mid` INT NOT NULL,
+    `Cid` INT NOT NULL,
+    PRIMARY KEY (`Mid` , `Cid`),
+    CONSTRAINT `LinkContestToMessage` FOREIGN KEY (`Mid`)
+        REFERENCES `cse`.`message` (`Mid`)
+        ON DELETE NO ACTION ON UPDATE NO ACTION,
+    CONSTRAINT `LinkMessageToContest` FOREIGN KEY (`Cid`)
+        REFERENCES `cse`.`contest` (`Cid`)
+        ON DELETE NO ACTION ON UPDATE NO ACTION
+);
 
 CREATE TABLE `cse`.`message_section` (
-                                         `Mid` INT NOT NULL,
-                                         `Sid` INT NOT NULL,
-                                         PRIMARY KEY (`Mid`, `Sid`),
-                                         CONSTRAINT `LinkSectionToMessage`
-                                             FOREIGN KEY (`Mid`)
-                                                 REFERENCES `cse`.`message` (`Mid`)
-                                                 ON DELETE NO ACTION
-                                                 ON UPDATE NO ACTION,
-                                         CONSTRAINT `LinkMessageToSection`
-                                             FOREIGN KEY (`Sid`)
-                                                 REFERENCES `cse`.`section` (`Sid`)
-                                                 ON DELETE NO ACTION
-                                                 ON UPDATE NO ACTION);
+    `Mid` INT NOT NULL,
+    `Sid` INT NOT NULL,
+    PRIMARY KEY (`Mid` , `Sid`),
+    CONSTRAINT `LinkSectionToMessage` FOREIGN KEY (`Mid`)
+        REFERENCES `cse`.`message` (`Mid`)
+        ON DELETE NO ACTION ON UPDATE NO ACTION,
+    CONSTRAINT `LinkMessageToSection` FOREIGN KEY (`Sid`)
+        REFERENCES `cse`.`section` (`Sid`)
+        ON DELETE NO ACTION ON UPDATE NO ACTION
+);
 
 CREATE TABLE `cse`.`message_location` (
-                                          `Mid` INT NOT NULL,
-                                          `Lid` INT NOT NULL,
-                                          PRIMARY KEY (`Mid`, `Lid`),
-                                          CONSTRAINT `LinkLocationToMessage`
-                                              FOREIGN KEY (`Mid`)
-                                                  REFERENCES `cse`.`message` (`Mid`)
-                                                  ON DELETE NO ACTION
-                                                  ON UPDATE NO ACTION,
-                                          CONSTRAINT `LinkMessageToLocation`
-                                              FOREIGN KEY (`Lid`)
-                                                  REFERENCES `cse`.`Location` (`Lid`)
-                                                  ON DELETE NO ACTION
-                                                  ON UPDATE NO ACTION);
+    `Mid` INT NOT NULL,
+    `Lid` INT NOT NULL,
+    PRIMARY KEY (`Mid` , `Lid`),
+    CONSTRAINT `LinkLocationToMessage` FOREIGN KEY (`Mid`)
+        REFERENCES `cse`.`message` (`Mid`)
+        ON DELETE NO ACTION ON UPDATE NO ACTION,
+    CONSTRAINT `LinkMessageToLocation` FOREIGN KEY (`Lid`)
+        REFERENCES `cse`.`Location` (`Lid`)
+        ON DELETE NO ACTION ON UPDATE NO ACTION
+);
