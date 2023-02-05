@@ -10,4 +10,8 @@ public class Resource extends InformationClass{
     private KeyWord count;//总数量级
     private KeyWord popular;//抢手程度
 
+    @Override
+    public Integer getClassScore() {
+        return null;
+    }
 }

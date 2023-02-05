@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import springfox.documentation.builders.ApiInfoBuilder;
+import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
 import springfox.documentation.service.ApiInfo;
 import springfox.documentation.service.Contact;
@@ -13,7 +14,7 @@ import springfox.documentation.spring.web.plugins.Docket;
 
 @Configuration
 public class SwaggerConfig {
-    @Value("$config.controller-path")
+    @Value("${config.controller-path}")
     private String controllerPath;
     @Value("${config.version}")
     private String version;
@@ -34,10 +35,12 @@ public class SwaggerConfig {
 
     @Bean
     public Docket createRestApi(){
+        System.out.println(controllerPath);
         Docket docket = new Docket(DocumentationType.OAS_30);
         docket.apiInfo(apiInfo())
                 .select()
-                .apis(RequestHandlerSelectors.basePackage(controllerPath));
+                .apis(RequestHandlerSelectors.basePackage(controllerPath))
+                .paths(PathSelectors.any());
         return docket.enable(enable);
     }
 
