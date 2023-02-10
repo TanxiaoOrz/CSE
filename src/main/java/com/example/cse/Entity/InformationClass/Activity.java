@@ -1,6 +1,6 @@
-package com.example.cse.bean.InformationClass;
+package com.example.cse.Entity.InformationClass;
 
-import com.example.cse.bean.Recommend.KeyWord;
+import com.example.cse.Entity.Recommend.KeyWord;
 
 public class Activity extends InformationClass{
     private Integer Aid;//唯一标识富
@@ -14,4 +14,8 @@ public class Activity extends InformationClass{
     private KeyWord activityScore;
     private KeyWord request;
 
+    @Override
+    public Integer getClassScore() {
+        return null;
+    }
 }

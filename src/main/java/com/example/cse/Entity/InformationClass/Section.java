@@ -1,6 +1,6 @@
-package com.example.cse.bean.InformationClass;
+package com.example.cse.Entity.InformationClass;
 
-import com.example.cse.bean.Recommend.KeyWord;
+import com.example.cse.Entity.Recommend.KeyWord;
 
 public class Section extends InformationClass{
     private Integer Sid;//唯一标识符
@@ -8,4 +8,9 @@ public class Section extends InformationClass{
     private Integer Profession;
     private KeyWord profession;//专业的关键字属性
     private Location location;//所在位置关键字属性
+
+    @Override
+    public Integer getClassScore() {
+        return null;
+    }
 }

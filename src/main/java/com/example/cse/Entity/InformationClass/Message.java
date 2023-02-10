@@ -1,14 +1,14 @@
-package com.example.cse.bean.InformationClass;
+package com.example.cse.Entity.InformationClass;
 
-import com.example.cse.bean.Recommend.MessCal;
-import com.example.cse.bean.Recommend.Model;
+import com.example.cse.Entity.Recommend.MessCal;
+import com.example.cse.Utils.Model;
 
 import java.util.ArrayList;
 import java.util.Date;
 
 public class Message implements MessCal {
     private Integer Mid;//唯一消息标识号
-    private Visual Visual;//可视化方式
+    private com.example.cse.Utils.Visual Visual;//可视化方式
     private String Title;//消息标题
     private String Resume;//消息简介
     private String Message;//消息本体

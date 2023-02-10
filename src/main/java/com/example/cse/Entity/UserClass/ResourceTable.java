@@ -1,7 +1,7 @@
-package com.example.cse.bean.UserClass;
+package com.example.cse.Entity.UserClass;
 
 
-import com.example.cse.bean.InformationClass.Resource;
+import com.example.cse.Entity.InformationClass.Resource;
 
 public class ResourceTable {
     private Integer Resource;

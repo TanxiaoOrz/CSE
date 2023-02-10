@@ -1,6 +1,6 @@
-package com.example.cse.bean.UserClass;
+package com.example.cse.Entity.UserClass;
 
-import com.example.cse.bean.InformationClass.Lesson;
+import com.example.cse.Entity.InformationClass.Lesson;
 
 public class ClassTable {
     private Integer Lesson;

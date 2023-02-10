@@ -1,4 +1,4 @@
-package com.example.cse.bean.Recommend;
+package com.example.cse.Entity.Recommend;
 
 import java.util.Date;
 

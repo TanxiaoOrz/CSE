@@ -1,4 +1,4 @@
-package com.example.cse.bean.Recommend;
+package com.example.cse.Entity.Recommend;
 
 
 public class Hobby {
@@ -8,5 +8,5 @@ public class Hobby {
     private Integer Type;//
     private String Model;//
 
-    private Model model;
+    private com.example.cse.Utils.Model model;
 }

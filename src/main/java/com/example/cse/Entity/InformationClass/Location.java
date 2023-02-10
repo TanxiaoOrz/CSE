@@ -1,6 +1,6 @@
-package com.example.cse.bean.InformationClass;
+package com.example.cse.Entity.InformationClass;
 
-import com.example.cse.bean.Recommend.KeyWord;
+import com.example.cse.Entity.Recommend.KeyWord;
 
 public class Location extends InformationClass{
     private Integer Lid;//唯一标识
@@ -13,4 +13,9 @@ public class Location extends InformationClass{
 
     private Map map;//从属地图
     private KeyWord ability;//提供的能力关键字
+
+    @Override
+    public Integer getClassScore() {
+        return null;
+    }
 }

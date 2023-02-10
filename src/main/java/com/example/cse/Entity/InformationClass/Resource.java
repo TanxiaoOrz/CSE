@@ -1,6 +1,6 @@
-package com.example.cse.bean.InformationClass;
+package com.example.cse.Entity.InformationClass;
 
-import com.example.cse.bean.Recommend.KeyWord;
+import com.example.cse.Entity.Recommend.KeyWord;
 
 public class Resource extends InformationClass{
     private Integer Rid;//唯一标识

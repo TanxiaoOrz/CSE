@@ -1,4 +1,4 @@
-package com.example.cse.bean.InformationClass;
+package com.example.cse.Entity.InformationClass;
 
 public class Map {
     private Integer Mid;//

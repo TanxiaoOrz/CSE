@@ -1,7 +1,9 @@
-package com.example.cse.bean.Recommend;
+package com.example.cse.Utils;
 
-import com.example.cse.bean.InformationClass.InformationClass;
-import com.example.cse.bean.UserClass.User;
+import com.example.cse.Entity.InformationClass.InformationClass;
+import com.example.cse.Entity.Recommend.Hobby;
+import com.example.cse.Entity.Recommend.KeyWord;
+import com.example.cse.Entity.UserClass.User;
 
 import java.util.ArrayList;
 import java.util.Date;

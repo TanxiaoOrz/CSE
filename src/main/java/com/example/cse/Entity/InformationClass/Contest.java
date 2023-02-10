@@ -1,6 +1,6 @@
-package com.example.cse.bean.InformationClass;
+package com.example.cse.Entity.InformationClass;
 
-import com.example.cse.bean.Recommend.KeyWord;
+import com.example.cse.Entity.Recommend.KeyWord;
 
 public class Contest extends InformationClass{
     private Integer Cid;
@@ -10,4 +10,8 @@ public class Contest extends InformationClass{
     private KeyWord profession;
     private KeyWord level;
 
+    @Override
+    public Integer getClassScore() {
+        return null;
+    }
 }

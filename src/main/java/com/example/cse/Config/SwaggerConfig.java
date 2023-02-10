@@ -35,7 +35,6 @@ public class SwaggerConfig {
 
     @Bean
     public Docket createRestApi(){
-        System.out.println(controllerPath);
         Docket docket = new Docket(DocumentationType.OAS_30);
         docket.apiInfo(apiInfo())
                 .select()

@@ -1,6 +1,6 @@
-package com.example.cse.bean.InformationClass;
+package com.example.cse.Entity.InformationClass;
 
-import com.example.cse.bean.Recommend.KeyWord;
+import com.example.cse.Entity.Recommend.KeyWord;
 
 public class Lesson extends InformationClass{
     private Integer Lid;//唯一标识
@@ -13,4 +13,8 @@ public class Lesson extends InformationClass{
     private KeyWord teacher;
     private KeyWord lessonScore;
 
+    @Override
+    public Integer getClassScore() {
+        return null;
+    }
 }
