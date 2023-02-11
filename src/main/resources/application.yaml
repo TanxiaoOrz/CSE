@@ -1,0 +1,10 @@
+#redis 配种信息
+spring:
+  redis:
+    host: localhost
+    port: 6379
+    client-name: jedis
+
+    jedis:
+      pool:
+        max-active: 16
