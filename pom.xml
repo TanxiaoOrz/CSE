@@ -32,7 +32,7 @@
         <dependency>
             <groupId>org.mybatis.spring.boot</groupId>
             <artifactId>mybatis-spring-boot-starter</artifactId>
-            <version>2.1.4</version>
+            <version>2.2.2</version>
         </dependency>
         <dependency>
             <groupId>com.github.xiaoymin</groupId>
@@ -91,6 +91,13 @@
             <groupId>org.springframework.data</groupId>
             <artifactId>spring-data-redis</artifactId>
         </dependency>
+
+        <dependency>
+            <groupId>com.auth0</groupId>
+            <artifactId>java-jwt</artifactId>
+            <version>3.4.1</version>
+        </dependency>
+
 
 
     </dependencies>

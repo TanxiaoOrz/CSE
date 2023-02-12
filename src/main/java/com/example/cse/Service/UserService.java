@@ -3,12 +3,8 @@ package com.example.cse.Service;
 import com.example.cse.Dto.UserDto;
 import com.example.cse.Entity.UserClass.User;
 
-public interface TokenService {
+public interface UserService {
 
-    String newTokenByUser(UserDto user);
-
-    UserDto getUserByToken(String token);
-
-
+    UserDto getUserByNamePass(String name, String password);
 
 }
