@@ -28,7 +28,7 @@
     </environments>
 
     <mappers>
-        <mapper resource="com.example.cse.Mapper.UserMapper.xml"/>
+        <package name="com.example.cse.Mapper"/>
     </mappers>
 
 </configuration>
