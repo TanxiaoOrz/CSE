@@ -5,6 +5,6 @@ import com.example.cse.Entity.UserClass.User;
 
 public interface UserService {
 
-    UserDto getUserByNamePass(String name, String password);
+    UserDto getUserByNamePass(String userCode, String password);
 
 }

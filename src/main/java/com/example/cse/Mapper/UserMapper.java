@@ -10,6 +10,6 @@ public interface UserMapper {
 
     List<User> findAll();
 
-    User getUserByNamePass(@Param("name") String name,@Param("pass") String pass);
+    User getUserByNamePass(@Param("userCode") String userCode,@Param("userPass") String userPass);
 
 }

@@ -15,8 +15,8 @@ public class UserServiceImpl implements UserService {
     UserMapper userMapper;
 
     @Override
-    public UserDto getUserByNamePass(String name, String password) {
-        User user = userMapper.getUserByNamePass(name, password);
+    public UserDto getUserByNamePass(String userCode, String password) {
+        User user = userMapper.getUserByNamePass(userCode, password);
         return new UserDto(user);
     }
 

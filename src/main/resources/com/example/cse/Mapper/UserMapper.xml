@@ -10,6 +10,6 @@
     </select>
 
     <select id="getUserByNamePass" parameterType="String" resultType="com.example.cse.Entity.UserClass.User">
-        select * from  `cse`.`user` where `cse`.`user`.`UserCode` = #{name} and `UserPass` = #{pass} ;
+        select * from  `cse`.`user` where `cse`.`user`.`UserCode` = #{userCode} and `UserPass` = #{userPass} ;
     </select>
 </mapper>
