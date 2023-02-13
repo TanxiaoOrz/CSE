@@ -72,7 +72,7 @@ public class UserDto {
         this.setProfession(user.getProfession());
         this.setGrade(user.getGrade());
         this.setUserPass(user.getUserPass());
-        this.setUserModel(new Gson().fromJson(user.getUserModel(),Model.class));
+        //this.setUserModel(new Gson().fromJson(user.getUserModel(),Model.class));
     }
 
 
