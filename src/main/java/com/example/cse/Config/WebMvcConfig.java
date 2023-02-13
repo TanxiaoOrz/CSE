@@ -1,21 +1,64 @@
 package com.example.cse.Config;
 
+import com.auth0.jwt.JWT;
+import com.auth0.jwt.exceptions.AlgorithmMismatchException;
+import com.auth0.jwt.exceptions.SignatureVerificationException;
+import com.auth0.jwt.exceptions.TokenExpiredException;
+import com.auth0.jwt.interfaces.DecodedJWT;
+import com.example.cse.Dto.UserDto;
+import com.example.cse.Service.TokenService;
+import com.example.cse.Service.impl.TokenServiceImpl;
+import com.example.cse.Vo.Vo;
+import com.google.gson.Gson;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+@Configuration
 public class WebMvcConfig extends WebMvcConfigurationSupport{
+
+
+    TokenServiceImpl tokenService;
 
     class TokenCheck implements HandlerInterceptor {
 
         @Override
         public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-            return HandlerInterceptor.super.preHandle(request, response, handler);
+            String token = request.getHeader("token");
+            String description;
+            try {
+                DecodedJWT decodedJWT = tokenService.verifyToken(token);
+                if (tokenService.checkTokenType(decodedJWT, TokenServiceImpl.UserType)){
+                    UserDto userDto= tokenService.getUserByToken(decodedJWT);
+                    request.setAttribute("UserDto",userDto);
+                    return true;
+                }else{
+                    description = "错误的权限请求!!!";
+                }
+            }catch (TokenExpiredException e) {
+                description = "Token已经过期!!!";
+            } catch (SignatureVerificationException e) {
+                description = "签名错误!!!";
+            } catch (AlgorithmMismatchException e){
+                description = "加密算法不匹配!!!";
+            } catch (Exception e) {
+                e.printStackTrace();
+                description = "无效token~~";
+            }
+            Vo<String> vo = new Vo<>(Vo.NoAuthority,description);
+
+            response.setContentType("application/json;charset=UTF-8");
+            response.getWriter().println(new Gson().toJson(vo));
+
+            return false;
         }
 
         @Override
@@ -31,8 +74,26 @@ public class WebMvcConfig extends WebMvcConfigurationSupport{
 
     @Override
     protected void addInterceptors(InterceptorRegistry registry){
-        registry.addInterceptor(new TokenCheck())
-                .addPathPatterns("/**")
-                .excludePathPatterns("/Token/**"); //对Token获取的访问不过滤
+       registry.addInterceptor(new TokenCheck())
+               .addPathPatterns("/cse/**")
+               .excludePathPatterns("/cse/Token/**")
+               .excludePathPatterns("/doc.html") //不需要拦截的地
+               .excludePathPatterns("/swagger-resources/**")
+               .excludePathPatterns("/webjars/**")
+               .excludePathPatterns("/v2/**")
+               .excludePathPatterns("/favicon.ico")
+               .excludePathPatterns("/swagger-ui.html/**");
+       super.addInterceptors(registry);
     }
+
+    @Override
+    public void addResourceHandlers(ResourceHandlerRegistry registry) {
+        registry.addResourceHandler("swagger-ui.html", "doc.html").addResourceLocations(
+                "classpath:/META-INF/resources/");
+        registry.addResourceHandler("/webjars/**").addResourceLocations(
+                "classpath:/META-INF/resources/webjars/");
+        super.addResourceHandlers(registry);
+    }
+
+
 }
