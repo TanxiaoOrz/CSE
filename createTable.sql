@@ -3,11 +3,9 @@ CREATE SCHEMA `cse` ;
 CREATE TABLE `cse`.`profession` (
     `Pid` INT NOT NULL AUTO_INCREMENT,
     `ProfessionName` VARCHAR(45) NULL,
+    `DeprecatedFlag` TINYINT NULL,
     PRIMARY KEY (`Pid`)
 );
-  
-ALTER TABLE `cse`.`profession` 
-ADD COLUMN `DeprecatedFlag` TINYINT NULL AFTER `ProfessionName`;
 
 CREATE TABLE `cse`.`user` (
   `Uid` INT NOT NULL AUTO_INCREMENT,
@@ -15,23 +13,18 @@ CREATE TABLE `cse`.`user` (
   `UserPass` VARCHAR(45) NULL,
   `UserName` VARCHAR(45) NULL,
   `Grade` VARCHAR(45) NULL,
-  `Profession` VARCHAR(45) NULL,
+  `Profession` INT NULL DEFAULT NULL,
   `Sex` VARCHAR(45) NULL,
   `UserModel` JSON NULL,
   `DeprecatedFlag` TINYINT NULL,
+  INDEX `Profession_idx` (`Profession` ASC) VISIBLE,
+  CONSTRAINT `Profession`
+      FOREIGN KEY (`Profession`)
+          REFERENCES `cse`.`profession` (`Pid`)
+          ON DELETE NO ACTION
+          ON UPDATE NO ACTION,
   PRIMARY KEY (`Uid`));
 
-ALTER TABLE `cse`.`user` 
-CHANGE COLUMN `Profession` `Profession` INT NULL DEFAULT NULL ,
-ADD INDEX `Profession_idx` (`Profession` ASC) VISIBLE;
-;
-ALTER TABLE `cse`.`user` 
-ADD CONSTRAINT `Profession`
-  FOREIGN KEY (`Profession`)
-  REFERENCES `cse`.`profession` (`Pid`)
-  ON DELETE NO ACTION
-  ON UPDATE NO ACTION;
-  
   CREATE TABLE `cse`.`hobby` (
   `Hid` INT NOT NULL AUTO_INCREMENT,
   `Description` VARCHAR(45) NULL,
@@ -44,25 +37,19 @@ ADD CONSTRAINT `Profession`
 CREATE TABLE `cse`.`user_hobby` (
     `Uid` INT NOT NULL,
     `Hid` INT NOT NULL,
-    PRIMARY KEY (`Uid` , `Hid`)
+    PRIMARY KEY (`Uid` , `Hid`),
+    INDEX `user_hobby_hid_idx` (`Hid` ASC) VISIBLE,
+    CONSTRAINT `user_hobby_hid`
+      FOREIGN KEY (`Hid`)
+      REFERENCES `cse`.`hobby` (`Hid`)
+      ON DELETE NO ACTION
+      ON UPDATE NO ACTION,
+      CONSTRAINT `user_hobby_uid`
+          FOREIGN KEY (`Uid`)
+          REFERENCES `cse`.`user` (`Uid`)
+          ON DELETE NO ACTION
+          ON UPDATE NO ACTION
 );
-  
-  ALTER TABLE `cse`.`user_hobby` 
-ADD INDEX `user_hobby_hid_idx` (`Hid` ASC) VISIBLE;
-;
-ALTER TABLE `cse`.`user_hobby` 
-ADD CONSTRAINT `user_hobby_hid`
-  FOREIGN KEY (`Hid`)
-  REFERENCES `cse`.`hobby` (`Hid`)
-  ON DELETE NO ACTION
-  ON UPDATE NO ACTION;
-  
-ALTER TABLE `cse`.`user_hobby` 
-ADD CONSTRAINT `user_hobby_uid`
-  FOREIGN KEY (`Uid`)
-  REFERENCES `cse`.`user` (`Uid`)
-  ON DELETE NO ACTION
-  ON UPDATE NO ACTION;
 
 CREATE TABLE `cse`.`message` (
   `Mid` INT NOT NULL AUTO_INCREMENT,
@@ -86,33 +73,26 @@ CREATE TABLE `cse`.`surf` (
         ON DELETE NO ACTION ON UPDATE NO ACTION
 );
 
-CREATE TABLE `cse`.`keywordtype` (
-    `Tid` INT NOT NULL,
+CREATE TABLE `cse`.`keyword_type` (
+    `Tid` INT NOT NULL AUTO_INCREMENT,
     `TypeName` VARCHAR(45) NULL,
     `TypeResume` VARCHAR(100) NULL,
     PRIMARY KEY (`Tid`)
 );
-
-ALTER TABLE `cse`.`keywordtype` 
-CHANGE COLUMN `Tid` `Tid` INT NOT NULL AUTO_INCREMENT ;
 
 CREATE TABLE `cse`.`keyword` (
     `Kid` INT NOT NULL AUTO_INCREMENT,
     `KeyName` VARCHAR(45) NULL,
     `KeywordType` INT NULL,
     `KeyResume` VARCHAR(45) NULL,
-    PRIMARY KEY (`Kid`)
+    PRIMARY KEY (`Kid`),
+    INDEX `KeyWordType_idx` (`KeywordType` ASC) VISIBLE,
+    CONSTRAINT `KeyWord_Type`
+      FOREIGN KEY (`KeywordType`)
+      REFERENCES `cse`.`keyword_type` (`Tid`)
+      ON DELETE NO ACTION
+      ON UPDATE NO ACTION
 );
-  
-  ALTER TABLE `cse`.`keyword` 
-ADD INDEX `KeyWordType_idx` (`KeywordType` ASC) VISIBLE;
-;
-ALTER TABLE `cse`.`keyword` 
-ADD CONSTRAINT `KeyWordType`
-  FOREIGN KEY (`KeywordType`)
-  REFERENCES `cse`.`keywordtype` (`Tid`)
-  ON DELETE NO ACTION
-  ON UPDATE NO ACTION;
 
 CREATE TABLE `cse`.`map` (
     `Mid` INT NOT NULL AUTO_INCREMENT,
@@ -143,45 +123,6 @@ CREATE TABLE `cse`.`location` (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION);
 
-CREATE TABLE `cse`.`lesson` (
-  `Lid` INT NOT NULL AUTO_INCREMENT,
-  `BasicMessage` INT NULL,
-  `Name` VARCHAR(45) NULL,
-  `Resume` JSON NULL,
-  `DeprecateFlag` TINYINT NULL,
-  `Location` INT NULL,
-  `Profession` INT NULL,
-  `Teacher` INT NULL,
-  `LessonScore` INT NULL,
-  PRIMARY KEY (`Lid`),
-  INDEX `LessonToLessonScore_idx` ( `LessonScore` ASC) VISIBLE,
-  INDEX `LessonToTeacher_idx` (`Teacher` ASC) VISIBLE,
-  INDEX `LessonToProfession_idx` (`Profession` ASC) VISIBLE,
-  CONSTRAINT `LessonToTeacher`
-    FOREIGN KEY (`Teacher`)
-    REFERENCES `cse`.`keyword` (`Kid`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-   CONSTRAINT `LessonToLessonScore`
-    FOREIGN KEY (`LessonScore`)
-    REFERENCES `cse`.`keyword` (`Kid`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `LessonToLccation`
-    FOREIGN KEY (`Location`)
-    REFERENCES `cse`.`location` (`Lid`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `LessonToProfession`
-    FOREIGN KEY (`Profession`)
-    REFERENCES `cse`.`profession` (`Pid`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `LessonToMessage`
-    FOREIGN KEY (`BasicMessage`)
-    REFERENCES `cse`.`message` (`Mid`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION);
 
 CREATE TABLE `cse`.`section` (
     `Sid` INT NOT NULL AUTO_INCREMENT,
@@ -192,7 +133,7 @@ CREATE TABLE `cse`.`section` (
     PRIMARY KEY (`Sid`),
     `Location` INT NULL,
     `Profession` INT NULL,
-    CONSTRAINT `SectionToLccation` FOREIGN KEY (`Location`)
+    CONSTRAINT `SectionToLocation` FOREIGN KEY (`Location`)
         REFERENCES `cse`.`location` (`Lid`)
         ON DELETE NO ACTION ON UPDATE NO ACTION,
     CONSTRAINT `SectionToProfession` FOREIGN KEY (`Profession`)
@@ -259,11 +200,11 @@ CREATE TABLE `cse`.`activity` (
   `Section` INT NULL,
   `Location` INT NULL,
   `Request` INT NULL,
-  `ActivtiyScore` INT NULL,
+  `ActivityScore` INT NULL,
   PRIMARY KEY (`Aid`),
   INDEX `ActivityToSection_idx` (`Section` ASC) VISIBLE,
   INDEX `ActivityToRequest_idx` (`Request` ASC) VISIBLE,
-  INDEX `ActivityToActivityScore_idx` (`ActivtiyScore` ASC) VISIBLE,
+  INDEX `ActivityToActivityScore_idx` (ActivityScore ASC) VISIBLE,
   CONSTRAINT `ActivityToSection`
     FOREIGN KEY (`Section`)
     REFERENCES `cse`.`section` (`Sid`)
@@ -280,110 +221,75 @@ CREATE TABLE `cse`.`activity` (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `ActivityToActivityScore`
-    FOREIGN KEY (`ActivtiyScore`)
+    FOREIGN KEY (ActivityScore)
     REFERENCES `cse`.`keyword` (`Kid`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION);
 
 CREATE TABLE `cse`.`calender` (
-                                  `Uid` INT NOT NULL,
-                                  `Time` DATETIME NOT NULL,
-                                  `Description` VARCHAR(100) NULL,
-                                  `RelationFunction` JSON NULL,
-                                  PRIMARY KEY (`Uid`, `Time`));
+  `Uid` INT NOT NULL,
+  `Time` DATETIME NOT NULL,
+  `Description` VARCHAR(100) NULL,
+  `DeprecatedFlag` TINYINT NULL,
+  `RelationFunction` JSON NULL,
+  PRIMARY KEY (`Uid`, `Time`),
+  CONSTRAINT `CalenderToUser`
+      FOREIGN KEY (`Uid`)
+      REFERENCES `cse`.`user` (`Uid`)
+      ON DELETE NO ACTION
+      ON UPDATE NO ACTION);
 
-ALTER TABLE `cse`.`calender`
-    ADD CONSTRAINT `CalenderToUser`
-        FOREIGN KEY (`Uid`)
-            REFERENCES `cse`.`user` (`Uid`)
-            ON DELETE NO ACTION
-            ON UPDATE NO ACTION;
 
-CREATE TABLE `cse`.`classtable` (
-                                    `Uid` INT NOT NULL,
-                                    `Cid` INT NOT NULL,
-                                    `Description` VARCHAR(45) NULL,
-                                    `ClassTime` JSON NULL,
-                                    PRIMARY KEY (`Uid`,`Cid`),
-                                    CONSTRAINT `ClassTableToLesson`
-                                        FOREIGN KEY (`Cid`)
-                                            REFERENCES `cse`.`lesson` (`Lid`)
-                                            ON DELETE NO ACTION
-                                            ON UPDATE NO ACTION,
-                                    CONSTRAINT `ClassTableToUser`
-                                        FOREIGN KEY (`Uid`)
-                                            REFERENCES `cse`.`user` (`Uid`)
-                                            ON DELETE NO ACTION
-                                            ON UPDATE NO ACTION);
-
-CREATE TABLE `cse`.`resourcetable` (
-                                       `Uid` INT NOT NULL,
-                                       `Rid` INT NOT NULL,
-                                       `Descriptiom` VARCHAR(45) NULL,
-                                       `DeprecatedFlag` TINYINT NULL,
-                                       PRIMARY KEY (`Uid`, `Rid`),
-                                       INDEX `ResourceTableToResource_idx` (`Rid` ASC) VISIBLE,
-                                       CONSTRAINT `ResourceTableToResource`
-                                           FOREIGN KEY (`Rid`)
-                                               REFERENCES `cse`.`resource` (`Rid`)
-                                               ON DELETE NO ACTION
-                                               ON UPDATE NO ACTION,
-                                       CONSTRAINT `ResourceTableToUser`
-                                           FOREIGN KEY (`Uid`)
-                                               REFERENCES `cse`.`user` (`Uid`)
-                                               ON DELETE NO ACTION
-                                               ON UPDATE NO ACTION);
-
-ALTER TABLE `cse`.`classtable`
-    ADD COLUMN `DeprecatedFlag` TINYINT NULL AFTER `ClassTime`;
-
-ALTER TABLE `cse`.`calender`
-    ADD COLUMN `DescrationFlag` TINYINT NULL AFTER `RelationFunction`;
-
+CREATE TABLE `cse`.`resource_table` (
+    `Uid` INT NOT NULL,
+    `Rid` INT NOT NULL,
+    `Description` VARCHAR(45) NULL,
+    `DeprecatedFlag` TINYINT NULL,
+    PRIMARY KEY (`Uid`, `Rid`),
+    INDEX `ResourceTableToResource_idx` (`Rid` ASC) VISIBLE,
+    CONSTRAINT `ResourceTableToResource`
+       FOREIGN KEY (`Rid`)
+           REFERENCES `cse`.`resource` (`Rid`)
+           ON DELETE NO ACTION
+           ON UPDATE NO ACTION,
+    CONSTRAINT `ResourceTableToUser`
+       FOREIGN KEY (`Uid`)
+           REFERENCES `cse`.`user` (`Uid`)
+           ON DELETE NO ACTION
+           ON UPDATE NO ACTION);
 
 CREATE TABLE `cse`.`message_resource` (
-                                          `Mid` INT NOT NULL,
-                                          `Rid` INT NOT NULL,
-                                          PRIMARY KEY (`Mid`, `Rid`),
-                                          INDEX `LinkMessageToResource_idx` (`Rid` ASC) VISIBLE,
-                                          CONSTRAINT `LinkResourceToMessage`
-                                              FOREIGN KEY (`Mid`)
-                                                  REFERENCES `cse`.`message` (`Mid`)
-                                                  ON DELETE NO ACTION
-                                                  ON UPDATE NO ACTION,
-                                          CONSTRAINT `LinkMessageToResource`
-                                              FOREIGN KEY (`Rid`)
-                                                  REFERENCES `cse`.`resource` (`Rid`)
-                                                  ON DELETE NO ACTION
-                                                  ON UPDATE NO ACTION);
+      `Mid` INT NOT NULL,
+      `Rid` INT NOT NULL,
+      PRIMARY KEY (`Mid`, `Rid`),
+      INDEX `LinkMessageToResource_idx` (`Rid` ASC) VISIBLE,
+      CONSTRAINT `LinkResourceToMessage`
+          FOREIGN KEY (`Mid`)
+              REFERENCES `cse`.`message` (`Mid`)
+              ON DELETE NO ACTION
+              ON UPDATE NO ACTION,
+      CONSTRAINT `LinkMessageToResource`
+          FOREIGN KEY (`Rid`)
+              REFERENCES `cse`.`resource` (`Rid`)
+              ON DELETE NO ACTION
+              ON UPDATE NO ACTION);
 
 CREATE TABLE `cse`.`message_activity` (
-                                          `Mid` INT NOT NULL,
-                                          `Aid` INT NOT NULL,
-                                          PRIMARY KEY (`Mid`, `Aid`),
-                                          INDEX `LinkMessageToActivity_idx` (`Aid` ASC) VISIBLE,
-                                          CONSTRAINT `LinkActivityToMessage`
-                                              FOREIGN KEY (`Mid`)
-                                                  REFERENCES `cse`.`message` (`Mid`)
-                                                  ON DELETE NO ACTION
-                                                  ON UPDATE NO ACTION,
-                                          CONSTRAINT `LinkMessageToActivity`
-                                              FOREIGN KEY (`Aid`)
-                                                  REFERENCES `cse`.`activity` (`Aid`)
-                                                  ON DELETE NO ACTION
-                                                  ON UPDATE NO ACTION);
-
-CREATE TABLE `cse`.`message_lesson` (
     `Mid` INT NOT NULL,
-    `Lid` INT NOT NULL,
-    PRIMARY KEY (`Mid` , `Lid`),
-    CONSTRAINT `LinkLessonToMessage` FOREIGN KEY (`Mid`)
-        REFERENCES `cse`.`message` (`Mid`)
-        ON DELETE NO ACTION ON UPDATE NO ACTION,
-    CONSTRAINT `LinkMessageToLesson` FOREIGN KEY (`Lid`)
-        REFERENCES `cse`.`lesson` (`Lid`)
-        ON DELETE NO ACTION ON UPDATE NO ACTION
-);
+    `Aid` INT NOT NULL,
+    PRIMARY KEY (`Mid`, `Aid`),
+    INDEX `LinkMessageToActivity_idx` (`Aid` ASC) VISIBLE,
+    CONSTRAINT `LinkActivityToMessage`
+      FOREIGN KEY (`Mid`)
+          REFERENCES `cse`.`message` (`Mid`)
+          ON DELETE NO ACTION
+          ON UPDATE NO ACTION,
+    CONSTRAINT `LinkMessageToActivity`
+      FOREIGN KEY (`Aid`)
+          REFERENCES `cse`.`activity` (`Aid`)
+          ON DELETE NO ACTION
+          ON UPDATE NO ACTION);
+
 
 CREATE TABLE `cse`.`message_contest` (
     `Mid` INT NOT NULL,
@@ -397,17 +303,6 @@ CREATE TABLE `cse`.`message_contest` (
         ON DELETE NO ACTION ON UPDATE NO ACTION
 );
 
-CREATE TABLE `cse`.`message_contest` (
-    `Mid` INT NOT NULL,
-    `Cid` INT NOT NULL,
-    PRIMARY KEY (`Mid` , `Cid`),
-    CONSTRAINT `LinkContestToMessage` FOREIGN KEY (`Mid`)
-        REFERENCES `cse`.`message` (`Mid`)
-        ON DELETE NO ACTION ON UPDATE NO ACTION,
-    CONSTRAINT `LinkMessageToContest` FOREIGN KEY (`Cid`)
-        REFERENCES `cse`.`contest` (`Cid`)
-        ON DELETE NO ACTION ON UPDATE NO ACTION
-);
 
 CREATE TABLE `cse`.`message_section` (
     `Mid` INT NOT NULL,
@@ -432,3 +327,83 @@ CREATE TABLE `cse`.`message_location` (
         REFERENCES `cse`.`Location` (`Lid`)
         ON DELETE NO ACTION ON UPDATE NO ACTION
 );
+
+CREATE TABLE `cse`.`favourite_activity` (
+    `Uid` INT NOT NULL,
+    `like` INT NOT NULL,
+    PRIMARY KEY (`Uid`, `like`),
+    INDEX `favouriteToActivity_idx` (`like` ASC) VISIBLE,
+    CONSTRAINT `favouriteToActivity`
+        FOREIGN KEY (`like`)
+            REFERENCES `cse`.`activity` (`Aid`)
+            ON DELETE NO ACTION
+            ON UPDATE NO ACTION,
+    CONSTRAINT `ActivityToUserF`
+        FOREIGN KEY (`Uid`)
+            REFERENCES `cse`.`user` (`Uid`)
+            ON DELETE NO ACTION
+            ON UPDATE NO ACTION);
+
+CREATE TABLE `cse`.`favourite_contest` (
+   `Uid` INT NOT NULL,
+   `like` INT NOT NULL,
+   PRIMARY KEY (`Uid`, `like`),
+   INDEX `favouriteToContest_idx` (`like` ASC) VISIBLE,
+   CONSTRAINT `favouriteToContest`
+       FOREIGN KEY (`like`)
+           REFERENCES `cse`.`contest` (`Cid`)
+           ON DELETE NO ACTION
+           ON UPDATE NO ACTION,
+   CONSTRAINT `ContestToUserF`
+       FOREIGN KEY (`Uid`)
+           REFERENCES `cse`.`user` (`Uid`)
+           ON DELETE NO ACTION
+           ON UPDATE NO ACTION);
+
+CREATE TABLE `cse`.`favourite_location` (
+    `Uid` INT NOT NULL,
+    `like` INT NOT NULL,
+    PRIMARY KEY (`Uid`, `like`),
+    INDEX `favouriteToLocation_idx` (`like` ASC) VISIBLE,
+    CONSTRAINT `favouriteToLocation`
+        FOREIGN KEY (`like`)
+            REFERENCES `cse`.`location` (`Lid`)
+            ON DELETE NO ACTION
+            ON UPDATE NO ACTION,
+    CONSTRAINT `LocationToUserF`
+        FOREIGN KEY (`Uid`)
+            REFERENCES `cse`.`user` (`Uid`)
+            ON DELETE NO ACTION
+            ON UPDATE NO ACTION);
+
+CREATE TABLE `cse`.`favourite_resource` (
+    `Uid` INT NOT NULL,
+    `like` INT NOT NULL,
+    PRIMARY KEY (`Uid`, `like`),
+    INDEX `favouriteToResource_idx` (`like` ASC) VISIBLE,
+    CONSTRAINT `favouriteToResource`
+        FOREIGN KEY (`like`)
+            REFERENCES `cse`.`resource` (`Rid`)
+            ON DELETE NO ACTION
+            ON UPDATE NO ACTION,
+    CONSTRAINT `ResourceToUserF`
+        FOREIGN KEY (`Uid`)
+            REFERENCES `cse`.`user` (`Uid`)
+            ON DELETE NO ACTION
+            ON UPDATE NO ACTION);
+
+CREATE TABLE `cse`.`favourite_section` (
+   `Uid` INT NOT NULL,
+   `like` INT NOT NULL,
+   PRIMARY KEY (`Uid`, `like`),
+   INDEX `favouriteToSection_idx` (`like` ASC) VISIBLE,
+   CONSTRAINT `favouriteToSection`
+       FOREIGN KEY (`like`)
+           REFERENCES `cse`.`section` (`Sid`)
+           ON DELETE NO ACTION
+           ON UPDATE NO ACTION,
+   CONSTRAINT `SectionToUserF`
+       FOREIGN KEY (`Uid`)
+           REFERENCES `cse`.`user` (`Uid`)
+           ON DELETE NO ACTION
+           ON UPDATE NO ACTION);
