@@ -1,20 +1,16 @@
 package com.example.cse.Config;
 
-import com.auth0.jwt.JWT;
 import com.auth0.jwt.exceptions.AlgorithmMismatchException;
 import com.auth0.jwt.exceptions.SignatureVerificationException;
 import com.auth0.jwt.exceptions.TokenExpiredException;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import com.example.cse.Dto.UserDto;
-import com.example.cse.Service.TokenService;
 import com.example.cse.Service.impl.TokenServiceImpl;
-import com.example.cse.Vo.Vo;
+import com.example.cse.Vo.out.Vo;
 import com.google.gson.Gson;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.config.annotation.InterceptorRegistration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport;
@@ -53,7 +49,7 @@ public class WebMvcConfig extends WebMvcConfigurationSupport{
                 e.printStackTrace();
                 description = "无效token~~";
             }
-            Vo<String> vo = new Vo<>(Vo.NoAuthority,description);
+            Vo<String> vo = new Vo<>(Vo.NoAuthority,null,description);
 
             response.setContentType("application/json;charset=UTF-8");
             response.getWriter().println(new Gson().toJson(vo));
@@ -76,22 +72,27 @@ public class WebMvcConfig extends WebMvcConfigurationSupport{
     protected void addInterceptors(InterceptorRegistry registry){
        registry.addInterceptor(new TokenCheck())
                .addPathPatterns("/cse/**")
-               .excludePathPatterns("/cse/Token/**")
-               .excludePathPatterns("/doc.html") //不需要拦截的地
-               .excludePathPatterns("/swagger-resources/**")
-               .excludePathPatterns("/webjars/**")
-               .excludePathPatterns("/v2/**")
+               .excludePathPatterns("/cse/Token/**")//不需要拦截的地
                .excludePathPatterns("/favicon.ico")
-               .excludePathPatterns("/swagger-ui.html/**");
+               .excludePathPatterns("/swagger-ui.html/**",
+                       "/swagger-ui/**",
+                       "/swagger-resources/**",
+                       "/v2/api-docs",
+                       "/v3/api-docs",
+                       "/v3/api-docs/swagger-config",
+                       "/webjars/**",
+                       "/doc.html");
        super.addInterceptors(registry);
     }
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        registry.addResourceHandler("swagger-ui.html", "doc.html").addResourceLocations(
-                "classpath:/META-INF/resources/");
-        registry.addResourceHandler("/webjars/**").addResourceLocations(
-                "classpath:/META-INF/resources/webjars/");
+        registry.addResourceHandler("swagger-ui.html", "doc.html")
+                .addResourceLocations("classpath:/META-INF/resources/");
+        registry.addResourceHandler("/webjars/**")
+                .addResourceLocations("classpath:/META-INF/resources/webjars/");
+        registry.addResourceHandler("/swagger-ui/**")
+                .addResourceLocations("classpath:/META-INF/resources/webjars/springfox-swagger-ui/");
         super.addResourceHandlers(registry);
     }
 
