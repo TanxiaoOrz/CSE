@@ -9,7 +9,15 @@
         select * from `cse`.`user`;
     </select>
 
-    <select id="getUserByNamePass" parameterType="String" resultType="com.example.cse.Entity.UserClass.User">
+    <select id="getUserByNamePass" resultType="com.example.cse.Entity.UserClass.User">
         select * from  `cse`.`user` where `cse`.`user`.`UserCode` = #{userCode} and `UserPass` = #{userPass} ;
+    </select>
+
+    <insert id="newUser">
+        insert into cse.user (UserCode, UserPass, UserName, Grade, Profession, Sex) VALUES (#{userCode},#{userPass},#{userName},#{grade},#{profession},#{sex})
+    </insert>
+
+    <select id="checkUserCode" resultType="Integer">
+        select count(*) from cse.user where UserCode = #{userCode};
     </select>
 </mapper>

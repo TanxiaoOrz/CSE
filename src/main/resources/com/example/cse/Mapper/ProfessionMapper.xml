@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.cse.Mapper.ProfessionMapper">
+    <select id="checkProfessionExist" parameterType="int" resultType="Integer">
+        select count(*) from cse.profession
+        <where>
+            <if test="Pid != null">
+                Pid = #{Pid};
+            </if>
+            <if test="ProfessionName != null">
+                And Profession = #{ProfessionName}
+            </if>
+        </where>
+    </select>
+
+    <insert id="newProfession">
+        insert into `cse`.profession (ProfessionName,ProfessionDescription) values (#{professionName},#{professionDescription})
+    </insert>
+
+    <select id="getProfessionAll" resultType="com.example.cse.Entity.UserClass.Profession">
+        select * from profession;
+    </select>
+
+    <select id="getProfessionByPid" resultType="com.example.cse.Entity.UserClass.Profession">
+        select * from profession where Pid = #{Pid};
+    </select>
+
+</mapper>
