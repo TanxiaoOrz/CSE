@@ -3,6 +3,7 @@ CREATE SCHEMA `cse` ;
 CREATE TABLE `cse`.`profession` (
     `Pid` INT NOT NULL AUTO_INCREMENT,
     `ProfessionName` VARCHAR(45) NULL,
+    `ProfessionDescription` VARCHAR(100) NULL,
     `DeprecatedFlag` TINYINT NULL,
     PRIMARY KEY (`Pid`)
 );
