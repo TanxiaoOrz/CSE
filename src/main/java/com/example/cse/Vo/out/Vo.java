@@ -23,7 +23,7 @@ public class Vo<Value> {
     public Vo(int status, Value data,String description){
         this.status = status;
         this.data = data;
-        this.description=null;
+        this.description=description;
     }
 
 
