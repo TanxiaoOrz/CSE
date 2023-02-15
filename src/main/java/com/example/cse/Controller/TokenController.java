@@ -15,7 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@Api("Token的获取与注销接口,该接口不需要token验证")
+@Api(tags = "Token接口",description = "Token的获取与注销接口,该接口不需要token验证")
 @RequestMapping("/cse/Token")
 public class TokenController {
     @Autowired
@@ -25,7 +25,7 @@ public class TokenController {
 
 
 
-    @ApiOperation(value = "用户token接口", notes = "根据传入的用户信息获取token，并在redis中进行缓存")
+    @ApiOperation(value = "用户申请token接口", notes = "根据传入的用户信息获取token，并在redis中进行缓存")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "userPass", value = "用户登录结构体", dataTypeClass = UserPass.class, paramType = "body", required = true),
     })

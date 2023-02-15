@@ -2,10 +2,15 @@ package com.example.cse.Vo.in;
 
 import com.example.cse.Utils.Exception.NoDataException;
 import com.example.cse.Vo.out.Vo;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import org.springframework.util.StringUtils;
 
+@ApiModel(value = "Profession", description = "新建专业的结构体")
 public class ProfessionIn {
+    @ApiModelProperty(value = "专业名",required = true)
     protected String professionName;
+    @ApiModelProperty(value = "专业描述",required = true)
     protected String professionDescription;
 
     public void checkNull() throws NoDataException {

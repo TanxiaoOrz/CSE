@@ -5,6 +5,9 @@ import com.example.cse.Service.impl.ProfessionServiceImpl;
 import com.example.cse.Utils.Exception.NoDataException;
 import com.example.cse.Vo.in.ProfessionIn;
 import com.example.cse.Vo.out.Vo;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,6 +15,7 @@ import java.util.List;
 
 
 @RestController
+@Api(tags = "Profession接口",description = "只有新建需要manager验证")
 @RequestMapping("/cse/Profession")
 public class ProfessionController {
 
@@ -20,6 +24,8 @@ public class ProfessionController {
 
     //尚未增加权限监测
     @PostMapping
+    @ApiImplicitParam(name = "profession",value = "新建专业结构体",dataTypeClass = ProfessionIn.class, paramType = "body")
+    @ApiOperation(value = "用户新建窗口",notes = "会对专业进行唯一性验证，token验证暂未实现")
     public Vo<String> newProfession(@RequestBody ProfessionIn profession) throws NoDataException {
         Integer integer = professionService.newProfession(profession);
         if (integer == 1)

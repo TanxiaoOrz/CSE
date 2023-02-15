@@ -1,9 +1,16 @@
 package com.example.cse.Entity.UserClass;
 
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+
+@ApiModel(value = "Profession", description = "返回专业数据的结构体")
 public class Profession{
+    @ApiModelProperty(value = "专业名称")
     protected String professionName;
+    @ApiModelProperty(value = "专业描述")
     protected String professionDescription;
+    @ApiModelProperty(value = "唯一id")
     protected Integer Pid;
 
     public String getProfessionName() {
