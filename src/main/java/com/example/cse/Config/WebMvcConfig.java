@@ -58,7 +58,7 @@ public class WebMvcConfig extends WebMvcConfigurationSupport{
     class UserCheck implements HandlerInterceptor {
         @Override
         public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-            if (request.getMethod().equals("post")){
+            if (request.getMethod().equals("POST")){
                 return true;
             }else {
                 return checkToken(request,response);
