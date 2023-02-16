@@ -1,15 +1,14 @@
-package com.example.cse.Vo.in;
+package com.example.cse.Vo;
 
 import com.example.cse.Mapper.ProfessionMapper;
 import com.example.cse.Mapper.UserMapper;
 import com.example.cse.Utils.Exception.NoDataException;
-import com.example.cse.Vo.out.Vo;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import org.springframework.util.StringUtils;
 
 @ApiModel(value = "UserCreate", description = "创建用户是传递的结构体")
-public class UserCreate extends UserPass{
+public class UserCreate extends UserPass {
     @ApiModelProperty(value = "用户姓名")
     protected String userName;
     @ApiModelProperty(value = "用户年级")

@@ -1,16 +1,17 @@
 package com.example.cse.Dto;
 
+import com.example.cse.Entity.UserClass.Profession;
 import com.example.cse.Entity.UserClass.User;
 import com.example.cse.Utils.Model;
-import com.google.gson.Gson;
-import io.swagger.annotations.ApiModelProperty;
+import com.example.cse.Mapper.ProfessionMapper;
 
+//UserModel的相关构造暂时被停用，请记得修改
 public class UserDto {
     private Integer Uid;
     private String UserCode;
     private String Name;
     private String Sex;
-    private String Profession;
+    private Profession Profession;
     private String Grade;
     private Model userModel;
     private String UserPass;
@@ -45,10 +46,10 @@ public class UserDto {
     public void setSex(String sex) {
         Sex = sex;
     }
-    public String getProfession() {
+    public Profession getProfession() {
         return Profession;
     }
-    public void setProfession(String profession) {
+    public void setProfession(Profession profession) {
         Profession = profession;
     }
     public String getGrade() {
@@ -64,12 +65,12 @@ public class UserDto {
         this.userModel = userModel;
     }
 
-    public UserDto(User user){
+    public UserDto(User user, ProfessionMapper professionMapper){
         this.setUid(user.getUid());
         this.setName(user.getName());
         this.setUserCode(user.getUserCode());
         this.setSex(user.getSex());
-        this.setProfession(user.getProfession());
+        this.setProfession(professionMapper.getProfessionByPid(user.getUid()));
         this.setGrade(user.getGrade());
         this.setUserPass(user.getUserPass());
         //this.setUserModel(new Gson().fromJson(user.getUserModel(),Model.class));

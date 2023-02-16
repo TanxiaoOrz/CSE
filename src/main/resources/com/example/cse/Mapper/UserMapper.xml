@@ -20,4 +20,15 @@
     <select id="checkUserExist" resultType="Integer">
         select count(*) from cse.user where UserCode = #{userCode};
     </select>
+
+    <update id="updateUser" >
+        update user
+            <set>
+                <if test="userName!=null">set UserName = #{userName},</if>
+                <if test="grade!=null">set Grade = #{grade},</if>
+                <if test="profession!=null">set Profession = #{profession},</if>
+                <if test="sex!=null">set Sex = #{sex}</if>
+            </set>
+        where Uid = #{uid}
+    </update>
 </mapper>

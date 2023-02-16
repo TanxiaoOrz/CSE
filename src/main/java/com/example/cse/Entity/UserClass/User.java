@@ -5,7 +5,7 @@ public class User {
     private String UserCode;
     private String Name;
     private String Sex;
-    private String Profession;
+    private Integer Profession;
     private String Grade;
     private String UserModel;
     private String UserPass;
@@ -50,11 +50,11 @@ public class User {
         Sex = sex;
     }
 
-    public String getProfession() {
+    public Integer getProfession() {
         return Profession;
     }
 
-    public void setProfession(String profession) {
+    public void setProfession(Integer profession) {
         Profession = profession;
     }
 
@@ -72,17 +72,5 @@ public class User {
 
     public void setUserModel(String userModel) {
         UserModel = userModel;
-    }
-    @Override
-    public String toString() {
-        return "User{" +
-                "Uid=" + Uid +
-                ", UserCode='" + UserCode + '\'' +
-                ", Name='" + Name + '\'' +
-                ", Sex='" + Sex + '\'' +
-                ", Profession='" + Profession + '\'' +
-                ", Grade='" + Grade + '\'' +
-                ", UserModel='" + UserModel + '\'' +
-                '}';
     }
 }
