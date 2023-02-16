@@ -3,8 +3,8 @@ CREATE SCHEMA `cse` ;
 CREATE TABLE `cse`.`profession` (
     `Pid` INT NOT NULL AUTO_INCREMENT,
     `ProfessionName` VARCHAR(45) NULL,
-    `ProfessionDescription` VARCHAR(100) NULL,
-    `DeprecatedFlag` TINYINT NULL,
+    `ProfessionDescription` varchar(100) null,
+    `DeprecatedFlag` TINYINT NULL DEFAULT 0,
     PRIMARY KEY (`Pid`)
 );
 
@@ -15,9 +15,9 @@ CREATE TABLE `cse`.`user` (
   `UserName` VARCHAR(45) NULL,
   `Grade` VARCHAR(45) NULL,
   `Profession` INT NULL DEFAULT NULL,
-  `Sex` VARCHAR(45) NULL,
+  `Sex` ENUM('男','女') NULL,
   `UserModel` JSON NULL,
-  `DeprecatedFlag` TINYINT NULL,
+  `DeprecatedFlag` TINYINT NULL DEFAULT 0,
   INDEX `Profession_idx` (`Profession` ASC) VISIBLE,
   CONSTRAINT `Profession`
       FOREIGN KEY (`Profession`)
@@ -32,12 +32,13 @@ CREATE TABLE `cse`.`user` (
   `Name` VARCHAR(45) NULL,
   `Type` VARCHAR(45) NULL,
   `HobbyModel` JSON NULL,
-  `DeprecatedFlag` TINYINT NULL,
+  `DeprecatedFlag` TINYINT NULL DEFAULT 0,
   PRIMARY KEY (`Hid`));
   
 CREATE TABLE `cse`.`user_hobby` (
     `Uid` INT NOT NULL,
     `Hid` INT NOT NULL,
+    `degree` ENUM('interested', 'common', 'uninterested') NULL DEFAULT 'common',
     PRIMARY KEY (`Uid` , `Hid`),
     INDEX `user_hobby_hid_idx` (`Hid` ASC) VISIBLE,
     CONSTRAINT `user_hobby_hid`
@@ -59,6 +60,7 @@ CREATE TABLE `cse`.`message` (
   `OutTime` DATETIME NULL,
   `Visual` JSON NULL,
   `message` JSON NULL,
+  `DeprecatedFlag` TINYINT NULL DEFAULT 0,
   PRIMARY KEY (`Mid`));
   
 CREATE TABLE `cse`.`surf` (
@@ -100,6 +102,7 @@ CREATE TABLE `cse`.`map` (
     `Name` VARCHAR(45) NULL,
     `Resume` VARCHAR(100) NULL,
     `Href` VARCHAR(100) NULL,
+    `DeprecatedFlag` TINYINT NULL DEFAULT 0,
     PRIMARY KEY (`Mid`)
 );
 
@@ -110,6 +113,7 @@ CREATE TABLE `cse`.`location` (
   `Ability` JSON NULL,
   `MapBelong` INT NULL,
   `MapOwn` INT NULL,
+  `DeprecatedFlag` TINYINT NULL DEFAULT 0,
   PRIMARY KEY (`Lid`),
   INDEX `LocationToMap_idx` (`MapBelong` ASC) VISIBLE,
   INDEX `LocationOwnMap_idx` (`MapOwn` ASC) VISIBLE,
@@ -130,7 +134,7 @@ CREATE TABLE `cse`.`section` (
     `BasicMessage` INT NULL,
     `Name` VARCHAR(100) NULL,
     `Resume` VARCHAR(100) NULL,
-    `DeprecateFlag` TINYINT NULL,
+    `DeprecatedFlag` TINYINT NULL DEFAULT 0,
     PRIMARY KEY (`Sid`),
     `Location` INT NULL,
     `Profession` INT NULL,
@@ -147,7 +151,7 @@ CREATE TABLE `cse`.`contest` (
   `BasicMessage` INT NULL,
   `Name` VARCHAR(100) NULL,
   `Resume` VARCHAR(100) NULL,
-  `DeprecateFlag` TINYINT NULL,
+  `DeprecatedFlag` TINYINT NULL DEFAULT 0,
   `profession` INT NULL,
   `level` INT NULL,
   PRIMARY KEY (`Cid`),
@@ -169,7 +173,7 @@ CREATE TABLE `cse`.`resource` (
   `BasicMessage` INT NULL,
   `Name` VARCHAR(100) NULL,
   `Resume` VARCHAR(100) NULL,
-  `DeprecateFlag` TINYINT NULL,
+  `DeprecatedFlag` TINYINT NULL DEFAULT 0,
   `Count` INT NULL,
   `Popular` INT NULL,
   `Location` INT NULL,
@@ -197,7 +201,7 @@ CREATE TABLE `cse`.`activity` (
   `BasicMessage` INT NULL,
   `Name` VARCHAR(100) NULL,
   `Resume` VARCHAR(100) NULL,
-  `DeprecateFlag` TINYINT NULL,
+  `DeprecatedFlag` TINYINT NULL DEFAULT 0,
   `Section` INT NULL,
   `Location` INT NULL,
   `Request` INT NULL,
@@ -231,7 +235,7 @@ CREATE TABLE `cse`.`calender` (
   `Uid` INT NOT NULL,
   `Time` DATETIME NOT NULL,
   `Description` VARCHAR(100) NULL,
-  `DeprecatedFlag` TINYINT NULL,
+  `DeprecatedFlag` TINYINT NULL DEFAULT 0,
   `RelationFunction` JSON NULL,
   PRIMARY KEY (`Uid`, `Time`),
   CONSTRAINT `CalenderToUser`
@@ -245,7 +249,7 @@ CREATE TABLE `cse`.`resource_table` (
     `Uid` INT NOT NULL,
     `Rid` INT NOT NULL,
     `Description` VARCHAR(45) NULL,
-    `DeprecatedFlag` TINYINT NULL,
+    `DeprecatedFlag` TINYINT NULL DEFAULT 0,
     PRIMARY KEY (`Uid`, `Rid`),
     INDEX `ResourceTableToResource_idx` (`Rid` ASC) VISIBLE,
     CONSTRAINT `ResourceTableToResource`
@@ -408,3 +412,58 @@ CREATE TABLE `cse`.`favourite_section` (
            REFERENCES `cse`.`user` (`Uid`)
            ON DELETE NO ACTION
            ON UPDATE NO ACTION);
+
+-- 触发器创建
+DELIMITER $$
+USE `cse`$$
+CREATE DEFINER = CURRENT_USER TRIGGER `cse`.`user_BEFORE_INSERT` BEFORE INSERT ON `user` FOR EACH ROW
+BEGIN
+    set new.DeprecatedFlag = 0 ;
+END$$
+DELIMITER ;
+-- 废弃标识符置0
+
+DELIMITER $$
+USE `cse`$$
+CREATE DEFINER = CURRENT_USER TRIGGER `cse`.`user_AFTER_INSERT` AFTER INSERT ON `user` FOR EACH ROW
+BEGIN
+    insert into user_hobby (`Uid`,`Hid`,`degree`) (select new.Uid, `Hid`, 'common' from hobby);
+END$$
+DELIMITER ;
+-- 将所有的爱好置为common
+
+DELIMITER $$
+USE `cse`$$
+CREATE DEFINER = CURRENT_USER TRIGGER `cse`.`profession_BEFORE_INSERT` BEFORE INSERT ON `profession` FOR EACH ROW
+BEGIN
+    set new.DeprecatedFlag = 0 ;
+END$$
+DELIMITER ;
+-- 废弃标识符置0
+
+DELIMITER $$
+USE `cse`$$
+CREATE DEFINER = CURRENT_USER TRIGGER `cse`.`hobby_BEFORE_INSERT` BEFORE INSERT ON `hobby` FOR EACH ROW
+BEGIN
+    set new.DeprecatedFlag = 0 ;
+END$$
+DELIMITER ;
+-- 废弃标志符
+
+DELIMITER $$
+USE `cse`$$
+CREATE DEFINER = CURRENT_USER TRIGGER `cse`.`hobby_AFTER_INSERT` AFTER INSERT ON `hobby` FOR EACH ROW
+BEGIN
+    insert into user_hobby (`Uid`,`Hid`,`degree`) (select `Uid`, new.Hid, 'common' from user);
+END$$
+DELIMITER ;
+-- 对所有用户增加爱好关系表
+
+DELIMITER $$
+USE `cse`$$
+CREATE DEFINER = CURRENT_USER TRIGGER `cse`.`calender_BEFORE_INSERT` BEFORE INSERT ON `calender` FOR EACH ROW
+BEGIN
+    set new.DeprecatedFlag = 0 ;
+END$$
+DELIMITER ;
+-- 废弃标志富
