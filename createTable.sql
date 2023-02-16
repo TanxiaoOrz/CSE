@@ -31,7 +31,7 @@ CREATE TABLE `cse`.`user` (
   `Name` VARCHAR(45) NULL,
   `Type` VARCHAR(45) NULL,
   `HobbyModel` JSON NULL,
-  `DeprecatedFlag` TINYINT NULL,
+  `DeprecatedFlag` TINYINT NULL DEFAULT 0,
   PRIMARY KEY (`Hid`));
   
 CREATE TABLE `cse`.`user_hobby` (
@@ -59,6 +59,7 @@ CREATE TABLE `cse`.`message` (
   `OutTime` DATETIME NULL,
   `Visual` JSON NULL,
   `message` JSON NULL,
+  `DeprecatedFlag` TINYINT NULL DEFAULT 0,
   PRIMARY KEY (`Mid`));
   
 CREATE TABLE `cse`.`surf` (
@@ -100,6 +101,7 @@ CREATE TABLE `cse`.`map` (
     `Name` VARCHAR(45) NULL,
     `Resume` VARCHAR(100) NULL,
     `Href` VARCHAR(100) NULL,
+    `DeprecatedFlag` TINYINT NULL DEFAULT 0,
     PRIMARY KEY (`Mid`)
 );
 
@@ -110,6 +112,7 @@ CREATE TABLE `cse`.`location` (
   `Ability` JSON NULL,
   `MapBelong` INT NULL,
   `MapOwn` INT NULL,
+  `DeprecatedFlag` TINYINT NULL DEFAULT 0,
   PRIMARY KEY (`Lid`),
   INDEX `LocationToMap_idx` (`MapBelong` ASC) VISIBLE,
   INDEX `LocationOwnMap_idx` (`MapOwn` ASC) VISIBLE,
@@ -130,7 +133,7 @@ CREATE TABLE `cse`.`section` (
     `BasicMessage` INT NULL,
     `Name` VARCHAR(100) NULL,
     `Resume` VARCHAR(100) NULL,
-    `DeprecateFlag` TINYINT NULL,
+    `DeprecatedFlag` TINYINT NULL DEFAULT 0,
     PRIMARY KEY (`Sid`),
     `Location` INT NULL,
     `Profession` INT NULL,
@@ -147,7 +150,7 @@ CREATE TABLE `cse`.`contest` (
   `BasicMessage` INT NULL,
   `Name` VARCHAR(100) NULL,
   `Resume` VARCHAR(100) NULL,
-  `DeprecateFlag` TINYINT NULL,
+  `DeprecatedFlag` TINYINT NULL DEFAULT 0,
   `profession` INT NULL,
   `level` INT NULL,
   PRIMARY KEY (`Cid`),
@@ -169,7 +172,7 @@ CREATE TABLE `cse`.`resource` (
   `BasicMessage` INT NULL,
   `Name` VARCHAR(100) NULL,
   `Resume` VARCHAR(100) NULL,
-  `DeprecateFlag` TINYINT NULL,
+  `DeprecatedFlag` TINYINT NULL DEFAULT 0,
   `Count` INT NULL,
   `Popular` INT NULL,
   `Location` INT NULL,
@@ -197,7 +200,7 @@ CREATE TABLE `cse`.`activity` (
   `BasicMessage` INT NULL,
   `Name` VARCHAR(100) NULL,
   `Resume` VARCHAR(100) NULL,
-  `DeprecateFlag` TINYINT NULL,
+  `DeprecatedFlag` TINYINT NULL DEFAULT 0,
   `Section` INT NULL,
   `Location` INT NULL,
   `Request` INT NULL,
@@ -231,7 +234,7 @@ CREATE TABLE `cse`.`calender` (
   `Uid` INT NOT NULL,
   `Time` DATETIME NOT NULL,
   `Description` VARCHAR(100) NULL,
-  `DeprecatedFlag` TINYINT NULL,
+  `DeprecatedFlag` TINYINT NULL DEFAULT 0,
   `RelationFunction` JSON NULL,
   PRIMARY KEY (`Uid`, `Time`),
   CONSTRAINT `CalenderToUser`
@@ -245,7 +248,7 @@ CREATE TABLE `cse`.`resource_table` (
     `Uid` INT NOT NULL,
     `Rid` INT NOT NULL,
     `Description` VARCHAR(45) NULL,
-    `DeprecatedFlag` TINYINT NULL,
+    `DeprecatedFlag` TINYINT NULL DEFAULT 0,
     PRIMARY KEY (`Uid`, `Rid`),
     INDEX `ResourceTableToResource_idx` (`Rid` ASC) VISIBLE,
     CONSTRAINT `ResourceTableToResource`
