@@ -4,7 +4,7 @@ import com.example.cse.Entity.UserClass.User;
 import com.example.cse.Vo.in.UserCreate;
 import com.example.cse.Vo.in.UserPass;
 import org.apache.ibatis.annotations.Mapper;
-import org.springframework.data.repository.query.Param;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 

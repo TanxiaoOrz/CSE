@@ -17,6 +17,7 @@ public class ExceptionController {
 
     @ExceptionHandler(Exception.class)
     public Vo<Exception> handleException(Exception e){
+        e.printStackTrace();
         return new Vo<>(Vo.WrongPostParameter,e,e.getMessage());
     }
 }

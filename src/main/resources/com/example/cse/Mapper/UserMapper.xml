@@ -17,7 +17,7 @@
         insert into cse.user (UserCode, UserPass, UserName, Grade, Profession, Sex) VALUES (#{userCode},#{userPass},#{userName},#{grade},#{profession},#{sex})
     </insert>
 
-    <select id="checkUserCode" resultType="Integer">
+    <select id="checkUserExist" resultType="Integer">
         select count(*) from cse.user where UserCode = #{userCode};
     </select>
 </mapper>

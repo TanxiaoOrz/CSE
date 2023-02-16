@@ -3,7 +3,7 @@ package com.example.cse.Mapper;
 import com.example.cse.Entity.UserClass.Profession;
 import com.example.cse.Vo.in.ProfessionIn;
 import org.apache.ibatis.annotations.Mapper;
-import org.springframework.data.repository.query.Param;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 

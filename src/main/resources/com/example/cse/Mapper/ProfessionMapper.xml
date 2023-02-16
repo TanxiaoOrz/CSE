@@ -10,7 +10,7 @@
                 Pid = #{Pid};
             </if>
             <if test="ProfessionName != null">
-                And Profession = #{ProfessionName}
+                And ProfessionName = #{ProfessionName}
             </if>
         </where>
     </select>

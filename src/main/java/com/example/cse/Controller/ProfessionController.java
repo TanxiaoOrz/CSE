@@ -34,7 +34,8 @@ public class ProfessionController {
             return new Vo<>(Vo.WrongPostParameter,null,"未知错误");
     }
 
-    @PostMapping("/all")
+    @GetMapping("/all")
+    @ApiOperation(value = "获取所有的专业")
     public Vo<List<Profession>> getProfessionAll(){
         return new Vo<>(Vo.Success,professionService.getProfessionAll(),null) ;
     }
