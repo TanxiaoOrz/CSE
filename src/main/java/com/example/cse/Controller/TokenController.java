@@ -1,12 +1,11 @@
 package com.example.cse.Controller;
 
 import com.example.cse.Dto.UserDto;
-import com.example.cse.Service.TokenService;
 import com.example.cse.Service.impl.TokenServiceImpl;
 import com.example.cse.Service.impl.UserServiceImpl;
 import com.example.cse.Utils.Exception.NoDataException;
-import com.example.cse.Vo.in.UserPass;
-import com.example.cse.Vo.out.Vo;
+import com.example.cse.Vo.UserPass;
+import com.example.cse.Vo.Vo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;

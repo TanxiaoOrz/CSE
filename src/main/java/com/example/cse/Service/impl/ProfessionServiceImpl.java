@@ -4,8 +4,8 @@ import com.example.cse.Entity.UserClass.Profession;
 import com.example.cse.Mapper.ProfessionMapper;
 import com.example.cse.Service.ProfessionService;
 import com.example.cse.Utils.Exception.NoDataException;
-import com.example.cse.Vo.in.ProfessionIn;
-import com.example.cse.Vo.out.Vo;
+import com.example.cse.Vo.ProfessionIn;
+import com.example.cse.Vo.Vo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

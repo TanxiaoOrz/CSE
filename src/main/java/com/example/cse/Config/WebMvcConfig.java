@@ -6,7 +6,7 @@ import com.auth0.jwt.exceptions.TokenExpiredException;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import com.example.cse.Dto.UserDto;
 import com.example.cse.Service.impl.TokenServiceImpl;
-import com.example.cse.Vo.out.Vo;
+import com.example.cse.Vo.Vo;
 import com.google.gson.Gson;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.HandlerInterceptor;

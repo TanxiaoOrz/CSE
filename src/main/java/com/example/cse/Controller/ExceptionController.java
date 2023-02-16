@@ -1,7 +1,7 @@
 package com.example.cse.Controller;
 
 import com.example.cse.Utils.Exception.NoDataException;
-import com.example.cse.Vo.out.Vo;
+import com.example.cse.Vo.Vo;
 import io.swagger.annotations.Api;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;

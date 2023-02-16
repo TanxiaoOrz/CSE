@@ -1,7 +1,6 @@
-package com.example.cse.Vo.in;
+package com.example.cse.Vo;
 
 import com.example.cse.Utils.Exception.NoDataException;
-import com.example.cse.Vo.out.Vo;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import org.springframework.util.StringUtils;

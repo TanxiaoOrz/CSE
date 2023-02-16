@@ -1,7 +1,7 @@
 package com.example.cse.Mapper;
 
 import com.example.cse.Entity.UserClass.Profession;
-import com.example.cse.Vo.in.ProfessionIn;
+import com.example.cse.Vo.ProfessionIn;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
