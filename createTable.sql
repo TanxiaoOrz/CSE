@@ -15,7 +15,7 @@ CREATE TABLE `cse`.`user` (
   `UserName` VARCHAR(45) NULL,
   `Grade` VARCHAR(45) NULL,
   `Profession` INT NULL DEFAULT NULL,
-  `Sex` VARCHAR(45) NULL,
+  `Sex` ENUM('男','女') NULL,
   `UserModel` JSON NULL,
   `DeprecatedFlag` TINYINT NULL DEFAULT 0,
   INDEX `Profession_idx` (`Profession` ASC) VISIBLE,
@@ -459,3 +459,11 @@ END$$
 DELIMITER ;
 -- 对所有用户增加爱好关系表
 
+DELIMITER $$
+USE `cse`$$
+CREATE DEFINER = CURRENT_USER TRIGGER `cse`.`calender_BEFORE_INSERT` BEFORE INSERT ON `calender` FOR EACH ROW
+BEGIN
+    set new.DeprecatedFlag = 0 ;
+END$$
+DELIMITER ;
+-- 废弃标志富
