@@ -3,6 +3,7 @@ CREATE SCHEMA `cse` ;
 CREATE TABLE `cse`.`profession` (
     `Pid` INT NOT NULL AUTO_INCREMENT,
     `ProfessionName` VARCHAR(45) NULL,
+    `ProfessionDescription` varchar(100) null,
     `DeprecatedFlag` TINYINT NULL DEFAULT 0,
     PRIMARY KEY (`Pid`)
 );
@@ -447,7 +448,6 @@ BEGIN
     set new.DeprecatedFlag = 0 ;
 END$$
 DELIMITER ;
-DROP TRIGGER IF EXISTS `cse`.`hobby_AFTER_INSERT`;
 -- 废弃标志符
 
 DELIMITER $$
