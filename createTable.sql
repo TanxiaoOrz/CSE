@@ -3,7 +3,7 @@ CREATE SCHEMA `cse` ;
 CREATE TABLE `cse`.`profession` (
     `Pid` INT NOT NULL AUTO_INCREMENT,
     `ProfessionName` VARCHAR(45) NULL,
-    `DeprecatedFlag` TINYINT NULL,
+    `DeprecatedFlag` TINYINT NULL DEFAULT 0,
     PRIMARY KEY (`Pid`)
 );
 
@@ -16,7 +16,7 @@ CREATE TABLE `cse`.`user` (
   `Profession` INT NULL DEFAULT NULL,
   `Sex` VARCHAR(45) NULL,
   `UserModel` JSON NULL,
-  `DeprecatedFlag` TINYINT NULL,
+  `DeprecatedFlag` TINYINT NULL DEFAULT 0,
   INDEX `Profession_idx` (`Profession` ASC) VISIBLE,
   CONSTRAINT `Profession`
       FOREIGN KEY (`Profession`)
@@ -37,6 +37,7 @@ CREATE TABLE `cse`.`user` (
 CREATE TABLE `cse`.`user_hobby` (
     `Uid` INT NOT NULL,
     `Hid` INT NOT NULL,
+    `degree` ENUM('interested', 'common', 'uninterested') NULL DEFAULT 'common',
     PRIMARY KEY (`Uid` , `Hid`),
     INDEX `user_hobby_hid_idx` (`Hid` ASC) VISIBLE,
     CONSTRAINT `user_hobby_hid`
@@ -407,3 +408,51 @@ CREATE TABLE `cse`.`favourite_section` (
            REFERENCES `cse`.`user` (`Uid`)
            ON DELETE NO ACTION
            ON UPDATE NO ACTION);
+
+-- 触发器创建
+DELIMITER $$
+USE `cse`$$
+CREATE DEFINER = CURRENT_USER TRIGGER `cse`.`user_BEFORE_INSERT` BEFORE INSERT ON `user` FOR EACH ROW
+BEGIN
+    set new.DeprecatedFlag = 0 ;
+END$$
+DELIMITER ;
+-- 废弃标识符置0
+
+DELIMITER $$
+USE `cse`$$
+CREATE DEFINER = CURRENT_USER TRIGGER `cse`.`user_AFTER_INSERT` AFTER INSERT ON `user` FOR EACH ROW
+BEGIN
+    insert into user_hobby (`Uid`,`Hid`,`degree`) (select new.Uid, `Hid`, 'common' from hobby);
+END$$
+DELIMITER ;
+-- 将所有的爱好置为common
+
+DELIMITER $$
+USE `cse`$$
+CREATE DEFINER = CURRENT_USER TRIGGER `cse`.`profession_BEFORE_INSERT` BEFORE INSERT ON `profession` FOR EACH ROW
+BEGIN
+    set new.DeprecatedFlag = 0 ;
+END$$
+DELIMITER ;
+-- 废弃标识符置0
+
+DELIMITER $$
+USE `cse`$$
+CREATE DEFINER = CURRENT_USER TRIGGER `cse`.`hobby_BEFORE_INSERT` BEFORE INSERT ON `hobby` FOR EACH ROW
+BEGIN
+    set new.DeprecatedFlag = 0 ;
+END$$
+DELIMITER ;
+DROP TRIGGER IF EXISTS `cse`.`hobby_AFTER_INSERT`;
+-- 废弃标志符
+
+DELIMITER $$
+USE `cse`$$
+CREATE DEFINER = CURRENT_USER TRIGGER `cse`.`hobby_AFTER_INSERT` AFTER INSERT ON `hobby` FOR EACH ROW
+BEGIN
+    insert into user_hobby (`Uid`,`Hid`,`degree`) (select `Uid`, new.Hid, 'common' from user);
+END$$
+DELIMITER ;
+-- 对所有用户增加爱好关系表
+
