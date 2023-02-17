@@ -31,6 +31,8 @@ public class WebMvcConfig extends WebMvcConfigurationSupport{
     UserServiceImpl userService;
 
     protected boolean checkToken(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        if (request.getMethod().equals("OPTIONS"))
+            return true;
         String token = request.getHeader("token");
         String description;
         try {
