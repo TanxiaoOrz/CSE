@@ -29,9 +29,11 @@ public class TokenController {
     @ApiImplicitParams({
             @ApiImplicitParam(name = "userPass", value = "用户登录结构体", dataTypeClass = UserPass.class, paramType = "body", required = true),
     })
+    @CrossOrigin(methods = RequestMethod.POST)
     @PostMapping("/User")
     //@RequestBody UserPass
     public Vo<String> login(@RequestBody UserPass userPass) throws NoDataException{
+        System.out.println("1");
         UserDto userDto = userService.getUserByNamePass(userPass);
         if (userDto != null) {
             String token = tokenService.newTokenByUser(userDto);
