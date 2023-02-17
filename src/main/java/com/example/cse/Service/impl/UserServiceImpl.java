@@ -1,10 +1,12 @@
 package com.example.cse.Service.impl;
 
 import com.example.cse.Dto.UserDto;
+import com.example.cse.Entity.UserClass.Profession;
 import com.example.cse.Entity.UserClass.User;
 import com.example.cse.Mapper.ProfessionMapper;
 import com.example.cse.Mapper.UserMapper;
 import com.example.cse.Service.UserService;
+import com.example.cse.Utils.CacheUtils;
 import com.example.cse.Utils.Exception.NoDataException;
 import com.example.cse.Vo.UserBasic;
 import com.example.cse.Vo.UserCreate;
@@ -27,6 +29,8 @@ public class UserServiceImpl implements UserService{
     UserMapper userMapper;
     @Autowired
     ProfessionMapper professionMapper;
+    @Autowired
+    CacheUtils cacheUtils;
 
 
     @Override
@@ -51,24 +55,35 @@ public class UserServiceImpl implements UserService{
         User user = new User();
         boolean empty = false;
         if (StringUtils.hasText(newUser.getUserName())&&!Objects.equals(newUser.getUserName(), oldUser.getName())){
-            user.setName(newUser.getUserName());
+            user.setUserName(newUser.getUserName());
+            oldUser.setName(newUser.getUserName());
             empty = true;
         }
         if (StringUtils.hasText(newUser.getSex())&&!Objects.equals(newUser.getSex(), oldUser.getSex())){
             user.setSex(newUser.getSex());
+            oldUser.setSex(newUser.getSex());
             empty = true;
         }
         if (newUser.getProfession()!=null&&!Objects.equals(newUser.getProfession(), oldUser.getProfession().getPid())){
-            user.setName(newUser.getUserName());
+            user.setProfession(newUser.getProfession());
+            Profession profession = professionMapper.getProfessionByPid(newUser.getProfession());
+            if (profession == null) {
+                throw new NoDataException(Vo.WrongPostParameter,"错误的专业序号");
+            }
+            oldUser.setProfession(profession);
             empty = true;
         }
         if (StringUtils.hasText(newUser.getGrade())&&!Objects.equals(newUser.getUserName(), oldUser.getGrade())){
             user.setGrade(newUser.getGrade());
+            oldUser.setGrade(newUser.getGrade());
             empty = true;
         }
         if (!empty)
             throw new NoDataException(Vo.WrongPostParameter,"没有进行更改");
-        return userMapper.updateUser(user);
+        Integer integer =userMapper.updateUser(user);
+        cacheUtils.setCache("User",oldUser.getUid().toString(),oldUser);
+
+        return integer;
     }
 
 

@@ -46,9 +46,9 @@ public class UserController {
     public Vo<String> updateUser(@RequestBody UserBasic user,HttpServletRequest request) throws NoDataException {
         UserDto userDto = (UserDto) request.getAttribute("UserDto");
         Integer integer = userService.updateUser(user,userDto);
-        if (integer == 1){
-
-            return new Vo<>(Vo.Success,null,null);
-        }
+        if (integer == 1)
+            return new Vo<>(Vo.Success,"用户基本信息更新成功",null);
+        else
+            return new Vo<>(Vo.WrongPostParameter,null,"未知错误，创建失败");
     }
 }

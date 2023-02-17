@@ -67,7 +67,7 @@ public class UserDto {
 
     public UserDto(User user, ProfessionMapper professionMapper){
         this.setUid(user.getUid());
-        this.setName(user.getName());
+        this.setName(user.getUserName());
         this.setUserCode(user.getUserCode());
         this.setSex(user.getSex());
         this.setProfession(professionMapper.getProfessionByPid(user.getUid()));
