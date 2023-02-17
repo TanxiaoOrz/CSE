@@ -13,6 +13,10 @@
         select * from  `cse`.`user` where `cse`.`user`.`UserCode` = #{userCode} and `UserPass` = #{userPass} ;
     </select>
 
+    <select id="getUserByUid" resultType="com.example.cse.Entity.UserClass.User">
+        select * from `cse`.user where Uid = #{Uid};
+    </select>
+
     <insert id="newUser">
         insert into cse.user (UserCode, UserPass, UserName, Grade, Profession, Sex) VALUES (#{userCode},#{userPass},#{userName},#{grade},#{profession},#{sex})
     </insert>
@@ -24,10 +28,10 @@
     <update id="updateUser" >
         update user
             <set>
-                <if test="userName!=null">set UserName = #{userName},</if>
-                <if test="grade!=null">set Grade = #{grade},</if>
-                <if test="profession!=null">set Profession = #{profession},</if>
-                <if test="sex!=null">set Sex = #{sex}</if>
+                <if test="userName!=null"> UserName = #{userName},</if>
+                <if test="grade!=null"> Grade = #{grade},</if>
+                <if test="profession!=null"> Profession = #{profession},</if>
+                <if test="sex!=null"> Sex = #{sex}</if>
             </set>
         where Uid = #{uid}
     </update>

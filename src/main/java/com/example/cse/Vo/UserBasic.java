@@ -21,10 +21,13 @@ public class UserBasic {
     @ApiModelProperty("用户性别")
     protected String sex;
 
+    public UserBasic() {
+    }
+
     public UserBasic(UserDto userDto) {
         this.uid = userDto.getUid();
         this.userCode = userDto.getUserCode();
-        this.userName = userDto.getName();
+        this.userName = userDto.getUserName();
         this.grade = userDto.getGrade();
         this.profession = userDto.getProfession().getPid();
         this.sex = userDto.getSex();
@@ -52,5 +55,29 @@ public class UserBasic {
 
     public String getSex() {
         return sex;
+    }
+
+    public void setUid(Integer uid) {
+        this.uid = uid;
+    }
+
+    public void setUserCode(String userCode) {
+        this.userCode = userCode;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public void setGrade(String grade) {
+        this.grade = grade;
+    }
+
+    public void setProfession(Integer profession) {
+        this.profession = profession;
+    }
+
+    public void setSex(String sex) {
+        this.sex = sex;
     }
 }

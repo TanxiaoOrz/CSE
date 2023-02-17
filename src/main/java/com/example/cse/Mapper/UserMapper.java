@@ -15,6 +15,8 @@ public interface UserMapper {
 
     User getUserByNamePass(UserPass userPass);
 
+    User getUserByUid(@Param("Uid") String uid);
+
     Integer newUser(UserCreate userCreate);
 
     Integer checkUserExist(@Param("userCode") String userCode);

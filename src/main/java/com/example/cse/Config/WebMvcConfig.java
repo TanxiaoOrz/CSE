@@ -6,8 +6,10 @@ import com.auth0.jwt.exceptions.TokenExpiredException;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import com.example.cse.Dto.UserDto;
 import com.example.cse.Service.impl.TokenServiceImpl;
+import com.example.cse.Service.impl.UserServiceImpl;
 import com.example.cse.Vo.Vo;
 import com.google.gson.Gson;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
@@ -22,8 +24,11 @@ import java.io.IOException;
 @Configuration
 public class WebMvcConfig extends WebMvcConfigurationSupport{
 
-
+    @Autowired
     TokenServiceImpl tokenService;
+
+    @Autowired
+    UserServiceImpl userService;
 
     protected boolean checkToken(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String token = request.getHeader("token");
@@ -32,6 +37,9 @@ public class WebMvcConfig extends WebMvcConfigurationSupport{
             DecodedJWT decodedJWT = tokenService.verifyToken(token);
             if (tokenService.checkTokenType(decodedJWT, TokenServiceImpl.UserType)){
                 UserDto userDto= tokenService.getUserByToken(decodedJWT);
+                if (userDto == null) {
+                    userDto = userService.getUserByUid(decodedJWT.getClaim("Uid").asString());
+                }
                 request.setAttribute("UserDto",userDto);
                 return true;
             }else{

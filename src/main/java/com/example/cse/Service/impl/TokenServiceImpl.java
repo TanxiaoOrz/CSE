@@ -19,7 +19,7 @@ import java.util.Calendar;
 
 
 @Service
-public class TokenServiceImpl implements TokenService{
+public class TokenServiceImpl implements TokenService, InitializingBean{
 
     public final static int UserType = 0;
     public final static int ManagerType = 1;
@@ -44,7 +44,7 @@ public class TokenServiceImpl implements TokenService{
 
         String token = JWT.create()
                 .withClaim("type",UserType)
-                .withClaim("Uid",user.getUid())
+                .withClaim("Uid",user.getUid().toString())
                 .withExpiresAt(instance.getTime())
                 .sign(algorithm);
 
@@ -70,4 +70,8 @@ public class TokenServiceImpl implements TokenService{
         return cacheUtils.getCache("User",Uid,UserDto.class);
     }
 
+    @Override
+    public void afterPropertiesSet() throws Exception {
+        algorithm = Algorithm.HMAC256(tokenPass);
+    }
 }

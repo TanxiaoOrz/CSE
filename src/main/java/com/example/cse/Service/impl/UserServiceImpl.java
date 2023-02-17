@@ -44,6 +44,20 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
+    public UserDto getUserByUid(String uid) throws NoDataException {
+        if (StringUtils.hasText(uid)) {
+            User user = userMapper.getUserByUid(uid);
+            if (user == null) {
+                throw new NoDataException(Vo.WrongPostParameter,"token包含未知Uid");
+            }
+            UserDto userDto = new UserDto(user, professionMapper);
+            cacheUtils.setCache("User",uid,userDto);
+            return userDto;
+        }
+        throw new NoDataException(Vo.WrongPostParameter,"token没有Uid");
+    }
+
+    @Override
     public Integer newUser(UserCreate userCreate) throws NoDataException {
         userCreate.checkNull(professionMapper,userMapper);
         userMapper.newUser(userCreate);
@@ -54,9 +68,13 @@ public class UserServiceImpl implements UserService{
     public Integer updateUser(UserBasic newUser, UserDto oldUser) throws NoDataException{
         User user = new User();
         boolean empty = false;
-        if (StringUtils.hasText(newUser.getUserName())&&!Objects.equals(newUser.getUserName(), oldUser.getName())){
+        if (newUser.getUid().equals(oldUser.getUid()))
+            user.setUid(newUser.getUid());
+        else
+            throw new NoDataException(Vo.WrongPostParameter,"修改的Uid与登录Uid不一致");
+        if (StringUtils.hasText(newUser.getUserName())&&!Objects.equals(newUser.getUserName(), oldUser.getUserName())){
             user.setUserName(newUser.getUserName());
-            oldUser.setName(newUser.getUserName());
+            oldUser.setUserName(newUser.getUserName());
             empty = true;
         }
         if (StringUtils.hasText(newUser.getSex())&&!Objects.equals(newUser.getSex(), oldUser.getSex())){
@@ -73,7 +91,7 @@ public class UserServiceImpl implements UserService{
             oldUser.setProfession(profession);
             empty = true;
         }
-        if (StringUtils.hasText(newUser.getGrade())&&!Objects.equals(newUser.getUserName(), oldUser.getGrade())){
+        if (StringUtils.hasText(newUser.getGrade())&&!Objects.equals(newUser.getGrade(), oldUser.getGrade())){
             user.setGrade(newUser.getGrade());
             oldUser.setGrade(newUser.getGrade());
             empty = true;
