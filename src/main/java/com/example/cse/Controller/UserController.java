@@ -18,6 +18,7 @@ import javax.servlet.http.HttpServletRequest;
 @RestController
 @Api(tags = "User接口", description = "除新建外需要Token验证")
 @RequestMapping("/cse/User")
+@CrossOrigin
 public class UserController {
     @Autowired
     UserServiceImpl userService;

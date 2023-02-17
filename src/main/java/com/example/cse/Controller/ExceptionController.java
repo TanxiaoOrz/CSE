@@ -3,11 +3,13 @@ package com.example.cse.Controller;
 import com.example.cse.Utils.Exception.NoDataException;
 import com.example.cse.Vo.Vo;
 import io.swagger.annotations.Api;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 @RestControllerAdvice
 @Api(tags = "异常处理控制器")
+@CrossOrigin
 public class ExceptionController {
 
     @ExceptionHandler(NoDataException.class)

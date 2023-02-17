@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @Api(tags = "Token接口",description = "Token的获取与注销接口,该接口不需要token验证")
 @RequestMapping("/cse/Token")
+@CrossOrigin
 public class TokenController {
     @Autowired
     UserServiceImpl userService;

@@ -17,6 +17,7 @@ import java.util.List;
 @RestController
 @Api(tags = "Profession接口",description = "只有新建需要manager验证")
 @RequestMapping("/cse/Profession")
+@CrossOrigin
 public class ProfessionController {
 
     @Autowired
