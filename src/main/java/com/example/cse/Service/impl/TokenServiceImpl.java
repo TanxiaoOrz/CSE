@@ -5,7 +5,9 @@ import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.interfaces.Claim;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import com.example.cse.Dto.UserDto;
+import com.example.cse.Mapper.UserMapper;
 import com.example.cse.Service.TokenService;
+import com.example.cse.Utils.CacheUtils;
 import com.google.gson.Gson;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,19 +19,20 @@ import java.util.Calendar;
 
 
 @Service
-public class TokenServiceImpl implements TokenService, InitializingBean {
+public class TokenServiceImpl implements TokenService{
 
     public final static int UserType = 0;
     public final static int ManagerType = 1;
     private Algorithm algorithm;
 
     @Autowired
-    StringRedisTemplate stringRedisTemplate;
+    CacheUtils cacheUtils;
+
+    @Autowired
+    UserMapper userMapper;
 
     @Value("${config.token-pass}")
     String tokenPass;
-
-    private ValueOperations<String, String> ops;
 
     @Value("${spring.redis.timeout}")
     int tokenOutSecond;
@@ -45,7 +48,7 @@ public class TokenServiceImpl implements TokenService, InitializingBean {
                 .withExpiresAt(instance.getTime())
                 .sign(algorithm);
 
-        ops.set(user.getUid().toString(), new Gson().toJson(user));
+        cacheUtils.setCache("User",user.getUid().toString(),user);
 
         return token;
     }
@@ -64,12 +67,7 @@ public class TokenServiceImpl implements TokenService, InitializingBean {
     @Override
     public UserDto getUserByToken(DecodedJWT decodedJWT) {
         String Uid = decodedJWT.getClaim("Uid").asString();
-        return new Gson().fromJson(ops.get(Uid),UserDto.class);
+        return cacheUtils.getCache("User",Uid,UserDto.class);
     }
 
-    @Override
-    public void afterPropertiesSet(){
-        ops = stringRedisTemplate.opsForValue();
-        algorithm = Algorithm.HMAC256(tokenPass);
-    }
 }
