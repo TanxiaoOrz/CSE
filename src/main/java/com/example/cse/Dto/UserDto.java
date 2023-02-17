@@ -9,7 +9,7 @@ import com.example.cse.Mapper.ProfessionMapper;
 public class UserDto {
     private Integer Uid;
     private String UserCode;
-    private String Name;
+    private String UserName;
     private String Sex;
     private Profession Profession;
     private String Grade;
@@ -34,11 +34,11 @@ public class UserDto {
     public void setUserCode(String userCode) {
         UserCode = userCode;
     }
-    public String getName() {
-        return Name;
+    public String getUserName() {
+        return UserName;
     }
-    public void setName(String name) {
-        Name = name;
+    public void setUserName(String userName) {
+        UserName = userName;
     }
     public String getSex() {
         return Sex;
@@ -67,27 +67,13 @@ public class UserDto {
 
     public UserDto(User user, ProfessionMapper professionMapper){
         this.setUid(user.getUid());
-        this.setName(user.getUserName());
+        this.setUserName(user.getUserName());
         this.setUserCode(user.getUserCode());
         this.setSex(user.getSex());
         this.setProfession(professionMapper.getProfessionByPid(user.getUid()));
         this.setGrade(user.getGrade());
         this.setUserPass(user.getUserPass());
         //this.setUserModel(new Gson().fromJson(user.getUserModel(),Model.class));
-    }
-
-
-    @Override
-    public String toString() {
-        return "UserDto{" +
-                "Uid=" + Uid +
-                ", UserCode='" + UserCode + '\'' +
-                ", Name='" + Name + '\'' +
-                ", Sex='" + Sex + '\'' +
-                ", Profession='" + Profession + '\'' +
-                ", Grade='" + Grade + '\'' +
-                ", userModel=" + userModel +
-                '}';
     }
 
 }
