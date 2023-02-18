@@ -62,18 +62,83 @@ CREATE TABLE `cse`.`message` (
   `message` JSON NULL,
   `DeprecatedFlag` TINYINT NULL DEFAULT 0,
   PRIMARY KEY (`Mid`));
-  
-CREATE TABLE `cse`.`surf` (
-    `Time` DATETIME NOT NULL,
-    `Uid` INT NOT NULL,
-    `Mid` INT NOT NULL,
-    PRIMARY KEY (`Time` , `Uid` , `Mid`),
-    CONSTRAINT `surf_message` FOREIGN KEY (`Mid`)
-        REFERENCES `cse`.`message` (`Mid`)
-        ON DELETE NO ACTION ON UPDATE NO ACTION,
-    CONSTRAINT `surf_user` FOREIGN KEY (`Uid`)
-        REFERENCES `cse`.`user` (`Uid`)
-        ON DELETE NO ACTION ON UPDATE NO ACTION
+
+CREATE TABLE `cse`.`surf_message` (
+      `Time` DATETIME NOT NULL,
+      `Uid` INT NOT NULL,
+      `Surf` INT NOT NULL,
+      PRIMARY KEY (`Time` , `Uid` , `Surf`),
+      CONSTRAINT `surf_message` FOREIGN KEY (`Surf`)
+          REFERENCES `cse`.`message` (`Mid`)
+          ON DELETE NO ACTION ON UPDATE NO ACTION,
+      CONSTRAINT `surfM_user` FOREIGN KEY (`Uid`)
+          REFERENCES `cse`.`user` (`Uid`)
+          ON DELETE NO ACTION ON UPDATE NO ACTION
+);
+
+CREATE TABLE `cse`.`surf_activity` (
+       `Time` DATETIME NOT NULL,
+       `Uid` INT NOT NULL,
+       `Surf` INT NOT NULL,
+       PRIMARY KEY (`Time` , `Uid` , `Surf`),
+       CONSTRAINT `surf_activity` FOREIGN KEY (`Surf`)
+           REFERENCES `cse`.`activity` (`Aid`)
+           ON DELETE NO ACTION ON UPDATE NO ACTION,
+       CONSTRAINT `surfA_user` FOREIGN KEY (`Uid`)
+           REFERENCES `cse`.`user` (`Uid`)
+           ON DELETE NO ACTION ON UPDATE NO ACTION
+);
+
+CREATE TABLE `cse`.`surf_contest` (
+      `Time` DATETIME NOT NULL,
+      `Uid` INT NOT NULL,
+      `Surf` INT NOT NULL,
+      PRIMARY KEY (`Time` , `Uid` , `Surf`),
+      CONSTRAINT `surf_contest` FOREIGN KEY (`Surf`)
+          REFERENCES `cse`.`contest` (`Cid`)
+          ON DELETE NO ACTION ON UPDATE NO ACTION,
+      CONSTRAINT `surfC_user` FOREIGN KEY (`Uid`)
+          REFERENCES `cse`.`user` (`Uid`)
+          ON DELETE NO ACTION ON UPDATE NO ACTION
+);
+
+CREATE TABLE `cse`.`surf_location` (
+       `Time` DATETIME NOT NULL,
+       `Uid` INT NOT NULL,
+       `Surf` INT NOT NULL,
+       PRIMARY KEY (`Time` , `Uid` , `Surf`),
+       CONSTRAINT `surf_location` FOREIGN KEY (`Surf`)
+           REFERENCES `cse`.`location` (`Lid`)
+           ON DELETE NO ACTION ON UPDATE NO ACTION,
+       CONSTRAINT `surfL_user` FOREIGN KEY (`Uid`)
+           REFERENCES `cse`.`user` (`Uid`)
+           ON DELETE NO ACTION ON UPDATE NO ACTION
+);
+
+CREATE TABLE `cse`.`surf_resource` (
+       `Time` DATETIME NOT NULL,
+       `Uid` INT NOT NULL,
+       `Surf` INT NOT NULL,
+       PRIMARY KEY (`Time` , `Uid` , `Surf`),
+       CONSTRAINT `surf_resource` FOREIGN KEY (`Surf`)
+           REFERENCES `cse`.`resource` (`Rid`)
+           ON DELETE NO ACTION ON UPDATE NO ACTION,
+       CONSTRAINT `surfR_user` FOREIGN KEY (`Uid`)
+           REFERENCES `cse`.`user` (`Uid`)
+           ON DELETE NO ACTION ON UPDATE NO ACTION
+);
+
+CREATE TABLE `cse`.`surf_section` (
+      `Time` DATETIME NOT NULL,
+      `Uid` INT NOT NULL,
+      `Surf` INT NOT NULL,
+      PRIMARY KEY (`Time` , `Uid` , `Surf`),
+      CONSTRAINT `surf_section` FOREIGN KEY (`Surf`)
+          REFERENCES `cse`.`section` (`Sid`)
+          ON DELETE NO ACTION ON UPDATE NO ACTION,
+      CONSTRAINT `surfS_user` FOREIGN KEY (`Uid`)
+          REFERENCES `cse`.`user` (`Uid`)
+          ON DELETE NO ACTION ON UPDATE NO ACTION
 );
 
 CREATE TABLE `cse`.`keyword_type` (
