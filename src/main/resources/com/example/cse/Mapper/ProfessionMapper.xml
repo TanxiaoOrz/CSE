@@ -7,7 +7,7 @@
         select count(*) from cse.profession
         <where>
             <if test="Pid != null">
-                Pid = #{Pid};
+                Pid = #{Pid}
             </if>
             <if test="ProfessionName != null">
                 And ProfessionName = #{ProfessionName}
