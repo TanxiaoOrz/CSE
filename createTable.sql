@@ -336,6 +336,7 @@ CREATE TABLE `cse`.`message_location` (
 CREATE TABLE `cse`.`favourite_activity` (
     `Uid` INT NOT NULL,
     `like` INT NOT NULL,
+    `Time` DATETIME NOT NULL DEFAULT NOW(),
     PRIMARY KEY (`Uid`, `like`),
     INDEX `favouriteToActivity_idx` (`like` ASC) VISIBLE,
     CONSTRAINT `favouriteToActivity`
@@ -352,6 +353,7 @@ CREATE TABLE `cse`.`favourite_activity` (
 CREATE TABLE `cse`.`favourite_contest` (
    `Uid` INT NOT NULL,
    `like` INT NOT NULL,
+   `Time` DATETIME NOT NULL DEFAULT NOW(),
    PRIMARY KEY (`Uid`, `like`),
    INDEX `favouriteToContest_idx` (`like` ASC) VISIBLE,
    CONSTRAINT `favouriteToContest`
@@ -368,6 +370,7 @@ CREATE TABLE `cse`.`favourite_contest` (
 CREATE TABLE `cse`.`favourite_location` (
     `Uid` INT NOT NULL,
     `like` INT NOT NULL,
+    `Time` DATETIME NOT NULL DEFAULT NOW(),
     PRIMARY KEY (`Uid`, `like`),
     INDEX `favouriteToLocation_idx` (`like` ASC) VISIBLE,
     CONSTRAINT `favouriteToLocation`
@@ -384,6 +387,7 @@ CREATE TABLE `cse`.`favourite_location` (
 CREATE TABLE `cse`.`favourite_resource` (
     `Uid` INT NOT NULL,
     `like` INT NOT NULL,
+    `Time` DATETIME NOT NULL DEFAULT NOW(),
     PRIMARY KEY (`Uid`, `like`),
     INDEX `favouriteToResource_idx` (`like` ASC) VISIBLE,
     CONSTRAINT `favouriteToResource`
@@ -400,6 +404,7 @@ CREATE TABLE `cse`.`favourite_resource` (
 CREATE TABLE `cse`.`favourite_section` (
    `Uid` INT NOT NULL,
    `like` INT NOT NULL,
+   `Time` DATETIME NOT NULL DEFAULT NOW(),
    PRIMARY KEY (`Uid`, `like`),
    INDEX `favouriteToSection_idx` (`like` ASC) VISIBLE,
    CONSTRAINT `favouriteToSection`
@@ -408,6 +413,23 @@ CREATE TABLE `cse`.`favourite_section` (
            ON DELETE NO ACTION
            ON UPDATE NO ACTION,
    CONSTRAINT `SectionToUserF`
+       FOREIGN KEY (`Uid`)
+           REFERENCES `cse`.`user` (`Uid`)
+           ON DELETE NO ACTION
+           ON UPDATE NO ACTION);
+
+CREATE TABLE `cse`.`favourite_message` (
+   `Uid` INT NOT NULL,
+   `like` INT NOT NULL,
+   `Time` DATETIME NOT NULL DEFAULT NOW(),
+   PRIMARY KEY (`Uid`, `like`),
+   INDEX `favouriteToSection_idx` (`like` ASC) VISIBLE,
+   CONSTRAINT `favouriteToMessage`
+       FOREIGN KEY (`like`)
+           REFERENCES `cse`.`message` (`Mid`)
+           ON DELETE NO ACTION
+           ON UPDATE NO ACTION,
+   CONSTRAINT `MessageToUserF`
        FOREIGN KEY (`Uid`)
            REFERENCES `cse`.`user` (`Uid`)
            ON DELETE NO ACTION
