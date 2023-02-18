@@ -108,6 +108,7 @@ public class WebMvcConfig extends WebMvcConfigurationSupport{
     protected void addInterceptors(InterceptorRegistry registry){
        registry.addInterceptor(new TokenCheck())
                .addPathPatterns("/cse/User/**")
+               .addPathPatterns("/cse/Hobby/User")
                .excludePathPatterns("/cse/User")
                .excludePathPatterns("/cse/Token/**")//不需要拦截的地
                .excludePathPatterns("/favicon.ico")
