@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.cse.Mapper.HobbyMapper">
+    <insert id="newHobby">
+        insert into cse.hobby (Description, Name, Type, HobbyModel) VALUES (#{Description}, #{Name}, #{Type}, #{HobbyModel})
+    </insert>
+    <select id="getHobbyByRule" resultType="com.example.cse.Entity.Recommend.Hobby">
+        select * from hobby
+            <where>
+                <if test="Hid != null">
+                    Hid = #{Hid}
+                </if>
+                <if test="Name != null">
+                    And hobby.Name = #{Name}
+                </if>
+            </where>
+    </select>
+
+    <select id="getHobbyAll" resultType="com.example.cse.Entity.Recommend.Hobby">
+        select * from hobby;
+    </select>
+
+    <select id="getHobbyByUserHobby" resultType="com.example.cse.Entity.Recommend.Hobby">
+        select * from hobby where Hid in
+            (select user_hobby.Hid from user_hobby where Uid = #{Uid} and degree = #{degree});
+    </select>
+
+    <update id="updateUserHobby">
+        update user_hobby set degree = #{degree} where Hid = #{Hid} and Uid = #{Uid};
+    </update>
+
+</mapper>
