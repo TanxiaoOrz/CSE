@@ -3,6 +3,7 @@ package com.example.cse.Service.impl;
 import com.example.cse.Dto.UserDto;
 import com.example.cse.Entity.UserClass.Profession;
 import com.example.cse.Entity.UserClass.User;
+import com.example.cse.Mapper.HobbyMapper;
 import com.example.cse.Mapper.ProfessionMapper;
 import com.example.cse.Mapper.UserMapper;
 import com.example.cse.Service.UserService;
@@ -29,6 +30,8 @@ public class UserServiceImpl implements UserService{
     UserMapper userMapper;
     @Autowired
     ProfessionMapper professionMapper;
+    @Autowired
+    HobbyMapper hobbyMapper;
     @Autowired
     CacheUtils cacheUtils;
 
@@ -105,6 +108,11 @@ public class UserServiceImpl implements UserService{
         cacheUtils.setCache("User",oldUser.getUid().toString(),oldUser);
 
         return integer;
+    }
+
+    @Override
+    public void calculateUserModel(UserDto userDto) {
+
     }
 
 

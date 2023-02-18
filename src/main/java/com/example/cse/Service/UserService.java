@@ -17,4 +17,6 @@ public interface UserService {
 
     Integer updateUser(UserBasic newUser, UserDto oldUser) throws NoDataException;
 
+    void calculateUserModel(UserDto userDto);
+
 }
