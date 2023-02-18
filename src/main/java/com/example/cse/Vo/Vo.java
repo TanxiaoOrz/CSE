@@ -19,8 +19,17 @@ public class Vo<Value> {
     @ApiModelProperty(value = "信息描述")
     String description;
 
+    public Vo(Value data) {
+        this(Vo.Success,data,null);
+    }
 
-    public Vo(int status, Value data,String description){
+    public Vo(int status,String description){
+        this.status = status;
+        this.data = null;
+        this.description=description;
+    }
+
+    public Vo(int status, Value data, String description){
         this.status = status;
         this.data = data;
         this.description=description;

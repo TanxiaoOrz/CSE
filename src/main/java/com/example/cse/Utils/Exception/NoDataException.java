@@ -1,5 +1,7 @@
 package com.example.cse.Utils.Exception;
 
+import com.example.cse.Vo.Vo;
+
 public class NoDataException extends Exception{
 
     private int status;
@@ -9,6 +11,10 @@ public class NoDataException extends Exception{
         super();
         this.status = status;
         this.description= description;
+    }
+
+    public NoDataException(String description) {
+        this(Vo.WrongPostParameter,description);
     }
 
     public int getStatus() {
