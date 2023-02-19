@@ -326,6 +326,15 @@ DELIMITER ;
 
 DELIMITER $$
 USE `cse`$$
+CREATE DEFINER = CURRENT_USER TRIGGER `cse`.`information_class_BEFORE_INSERT` BEFORE INSERT ON `information_class` FOR EACH ROW
+BEGIN
+    set new.DeprecatedFlag = 0;
+END$$
+DELIMITER ;
+-- 废弃标志富
+
+DELIMITER $$
+USE `cse`$$
 CREATE DEFINER = CURRENT_USER TRIGGER `cse`.`message_BEFORE_INSERT` BEFORE INSERT ON `message` FOR EACH ROW
 BEGIN
     set new.DeprecatedFlag = 0;
@@ -338,3 +347,34 @@ BEGIN
 END$$
 DELIMITER ;
 -- message规范输入
+DELIMITER $$
+USE `cse`$$
+CREATE DEFINER = CURRENT_USER TRIGGER `cse`.`favourite_information_class_BEFORE_INSERT` BEFORE INSERT ON `favourite_information_class` FOR EACH ROW
+BEGIN
+    if new.Time is null
+    then set new.Time = now();
+    end if;
+
+END$$
+DELIMITER ;
+
+DELIMITER $$
+USE `cse`$$
+CREATE DEFINER = CURRENT_USER TRIGGER `cse`.`favourite_location_BEFORE_INSERT` BEFORE INSERT ON `favourite_location` FOR EACH ROW
+BEGIN
+    if new.Time is null
+    then set new.Time = now();
+    end if;
+END$$
+DELIMITER ;
+
+DELIMITER $$
+USE `cse`$$
+CREATE DEFINER = CURRENT_USER TRIGGER `cse`.`favourite_message_BEFORE_INSERT` BEFORE INSERT ON `favourite_message` FOR EACH ROW
+BEGIN
+    if new.Time is null
+    then set new.Time = now();
+    end if;
+END$$
+DELIMITER ;
+-- 时间标签
