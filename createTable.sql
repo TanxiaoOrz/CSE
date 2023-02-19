@@ -119,7 +119,7 @@ CREATE TABLE `cse`.`location` (
     ON UPDATE NO ACTION);
 
 CREATE TABLE `cse`.`information_class` (
-                                           `Cid` INT NOT NULL,
+                                           `Cid` INT NOT NULL AUTO_INCREMENT,
                                            `Name` VARCHAR(45) NULL,
                                            `Resume` VARCHAR(100) NULL,
                                            `BasicMessage` INT NULL,

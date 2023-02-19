@@ -14,3 +14,29 @@ INSERT INTO `cse`.`hobby` (`Description`, `Name`, `Type`) VALUES ('', '阅读', 
 
 INSERT INTO `cse`.`user` (`UserCode`, `UserPass`, `UserName`, `Grade`, `Profession`, `Sex`) VALUES ('123456', '123456', 'testUser', '2020', '1', '男');
 -- 默认用户
+
+INSERT INTO `cse`.`message` (`Title`, `message`) VALUES ('蓝桥杯预选赛通知', '{"message":"蓝桥杯比赛消息通知","image":[],"file":[]}');
+INSERT INTO `cse`.`message` (`Title`, `message`) VALUES ('其他信息', '{"message":"其他信息","image":[],"file":[]}');
+INSERT INTO `cse`.`message` (`Title`, `message`) VALUES ('蓝桥杯简介', '{"message":"蓝桥杯比赛简介","image":[],"file":[]}');
+-- 消息预填写
+
+INSERT INTO `cse`.`keyword_type` (`TypeName`, `TypeResume`) VALUES ('比赛等级', '一个比赛的等级划分，通常有国、市、校');
+INSERT INTO `cse`.`keyword_type` (`TypeName`, `TypeResume`) VALUES ('比赛需求', '该比赛需要的技术');
+INSERT INTO `cse`.`keyword_type` (`TypeName`, `TypeResume`) VALUES ('活动综测分', '参与该活动能够提供综测分');
+-- 关键词类型预填写
+
+INSERT INTO `cse`.`keyword` (`KeyName`, `KeywordType`) VALUES ('国赛', '1');
+INSERT INTO `cse`.`keyword` (`KeyName`, `KeywordType`) VALUES ('省赛', '1');
+INSERT INTO `cse`.`keyword` (`KeyName`, `KeywordType`) VALUES ('市赛', '1');
+INSERT INTO `cse`.`keyword` (`KeyName`, `KeywordType`) VALUES ('校赛', '1');
+INSERT INTO `cse`.`keyword` (`KeyName`, `KeywordType`) VALUES ('前端', '2');
+INSERT INTO `cse`.`keyword` (`KeyName`, `KeywordType`) VALUES ('Android', '2');
+INSERT INTO `cse`.`keyword` (`KeyName`, `KeywordType`) VALUES ('后端', '2');
+INSERT INTO `cse`.`keyword` (`KeyName`, `KeywordType`) VALUES ('嵌入式', '2');
+INSERT INTO `cse`.`keyword` (`KeyName`, `KeywordType`) VALUES ('1', '3');
+INSERT INTO `cse`.`keyword` (`KeyName`, `KeywordType`) VALUES ('2', '3');
+INSERT INTO `cse`.`keyword` (`KeyName`, `KeywordType`) VALUES ('3', '3');
+-- 关键词填写
+
+Insert into `cse`.`information_class` (`Name`,`BasicMessage`,`Type`) values ('蓝桥杯','3','比赛');
+-- 具体类预填信息
