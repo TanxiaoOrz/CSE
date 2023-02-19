@@ -123,6 +123,7 @@ CREATE TABLE `cse`.`information_class` (
                                            `Name` VARCHAR(45) NULL,
                                            `Resume` VARCHAR(100) NULL,
                                            `BasicMessage` INT NULL,
+                                           `Type` ENUM('比赛', '部门', '活动', '资源') NOT NULL,
                                            `DeprecatedFlag` VARCHAR(45) NULL,
                                            `Location` INT NULL,
                                            PRIMARY KEY (`Cid`),
@@ -336,3 +337,4 @@ BEGIN
     end if;
 END$$
 DELIMITER ;
+-- message规范输入
