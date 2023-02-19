@@ -22,7 +22,7 @@
         select * from hobby;
     </select>
 
-    <select id="getHobbyByUserHobby" resultType="com.example.cse.Entity.Recommend.Hobby">
+    <select id="getHobbyByUserDegree" resultType="com.example.cse.Entity.Recommend.Hobby">
         select * from hobby where Hid in
             (select user_hobby.Hid from user_hobby where Uid = #{Uid} and degree = #{degree});
     </select>

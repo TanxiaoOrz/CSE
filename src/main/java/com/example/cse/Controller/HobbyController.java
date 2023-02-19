@@ -26,7 +26,7 @@ public class HobbyController {
 
     @PutMapping("/manager")
     @ApiOperation(value = "新建接口",notes = "需要管理员权限验证（未实现）,会检测空值与同名爱好是否存在")
-    @ApiImplicitParam(value = "hobby",name = "新建的爱好",dataTypeClass = HobbyIn.class, dataType = "body",required = true)
+    @ApiImplicitParam(value = "hobby",name = "新建的爱好",dataTypeClass = HobbyIn.class, paramType = "body",required = true)
     public Vo<String> newHobby(@RequestBody HobbyIn hobby) throws NoDataException {
         Integer integer = hobbyService.newHobby(hobby);
         if (integer == 1)
@@ -54,7 +54,7 @@ public class HobbyController {
     }
 
     @ApiOperation(value = "用户爱好修改接口",notes = "需要用户权限验证,会检测空值与爱好是否存在")
-    @ApiImplicitParam(value = "userHobbyIn",name = "要修改的爱好",dataTypeClass = UserHobbyIn.class, dataType = "body",required = true)
+    @ApiImplicitParam(value = "userHobbyIn",name = "要修改的爱好",dataTypeClass = UserHobbyIn.class, paramType = "body",required = true)
     @PostMapping("/User")
     public Vo<String> updateUserHobby(HttpServletRequest request, @RequestBody UserHobbyIn userHobbyIn) throws NoDataException {
         UserDto userDto = (UserDto) request.getAttribute("UserDto");
@@ -63,7 +63,7 @@ public class HobbyController {
             userService.calculateUserModel(userDto);
             return new Vo<>("爱好修改成功");
         }else {
-            return new Vo<>("该项爱好设置与原来相同");
+            return new Vo<>(Vo.WrongPostParameter,null,"未知错误，创建失败");
         }
 
     }
