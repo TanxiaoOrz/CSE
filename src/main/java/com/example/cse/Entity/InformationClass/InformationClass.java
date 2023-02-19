@@ -8,12 +8,12 @@ import java.util.HashMap;
 
 public class InformationClass{
 
-    Integer Cid;
-    Integer BasicMessage;//在类页面一定显示的描述性信息
-    String Resume;//简介
-    String Name;//名字
-    String Type;//类型
-    Integer Location;//所处未知
+    private Integer Cid;
+    private Integer BasicMessage;//在类页面一定显示的描述性信息
+    private String Resume;//简介
+    private String Name;//名字
+    private String Type;//类型
+    private Integer Location;//所处未知
 
     public Integer getCid() {
         return Cid;
