@@ -2,20 +2,87 @@ package com.example.cse.Entity.InformationClass;
 
 import com.example.cse.Entity.Recommend.KeyWord;
 
-public class Location extends InformationClass{
+public class Location {
     private Integer Lid;//唯一标识
+    private String Name;
+    private String Resume;
+    private String Ability;
 
-    private Integer Ability;//对应对象链接的唯一标识
-    private Integer Map;
+    private Integer MapBelong;
+    private Integer MapOwn;
     private String imgHref;//所携带的图片
     private Integer X;//所在地图坐标
     private Integer Y;
 
-    private Map map;//从属地图
-    private KeyWord ability;//提供的能力关键字
+    public Integer getLid() {
+        return Lid;
+    }
 
-    @Override
-    public Integer getClassScore() {
-        return null;
+    public void setLid(Integer lid) {
+        Lid = lid;
+    }
+
+    public String getName() {
+        return Name;
+    }
+
+    public void setName(String name) {
+        Name = name;
+    }
+
+    public String getResume() {
+        return Resume;
+    }
+
+    public void setResume(String resume) {
+        Resume = resume;
+    }
+
+    public String getAbility() {
+        return Ability;
+    }
+
+    public void setAbility(String ability) {
+        Ability = ability;
+    }
+
+    public Integer getMapBelong() {
+        return MapBelong;
+    }
+
+    public void setMapBelong(Integer mapBelong) {
+        MapBelong = mapBelong;
+    }
+
+    public Integer getMapOwn() {
+        return MapOwn;
+    }
+
+    public void setMapOwn(Integer mapOwn) {
+        MapOwn = mapOwn;
+    }
+
+    public String getImgHref() {
+        return imgHref;
+    }
+
+    public void setImgHref(String imgHref) {
+        this.imgHref = imgHref;
+    }
+
+    public Integer getX() {
+        return X;
+    }
+
+    public void setX(Integer x) {
+        X = x;
+    }
+
+    public Integer getY() {
+        return Y;
+    }
+
+    public void setY(Integer y) {
+        Y = y;
     }
 }
