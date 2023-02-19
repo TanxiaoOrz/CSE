@@ -205,6 +205,18 @@ CREATE TABLE `cse`.`calender` (
       ON DELETE NO ACTION
       ON UPDATE NO ACTION);
 
+CREATE TABLE `cse`.`message_information_class` (
+                                          `Mid` INT NOT NULL,
+                                          `Cid` INT NOT NULL,
+                                          PRIMARY KEY (`Mid` , `Cid`),
+                                          CONSTRAINT `LinkInformationClassToMessage` FOREIGN KEY (`Mid`)
+                                              REFERENCES `cse`.`message` (`Mid`)
+                                              ON DELETE NO ACTION ON UPDATE NO ACTION,
+                                          CONSTRAINT `LinkMessageToInformationClass` FOREIGN KEY (`Cid`)
+                                              REFERENCES `cse`.`information_class` (`Cid`)
+                                              ON DELETE NO ACTION ON UPDATE NO ACTION
+);
+
 CREATE TABLE `cse`.`message_location` (
     `Mid` INT NOT NULL,
     `Lid` INT NOT NULL,
