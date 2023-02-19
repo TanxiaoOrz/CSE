@@ -27,4 +27,8 @@
             </set>
         where Mid = #{Mid};
     </update>
+
+    <select id="getMessageClassType" resultType="java.lang.String">
+        select Type from information_class where Cid in (select Cid from message_information_class where Mid = #{Mid} limit 1);
+    </select>
 </mapper>
