@@ -175,6 +175,22 @@ CREATE TABLE `cse`.`surf_information_class` (
                                                     ON DELETE NO ACTION ON UPDATE NO ACTION
 );
 
+CREATE TABLE `cse`.`information_class_key` (
+                                               `Cid` INT NOT NULL,
+                                               `Kid` INT NOT NULL,
+                                               PRIMARY KEY (`Cid`, `Kid`),
+                                               INDEX `InformationClassToKey_idx` (`Kid` ASC) VISIBLE,
+                                               CONSTRAINT `InformationClassToKey`
+                                                   FOREIGN KEY (`Kid`)
+                                                       REFERENCES `cse`.`keyword` (`Kid`)
+                                                       ON DELETE NO ACTION
+                                                       ON UPDATE NO ACTION,
+                                               CONSTRAINT `KeyToInformationClass`
+                                                   FOREIGN KEY (`Cid`)
+                                                       REFERENCES `cse`.`information_class` (`Cid`)
+                                                       ON DELETE NO ACTION
+                                                       ON UPDATE NO ACTION);
+
 CREATE TABLE `cse`.`calender` (
   `Uid` INT NOT NULL,
   `Time` DATETIME NOT NULL,
@@ -187,26 +203,6 @@ CREATE TABLE `cse`.`calender` (
       REFERENCES `cse`.`user` (`Uid`)
       ON DELETE NO ACTION
       ON UPDATE NO ACTION);
-
-
-CREATE TABLE `cse`.`resource_table` (
-    `Uid` INT NOT NULL,
-    `Rid` INT NOT NULL,
-    `Description` VARCHAR(45) NULL,
-    `DeprecatedFlag` TINYINT NULL DEFAULT 0,
-    PRIMARY KEY (`Uid`, `Rid`),
-    INDEX `ResourceTableToResource_idx` (`Rid` ASC) VISIBLE,
-    CONSTRAINT `ResourceTableToResource`
-       FOREIGN KEY (`Rid`)
-           REFERENCES `cse`.`resource` (`Rid`)
-           ON DELETE NO ACTION
-           ON UPDATE NO ACTION,
-    CONSTRAINT `ResourceTableToUser`
-       FOREIGN KEY (`Uid`)
-           REFERENCES `cse`.`user` (`Uid`)
-           ON DELETE NO ACTION
-           ON UPDATE NO ACTION);
-
 
 CREATE TABLE `cse`.`message_location` (
     `Mid` INT NOT NULL,
