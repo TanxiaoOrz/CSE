@@ -40,3 +40,9 @@ INSERT INTO `cse`.`keyword` (`KeyName`, `KeywordType`) VALUES ('3', '3');
 
 Insert into `cse`.`information_class` (`Name`,`BasicMessage`,`Type`) values ('蓝桥杯','3','比赛');
 -- 具体类预填信息
+
+INSERT INTO `cse`.`information_class_key` (`Cid`, `Kid`) VALUES ('1', '1');
+-- 增加关键字关联
+
+INSERT INTO `cse`.`message_information_class` (`Mid`, `Cid`) VALUES ('1', '1');
+-- 增加信息与类关联
