@@ -46,3 +46,6 @@ INSERT INTO `cse`.`information_class_key` (`Cid`, `Kid`) VALUES ('1', '1');
 
 INSERT INTO `cse`.`message_information_class` (`Mid`, `Cid`) VALUES ('1', '1');
 -- 增加信息与类关联
+
+Insert Into cse.favourite_message (Uid, `like`) VALUES (1,1);
+insert into cse.favourite_information_class (Uid, `like`) VALUES (1,1);
