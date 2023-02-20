@@ -20,16 +20,16 @@ public class FavouriteMessage {
         this.Mid = mid;
     }
 
-    public String getName() {
-        return Name;
+    public String getTitle() {
+        return Title;
     }
 
-    public void setName(String name) {
-        Name = name;
+    public void setTitle(String title) {
+        Title = title;
     }
 
     @ApiModelProperty(value = "消息标题")
-    private String Name;//名字
+    private String Title;//名字
     @ApiModelProperty(value ="创建时间")
     private Date Time;
 
