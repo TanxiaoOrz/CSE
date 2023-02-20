@@ -11,6 +11,8 @@ public class Vo<Value> {
     public static int NoAuthority = -1;
     //错误的数据携带
     public static int WrongPostParameter = 1;
+    //错误的数据存储
+    public static int WrongDataGet = 2;
 
     @ApiModelProperty(value = "返回成功与否描述")
     int status;//对于返回
