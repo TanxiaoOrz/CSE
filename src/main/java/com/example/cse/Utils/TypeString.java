@@ -19,4 +19,8 @@ public class TypeString {
     public void setType(String type) {
         this.type = type;
     }
+
+    public boolean checkData() {
+        return type.equals("informationClass")||type.equals("location")||type.equals("message");
+    }
 }
