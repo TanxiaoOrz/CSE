@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.cse.Mapper.LocationMapper">
+    <select id="getLocationByRule" resultType="com.example.cse.Entity.InformationClass.Location">
+        select * from location
+        <where>
+            <if test="Lid != null">
+                Lid = #{Lid}
+            </if>
+        </where>
+    </select>
+
+    <insert id="newLocation" >
+        insert into location (Name, Resume, BasicMessage, Ability, MapBelong,MapOwn,ImgHref) VALUES (#{Name}, #{Resume}, #{BasicMessage},#{Ability}, #{MapBelong}, #{MapOwn}, #{ImgHref});
+    </insert>
+
+    <update id="updateLocation">
+        update information_class
+        <set>
+            <if test="Name != null"> Name = #{Name}, </if>
+            <if test="Resume != null"> Resume = #{Resume}, </if>
+            <if test="BasicMessage != null"> BasicMessage = #{BasicMessage}, </if>
+            <if test="Ability != null"> Ability = #{Ability}, </if>
+            <if test="MapBelong != null"> MapBelong = #{MapBelong} </if>
+            <if test="MapOwn != null"> MapOwn = #{MapOwn}, </if>
+            <if test="ImgHref != null"> ImgHref = #{ImgHref} </if>
+        </set>
+        where Cid = #{Cid};
+    </update>
+</mapper>
