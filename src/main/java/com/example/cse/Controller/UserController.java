@@ -1,7 +1,6 @@
 package com.example.cse.Controller;
 
 import com.example.cse.Dto.UserDto;
-import com.example.cse.Service.impl.TokenServiceImpl;
 import com.example.cse.Service.impl.UserServiceImpl;
 import com.example.cse.Utils.Exception.NoDataException;
 import com.example.cse.Vo.UserCreate;
@@ -22,8 +21,6 @@ import javax.servlet.http.HttpServletRequest;
 public class UserController {
     @Autowired
     UserServiceImpl userService;
-    @Autowired
-    TokenServiceImpl tokenService;
 
     @PostMapping
     @ApiImplicitParam(name = "user",value = "用户注册结构体",dataTypeClass = UserCreate.class,paramType = "body")
