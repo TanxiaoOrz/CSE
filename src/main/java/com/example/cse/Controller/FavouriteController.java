@@ -2,6 +2,7 @@ package com.example.cse.Controller;
 
 import com.example.cse.Dto.UserDto;
 import com.example.cse.Service.impl.FavouriteServiceImpl;
+import com.example.cse.Service.impl.UserServiceImpl;
 import com.example.cse.Utils.Exception.NoDataException;
 import com.example.cse.Vo.FavouriteOut;
 import com.example.cse.Vo.Vo;
@@ -21,6 +22,8 @@ public class FavouriteController {
 
     @Autowired
     FavouriteServiceImpl favouriteService;
+    @Autowired
+    UserServiceImpl userService;
 
     @GetMapping
     @ApiOperation(value = "获取用户favourite",notes ="需要登录")
@@ -40,6 +43,7 @@ public class FavouriteController {
         UserDto userDto = (UserDto) request.getAttribute("UserDto");
         Integer integer = favouriteService.newFavourite(userDto, id, type);
         if (integer == 1){
+            userService.calculateUserModel(userDto);
             return new Vo<>("新增成功");
         }else {
             return new Vo<>(Vo.WrongPostParameter,"未知错误，创建失败");
@@ -56,6 +60,7 @@ public class FavouriteController {
         UserDto userDto = (UserDto) request.getAttribute("UserDto");
         Integer integer = favouriteService.deleteFavourite(userDto, id, type);
         if (integer == 1){
+            userService.calculateUserModel(userDto);
             return new Vo<>("删除成功");
         }else {
             return new Vo<>(Vo.WrongPostParameter,"未知错误，删除失败");
