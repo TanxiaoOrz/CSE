@@ -7,6 +7,9 @@ public class Location {
     private String Name;
     private String Resume;
     private String Ability;
+    private Integer BasicMessage;
+
+
 
     private Integer MapBelong;
     private Integer MapOwn;
@@ -29,7 +32,13 @@ public class Location {
     public void setName(String name) {
         Name = name;
     }
+    public Integer getBasicMessage() {
+        return BasicMessage;
+    }
 
+    public void setBasicMessage(Integer basicMessage) {
+        BasicMessage = basicMessage;
+    }
     public String getResume() {
         return Resume;
     }
