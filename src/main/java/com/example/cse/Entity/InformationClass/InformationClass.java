@@ -13,7 +13,16 @@ public class InformationClass{
     private String Resume;//简介
     private String Name;//名字
     private String Type;//类型
+    private String ImgHerf;//图片
     private Integer Location;//所处未知
+
+    public String getImgHerf() {
+        return ImgHerf;
+    }
+
+    public void setImgHerf(String imgHerf) {
+        ImgHerf = imgHerf;
+    }
 
     public Integer getCid() {
         return Cid;
