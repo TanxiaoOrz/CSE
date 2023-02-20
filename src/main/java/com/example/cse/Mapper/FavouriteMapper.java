@@ -17,7 +17,7 @@ public interface FavouriteMapper {
     @Select("select Cid,Name,Time,Type from favourite_information_class,information_class where Uid = #{Uid} and Cid = favourite_information_class.like order by Time desc")
     List<FavouriteInformationClass> getFavouriteInformationClassByUser(@Param("Uid") Integer Uid);
 
-    @Select("select Lid,Name,Time from favourite_location,location where Uid = #{Uid} and Lid = favourite_location.like order by Time desc")
+    @Select("select Lid,Name,Time,ImgHref from favourite_location,location where Uid = #{Uid} and Lid = favourite_location.like order by Time desc")
     List<FavouriteLocation> getFavouriteLocationByUser(@Param("Uid") Integer Uid);
 
     @Insert("insert into favourite_message (Uid, `like`) VALUES (#{Uid},#{Mid})")
@@ -29,13 +29,13 @@ public interface FavouriteMapper {
     @Insert("insert into favourite_location (Uid, `like`) VALUES (#{Uid},#{Lid})")
     Integer newFavouriteLocation(@Param("Uid") Integer Uid,@Param("Cid") Integer Lid);
 
-    @Delete("delete from favourite_message where Uid = #{Uid} and `like`= {Mid}")
+    @Delete("delete from favourite_message where Uid = #{Uid} and `like`= #{Mid}")
     Integer deleteFavouriteMessage(@Param("Uid") Integer Uid,@Param("Mid") Integer Mid);
 
-    @Delete("delete from favourite_information_class where Uid = #{Uid} and `like`= {Cid}")
+    @Delete("delete from favourite_information_class where Uid = #{Uid} and `like`= #{Cid}")
     Integer deleteFavouriteInformationClass(@Param("Uid") Integer Uid,@Param("Cid") Integer Cid);
 
-    @Delete("delete from favourite_location where Uid = #{Uid} and `like`= {Lid}")
+    @Delete("delete from favourite_location where Uid = #{Uid} and `like`= #{Lid}")
     Integer deleteFavouriteLocation(@Param("Uid") Integer Uid,@Param("Mid") Integer Lid);
 
 }
