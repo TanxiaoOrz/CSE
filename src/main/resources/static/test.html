@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+</head>
+<body>
+    <div id="1"></div>
+    <script>
+
+
+
+         $.ajax(
+             {
+                 type: "POST",
+                 url: "http://localhost:8080/cse/User",
+                 data:'{' +
+                     '  "grade": "1",' +
+                     '  "profession": 1,' +
+                     '  "sex": "男",' +
+                     '  "userCode": "3",' +
+                     '  "userName": "2",' +
+                     '  "userPass": "2"' +
+                     '}',
+                 success: function(data){
+                     alert(data.status);
+                 },
+                 headers: { 'content-type': 'application/json ' },
+                 contentType:"application/json",
+             }
+         )
+        //
+        // $.post("http://localhost:8080/cse/Token/User",JSON.parse('{"userCode": "123456", "userPass": "123456"}'),function(data){
+        //     alert(data.data);
+        // })
+
+    </script>
+</body>
+</html>
