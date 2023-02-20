@@ -102,6 +102,7 @@ CREATE TABLE `cse`.`location` (
   `Resume` VARCHAR(45) NULL,
   `Ability` JSON NULL,
   `MapBelong` INT NULL,
+  `BasicMessage` INT NULL,
   `MapOwn` INT NULL,
   `ImgHref` VARCHAR(200) NULL,
   `DeprecatedFlag` TINYINT NULL DEFAULT 0,
@@ -113,6 +114,11 @@ CREATE TABLE `cse`.`location` (
     REFERENCES `cse`.`map` (`Mid`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
+  CONSTRAINT `LocationToBasicMessage`
+      FOREIGN KEY (`BasicMessage`)
+          REFERENCES `cse`.`message` (`Mid`)
+          ON DELETE NO ACTION
+          ON UPDATE NO ACTION,
   CONSTRAINT `LocationOwnMap`
     FOREIGN KEY (`MapOwn`)
     REFERENCES `cse`.`map` (`Mid`)
