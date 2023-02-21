@@ -10,7 +10,6 @@ import com.example.cse.Vo.CalenderOut;
 import com.example.cse.Vo.Vo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
-import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -48,7 +47,7 @@ public class CalenderController {
         }
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping()
     @ApiOperation(value = "用户删除calender",notes = "需要登录")
     @ApiImplicitParam(name = "calenderIn", value = "日历结构",dataTypeClass = CalenderIn.class,paramType = "body")
     public Vo<String> deleteUserCalender(HttpServletRequest request, @RequestBody CalenderIn calenderIn) throws NoDataException {
@@ -63,7 +62,7 @@ public class CalenderController {
     }
 
     @PostMapping
-    @ApiOperation(value = "用户新增calender",notes = "需要登录")
+    @ApiOperation(value = "用户修改calender",notes = "需要登录")
     @ApiImplicitParam(name = "calenderIn", value = "日历结构",dataTypeClass = CalenderIn.class,paramType = "body")
     public Vo<String> updateUserCalender(HttpServletRequest request, @RequestBody CalenderIn calenderIn) throws NoDataException {
         UserDto userDto = (UserDto) request.getAttribute("UserDto");

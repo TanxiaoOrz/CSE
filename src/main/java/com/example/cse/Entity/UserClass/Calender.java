@@ -5,6 +5,8 @@ import com.example.cse.Utils.Exception.NoDataException;
 import com.example.cse.Vo.CalenderIn;
 import org.springframework.util.StringUtils;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -18,14 +20,20 @@ public class Calender {
 
     }
 
-    public Calender(CalenderIn calenderIn,Integer Uid, boolean hasDescription) throws NoDataException {
+    public Calender(CalenderIn calenderIn,Integer Uid, boolean hasDescription) throws NoDataException{
         this.Uid = Uid;
         if (StringUtils.hasText(calenderIn.getDescription()))
             this.Description =calenderIn.getDescription();
         else if (hasDescription)
             throw new NoDataException("没有描述");
-        if (calenderIn.getTime()!=null)
-            this.Time =calenderIn.getTime();
+        if (calenderIn.getTime()!=null) {
+            SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            try {
+                this.Time = format.parse(calenderIn.getTime());
+            } catch (ParseException e) {
+                throw new RuntimeException(e);
+            }
+        }
         else
             throw new NoDataException("没有描述");
     }

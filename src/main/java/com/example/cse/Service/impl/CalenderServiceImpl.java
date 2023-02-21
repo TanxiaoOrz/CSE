@@ -54,7 +54,7 @@ public class CalenderServiceImpl implements CalenderService {
 
     @Override
     public Integer newUserCalender(UserDto userDto, CalenderIn calenderIn) throws NoDataException {
-        if (calenderIn.getRelationFunction().checkData()) {
+        if (!calenderIn.getRelationFunction().checkData()) {
             throw new  WrongDataException("错误的类型");
         }
         Calender calender = new Calender(calenderIn, userDto.getUid(), true);
