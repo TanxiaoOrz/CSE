@@ -8,33 +8,33 @@ import java.util.Date;
 public class FavouriteLocation{
 
     @ApiModelProperty(value = "具体类编号")
-    private Integer Cid;
+    private Integer lid;
     @ApiModelProperty(value = "具体类名字")
-    private String Name;//名字
+    private String name;//名字
     @ApiModelProperty(value ="创建时间")
-    private Date Time;
+    private Date time;
 
-    public Integer getCid() {
-        return Cid;
+    public Integer getLid() {
+        return lid;
     }
 
-    public void setCid(Integer cid) {
-        Cid = cid;
+    public void setLid(Integer lid) {
+        this.lid = lid;
     }
 
     public String getName() {
-        return Name;
+        return name;
     }
 
     public void setName(String name) {
-        Name = name;
+        this.name = name;
     }
 
     public Date getTime() {
-        return Time;
+        return time;
     }
 
     public void setTime(Date time) {
-        Time = time;
+        this.time = time;
     }
 }

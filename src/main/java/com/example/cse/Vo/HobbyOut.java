@@ -13,22 +13,22 @@ import java.util.List;
 public class HobbyOut {
 
     @ApiModelProperty("爱好编号")
-    private Integer Hid;
+    private Integer hid;
     @ApiModelProperty("爱好名")
-    protected String Name;
+    protected String name;
     @ApiModelProperty("爱好描述")
-    protected String Description;
+    protected String description;
     @ApiModelProperty("爱好类型")
-    protected String Type;
+    protected String type;
 
     public HobbyOut() {
     }
 
     public HobbyOut(HobbyDto hobby){
-        Hid = hobby.getHid();
-        Name = hobby.getName();
-        Description = hobby.getDescription();
-        Type = hobby.getType();
+        hid = hobby.getHid();
+        name = hobby.getName();
+        description = hobby.getDescription();
+        type = hobby.getType();
     }
 
     public static List<HobbyOut> createHobbyOuts(List<HobbyDto> hobbyDtos){
@@ -40,34 +40,34 @@ public class HobbyOut {
     }
 
     public Integer getHid() {
-        return Hid;
+        return hid;
     }
 
     public void setHid(Integer hid) {
-        Hid = hid;
+        this.hid = hid;
     }
 
     public String getName() {
-        return Name;
+        return name;
     }
 
     public void setName(String name) {
-        Name = name;
+        this.name = name;
     }
 
     public String getDescription() {
-        return Description;
+        return description;
     }
 
     public void setDescription(String description) {
-        Description = description;
+        this.description = description;
     }
 
     public String getType() {
-        return Type;
+        return type;
     }
 
     public void setType(String type) {
-        Type = type;
+        this.type = type;
     }
 }

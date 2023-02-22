@@ -12,33 +12,33 @@ import java.util.Date;
 public class CalenderIn {
     @ApiModelProperty(value = "时间",hidden = false)
     @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
-    private String Time;
+    private String time;
     @ApiModelProperty(value = "描述",hidden = false)
-    private String Description;
+    private String description;
     @ApiModelProperty(value = "关联信息的指向描述体",hidden = false)
-    private TypeString RelationFunction;
+    private TypeString relationFunction;
 
     public String getTime() {
-        return Time;
+        return time;
     }
 
     public void setTime(String time) {
-        Time = time;
+        this.time = time;
     }
 
     public String getDescription() {
-        return Description;
+        return description;
     }
 
     public void setDescription(String description) {
-        Description = description;
+        this.description = description;
     }
 
     public TypeString getRelationFunction() {
-        return RelationFunction;
+        return relationFunction;
     }
 
     public void setRelationFunction(TypeString relationFunction) {
-        RelationFunction = relationFunction;
+        this.relationFunction = relationFunction;
     }
 }

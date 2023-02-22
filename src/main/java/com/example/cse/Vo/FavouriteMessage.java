@@ -10,45 +10,45 @@ import java.util.Date;
 public class FavouriteMessage {
 
     @ApiModelProperty(value = "消息编号")
-    private Integer Mid;
+    private Integer mid;
+
+    @ApiModelProperty(value = "消息标题")
+    private String title;//名字
+    @ApiModelProperty(value ="创建时间")
+    private Date time;
+
+    @ApiModelProperty(value ="所属类型")
+    private String type;
 
     public Integer getMid() {
-        return Mid;
+        return mid;
     }
 
     public void setMid(Integer mid) {
-        this.Mid = mid;
+        this.mid = mid;
     }
 
     public String getTitle() {
-        return Title;
+        return title;
     }
 
     public void setTitle(String title) {
-        Title = title;
-    }
-
-    @ApiModelProperty(value = "消息标题")
-    private String Title;//名字
-    @ApiModelProperty(value ="创建时间")
-    private Date Time;
-
-    @ApiModelProperty(value ="所属类型")
-    private String Type;
-
-    public String getType() {
-        return Type;
-    }
-
-    public void setType(String type) {
-        Type = type;
+        this.title = title;
     }
 
     public Date getTime() {
-        return Time;
+        return time;
     }
 
     public void setTime(Date time) {
-        Time = time;
+        this.time = time;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 }

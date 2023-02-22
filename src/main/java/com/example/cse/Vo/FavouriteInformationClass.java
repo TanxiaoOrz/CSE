@@ -10,49 +10,38 @@ import java.util.List;
 @ApiModel(value = "FavouriteInformationClass",description = "用户喜欢的具体类")
 public class FavouriteInformationClass{
     @ApiModelProperty(value = "具体类编号")
-    private Integer Cid;
+    private Integer cid;
     @ApiModelProperty(value = "具体类名字")
-    private String Name;//名字
+    private String name;//名字
     @ApiModelProperty(value = "具体类类型")
-    private String Type;//类型
+    private String type;//类型
+    @ApiModelProperty(value = "关键词及类型")
+    private List<KeyAndType> keys;
 
     public Integer getCid() {
-        return Cid;
+        return cid;
     }
 
     public void setCid(Integer cid) {
-        Cid = cid;
+        this.cid = cid;
     }
 
     public String getName() {
-        return Name;
+        return name;
     }
 
     public void setName(String name) {
-        Name = name;
+        this.name = name;
     }
 
     public String getType() {
-        return Type;
+        return type;
     }
 
     public void setType(String type) {
-        Type = type;
+        this.type = type;
     }
 
-    @ApiModelProperty(value = "创建时间")
-    private Date Time;
-
-    @ApiModelProperty(value = "所附带的关键词")
-    List<KeyAndType> keys;
-
-    public Date getTime() {
-        return Time;
-    }
-
-    public void setTime(Date time) {
-        Time = time;
-    }
 
     public List<KeyAndType> getKeys() {
         return keys;
