@@ -33,7 +33,6 @@ public class TokenController {
     @PostMapping("/User")
     //@RequestBody UserPass
     public Vo<String> login(@RequestBody UserPass userPass) throws NoDataException{
-        System.out.println("1");
         UserDto userDto = userService.getUserByNamePass(userPass);
         if (userDto != null) {
             String token = tokenService.newTokenByUser(userDto);
