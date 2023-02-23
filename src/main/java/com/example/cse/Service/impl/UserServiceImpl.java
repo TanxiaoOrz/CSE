@@ -64,7 +64,6 @@ public class UserServiceImpl implements UserService{
     public Integer newUser(UserCreate userCreate) throws NoDataException {
         userCreate.checkNull(professionMapper,userMapper);
         if (userMapper.checkUserExist(userCreate.getUserCode())==0) {
-            userMapper.newUser(userCreate);
             return userMapper.newUser(userCreate);
         }else
             throw new NoDataException(Vo.WrongPostParameter,"该学号已存在");
