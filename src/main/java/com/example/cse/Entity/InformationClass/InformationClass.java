@@ -1,11 +1,5 @@
 package com.example.cse.Entity.InformationClass;
 
-import com.example.cse.Entity.Recommend.InfCal;
-import com.example.cse.Utils.Model;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-
 public class InformationClass{
 
     private Integer Cid;

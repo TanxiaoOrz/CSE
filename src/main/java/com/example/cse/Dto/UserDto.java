@@ -2,8 +2,10 @@ package com.example.cse.Dto;
 
 import com.example.cse.Entity.UserClass.Profession;
 import com.example.cse.Entity.UserClass.User;
-import com.example.cse.Utils.Model;
 import com.example.cse.Mapper.ProfessionMapper;
+
+import java.util.HashMap;
+import java.util.List;
 
 //UserModel的相关构造暂时被停用，请记得修改
 public class UserDto {
@@ -13,9 +15,22 @@ public class UserDto {
     private String Sex;
     private Profession Profession;
     private String Grade;
-    private Model userModel;
+    private List<ModelDto> modelDtos;
+
+
+
     private String UserPass;
 
+    HashMap<Integer,Integer> informationClassModel;
+    HashMap<Integer,Integer> keywordModels;
+    HashMap<Integer,Integer> locationModels;
+    public List<ModelDto> getModelDtos() {
+        return modelDtos;
+    }
+
+    public void setModelDtos(List<ModelDto> modelDtos) {
+        this.modelDtos = modelDtos;
+    }
     public String getUserPass() {
         return UserPass;
     }
@@ -58,11 +73,29 @@ public class UserDto {
     public void setGrade(String grade) {
         Grade = grade;
     }
-    public Model getUserModel() {
-        return userModel;
+
+    public HashMap<Integer, Integer> getInformationClassModel() {
+        return informationClassModel;
     }
-    public void setUserModel(Model userModel) {
-        this.userModel = userModel;
+
+    public void setInformationClassModel(HashMap<Integer, Integer> informationClassModel) {
+        this.informationClassModel = informationClassModel;
+    }
+
+    public HashMap<Integer, Integer> getKeywordModels() {
+        return keywordModels;
+    }
+
+    public void setKeywordModels(HashMap<Integer, Integer> keywordModels) {
+        this.keywordModels = keywordModels;
+    }
+
+    public HashMap<Integer, Integer> getLocationModels() {
+        return locationModels;
+    }
+
+    public void setLocationModels(HashMap<Integer, Integer> locationModels) {
+        this.locationModels = locationModels;
     }
 
     public UserDto(User user, ProfessionMapper professionMapper){
@@ -73,7 +106,6 @@ public class UserDto {
         this.setProfession(professionMapper.getProfessionByPid(user.getUid()));
         this.setGrade(user.getGrade());
         this.setUserPass(user.getUserPass());
-        //this.setUserModel(new Gson().fromJson(user.getUserModel(),Model.class));
     }
 
 }

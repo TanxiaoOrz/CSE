@@ -1,9 +1,10 @@
 package com.example.cse.Dto;
 
 import com.example.cse.Entity.Recommend.Hobby;
-import com.example.cse.Utils.Model;
-import com.example.cse.Vo.HobbyOut;
 import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonParser;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,14 +15,20 @@ public class HobbyDto {
     private String name;
     private String description;
     private String type;
-    private Model model;
+    private List<ModelDto> modelDtos;
 
     public HobbyDto(Hobby hobby){
         Hid = hobby.getHid();
         name = hobby.getName();
         description = hobby.getDescription();
         type = hobby.getType();
-        model = new Gson().fromJson(hobby.getModel(),Model.class);
+        JsonArray array = new JsonParser().parse(hobby.getModel()).getAsJsonArray();
+        Gson gson = new Gson();
+        modelDtos = new ArrayList<>();
+        for (JsonElement element:array){
+            ModelDto modelDto = gson.fromJson(element,ModelDto.class);
+            modelDtos.add(modelDto);
+        }
     }
 
     public static List<HobbyDto> createHobbyDtoList(List<Hobby> hobbies){
@@ -64,11 +71,11 @@ public class HobbyDto {
         this.type = type;
     }
 
-    public Model getModel() {
-        return model;
+    public List<ModelDto> getModel() {
+        return modelDtos;
     }
 
-    public void setModel(Model model) {
-        this.model = model;
+    public void setModel(List<ModelDto> modelDto) {
+        this.modelDtos = modelDto;
     }
 }

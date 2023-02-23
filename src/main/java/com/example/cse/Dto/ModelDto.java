@@ -1,13 +1,10 @@
-package com.example.cse.Vo;
+package com.example.cse.Dto;
 
-import com.example.cse.Dto.ModelDto;
-
-import java.util.List;
-
-public class ModelVo {
+public class ModelDto {
 
     Integer id;
     Integer score;
+    String type;
 
     public Integer getId() {
         return id;
@@ -16,6 +13,7 @@ public class ModelVo {
     public void setId(Integer id) {
         this.id = id;
     }
+
     public Integer getScore() {
         return score;
     }
@@ -23,5 +21,11 @@ public class ModelVo {
     public void setScore(Integer score) {
         this.score = score;
     }
+    public String getType() {
+        return type;
+    }
 
+    public void setType(String type) {
+        this.type = type;
+    }
 }
