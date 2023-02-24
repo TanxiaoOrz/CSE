@@ -11,6 +11,15 @@ import java.util.List;
 @Mapper
 public interface FavouriteMapper {
 
+    @Select("select `like` from favourite_message where Uid = #{Uid}")
+    List<Integer> getFavouriteMidByUid(@Param("Uid") Integer Uid);
+
+    @Select("select `like` from favourite_information_class where Uid = #{Uid}")
+    List<Integer> getFavouriteCidByUid(@Param("Uid") Integer Uid);
+
+    @Select("select `like` from favourite_location where Uid = #{Uid}")
+    List<Integer> getFavouriteLidByUid(@Param("Uid") Integer Uid);
+
     @Select("select Mid,Title,Time from message, favourite_message where Uid = #{Uid} and `like` = message.Mid order by Time desc")
     List<FavouriteMessage> getFavouriteMessageByUser(@Param("Uid") Integer Uid);
 

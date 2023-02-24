@@ -5,6 +5,7 @@ import com.example.cse.Entity.UserClass.User;
 import com.example.cse.Mapper.ProfessionMapper;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 
 //UserModel的相关构造暂时被停用，请记得修改
@@ -16,14 +17,12 @@ public class UserDto {
     private Profession Profession;
     private String Grade;
     private List<ModelDto> modelDtos;
-
-
-
     private String UserPass;
+    private HashMap<Integer,Integer> informationClassModel;
+    private HashMap<Integer,Integer> messageModel;
+    private HashMap<Integer,Integer> locationModels;
+    private HashMap<Integer,Integer> keywordModels;
 
-    HashMap<Integer,Integer> informationClassModel;
-    HashMap<Integer,Integer> keywordModels;
-    HashMap<Integer,Integer> locationModels;
     public List<ModelDto> getModelDtos() {
         return modelDtos;
     }
@@ -82,12 +81,12 @@ public class UserDto {
         this.informationClassModel = informationClassModel;
     }
 
-    public HashMap<Integer, Integer> getKeywordModels() {
-        return keywordModels;
+    public HashMap<Integer, Integer> getMessageModel() {
+        return messageModel;
     }
 
-    public void setKeywordModels(HashMap<Integer, Integer> keywordModels) {
-        this.keywordModels = keywordModels;
+    public void setMessageModel(HashMap<Integer, Integer> messageModel) {
+        this.messageModel = messageModel;
     }
 
     public HashMap<Integer, Integer> getLocationModels() {
@@ -97,6 +96,15 @@ public class UserDto {
     public void setLocationModels(HashMap<Integer, Integer> locationModels) {
         this.locationModels = locationModels;
     }
+
+    public HashMap<Integer, Integer> getKeywordModels() {
+        return keywordModels;
+    }
+
+    public void setKeywordModels(HashMap<Integer, Integer> keywordModels) {
+        this.keywordModels = keywordModels;
+    }
+
 
     public UserDto(User user, ProfessionMapper professionMapper){
         this.setUid(user.getUid());

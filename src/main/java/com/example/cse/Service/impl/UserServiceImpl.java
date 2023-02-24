@@ -9,6 +9,7 @@ import com.example.cse.Mapper.UserMapper;
 import com.example.cse.Service.UserService;
 import com.example.cse.Utils.CacheUtils;
 import com.example.cse.Utils.Exception.NoDataException;
+import com.example.cse.Utils.Factory.ModelDtoFactory;
 import com.example.cse.Vo.UserBasic;
 import com.example.cse.Vo.UserCreate;
 import com.example.cse.Vo.UserPass;
@@ -34,7 +35,8 @@ public class UserServiceImpl implements UserService{
     HobbyMapper hobbyMapper;
     @Autowired
     CacheUtils cacheUtils;
-
+    @Autowired
+    ModelDtoFactory modelDtoFactory;
 
     @Override
     public UserDto getUserByNamePass(UserPass userPass) throws NoDataException{
@@ -43,7 +45,9 @@ public class UserServiceImpl implements UserService{
         if (user == null) {
             return null;
         }
-        return new UserDto(user,professionMapper);
+        UserDto userDto = new UserDto(user, professionMapper);
+        modelDtoFactory.createUserModel(userDto);
+        return userDto;
     }
 
     @Override
