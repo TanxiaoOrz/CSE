@@ -8,6 +8,7 @@ import com.example.cse.Mapper.KeyTypeMapper;
 import com.example.cse.Mapper.MessageMapper;
 import com.example.cse.Service.FavouriteService;
 import com.example.cse.Utils.Exception.NoDataException;
+import com.example.cse.Utils.ModelUtils;
 import com.example.cse.Vo.FavouriteInformationClass;
 import com.example.cse.Vo.FavouriteLocation;
 import com.example.cse.Vo.FavouriteMessage;
@@ -50,14 +51,17 @@ public class FavouriteServiceImpl implements FavouriteService {
         switch (type){
             case "message" : {
                 integer = favouriteMapper.deleteFavouriteMessage(userDto.getUid(), id);
+                ModelUtils.addModel(userDto.getMessageModel(), id, -1);
                 break;
             }
             case "location" : {
                 integer = favouriteMapper.deleteFavouriteLocation(userDto.getUid(), id);
+                ModelUtils.addModel(userDto.getLocationModels(), id, -1);
                 break;
             }
             case "informationClass" : {
                 integer = favouriteMapper.deleteFavouriteInformationClass(userDto.getUid(), id);
+                ModelUtils.addModel(userDto.getInformationClassModel(), id, -1);
                 break;
             }
             default:
@@ -72,14 +76,17 @@ public class FavouriteServiceImpl implements FavouriteService {
         switch (type){
             case "message" : {
                 integer = favouriteMapper.newFavouriteMessage(userDto.getUid(), id);
+                ModelUtils.addModel(userDto.getMessageModel(), id, 1);
                 break;
             }
             case "location" : {
                 integer = favouriteMapper.newFavouriteLocation(userDto.getUid(), id);
+                ModelUtils.addModel(userDto.getLocationModels(), id, 1);
                 break;
             }
             case "informationClass" : {
                 integer = favouriteMapper.newFavouriteInformationClass(userDto.getUid(), id);
+                ModelUtils.addModel(userDto.getInformationClassModel(), id, 1);
                 break;
             }
             default:
