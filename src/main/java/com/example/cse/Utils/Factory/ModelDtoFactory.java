@@ -29,17 +29,9 @@ public class ModelDtoFactory {
     public void createUserModel(UserDto userDto) throws WrongDataException {
 
         HashMap<Integer, Integer> keywordModels = new HashMap<>();
-        for (HobbyDto hobby: HobbyDto.createHobbyDtoList(hobbyMapper.getHobbyByUserDegree(userDto.getUid(), "interested"))) {
-            for (ModelDto model: hobby.getModel()) {
-                ModelUtils.addModel(keywordModels, model.getId(), model.getScore());
-            }
-        }
-        for (HobbyDto hobby: HobbyDto.createHobbyDtoList(hobbyMapper.getHobbyByUserDegree(userDto.getUid(), "uninterested"))) {
-            for (ModelDto model: hobby.getModel()) {
-                ModelUtils.addModel(keywordModels, model.getId(), -model.getScore());
-            }
-        }
         userDto.setKeywordModels(keywordModels);
+        calculateHobby(userDto);
+
 
         HashMap<Integer, Integer> messageModel = new HashMap<>();
         for (Integer mid:favouriteMapper.getFavouriteMidByUid(userDto.getUid())) {
@@ -71,6 +63,19 @@ public class ModelDtoFactory {
         userDto.setMessageModel(messageModel);
         userDto.setLocationModels(locationModel);
         userDto.setInformationClassModel(informationClassModel);
+    }
+
+    public void calculateHobby(UserDto userDto) {
+        for (HobbyDto hobby: HobbyDto.createHobbyDtoList(hobbyMapper.getHobbyByUserDegree(userDto.getUid(), "interested"))) {
+            for (ModelDto model: hobby.getModel()) {
+                ModelUtils.addModel(userDto.getKeywordModels(), model.getId(), model.getScore());
+            }
+        }
+        for (HobbyDto hobby: HobbyDto.createHobbyDtoList(hobbyMapper.getHobbyByUserDegree(userDto.getUid(), "uninterested"))) {
+            for (ModelDto model: hobby.getModel()) {
+                ModelUtils.addModel(userDto.getKeywordModels(), model.getId(), -model.getScore());
+            }
+        }
     }
 
     private void addHobbyModel(UserDto userDto,Integer score,Calender calender) throws WrongDataException {

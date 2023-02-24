@@ -6,6 +6,7 @@ import com.example.cse.Entity.Recommend.Hobby;
 import com.example.cse.Mapper.HobbyMapper;
 import com.example.cse.Service.HobbyService;
 import com.example.cse.Utils.Exception.NoDataException;
+import com.example.cse.Utils.Factory.ModelDtoFactory;
 import com.example.cse.Vo.HobbyIn;
 import com.example.cse.Vo.UserHobbyIn;
 import com.example.cse.Vo.Vo;
@@ -19,6 +20,8 @@ import java.util.List;
 public class HobbyServiceImpl implements HobbyService {
     @Autowired
     HobbyMapper hobbyMapper;
+    @Autowired
+    ModelDtoFactory modelDtoFactory;
 
     @Override
     public Integer newHobby(HobbyIn hobbyIn) throws NoDataException {
@@ -58,6 +61,8 @@ public class HobbyServiceImpl implements HobbyService {
             throw new NoDataException("不存在该Hid的爱好");
         }
 
-        return hobbyMapper.updateUserHobby(userDto.getUid(), userHobby.getHid(), userHobby.getDegree());
+        Integer integer = hobbyMapper.updateUserHobby(userDto.getUid(), userHobby.getHid(), userHobby.getDegree());
+        modelDtoFactory.calculateHobby(userDto);
+        return integer;
     }
 }
