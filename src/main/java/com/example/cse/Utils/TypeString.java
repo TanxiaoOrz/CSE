@@ -5,7 +5,10 @@ import io.swagger.annotations.ApiModelProperty;
 
 @ApiModel(description = "选择对应连接的信息类型与编号")
 public class TypeString {
+
+    @ApiModelProperty(value = "关联的id")
     private Integer id;
+    @ApiModelProperty(value = "关联的类型",allowableValues = "informationClass,location,message")
     private String type;
 
     public Integer getId() {
