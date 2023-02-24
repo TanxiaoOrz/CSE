@@ -25,6 +25,8 @@ public class ModelDtoFactory {
     CalenderMapper calenderMapper;
     @Autowired
     HobbyMapper hobbyMapper;
+    private final long day = 1000*60*60*24;
+    private final long week = day*7;
 
     public void createUserModel(UserDto userDto) throws WrongDataException {
 
@@ -46,18 +48,10 @@ public class ModelDtoFactory {
             ModelUtils.addModel(locationModel, lid, 1);
         }
 
-        Date now = new Date();
-        long day = 1000*60*60*24;
-        long week = day*7;
+
 
         for (Calender calender:calenderMapper.getCalenderByUserAfter(userDto.getUid())) {
-            int compare = calender.getTime().compareTo(now);
-            if (compare<=day)
-                addHobbyModel(userDto,3,calender);
-            else if (compare<=week)
-                    addHobbyModel(userDto,2,calender);
-                else
-                    addHobbyModel(userDto,1, calender);
+            calculateCalenderModel(userDto,1,calender);
         }
 
         userDto.setMessageModel(messageModel);
@@ -76,6 +70,16 @@ public class ModelDtoFactory {
                 ModelUtils.addModel(userDto.getKeywordModels(), model.getId(), -model.getScore());
             }
         }
+    }
+
+    public void calculateCalenderModel(UserDto userDto,Integer sign,Calender calender) throws WrongDataException {
+        int compare = calender.getTime().compareTo(new Date());
+        if (compare<=day)
+            addHobbyModel(userDto,3,calender);
+        else if (compare<=week)
+            addHobbyModel(userDto,2,calender);
+        else
+            addHobbyModel(userDto,1, calender);
     }
 
     private void addHobbyModel(UserDto userDto,Integer score,Calender calender) throws WrongDataException {

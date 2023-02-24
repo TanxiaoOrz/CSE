@@ -8,6 +8,7 @@ import com.example.cse.Service.CalenderService;
 import com.example.cse.Utils.Exception.NoDataException;
 import com.example.cse.Utils.Exception.WrongDataException;
 import com.example.cse.Utils.Factory.CalenderDtoFactory;
+import com.example.cse.Utils.Factory.ModelDtoFactory;
 import com.example.cse.Vo.CalenderIn;
 import com.example.cse.Vo.CalenderOut;
 import com.google.gson.Gson;
@@ -23,6 +24,8 @@ public class CalenderServiceImpl implements CalenderService {
     CalenderMapper calenderMapper;
     @Autowired
     CalenderDtoFactory factory;
+    @Autowired
+    ModelDtoFactory modelDtoFactory;
 
     @Override
     public CalenderOut getUserCalender(UserDto userDto) throws WrongDataException {
@@ -49,7 +52,9 @@ public class CalenderServiceImpl implements CalenderService {
     @Override
     public Integer deleteUserCalender(UserDto userDto, CalenderIn calenderIn) throws NoDataException {
         Calender calender = new Calender(calenderIn, userDto.getUid(), false);
-        return calenderMapper.updateCalenderDeprecated(calender);
+        Integer integer = calenderMapper.updateCalenderDeprecated(calender);
+        modelDtoFactory.calculateCalenderModel(userDto,-1,calender);
+        return integer;
     }
 
     @Override
@@ -59,7 +64,9 @@ public class CalenderServiceImpl implements CalenderService {
         }
         Calender calender = new Calender(calenderIn, userDto.getUid(), true);
         calender.setRelationFunction(new Gson().toJson(calenderIn.getRelationFunction()));
-        return calenderMapper.newCalender(calender);
+        Integer integer = calenderMapper.newCalender(calender);
+        modelDtoFactory.calculateCalenderModel(userDto,1,calender);
+        return integer;
     }
 
 }
