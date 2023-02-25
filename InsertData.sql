@@ -49,3 +49,6 @@ INSERT INTO `cse`.`message_information_class` (`Mid`, `Cid`) VALUES ('1', '1');
 
 Insert Into cse.favourite_message (Uid, `like`) VALUES (1,1);
 insert into cse.favourite_information_class (Uid, `like`) VALUES (1,1);
+
+UPDATE `cse`.`hobby` SET `HobbyModel` = '[{\"id\": 1, \"type\": \"keyword\",\"score\":1},{\"id\": 2, \"type\": \"keyword\",\"score\":2}]' WHERE (`Hid` = '2');
+-- 添加示例模型
