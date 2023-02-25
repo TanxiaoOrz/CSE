@@ -32,12 +32,12 @@ public class CalenderServiceImpl implements CalenderService {
         CalenderOut calender = new CalenderOut();
         {
             List<Calender> calendersBefore = calenderMapper.getCalenderByUserBefore(userDto.getUid());
-            List<CalenderDto> before = factory.getCalenderDtos(calendersBefore);
+            List<CalenderDto<? super Object>> before = factory.getCalenderDtos(calendersBefore);
             calender.setBefore(before);
         }
         {
             List<Calender> calendersAfter = calenderMapper.getCalenderByUserAfter(userDto.getUid());
-            List<CalenderDto> after = factory.getCalenderDtos(calendersAfter);
+            List<CalenderDto<? super Object>> after = factory.getCalenderDtos(calendersAfter);
             calender.setAfter(after);
         }
         return calender;

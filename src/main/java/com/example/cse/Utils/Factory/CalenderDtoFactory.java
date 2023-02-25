@@ -16,6 +16,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Component
 public class CalenderDtoFactory {
@@ -26,31 +27,25 @@ public class CalenderDtoFactory {
     @Autowired
     LocationMapper locationMapper;
 
-    public CalenderDto getCalenderDto(Calender calender) throws WrongDataException {
+    public CalenderDto<? super Object> getCalenderDto(Calender calender) throws WrongDataException {
         TypeString string = new Gson().fromJson(calender.getRelationFunction(), TypeString.class);
         switch (string.getType()){
             case "message":{
-                Message message = new Message();
-                message.setMid(string.getId());
-                return new CalenderDto<>(calender,messageMapper.getMessageByRule(message),"message");
+                return new CalenderDto<>(calender,messageMapper.getMessageByRule(string.getId()),"message");
             }
             case "informationClass":{
-                InformationClass informationClass = new InformationClass();
-                informationClass.setCid(string.getId());
-                return new CalenderDto<>(calender,informationClassMapper.getInformationClassByRule(informationClass),"information");
+                return new CalenderDto<>(calender,informationClassMapper.getInformationClassByRule(string.getId(),null),"information");
             }
             case "location": {
-                Location location = new Location();
-                location.setLid(string.getId());
-                return new CalenderDto<>(calender,locationMapper.getLocationByRule(location),"Location");
+                return new CalenderDto<>(calender,locationMapper.getLocationByRule(string.getId()),"Location");
             }
             default: throw new WrongDataException("错误的RelationFunction存储,"
                     +"Calender: uid = "+calender.getUid()+", time = "+calender.getTime());
         }
     }
 
-    public List<CalenderDto> getCalenderDtos(List<Calender> calenders) throws WrongDataException {
-        List<CalenderDto> calenderDtos = new ArrayList<>();
+    public List<CalenderDto<? super Object>> getCalenderDtos(List<Calender> calenders) throws WrongDataException {
+        List<CalenderDto<? super Object>> calenderDtos = new ArrayList<>();
         for (Calender calender: calenders){
             calenderDtos.add(getCalenderDto(calender));
         }
