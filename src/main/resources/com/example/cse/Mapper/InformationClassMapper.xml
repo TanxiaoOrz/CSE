@@ -9,6 +9,9 @@
             <if test="Cid != null">
                 Cid = #{Cid}
             </if>
+            <if test="RelativeMessage != null">
+                Cid in (select cid from cse.message_information_class where Mid = #{RelativeMessage})
+            </if>
         </where>
     </select>
 
