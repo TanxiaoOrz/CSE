@@ -31,7 +31,7 @@ CREATE TABLE `cse`.`user` (
   `Description` VARCHAR(45) NULL,
   `Name` VARCHAR(45) NULL,
   `Type` VARCHAR(45) NULL,
-  `HobbyModel` JSON NULL,
+  `Model` JSON NULL,
   `DeprecatedFlag` TINYINT NULL DEFAULT 0,
   PRIMARY KEY (`Hid`));
   
