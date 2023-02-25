@@ -6,8 +6,8 @@
     <select id="getMessageByRule" resultType="com.example.cse.Entity.InformationClass.Message">
         select * from message
         <where>
-            <if test="mid != null">
-                message.Mid = #{mid}
+            <if test="Mid != null">
+                message.Mid = #{Mid}
             </if>
         </where>
     </select>
