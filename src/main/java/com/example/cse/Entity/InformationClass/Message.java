@@ -3,67 +3,67 @@ package com.example.cse.Entity.InformationClass;
 import java.util.Date;
 
 public class Message{
-    private Integer Mid;//唯一消息标识号
-    private String Visual;//可视化格式
-    private String Title;//消息标题
-    private String Resume;//消息简介
-    private String Message;//消息本体
-    private Date ReleaseTime;//消息放出时间
-    private Date OutTime;//消息过期时间
+    private Integer mid;//唯一消息标识号
+    private String visual;//可视化格式
+    private String title;//消息标题
+    private String resume;//消息简介
+    private String message;//消息本体
+    private Date releaseTime;//消息放出时间
+    private Date outTime;//消息过期时间
 
     public Integer getMid() {
-        return Mid;
+        return mid;
     }
 
     public void setMid(Integer mid) {
-        Mid = mid;
+        this.mid = mid;
     }
 
     public String getVisual() {
-        return Visual;
+        return visual;
     }
 
     public void setVisual(String visual) {
-        Visual = visual;
+        this.visual = visual;
     }
 
     public String getTitle() {
-        return Title;
+        return title;
     }
 
     public void setTitle(String title) {
-        Title = title;
+        this.title = title;
     }
 
     public String getResume() {
-        return Resume;
+        return resume;
     }
 
     public void setResume(String resume) {
-        Resume = resume;
+        this.resume = resume;
     }
 
     public String getMessage() {
-        return Message;
+        return message;
     }
 
     public void setMessage(String message) {
-        Message = message;
+        this.message = message;
     }
 
     public Date getReleaseTime() {
-        return ReleaseTime;
+        return releaseTime;
     }
 
     public void setReleaseTime(Date releaseTime) {
-        ReleaseTime = releaseTime;
+        this.releaseTime = releaseTime;
     }
 
     public Date getOutTime() {
-        return OutTime;
+        return outTime;
     }
 
     public void setOutTime(Date outTime) {
-        OutTime = outTime;
+        this.outTime = outTime;
     }
 }

@@ -6,29 +6,29 @@
     <select id="getMessageByRule" resultType="com.example.cse.Entity.InformationClass.Message">
         select * from message
         <where>
-            <if test="Mid != null">
-                message.Mid = #{Mid}
+            <if test="mid != null">
+                message.Mid = #{mid}
             </if>
         </where>
     </select>
 
     <insert id="newMessage">
-        insert into message (Title, ReleaseTime, OutTime, Visual, message) VALUES (#{Title}, #{ReleaseTime}, #{OutTime}, #{Visual},#{message})
+        insert into message (Title, ReleaseTime, OutTime, Visual, message) VALUES (#{title}, #{releaseTime}, #{outTime}, #{visual},#{message})
     </insert>
 
     <update id="updateMessage">
         update message
             <set>
-                <if test="Title != null"> Title = #{Title}, </if>
-                <if test="ReleaseTime != null"> ReleaseTime = #{ReleaseTime}, </if>
-                <if test="OutTime != null"> OutTime = #{OutTime}, </if>
-                <if test="Visual != null"> Visual = #{Visual}, </if>
+                <if test="Title != null"> Title = #{title}, </if>
+                <if test="ReleaseTime != null"> ReleaseTime = #{releaseTime}, </if>
+                <if test="OutTime != null"> OutTime = #{outTime}, </if>
+                <if test="Visual != null"> Visual = #{visual}, </if>
                 <if test="message != null"> message = #{message} </if>
             </set>
         where Mid = #{Mid};
     </update>
 
     <select id="getMessageClassType" resultType="java.lang.String">
-        select Type from information_class where Cid in (select Cid from message_information_class where Mid = #{Mid}) limit 1;
+        select Type from information_class where Cid in (select Cid from message_information_class where Mid = #{mid}) limit 1;
     </select>
 </mapper>
