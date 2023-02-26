@@ -15,7 +15,9 @@ public class InformationClassDto {
     private String type;//类型
     private String imgHref;//图片
 
-    private Message message;
+    private Message basicMessage;
+
+    private List<Message> messages;
     private Location location;
 
     private List<KeyAndType> keyAndTypes;
@@ -60,12 +62,20 @@ public class InformationClassDto {
         this.imgHref = imgHref;
     }
 
-    public Message getMessage() {
-        return message;
+    public Message getBasicMessage() {
+        return basicMessage;
     }
 
-    public void setMessage(Message message) {
-        this.message = message;
+    public void setBasicMessage(Message basicMessage) {
+        this.basicMessage = basicMessage;
+    }
+
+    public List<Message> getMessages() {
+        return messages;
+    }
+
+    public void setMessages(List<Message> messages) {
+        this.messages = messages;
     }
 
     public Location getLocation() {
