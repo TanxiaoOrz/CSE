@@ -31,7 +31,7 @@ public class CalenderDtoFactory {
         TypeString string = new Gson().fromJson(calender.getRelationFunction(), TypeString.class);
         switch (string.getType()){
             case "message":{
-                return new CalenderDto<>(calender,messageMapper.getMessageByRule(string.getId()).get(0),"message");
+                return new CalenderDto<>(calender,messageMapper.getMessageByRule(string.getId(),null).get(0),"message");
             }
             case "informationClass":{
                 return new CalenderDto<>(calender,informationClassMapper.getInformationClassByRule(string.getId(),null).get(0),"information");

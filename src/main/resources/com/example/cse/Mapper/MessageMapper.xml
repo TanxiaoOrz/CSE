@@ -9,6 +9,9 @@
             <if test="Mid != null">
                 message.Mid = #{Mid}
             </if>
+            <if test="RelativeInformationClass!=null">
+                and Mid in (select Mid from cse.message_information_class where Mid = #{RelativeInformationClass})
+            </if>
         </where>
     </select>
 
