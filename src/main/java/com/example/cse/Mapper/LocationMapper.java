@@ -1,14 +1,15 @@
 package com.example.cse.Mapper;
 
-import com.example.cse.Entity.InformationClass.InformationClass;
 import com.example.cse.Entity.InformationClass.Location;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
+import java.util.List;
+
 @Mapper
 public interface LocationMapper {
 
-    Location getLocationByRule(@Param("Lid") Integer lid);
+    List<Location> getLocationByRule(@Param("Lid") Integer lid);
 
     Integer newLocation(Location location);
 

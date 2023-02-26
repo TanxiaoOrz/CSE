@@ -31,13 +31,13 @@ public class CalenderDtoFactory {
         TypeString string = new Gson().fromJson(calender.getRelationFunction(), TypeString.class);
         switch (string.getType()){
             case "message":{
-                return new CalenderDto<>(calender,messageMapper.getMessageByRule(string.getId()),"message");
+                return new CalenderDto<>(calender,messageMapper.getMessageByRule(string.getId()).get(0),"message");
             }
             case "informationClass":{
-                return new CalenderDto<>(calender,informationClassMapper.getInformationClassByRule(string.getId(),null),"information");
+                return new CalenderDto<>(calender,informationClassMapper.getInformationClassByRule(string.getId(),null).get(0),"information");
             }
             case "location": {
-                return new CalenderDto<>(calender,locationMapper.getLocationByRule(string.getId()),"Location");
+                return new CalenderDto<>(calender,locationMapper.getLocationByRule(string.getId()).get(0),"Location");
             }
             default: throw new WrongDataException("错误的RelationFunction存储,"
                     +"Calender: uid = "+calender.getUid()+", time = "+calender.getTime());

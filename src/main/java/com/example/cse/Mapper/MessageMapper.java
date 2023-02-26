@@ -10,7 +10,7 @@ import java.util.List;
 @Mapper
 public interface MessageMapper {
 
-    Message getMessageByRule(@Param("Mid") Integer mid);
+    List<Message> getMessageByRule(@Param("Mid") Integer mid);
 
     Integer newMessage(Message message);
 

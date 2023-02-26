@@ -17,7 +17,7 @@ public class MessageDtoFactory {
     InformationClassMapper informationClassMapper;
 
     public MessageDto getMessageDto(Message message) {
-        InformationClass informationClassByRule = informationClassMapper.getInformationClassByRule(null, message.getMid());
+        InformationClass informationClassByRule = informationClassMapper.getInformationClassByRule(null, message.getMid()).get(0);
         return new MessageDto(message, informationClassByRule);
     }
 

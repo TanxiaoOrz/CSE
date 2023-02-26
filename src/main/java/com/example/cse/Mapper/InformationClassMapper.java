@@ -4,10 +4,12 @@ import com.example.cse.Entity.InformationClass.InformationClass;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
+import java.util.List;
+
 @Mapper
 public interface InformationClassMapper {
 
-    InformationClass getInformationClassByRule(@Param("Cid") Integer cid,@Param("RelativeMessage") Integer relativeMessage);
+    List<InformationClass> getInformationClassByRule(@Param("Cid") Integer cid, @Param("RelativeMessage") Integer relativeMessage);
 
     Integer newInformationClass(InformationClass informationClass);
 
