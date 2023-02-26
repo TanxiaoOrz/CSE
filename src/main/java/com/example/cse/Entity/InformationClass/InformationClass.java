@@ -2,67 +2,67 @@ package com.example.cse.Entity.InformationClass;
 
 public class InformationClass{
 
-    private Integer Cid;
-    private Integer BasicMessage;//在类页面一定显示的描述性信息
-    private String Resume;//简介
-    private String Name;//名字
-    private String Type;//类型
-    private String ImgHerf;//图片
-    private Integer Location;//所处未知
-
-    public String getImgHerf() {
-        return ImgHerf;
-    }
-
-    public void setImgHerf(String imgHerf) {
-        ImgHerf = imgHerf;
-    }
+    private Integer cid;
+    private Integer basicMessage;//在类页面一定显示的描述性信息
+    private String resume;//简介
+    private String name;//名字
+    private String type;//类型
+    private String imgHref;//图片
+    private Integer location;//所处未知
 
     public Integer getCid() {
-        return Cid;
+        return cid;
     }
 
     public void setCid(Integer cid) {
-        Cid = cid;
+        this.cid = cid;
     }
 
     public Integer getBasicMessage() {
-        return BasicMessage;
+        return basicMessage;
     }
 
     public void setBasicMessage(Integer basicMessage) {
-        BasicMessage = basicMessage;
+        this.basicMessage = basicMessage;
     }
 
     public String getResume() {
-        return Resume;
+        return resume;
     }
 
     public void setResume(String resume) {
-        Resume = resume;
+        this.resume = resume;
     }
 
     public String getName() {
-        return Name;
+        return name;
     }
 
     public void setName(String name) {
-        Name = name;
+        this.name = name;
     }
 
     public String getType() {
-        return Type;
+        return type;
     }
 
     public void setType(String type) {
-        Type = type;
+        this.type = type;
+    }
+
+    public String getImgHref() {
+        return imgHref;
+    }
+
+    public void setImgHref(String imgHref) {
+        this.imgHref = imgHref;
     }
 
     public Integer getLocation() {
-        return Location;
+        return location;
     }
 
     public void setLocation(Integer location) {
-        Location = location;
+        this.location = location;
     }
 }

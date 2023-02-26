@@ -16,17 +16,17 @@
     </select>
 
     <insert id="newInformationClass" >
-        insert into information_class (Name, Resume, BasicMessage, Location, Type) VALUES (#{Name}, #{Resume}, #{BasicMessage}, #{Location}, #{Type})
+        insert into information_class (Name, Resume, BasicMessage, Location, Type) VALUES (#{name}, #{resume}, #{basicMessage}, #{location}, #{type})
     </insert>
 
     <update id="updateInformationClass">
         update information_class
         <set>
-            <if test="Name != null"> Name = #{Name}, </if>
-            <if test="Resume != null"> Resume = #{Resume}, </if>
-            <if test="BasicMessage != null"> BasicMessage = #{BasicMessage}, </if>
-            <if test="Location != null"> Location = #{Location}, </if>
-            <if test="Type != null"> Type = #{Type} </if>
+            <if test="Name != null"> Name = #{name}, </if>
+            <if test="Resume != null"> Resume = #{resume}, </if>
+            <if test="BasicMessage != null"> BasicMessage = #{basicMessage}, </if>
+            <if test="Location != null"> Location = #{location}, </if>
+            <if test="Type != null"> Type = #{type} </if>
         </set>
         where Cid = #{Cid};
     </update>
