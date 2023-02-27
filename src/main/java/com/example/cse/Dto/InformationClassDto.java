@@ -22,6 +22,8 @@ public class InformationClassDto {
 
     private List<KeyAndType> keyAndTypes;
 
+    private List<MessageDto> showMessages;
+
     public Integer getCid() {
         return cid;
     }
@@ -92,6 +94,14 @@ public class InformationClassDto {
 
     public void setKeyAndTypes(List<KeyAndType> keyAndTypes) {
         this.keyAndTypes = keyAndTypes;
+    }
+
+    public List<MessageDto> getShowMessages() {
+        return showMessages;
+    }
+
+    public void setShowMessages(List<MessageDto> showMessage) {
+        this.showMessages = showMessage;
     }
 
     public InformationClassDto(InformationClass informationClass) {
