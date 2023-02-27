@@ -13,6 +13,7 @@
                 and Mid in (select Mid from cse.message_information_class where Mid = #{RelativeInformationClass})
             </if>
         </where>
+        order by ReleaseTime desc;
     </select>
 
     <insert id="newMessage">
