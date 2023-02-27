@@ -97,7 +97,7 @@ public class ModelDtoFactory {
     }
 
     public void calculateCalenderModel(UserDto userDto,Integer sign,Calender calender) throws WrongDataException {
-        int compare = calender.getTime().compareTo(new Date());
+        long compare = calender.getTime().getTime() - new Date().getTime();
         if (compare<=day)
             addHobbyModel(userDto,calenderShortScore,calender);
         else if (compare<=week)
