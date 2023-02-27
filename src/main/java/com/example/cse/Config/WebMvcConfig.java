@@ -30,10 +30,14 @@ public class WebMvcConfig extends WebMvcConfigurationSupport{
     @Autowired
     UserServiceImpl userService;
 
-    protected boolean checkToken(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    protected boolean checkToken(HttpServletRequest request, HttpServletResponse response,boolean tokenNullable) throws IOException {
         if (request.getMethod().equals("OPTIONS"))
             return true;
         String token = request.getHeader("token");
+
+        if (token == null && tokenNullable) //对于部分不强制登录的界面的返回方式
+            return true;
+
         String description;
         try {
             DecodedJWT decodedJWT = tokenService.verifyToken(token);
@@ -65,13 +69,34 @@ public class WebMvcConfig extends WebMvcConfigurationSupport{
         return false;
     }
 
+    class UserGet implements HandlerInterceptor {
+        @Override
+        public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
+            if (request.getMethod().equals("GET")){
+                return checkToken(request, response, true);
+            }else {
+                return true;
+            }
+        }
+
+        @Override
+        public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {
+            HandlerInterceptor.super.postHandle(request, response, handler, modelAndView);
+        }
+
+        @Override
+        public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) throws Exception {
+            HandlerInterceptor.super.afterCompletion(request, response, handler, ex);
+        }
+    }
+
     class UserCheck implements HandlerInterceptor {
         @Override
         public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
             if (request.getMethod().equals("POST")){
                 return true;
             }else {
-                return checkToken(request,response);
+                return checkToken(request, response, false);
             }
         }
 
@@ -90,7 +115,7 @@ public class WebMvcConfig extends WebMvcConfigurationSupport{
 
         @Override
         public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-            return checkToken(request,response);
+            return checkToken(request,response,false);
         }
 
         @Override
@@ -131,6 +156,18 @@ public class WebMvcConfig extends WebMvcConfigurationSupport{
                        "/v3/api-docs/swagger-config",
                        "/webjars/**",
                        "/doc.html");
+       registry.addInterceptor(new UserGet())
+               .addPathPatterns("/cse/InformationClass/User/**")
+               .excludePathPatterns("/favicon.ico")
+               .excludePathPatterns("/swagger-ui.html/**",
+                       "/swagger-ui/**",
+                       "/swagger-resources/**",
+                       "/v2/api-docs",
+                       "/v3/api-docs",
+                       "/v3/api-docs/swagger-config",
+                       "/webjars/**",
+                       "/doc.html");
+
        super.addInterceptors(registry);
     }
 
