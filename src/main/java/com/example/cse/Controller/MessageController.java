@@ -22,8 +22,8 @@ public class MessageController {
     @Autowired
     MessageServiceImpl messageService;
 
-    @GetMapping("/{id}")
-    @ApiOperation(value = "获取message的展示结构体")
+    @GetMapping("/User/{id}")
+    @ApiOperation(value = "普通用户的获取message接口",notes = "获取message的展示结构体,需要传入id")
     @ApiImplicitParam(name = "id",value = "对应message的编号",dataTypeClass = Integer.class,paramType = "path")
     public Vo<MessageDto> getMessage(@PathVariable Integer id) throws WrongDataException {
         MessageDto message = messageService.getMessage(id);
