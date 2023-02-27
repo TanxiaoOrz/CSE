@@ -3,10 +3,19 @@ package com.example.cse.Dto;
 import com.example.cse.Entity.InformationClass.InformationClass;
 import com.example.cse.Entity.InformationClass.Message;
 
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 
-public class MessageDto extends Message {
+public class MessageDto extends Message{
+
+    public static class ScoreComparator implements Comparator<MessageDto> {
+        @Override
+        public int compare(MessageDto o1, MessageDto o2) {
+            return o2.rankScore - o1.rankScore;
+        }
+    }
+
     private Integer rankScore;
 
     InformationClass relationInformationClass;
@@ -14,7 +23,7 @@ public class MessageDto extends Message {
     public MessageDto() {
     }
 
-    public MessageDto(Message message,InformationClass relationInformationClass) {
+    public MessageDto(Message message) {
         setMid(message.getMid());
         setMessage(message.getMessage());
         setOutTime(message.getOutTime());
@@ -22,6 +31,10 @@ public class MessageDto extends Message {
         setReleaseTime(message.getReleaseTime());
         setTitle(message.getTitle());
         setVisual(message.getVisual());
+    }
+
+    public MessageDto(Message message,InformationClass relationInformationClass) {
+        this(message);
         this.relationInformationClass = relationInformationClass;
     }
 
