@@ -399,3 +399,32 @@ END$$
 DELIMITER ;
 -- 时间标签
 
+-- 新建视图
+
+CREATE
+    VIEW `surf_count_message` AS
+SELECT
+    `surf_message`.`Surf` AS `surf`,
+    COUNT(`surf_message`.`Surf`) AS `counts`
+FROM
+    `surf_message`
+GROUP BY `surf_message`.`Surf`;
+
+CREATE
+    VIEW `surf_count_information_class` AS
+SELECT
+    `surf_information_class`.`Surf` AS `surf`,
+    COUNT(`surf_information_class`.`Surf`) AS `counts`
+FROM
+    `surf_information_class`
+GROUP BY `surf_information_class`.`Surf`;
+
+CREATE
+    VIEW `surf_count_location` AS
+SELECT
+    `surf_location`.`Surf` AS `surf`,
+    COUNT(`surf_location`.`Surf`) AS `counts`
+FROM
+    `surf_location`
+GROUP BY `surf_location`.`Surf`;
+
