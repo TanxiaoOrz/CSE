@@ -146,7 +146,7 @@ CREATE TABLE `cse`.`information_class` (
                                                    ON DELETE NO ACTION
                                                    ON UPDATE NO ACTION);
 CREATE TABLE `cse`.`surf_location` (
-                                       `Time` DATETIME NOT NULL,
+                                       `Time` DATETIME NOT NULL default now(),
                                        `Uid` INT NOT NULL,
                                        `Surf` INT NOT NULL,
                                        PRIMARY KEY (`Time` , `Uid` , `Surf`),
@@ -159,7 +159,7 @@ CREATE TABLE `cse`.`surf_location` (
 );
 
 CREATE TABLE `cse`.`surf_message` (
-                                      `Time` DATETIME NOT NULL,
+                                      `Time` DATETIME NOT NULL default now(),
                                       `Uid` INT NOT NULL,
                                       `Surf` INT NOT NULL,
                                       PRIMARY KEY (`Time` , `Uid` , `Surf`),
@@ -172,7 +172,7 @@ CREATE TABLE `cse`.`surf_message` (
 );
 
 CREATE TABLE `cse`.`surf_information_class` (
-                                                `Time` DATETIME NOT NULL,
+                                                `Time` DATETIME NOT NULL default now(),
                                                 `Uid` INT NOT NULL,
                                                 `Surf` INT NOT NULL,
                                                 PRIMARY KEY (`Time` , `Uid` , `Surf`),
@@ -398,3 +398,4 @@ BEGIN
 END$$
 DELIMITER ;
 -- 时间标签
+
