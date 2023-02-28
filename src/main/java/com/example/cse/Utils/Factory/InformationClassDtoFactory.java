@@ -45,9 +45,35 @@ public class InformationClassDtoFactory {
         return informationClassDto;
     }
 
+
     public boolean calculateShowMessages(InformationClassDto informationClassDto, UserDto userDto,Integer limit) {
         List<MessageDto> showMessages = messageDtoFactory.getMessageDtosOrderByRankScore(informationClassDto.getMessages(), userDto, limit);
         informationClassDto.setShowMessages(showMessages);
         return showMessages.size()==limit;
+    }
+
+    public List<InformationClassDto> getInformationClassDtosByRankScore(List<InformationClass> informationClasses, UserDto userDto, Integer limit) {
+        List<InformationClassDto> informationClassDtos =new ArrayList<>();
+
+        for (InformationClass informationClass:informationClasses) {
+            InformationClassDto informationClassDto = getInformationClassDto(informationClass);
+
+            if (userDto != null) {
+                informationClassDto.setRankScore(userDto.getKeywordModels(),userDto.getInformationClassModel(),calculateSurfScore(informationClassDto));
+            }else {
+                informationClassDto.setRankScore(calculateSurfScore(informationClassDto));
+            }
+
+            informationClassDtos.add(informationClassDto);
+            if (limit!=null&&informationClassDtos.size()>limit) {
+                break;
+            }
+        }
+        informationClassDtos.sort(new InformationClassDto.ScoreComparator());
+        return informationClassDtos;
+    }
+
+    private Integer calculateSurfScore(InformationClassDto informationClassDto) {
+        return 0;
     }
 }

@@ -5,9 +5,18 @@ import com.example.cse.Entity.InformationClass.Location;
 import com.example.cse.Entity.InformationClass.Message;
 import com.example.cse.Vo.KeyAndType;
 
+import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
 
 public class InformationClassDto {
+
+    public static class ScoreComparator implements Comparator<InformationClassDto> {
+        @Override
+        public int compare(InformationClassDto o1, InformationClassDto o2) {
+            return o2.rankScore - o1.rankScore;
+        }
+    }
 
     private Integer cid;
     private String resume;//简介
@@ -23,6 +32,8 @@ public class InformationClassDto {
     private List<KeyAndType> keyAndTypes;
 
     private List<MessageDto> showMessages;
+
+    private Integer rankScore;
 
     public Integer getCid() {
         return cid;
@@ -102,6 +113,27 @@ public class InformationClassDto {
 
     public void setShowMessages(List<MessageDto> showMessage) {
         this.showMessages = showMessage;
+    }
+
+    public Integer getRankScore() {
+        return rankScore;
+    }
+
+    public void setRankScore(Integer rankScore) {
+        this.rankScore = rankScore;
+    }
+
+    public void setRankScore(HashMap<Integer, Integer> keywordModels,HashMap<Integer, Integer> informationClassModel,Integer surfScore) {
+        int keyScore = 0;
+        for (KeyAndType keyAndType:keyAndTypes) {
+            Integer score = keywordModels.get(keyAndType.getKid());
+            keyScore += score!=null? score : 0;
+        }
+        Integer classScore =informationClassModel.get(cid);
+        if (classScore == null) {
+            classScore=0;
+        }
+        this.rankScore = keyScore + surfScore + classScore;
     }
 
     public InformationClassDto(InformationClass informationClass) {
