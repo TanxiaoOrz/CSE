@@ -17,13 +17,13 @@ public interface SurfMapper {
     Integer newLocationSurf(@Param("Uid") Integer uid,@Param("Lid") Integer lid);
 
     @Select("select avg(counts) from surf_count_message")
-    Integer getAverageSurfCountMessage();
+    Float getAverageSurfCountMessage();
 
     @Select("select avg(counts) from surf_count_location")
-    Integer getAverageSurfCountLocation();
+    Float getAverageSurfCountLocation();
 
     @Select("select avg(counts) from surf_count_information_class")
-    Integer getAverageSurfCountInformationClass();
+    Float getAverageSurfCountInformationClass();
 
     @Select("select counts from surf_count_message where surf = #{surf}")
     Integer getSurfCountMessage(@Param("surf") Integer surf);

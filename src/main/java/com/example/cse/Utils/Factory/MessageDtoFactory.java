@@ -6,6 +6,7 @@ import com.example.cse.Dto.UserDto;
 import com.example.cse.Entity.InformationClass.InformationClass;
 import com.example.cse.Entity.InformationClass.Message;
 import com.example.cse.Mapper.InformationClassMapper;
+import com.example.cse.Mapper.SurfMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
@@ -19,11 +20,17 @@ public class MessageDtoFactory {
 
     @Autowired
     InformationClassMapper informationClassMapper;
+    @Autowired
+    SurfMapper surfMapper;
 
     @Value("${config.timeScoreMax}")
     Integer timeScoreMax;
     @Value("${config.outTimeMinus}")
     Integer outTimeScore;
+    @Value("${config.popular}")
+    Integer popularScore;
+
+    float averageMessage;
 
     public MessageDto getMessageDto(Message message) {
         InformationClass informationClassByRule = informationClassMapper.getInformationClassByRule(null, message.getMid()).get(0);
@@ -34,6 +41,7 @@ public class MessageDtoFactory {
         List<MessageDto> showMessages = new ArrayList<>();
         HashMap<Integer, Integer> messageModel = userDto!=null? userDto.getMessageModel():null;
         Integer timeScore = timeScoreMax;
+        averageMessage = surfMapper.getAverageSurfCountMessage();
         for (Message message:messages) {
             MessageDto messageDto = new MessageDto(message);
             messageDto.setRankScore(timeScore,messageModel!=null? messageModel.get(message.getMid()):0,calculateSurfScore(messageDto),outTimeScore);
@@ -50,7 +58,10 @@ public class MessageDtoFactory {
     }
 
     private Integer calculateSurfScore(MessageDto messageDto) {
-        return 0;
+        if (surfMapper.getSurfCountMessage(messageDto.getMid())>=averageMessage)
+            return popularScore;
+        else
+            return 0;
     }
 
 }

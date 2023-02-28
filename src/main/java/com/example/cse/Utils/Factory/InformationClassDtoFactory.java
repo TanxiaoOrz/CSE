@@ -8,6 +8,7 @@ import com.example.cse.Entity.InformationClass.Message;
 import com.example.cse.Mapper.KeyTypeMapper;
 import com.example.cse.Mapper.LocationMapper;
 import com.example.cse.Mapper.MessageMapper;
+import com.example.cse.Mapper.SurfMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
@@ -25,12 +26,19 @@ public class InformationClassDtoFactory {
     @Autowired
     KeyTypeMapper keyTypeMapper;
     @Autowired
+    SurfMapper surfMapper;
+    @Autowired
     MessageDtoFactory messageDtoFactory;
 
     @Value("${config.timeScoreMax}")
     Integer timeScoreMax;
     @Value("${config.outTimeMinus}")
     Integer outTimeScore;
+
+    @Value("${config.popular}")
+    Integer popularScore;
+
+    float averageInformationClass;
 
     public InformationClassDto getInformationClassDto(InformationClass informationClass) {
         InformationClassDto informationClassDto = new InformationClassDto(informationClass);
@@ -54,7 +62,7 @@ public class InformationClassDtoFactory {
 
     public List<InformationClassDto> getInformationClassDtosByRankScore(List<InformationClass> informationClasses, UserDto userDto, Integer limit) {
         List<InformationClassDto> informationClassDtos =new ArrayList<>();
-
+        averageInformationClass = surfMapper.getAverageSurfCountInformationClass();
         for (InformationClass informationClass:informationClasses) {
             InformationClassDto informationClassDto = getInformationClassDto(informationClass);
 
@@ -74,6 +82,9 @@ public class InformationClassDtoFactory {
     }
 
     private Integer calculateSurfScore(InformationClassDto informationClassDto) {
-        return 0;
+        if (surfMapper.getSurfCountInformationClass(informationClassDto.getCid())>=averageInformationClass)
+            return popularScore;
+        else
+            return 0;
     }
 }
