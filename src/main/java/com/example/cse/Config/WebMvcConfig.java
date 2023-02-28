@@ -11,6 +11,7 @@ import com.example.cse.Vo.Vo;
 import com.google.gson.Gson;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.util.StringUtils;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
@@ -35,7 +36,7 @@ public class WebMvcConfig extends WebMvcConfigurationSupport{
             return true;
         String token = request.getHeader("token");
 
-        if (token == null && tokenNullable) //对于部分不强制登录的界面的返回方式
+        if (StringUtils.hasText(token) && tokenNullable) //对于部分不强制登录的界面的返回方式
             return true;
 
         String description;
@@ -158,6 +159,7 @@ public class WebMvcConfig extends WebMvcConfigurationSupport{
                        "/doc.html");
        registry.addInterceptor(new UserGet())
                .addPathPatterns("/cse/InformationClass/User/**")
+               .addPathPatterns("/cse/Message/User/**")
                .excludePathPatterns("/favicon.ico")
                .excludePathPatterns("/swagger-ui.html/**",
                        "/swagger-ui/**",
