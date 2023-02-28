@@ -24,6 +24,8 @@ public class InformationClassDtoFactory {
     LocationMapper locationMapper;
     @Autowired
     KeyTypeMapper keyTypeMapper;
+    @Autowired
+    MessageDtoFactory messageDtoFactory;
 
     @Value("${config.timeScoreMax}")
     Integer timeScoreMax;
@@ -44,47 +46,8 @@ public class InformationClassDtoFactory {
     }
 
     public boolean calculateShowMessages(InformationClassDto informationClassDto, UserDto userDto,Integer limit) {
-        boolean reachLimitation = true;
-
-        List<MessageDto> showMessages = new ArrayList<>();
+        List<MessageDto> showMessages = messageDtoFactory.getMessageDtosOrderByRankScore(informationClassDto.getMessages(), userDto, limit);
         informationClassDto.setShowMessages(showMessages);
-        HashMap<Integer, Integer> messageModel = userDto.getMessageModel();
-        Integer timeScore = timeScoreMax;
-        for (Message message:informationClassDto.getMessages()) {
-            MessageDto messageDto = new MessageDto(message);
-            messageDto.setRankScore(timeScore, messageModel.get(message.getMid()),outTimeScore);
-            showMessages.add(messageDto);
-
-            timeScore = timeScore>0 ? timeScore-1: 0;
-
-            if (limit!=null&&showMessages.size()>limit) {
-                reachLimitation = false;
-                break;
-            }
-        }
-        showMessages.sort(new MessageDto.ScoreComparator());
-        return reachLimitation;
-    }
-
-    public boolean calculateShowMessages(InformationClassDto informationClassDto,Integer limit) {
-        boolean reachLimitation = true;
-
-        List<MessageDto> showMessages = new ArrayList<>();
-        informationClassDto.setShowMessages(showMessages);
-        Integer timeScore = timeScoreMax;
-        for (Message message:informationClassDto.getMessages()) {
-            MessageDto messageDto = new MessageDto(message);
-            messageDto.setRankScore(timeScore,0,outTimeScore);
-            showMessages.add(messageDto);
-
-            timeScore = timeScore>0 ? timeScore-1: 0;
-
-            if (limit!=null&&showMessages.size()>limit) {
-                reachLimitation = false;
-                break;
-            }
-        }
-        showMessages.sort(new MessageDto.ScoreComparator());
-        return reachLimitation;
+        return showMessages.size()==limit;
     }
 }
