@@ -1,5 +1,6 @@
 package com.example.cse.Utils.Factory;
 
+import com.example.cse.Dto.InformationClassDto;
 import com.example.cse.Dto.MessageDto;
 import com.example.cse.Dto.UserDto;
 import com.example.cse.Entity.InformationClass.InformationClass;
@@ -35,7 +36,7 @@ public class MessageDtoFactory {
         Integer timeScore = timeScoreMax;
         for (Message message:messages) {
             MessageDto messageDto = new MessageDto(message);
-            messageDto.setRankScore(timeScore,messageModel!=null? messageModel.get(message.getMid()):0,outTimeScore);
+            messageDto.setRankScore(timeScore,messageModel!=null? messageModel.get(message.getMid()):0,calculateSurfScore(messageDto),outTimeScore);
             showMessages.add(messageDto);
 
             timeScore = timeScore>0 ? timeScore-1: 0;
@@ -46,6 +47,10 @@ public class MessageDtoFactory {
         }
         showMessages.sort(new MessageDto.ScoreComparator());
         return showMessages;
+    }
+
+    private Integer calculateSurfScore(MessageDto messageDto) {
+        return 0;
     }
 
 }

@@ -38,11 +38,11 @@ public class MessageDto extends Message{
         this.relationInformationClass = relationInformationClass;
     }
 
-    public void setRankScore(Integer timeScore, Integer userScore, Integer outTimeScore) {
+    public void setRankScore(Integer timeScore, Integer userScore,Integer surfScore, Integer outTimeScore) {
         if (userScore == null) {
             userScore = 0;
         }
-        rankScore = timeScore + userScore;
+        rankScore = timeScore + userScore + surfScore;
         if (getOutTime().compareTo(new Date()) >= 0) //过期扣分
             rankScore -= outTimeScore;
     }
