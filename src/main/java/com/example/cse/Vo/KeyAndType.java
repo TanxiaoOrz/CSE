@@ -5,6 +5,8 @@ import io.swagger.annotations.ApiModelProperty;
 
 @ApiModel("KeyAndType")
 public class KeyAndType {
+    @ApiModelProperty(value = "关键词的编号")
+    private Integer kid;
     @ApiModelProperty(value = "关键词等级名")
     private String keyName;
     @ApiModelProperty(value = "关键词等级描述")
@@ -13,6 +15,14 @@ public class KeyAndType {
     private String typeName;
     @ApiModelProperty(value = "关键词类型描述")
     private String typeResume;
+
+    public Integer getKid() {
+        return kid;
+    }
+
+    public void setKid(Integer kid) {
+        this.kid = kid;
+    }
 
     public String getKeyName() {
         return keyName;
