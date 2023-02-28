@@ -39,6 +39,9 @@ public class MessageDto extends Message{
     }
 
     public void setRankScore(Integer timeScore, Integer userScore, Integer outTimeScore) {
+        if (userScore == null) {
+            userScore = 0;
+        }
         rankScore = timeScore + userScore;
         if (getOutTime().compareTo(new Date()) >= 0) //过期扣分
             rankScore -= outTimeScore;
