@@ -10,7 +10,10 @@
                 message.Mid = #{Mid}
             </if>
             <if test="RelativeInformationClass!=null">
-                and Mid in (select Mid from cse.message_information_class where Mid = #{RelativeInformationClass})
+                Mid in (select Mid from cse.message_information_class where Mid = #{RelativeInformationClass})
+            </if>
+            <if test="RelativeLocation!=null">
+                Mid in (select Mid from message_location where Lid = #{RelativeLocation})
             </if>
         </where>
         order by ReleaseTime desc;

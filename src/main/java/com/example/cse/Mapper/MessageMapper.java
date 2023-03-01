@@ -10,7 +10,7 @@ import java.util.List;
 @Mapper
 public interface MessageMapper {
 
-    List<Message> getMessageByRule(@Param("Mid") Integer mid, @Param("RelativeInformationClass") Integer cid);
+    List<Message> getMessageByRule(@Param("Mid") Integer mid, @Param("RelativeInformationClass") Integer cid, @Param("RelativeLocation") Integer lid);
 
     Integer newMessage(Message message);
 

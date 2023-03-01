@@ -23,7 +23,7 @@ public class MessageServiceImpl implements MessageService {
         if (mid == null) {
             throw new WrongDataException("缺少mid");
         }
-        Message message = messageMapper.getMessageByRule(mid,null).get(0);
+        Message message = messageMapper.getMessageByRule(mid,null,null).get(0);
         return messageDtoFactory.getMessageDto(message);
     }
 }

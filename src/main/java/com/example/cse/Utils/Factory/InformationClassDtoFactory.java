@@ -42,13 +42,13 @@ public class InformationClassDtoFactory {
 
     public InformationClassDto getInformationClassDto(InformationClass informationClass) {
         InformationClassDto informationClassDto = new InformationClassDto(informationClass);
-        informationClassDto.setBasicMessage(messageMapper.getMessageByRule(informationClass.getBasicMessage(),null).get(0));
+        informationClassDto.setBasicMessage(messageMapper.getMessageByRule(informationClass.getBasicMessage(),null,null).get(0));
         if (informationClass.getLocation() != null) {
             informationClassDto.setLocation(locationMapper.getLocationByRule(informationClass.getLocation()).get(0));
         }
 
         informationClassDto.setKeyAndTypes(keyTypeMapper.getKeyAndTypeByCid(informationClassDto.getCid()));
-        informationClassDto.setMessages(messageMapper.getMessageByRule(null, informationClassDto.getCid()));
+        informationClassDto.setMessages(messageMapper.getMessageByRule(null, informationClassDto.getCid(),null));
 
         return informationClassDto;
     }
