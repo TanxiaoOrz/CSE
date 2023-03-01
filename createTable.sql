@@ -105,6 +105,8 @@ CREATE TABLE `cse`.`location` (
   `BasicMessage` INT NULL,
   `MapOwn` INT NULL,
   `ImgHref` VARCHAR(200) NULL,
+  `X` INT NULL,
+  `Y` INT NULL,
   `DeprecatedFlag` TINYINT NULL DEFAULT 0,
   PRIMARY KEY (`Lid`),
   INDEX `LocationToMap_idx` (`MapBelong` ASC) VISIBLE,
