@@ -9,7 +9,7 @@ import java.util.List;
 @Mapper
 public interface LocationMapper {
 
-    List<Location> getLocationByRule(@Param("Lid") Integer lid);
+    List<Location> getLocationByRule(@Param("Lid") Integer lid,@Param("RelativeMessage")Integer mid);
 
     Integer newLocation(Location location);
 

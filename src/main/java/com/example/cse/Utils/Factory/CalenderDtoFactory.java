@@ -37,7 +37,7 @@ public class CalenderDtoFactory {
                 return new CalenderDto<>(calender,informationClassMapper.getInformationClassByRule(string.getId(),null,null).get(0),"information");
             }
             case "location": {
-                return new CalenderDto<>(calender,locationMapper.getLocationByRule(string.getId()).get(0),"Location");
+                return new CalenderDto<>(calender,locationMapper.getLocationByRule(string.getId(),null).get(0),"Location");
             }
             default: throw new WrongDataException("错误的RelationFunction存储,"
                     +"Calender: uid = "+calender.getUid()+", time = "+calender.getTime());

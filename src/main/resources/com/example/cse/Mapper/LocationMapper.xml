@@ -9,6 +9,9 @@
             <if test="Lid != null">
                 Lid = #{Lid}
             </if>
+            <if test="RelativeMessage != null">
+                Lid in (select Lid from cse.message_Location where Mid = #{RelativeMessage})
+            </if>
         </where>
     </select>
 

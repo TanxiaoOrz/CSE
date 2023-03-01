@@ -44,7 +44,7 @@ public class InformationClassDtoFactory {
         InformationClassDto informationClassDto = new InformationClassDto(informationClass);
         informationClassDto.setBasicMessage(messageMapper.getMessageByRule(informationClass.getBasicMessage(),null,null).get(0));
         if (informationClass.getLocation() != null) {
-            informationClassDto.setLocation(locationMapper.getLocationByRule(informationClass.getLocation()).get(0));
+            informationClassDto.setLocation(locationMapper.getLocationByRule(informationClass.getLocation(),null).get(0));
         }
 
         informationClassDto.setKeyAndTypes(keyTypeMapper.getKeyAndTypeByCid(informationClassDto.getCid()));
