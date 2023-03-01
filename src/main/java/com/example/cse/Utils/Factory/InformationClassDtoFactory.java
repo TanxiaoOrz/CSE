@@ -55,12 +55,16 @@ public class InformationClassDtoFactory {
 
 
     public boolean calculateShowMessages(InformationClassDto informationClassDto, UserDto userDto,Integer limit) {
-        List<MessageDto> showMessages = messageDtoFactory.getMessageDtosOrderByRankScore(informationClassDto.getMessages(), userDto, limit);
+        List<MessageDto> showMessages = messageDtoFactory.getMessageDtosOrderByRankScore(informationClassDto.getMessages(), userDto);
+        if (showMessages.size()>limit) {
+            informationClassDto.setShowMessages(showMessages.subList(0,limit));
+            return true;
+        }
         informationClassDto.setShowMessages(showMessages);
         return showMessages.size()==limit;
     }
 
-    public List<InformationClassDto> getInformationClassDtosByRankScore(List<InformationClass> informationClasses, UserDto userDto, Integer limit) {
+    public List<InformationClassDto> getInformationClassDtosByRankScore(List<InformationClass> informationClasses, UserDto userDto) {
         List<InformationClassDto> informationClassDtos =new ArrayList<>();
         averageInformationClass = surfMapper.getAverageSurfCountInformationClass();
         for (InformationClass informationClass:informationClasses) {
@@ -73,9 +77,6 @@ public class InformationClassDtoFactory {
             }
 
             informationClassDtos.add(informationClassDto);
-            if (limit!=null&&informationClassDtos.size()>limit) {
-                break;
-            }
         }
         informationClassDtos.sort(new InformationClassDto.ScoreComparator());
         return informationClassDtos;

@@ -37,7 +37,7 @@ public class MessageDtoFactory {
         return new MessageDto(message, informationClassByRule);
     }
 
-    public List<MessageDto> getMessageDtosOrderByRankScore(List<Message> messages, UserDto userDto, Integer limit) {
+    public List<MessageDto> getMessageDtosOrderByRankScore(List<Message> messages, UserDto userDto) {
         List<MessageDto> showMessages = new ArrayList<>();
         HashMap<Integer, Integer> messageModel = userDto!=null? userDto.getMessageModel():null;
         Integer timeScore = timeScoreMax;
@@ -49,9 +49,6 @@ public class MessageDtoFactory {
 
             timeScore = timeScore>0 ? timeScore-1: 0;
 
-            if (limit!=null&&showMessages.size()>limit) {
-                break;
-            }
         }
         showMessages.sort(new MessageDto.ScoreComparator());
         return showMessages;
