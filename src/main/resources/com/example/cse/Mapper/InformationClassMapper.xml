@@ -10,7 +10,10 @@
                 Cid = #{Cid}
             </if>
             <if test="RelativeMessage != null">
-                and Cid in (select cid from cse.message_information_class where Mid = #{RelativeMessage})
+                Cid in (select cid from cse.message_information_class where Mid = #{RelativeMessage})
+            </if>
+            <if test="RelativeLocation != null">
+                Location = #{RelativeLocation}
             </if>
         </where>
     </select>

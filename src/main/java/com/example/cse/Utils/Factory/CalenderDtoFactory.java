@@ -34,7 +34,7 @@ public class CalenderDtoFactory {
                 return new CalenderDto<>(calender,messageMapper.getMessageByRule(string.getId(),null).get(0),"message");
             }
             case "informationClass":{
-                return new CalenderDto<>(calender,informationClassMapper.getInformationClassByRule(string.getId(),null).get(0),"information");
+                return new CalenderDto<>(calender,informationClassMapper.getInformationClassByRule(string.getId(),null,null).get(0),"information");
             }
             case "location": {
                 return new CalenderDto<>(calender,locationMapper.getLocationByRule(string.getId()).get(0),"Location");

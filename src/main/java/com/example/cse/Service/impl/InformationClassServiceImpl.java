@@ -18,7 +18,7 @@ public class InformationClassServiceImpl implements InformationClassService {
 
     @Override
     public InformationClassDto getInformationClass(UserDto userDto, Integer cid, Integer limit) {
-        InformationClass informationClass = informationClassMapper.getInformationClassByRule(cid,null).get(0);
+        InformationClass informationClass = informationClassMapper.getInformationClassByRule(cid,null,null).get(0);
 
         InformationClassDto informationClassDto = informationClassDtoFactory.getInformationClassDto(informationClass);
 

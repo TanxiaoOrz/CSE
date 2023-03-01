@@ -33,7 +33,7 @@ public class MessageDtoFactory {
     float averageMessage;
 
     public MessageDto getMessageDto(Message message) {
-        InformationClass informationClassByRule = informationClassMapper.getInformationClassByRule(null, message.getMid()).get(0);
+        InformationClass informationClassByRule = informationClassMapper.getInformationClassByRule(null, message.getMid(),null).get(0);
         return new MessageDto(message, informationClassByRule);
     }
 

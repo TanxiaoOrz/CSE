@@ -9,7 +9,7 @@ import java.util.List;
 @Mapper
 public interface InformationClassMapper {
 
-    List<InformationClass> getInformationClassByRule(@Param("Cid") Integer cid, @Param("RelativeMessage") Integer relativeMessage);
+    List<InformationClass> getInformationClassByRule(@Param("Cid") Integer cid, @Param("RelativeMessage") Integer relativeMessage,@Param("RelativeLocation") Integer lid);
 
     Integer newInformationClass(InformationClass informationClass);
 
