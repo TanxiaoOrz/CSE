@@ -4,8 +4,10 @@ import com.example.cse.Dto.InformationClassDto;
 import com.example.cse.Dto.MessageDto;
 import com.example.cse.Dto.UserDto;
 import com.example.cse.Entity.InformationClass.InformationClass;
+import com.example.cse.Entity.InformationClass.Location;
 import com.example.cse.Entity.InformationClass.Message;
 import com.example.cse.Mapper.InformationClassMapper;
+import com.example.cse.Mapper.LocationMapper;
 import com.example.cse.Mapper.SurfMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -21,6 +23,8 @@ public class MessageDtoFactory {
     @Autowired
     InformationClassMapper informationClassMapper;
     @Autowired
+    LocationMapper locationMapper;
+    @Autowired
     SurfMapper surfMapper;
 
     @Value("${config.timeScoreMax}")
@@ -33,8 +37,12 @@ public class MessageDtoFactory {
     float averageMessage;
 
     public MessageDto getMessageDto(Message message) {
-        InformationClass informationClassByRule = informationClassMapper.getInformationClassByRule(null, message.getMid(),null).get(0);
-        return new MessageDto(message, informationClassByRule);
+        InformationClass relativeInformation = informationClassMapper.getInformationClassByRule(null, message.getMid(),null).get(0);
+        List<Location> locations = locationMapper.getLocationByRule(null, message.getMid());
+        MessageDto messageDto = new MessageDto(message);
+        messageDto.setLocations(locations);
+        messageDto.setRelationInformationClass(relativeInformation);
+        return messageDto;
     }
 
     public List<MessageDto> getMessageDtosOrderByRankScore(List<Message> messages, UserDto userDto) {

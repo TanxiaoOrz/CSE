@@ -1,6 +1,7 @@
 package com.example.cse.Dto;
 
 import com.example.cse.Entity.InformationClass.InformationClass;
+import com.example.cse.Entity.InformationClass.Location;
 import com.example.cse.Entity.InformationClass.Message;
 
 import java.util.Comparator;
@@ -18,7 +19,9 @@ public class MessageDto extends Message{
 
     private Integer rankScore;
 
-    InformationClass relationInformationClass;
+    private List<Location> locations;
+
+    private InformationClass relationInformationClass;
 
     public MessageDto() {
     }
@@ -30,13 +33,9 @@ public class MessageDto extends Message{
         setResume(message.getResume());
         setReleaseTime(message.getReleaseTime());
         setTitle(message.getTitle());
-        setVisual(message.getVisual());
+        setTime(message.getTime());
     }
 
-    public MessageDto(Message message,InformationClass relationInformationClass) {
-        this(message);
-        this.relationInformationClass = relationInformationClass;
-    }
 
     public void setRankScore(Integer timeScore, Integer userScore,Integer surfScore, Integer outTimeScore) {
         if (userScore == null) {
@@ -55,6 +54,14 @@ public class MessageDto extends Message{
 
     public void setRankScore(Integer rankScore) {
         this.rankScore = rankScore;
+    }
+
+    public List<Location> getLocations() {
+        return locations;
+    }
+
+    public void setLocations(List<Location> locations) {
+        this.locations = locations;
     }
 
     public InformationClass getRelationInformationClass() {

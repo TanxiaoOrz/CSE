@@ -4,7 +4,7 @@ import java.util.Date;
 
 public class Message{
     private Integer mid;//唯一消息标识号
-    private String visual;//可视化格式
+    private String time;//需要占用的时间
     private String title;//消息标题
     private String resume;//消息简介
     private String message;//消息本体
@@ -19,12 +19,12 @@ public class Message{
         this.mid = mid;
     }
 
-    public String getVisual() {
-        return visual;
+    public String getTime() {
+        return time;
     }
 
-    public void setVisual(String visual) {
-        this.visual = visual;
+    public void setTime(String time) {
+        this.time = time;
     }
 
     public String getTitle() {
