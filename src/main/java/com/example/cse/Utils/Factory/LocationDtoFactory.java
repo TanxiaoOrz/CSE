@@ -39,7 +39,7 @@ public class LocationDtoFactory {
         return locationDto;
     }
 
-    public void calculateShow(UserDto userDto,LocationDto locationDto, Integer informationLimit, Integer messageLimit, Integer informationMessageLimit) {
+    public void calculateShow(LocationDto locationDto, UserDto userDto, Integer informationLimit, Integer messageLimit, Integer informationMessageLimit) {
         List<InformationClassDto> informationShows = informationClassDtoFactory.getInformationClassDtosByRankScore(locationDto.getInformationClasses(), userDto);
 
         ArrayList<InformationClassDto> deletes = new ArrayList<>();
@@ -49,6 +49,10 @@ public class LocationDtoFactory {
             }
         }
         informationShows.removeAll(deletes);
+
+        while (informationShows.size()>informationLimit) {
+            informationShows.remove(informationLimit.intValue());
+        }
 
         locationDto.setInformationShows(informationShows);
 
