@@ -49,7 +49,8 @@ public class MessageDtoFactory {
         List<MessageDto> showMessages = new ArrayList<>();
         HashMap<Integer, Integer> messageModel = userDto!=null? userDto.getMessageModel():null;
         Integer timeScore = timeScoreMax;
-        averageMessage = surfMapper.getAverageSurfCountMessage();
+        Float average = surfMapper.getAverageSurfCountMessage();
+        averageMessage = average!=null?average:0;
         for (Message message:messages) {
             MessageDto messageDto = new MessageDto(message);
             messageDto.setRankScore(timeScore,messageModel!=null? messageModel.get(message.getMid()):0,calculateSurfScore(messageDto),outTimeScore);
@@ -63,7 +64,11 @@ public class MessageDtoFactory {
     }
 
     private Integer calculateSurfScore(MessageDto messageDto) {
-        if (surfMapper.getSurfCountMessage(messageDto.getMid())>=averageMessage)
+        Integer surfCountMessage = surfMapper.getSurfCountMessage(messageDto.getMid());
+        if (surfCountMessage == null) {
+            return 0;
+        }
+        if (surfCountMessage >=averageMessage)
             return popularScore;
         else
             return 0;
