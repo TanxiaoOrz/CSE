@@ -52,3 +52,11 @@ insert into cse.favourite_information_class (Uid, `like`) VALUES (1,1);
 
 UPDATE `cse`.`hobby` SET `HobbyModel` = '[{\"id\": 1, \"type\": \"keyword\",\"score\":1},{\"id\": 2, \"type\": \"keyword\",\"score\":2}]' WHERE (`Hid` = '2');
 -- 添加示例模型
+
+INSERT INTO `cse`.`map` (`Name`, `Resume`) VALUES ('校园', '校园');
+INSERT INTO `cse`.`location` (`Name`, `Resume`, `MapBelong`, `BasicMessage`) VALUES ('实验地点1', '实验', '1', '1');
+
+INSERT INTO `cse`.`message_location` (`Mid`, `Lid`) VALUES ('1', '1');
+INSERT INTO `cse`.`message_location` (`Mid`, `Lid`) VALUES ('2', '1');
+
+UPDATE `cse`.`information_class` SET `Location` = '1' WHERE (`Cid` = '1');
