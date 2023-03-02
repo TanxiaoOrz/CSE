@@ -56,7 +56,7 @@ public class InformationClassDtoFactory {
 
     public boolean calculateShowMessages(InformationClassDto informationClassDto, UserDto userDto,Integer limit) {
         List<MessageDto> showMessages = messageDtoFactory.getMessageDtosOrderByRankScore(informationClassDto.getMessages(), userDto);
-        if (showMessages.size()>limit) {
+        if (limit!=null&&showMessages.size()>limit) {
             informationClassDto.setShowMessages(showMessages.subList(0,limit));
             return true;
         }

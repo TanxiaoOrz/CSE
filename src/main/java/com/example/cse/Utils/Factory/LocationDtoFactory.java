@@ -49,15 +49,13 @@ public class LocationDtoFactory {
             }
         }
         informationShows.removeAll(deletes);
-
-        while (informationShows.size()>informationLimit) {
-            informationShows.remove(informationLimit.intValue());
-        }
-
-        locationDto.setInformationShows(informationShows);
+        if (informationLimit!=null&&informationShows.size() > informationLimit) {
+            locationDto.setInformationShows(informationShows.subList(0,informationLimit));
+        }else
+            locationDto.setInformationShows(informationShows);
 
         List<MessageDto> messageShows = messageDtoFactory.getMessageDtosOrderByRankScore(locationDto.getMessages(), userDto);
-        if (messageShows.size()>messageLimit) {
+        if (messageLimit!=null&&messageShows.size()>messageLimit) {
             locationDto.setMessageShows(messageShows.subList(0,messageLimit));
         }else {
             locationDto.setMessageShows(messageShows);
