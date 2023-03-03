@@ -409,7 +409,7 @@ SELECT
     `surf_message`.`Surf` AS `surf`,
     COUNT(`surf_message`.`Surf`) AS `counts`
 FROM
-    `surf_message`
+    `surf_message` where time > date_sub(now(),interval 1 week)
 GROUP BY `surf_message`.`Surf`;
 
 CREATE
@@ -418,7 +418,7 @@ SELECT
     `surf_information_class`.`Surf` AS `surf`,
     COUNT(`surf_information_class`.`Surf`) AS `counts`
 FROM
-    `surf_information_class`
+    `surf_information_class` where time > date_sub(now(),interval 1 week)
 GROUP BY `surf_information_class`.`Surf`;
 
 CREATE
@@ -427,6 +427,6 @@ SELECT
     `surf_location`.`Surf` AS `surf`,
     COUNT(`surf_location`.`Surf`) AS `counts`
 FROM
-    `surf_location`
+    `surf_location` where time > date_sub(now(),interval 1 week)
 GROUP BY `surf_location`.`Surf`;
 

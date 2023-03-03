@@ -37,13 +37,13 @@ public interface SurfMapper {
     @Select("select counts from surf_count_information_class where surf = #{surf}")
     Integer getSurfCountInformationClass(@Param("surf") Integer surf);
 
-    @Select("select Mid from message where Mid in (select Surf from surf_message where Uid = #{uid} order by count(Surf) limit 5)")
+    @Select("select Mid from message where Mid in (select Surf from surf_message where Uid = #{uid} and Time > date_sub(now(),interval 1 week) group by Surf order by count(Surf) desc )limit 5 ")
     List<Integer> getSurfMostMessages(@Param("Uid")Integer uid);
 
-    @Select("select Cid from information_class where Cid in (select Surf from surf_information_class where Uid = #{uid} order by count(Surf) limit 5)")
+    @Select("select Cid from information_class where Cid in (select Surf from surf_information_class where Uid = #{uid} and Time > date_sub(now(),interval 1 week) group by Surf order by count(Surf) desc )limit 5")
     List<Integer> getSurfMostInformationClasses(@Param("Uid")Integer uid);
 
-    @Select("select Lid from location where Lid in (select Surf from surf_location where Uid = #{uid} order by count(Surf) limit 5)")
+    @Select("select Lid from location where Lid in (select Surf from surf_location where Uid = #{uid} and Time > date_sub(now(),interval 1 week) group by Surf order by count(Surf) desc )limit 5")
     List<Integer> getSurfMostLocations(@Param("Uid")Integer uid);
 
 }
