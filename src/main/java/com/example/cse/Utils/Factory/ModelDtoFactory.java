@@ -7,6 +7,7 @@ import com.example.cse.Entity.UserClass.Calender;
 import com.example.cse.Mapper.CalenderMapper;
 import com.example.cse.Mapper.FavouriteMapper;
 import com.example.cse.Mapper.HobbyMapper;
+import com.example.cse.Mapper.SurfMapper;
 import com.example.cse.Utils.Exception.WrongDataException;
 import com.example.cse.Utils.ModelUtils;
 import com.example.cse.Utils.TypeString;
@@ -26,8 +27,8 @@ public class ModelDtoFactory {
     CalenderMapper calenderMapper;
     @Autowired
     HobbyMapper hobbyMapper;
-    private final long day = 1000*60*60*24;
-    private final long week = day*7;
+    @Autowired
+    SurfMapper surfMapper;
 
     @Value("${config.favourite}")
     private Integer favouriteScore;
@@ -40,6 +41,9 @@ public class ModelDtoFactory {
 
     @Value("${config.calenderShort}")
     private Integer calenderShortScore;
+
+    @Value("${config.surfMost}")
+    private Integer surfScore;
 
     public void createUserModel(UserDto userDto) throws WrongDataException {
 
@@ -74,6 +78,26 @@ public class ModelDtoFactory {
             calculateCalenderModel(userDto,1,calender);
         }
 
+        Integer surfscore = this.surfScore;
+        for (Integer mid:surfMapper.getSurfMostMessages(userDto.getUid())) {
+            ModelUtils.addModel(messageModel,mid,surfscore);
+            if (surfscore>0)
+                surfscore--;
+        }
+
+        surfscore = this.surfScore;
+        for (Integer lid:surfMapper.getSurfMostLocations(userDto.getUid())) {
+            ModelUtils.addModel(messageModel,lid,surfscore);
+            if (surfscore>0)
+                surfscore--;
+        }
+
+        surfscore = this.surfScore;
+        for (Integer cid:surfMapper.getSurfMostInformationClasses(userDto.getUid())) {
+            ModelUtils.addModel(messageModel,cid,surfscore);
+            if (surfscore>0)
+                surfscore--;
+        }
 
     }
 
@@ -98,9 +122,11 @@ public class ModelDtoFactory {
 
     public void calculateCalenderModel(UserDto userDto,Integer sign,Calender calender) throws WrongDataException {
         long compare = calender.getTime().getTime() - new Date().getTime();
-        if (compare<=day)
+        long day = 1000 * 60 * 60 * 24;
+        long week = day * 7;
+        if (compare<= day)
             addHobbyModel(userDto,calenderShortScore,calender);
-        else if (compare<=week)
+        else if (compare<= week)
             addHobbyModel(userDto,calenderMiddleScore,calender);
         else
             addHobbyModel(userDto,calenderLongScore, calender);
