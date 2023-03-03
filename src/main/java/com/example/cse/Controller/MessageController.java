@@ -2,6 +2,7 @@ package com.example.cse.Controller;
 
 import com.example.cse.Dto.MessageDto;
 import com.example.cse.Dto.UserDto;
+import com.example.cse.Entity.InformationClass.Location;
 import com.example.cse.Service.MessageService;
 import com.example.cse.Service.SurfService;
 import com.example.cse.Service.impl.MessageServiceImpl;
@@ -37,6 +38,13 @@ public class MessageController {
         MessageDto message = messageService.getMessage(id);
         if (userDto != null) {
             surfService.newSurf(userDto,id, SurfService.MESSAGE);
+            if (message.getLocations() != null) {
+                for (Location location : message.getLocations()) {
+                    surfService.newSurf(userDto,location.getLid(),SurfService.LOCATION);
+                }
+            }
+            if (message.getRelationInformationClass() != null)
+                surfService.newSurf(userDto,message.getRelationInformationClass().getCid(),SurfService.INFORMATION_CLASS);
         }
         return new Vo<>(message);
     }

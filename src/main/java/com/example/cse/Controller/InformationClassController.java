@@ -41,6 +41,9 @@ public class InformationClassController {
         InformationClassDto informationClassDto = informationClassService.getInformationClass(userDto,id,limit);
         if (userDto != null) {
             surfService.newSurf(userDto,id, SurfService.INFORMATION_CLASS);
+            if (informationClassDto.getLocation() != null) {
+                surfService.newSurf(userDto,informationClassDto.getLocation().getLid(),SurfService.LOCATION);
+            }
         }
         return new Vo<>(informationClassDto);
     }
