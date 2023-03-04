@@ -21,7 +21,7 @@ public class MessageDto extends Message{
 
     private List<Location> locations;
 
-    private InformationClass relationInformationClass;
+    private List<InformationClass> relationInformationClass;
 
     public MessageDto() {
     }
@@ -64,11 +64,11 @@ public class MessageDto extends Message{
         this.locations = locations;
     }
 
-    public InformationClass getRelationInformationClass() {
+    public List<InformationClass> getRelationInformationClass() {
         return relationInformationClass;
     }
 
-    public void setRelationInformationClass(InformationClass relationInformationClass) {
+    public void setRelationInformationClass(List<InformationClass> relationInformationClass) {
         this.relationInformationClass = relationInformationClass;
     }
 }

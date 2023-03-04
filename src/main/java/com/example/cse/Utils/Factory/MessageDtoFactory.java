@@ -37,11 +37,11 @@ public class MessageDtoFactory {
     float averageMessage;
 
     public MessageDto getMessageDto(Message message) {
-        InformationClass relativeInformation = informationClassMapper.getInformationClassByRule(null, message.getMid(),null).get(0);
+        List<InformationClass> relativeInformations = informationClassMapper.getInformationClassByRule(null, message.getMid(),null);
         List<Location> locations = locationMapper.getLocationByRule(null, message.getMid());
         MessageDto messageDto = new MessageDto(message);
         messageDto.setLocations(locations);
-        messageDto.setRelationInformationClass(relativeInformation);
+        messageDto.setRelationInformationClass(relativeInformations);
         return messageDto;
     }
 
