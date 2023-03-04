@@ -19,7 +19,7 @@
         order by ReleaseTime desc;
     </select>
 
-    <insert id="newMessage">
+    <insert id="newMessage" useGeneratedKeys="true" keyProperty="Mid">
         insert into message (Title, ReleaseTime, OutTime, Visual, message) VALUES (#{title}, #{releaseTime}, #{outTime}, #{visual},#{message})
     </insert>
 
@@ -38,4 +38,13 @@
     <select id="getMessageClassType" resultType="java.lang.String">
         select Type from information_class where Cid in (select Cid from message_information_class where Mid = #{mid}) limit 1;
     </select>
+
+    <insert id="newMessageRelationClass">
+        insert into message_information_class (Mid, Cid) VALUES (#{Mid}, #{Cid});
+    </insert>
+
+    <insert id="newMessageRelationLocation">
+        insert into message_location (Mid, Lid) VALUES (#{Mid}, #{Lid});
+    </insert>
+
 </mapper>
