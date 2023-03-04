@@ -4,7 +4,7 @@ import java.util.Date;
 
 public class Message{
     private Integer mid;//唯一消息标识号
-    private String time;//需要占用的时间
+    private Date time;//需要占用的时间
     private String title;//消息标题
     private String resume;//消息简介
     private String message;//消息本体
@@ -19,11 +19,11 @@ public class Message{
         this.mid = mid;
     }
 
-    public String getTime() {
+    public Date getTime() {
         return time;
     }
 
-    public void setTime(String time) {
+    public void setTime(Date time) {
         this.time = time;
     }
 
@@ -65,5 +65,23 @@ public class Message{
 
     public void setOutTime(Date outTime) {
         this.outTime = outTime;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        try {
+            Message message = (Message) obj;
+            return mid.equals(message.mid)
+                    && title.equals(message.title)
+                    && time.equals(message.time)
+                    && resume.equals(message.resume)
+                    && this.message.equals(message.message)
+                    && releaseTime.equals(message.releaseTime)
+                    && outTime.equals(message.outTime);
+        }catch (Exception e) {
+            return false;
+        }
+
+
     }
 }
