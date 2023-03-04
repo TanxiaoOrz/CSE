@@ -9,16 +9,14 @@ import com.example.cse.Service.SurfService;
 import com.example.cse.Service.impl.MessageServiceImpl;
 import com.example.cse.Service.impl.SurfServiceImpl;
 import com.example.cse.Utils.Exception.WrongDataException;
+import com.example.cse.Vo.MessageIn;
 import com.example.cse.Vo.Vo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -51,5 +49,41 @@ public class MessageController {
 
         }
         return new Vo<>(message);
+    }
+
+    @PostMapping("/Manager")
+    @ApiOperation(value = "管理员新建message",notes = "传入messageIn结构体,无需传入id,需要管理员权限")
+    @ApiImplicitParam(name = "message",value = "要新建的message信息结构体",dataTypeClass = MessageIn.class,paramType = "body")
+    public Vo<String> newMessage(@RequestBody MessageIn message) {
+        Integer integer = messageService.newMessage(message);
+        if (integer==1)
+            return new Vo<>("新建成功");
+        else
+            return new Vo<>(Vo.WrongPostParameter,"未知错误");
+    }
+
+    @PutMapping("/Manager")
+    @ApiOperation(value = "管理员新建message",notes = "传入messageIn结构体,无需传入id,需要管理员权限")
+    @ApiImplicitParam(name = "message",value = "要修改的message信息结构体,此处一定要修改编号",dataTypeClass = MessageIn.class,paramType = "body")
+    public Vo<String> updateMessage(@RequestBody MessageIn message) {
+        if (message.getMid() == null) {
+            return new Vo<>(Vo.WrongPostParameter,"请输入要修改的编号");
+        }
+        Integer integer = messageService.newMessage(message);
+        if (integer==1)
+            return new Vo<>("新建成功");
+        else
+            return new Vo<>(Vo.WrongPostParameter,"没有作出修改");
+    }
+
+    @DeleteMapping("/Manager/{id}")
+    @ApiOperation(value = "管理员新建message",notes = "传入messageIn结构体,无需传入id,需要管理员权限")
+    @ApiImplicitParam(name = "message",value = "要删除的message编号",dataTypeClass = Integer.class,paramType = "path")
+    public Vo<String> deleteMessage(@PathVariable Integer id) {
+        Integer integer = messageService.deleteMessage(id);
+        if (integer==1)
+            return new Vo<>("删除成功");
+        else
+            return new Vo<>(Vo.WrongPostParameter,"未知错误");
     }
 }
