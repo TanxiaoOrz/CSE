@@ -1,8 +1,8 @@
 package com.example.cse.Controller;
 
-import com.example.cse.Dto.InformationClassDto;
 import com.example.cse.Dto.LocationDto;
 import com.example.cse.Dto.UserDto;
+import com.example.cse.Entity.InformationClass.Location;
 import com.example.cse.Service.SurfService;
 import com.example.cse.Service.impl.LocationServiceImpl;
 import com.example.cse.Service.impl.SurfServiceImpl;
@@ -13,7 +13,6 @@ import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -44,5 +43,41 @@ public class LocationController {
             surfService.newSurf(userDto,id, SurfService.LOCATION);
         }
         return new Vo<>(locationDto);
+    }
+
+    @PostMapping("/Manager")
+    @ApiOperation(value = "管理员新建location",notes = "传入location结构体,无需传入id,需要管理员权限")
+    @ApiImplicitParam(name = "location",value = "要新建的location信息结构体",dataTypeClass = Location.class,paramType = "body")
+    public Vo<String> newInformation(@RequestBody Location location) {
+        Integer integer = locationService.newLocation(location);
+        if (integer==1)
+            return new Vo<>("新建成功");
+        else
+            return new Vo<>(Vo.WrongPostParameter,"未知错误");
+    }
+
+    @PutMapping("/Manager")
+    @ApiOperation(value = "管理员新建location",notes = "传入informationClass结构体,无需传入id,需要管理员权限")
+    @ApiImplicitParam(name = "location",value = "要修改的informationClass信息结构体,此处一定要修改编号",dataTypeClass = Location.class,paramType = "body")
+    public Vo<String> updateInformation(@RequestBody Location location) throws WrongDataException {
+        if (location.getLid() == null) {
+            return new Vo<>(Vo.WrongPostParameter,"请输入要修改的编号");
+        }
+        Integer integer = locationService.updateLocation(location);
+        if (integer==1)
+            return new Vo<>("修改成功");
+        else
+            return new Vo<>(Vo.WrongPostParameter,"未知错误");
+    }
+
+    @DeleteMapping("/Manager/{id}")
+    @ApiOperation(value = "管理员新建location",notes = "传入location结构体,无需传入id,需要管理员权限")
+    @ApiImplicitParam(name = "location",value = "要删除的location编号",dataTypeClass = Integer.class,paramType = "path")
+    public Vo<String> deleteInformation(@PathVariable Integer id) {
+        Integer integer = locationService.deleteLocation(id);
+        if (integer==1)
+            return new Vo<>("删除成功");
+        else
+            return new Vo<>(Vo.WrongPostParameter,"未知错误");
     }
 }

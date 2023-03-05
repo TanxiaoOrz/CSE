@@ -5,6 +5,7 @@ import com.example.cse.Dto.UserDto;
 import com.example.cse.Entity.InformationClass.Location;
 import com.example.cse.Mapper.LocationMapper;
 import com.example.cse.Service.LocationService;
+import com.example.cse.Utils.Exception.WrongDataException;
 import com.example.cse.Utils.Factory.LocationDtoFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -35,11 +36,26 @@ public class LocationServiceImpl implements LocationService {
 
     @Override
     public Integer newLocation(Location location) {
-        return null;
+        return locationMapper.newLocation(location);
     }
 
     @Override
-    public Integer updateLocation(Location location) {
-        return null;
+    public Integer updateLocation(Location location) throws WrongDataException {
+        Location old;
+        try {
+            old = locationMapper.getLocationByRule(location.getLid(), null).get(0);
+        }catch (ArrayIndexOutOfBoundsException e) {
+            throw new WrongDataException("错误的地点编号");
+        }
+        if (location.checkUpdate(old)) {
+            throw new WrongDataException("没有修改");
+        }
+
+        return locationMapper.updateLocation(location);
+    }
+
+    @Override
+    public Integer deleteLocation(Integer lid) {
+        return locationMapper.deleteLocation(lid);
     }
 }
