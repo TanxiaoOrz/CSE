@@ -52,7 +52,7 @@ public class MessageServiceImpl implements MessageService {
     public Integer updateMessage(MessageIn message) {
         Message oldMessage = messageMapper.getMessageByRule(message.getMid(),null,null).get(0);
         Integer integer = 0;
-        if (message.checkUpdate(oldMessage)) {
+        if (!message.checkUpdate(oldMessage)) {
             integer = messageMapper.updateMessage(message);
         }
         List<Integer> relations = message.getInformationClasses();

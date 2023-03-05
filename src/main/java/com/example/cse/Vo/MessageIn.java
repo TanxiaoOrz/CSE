@@ -27,33 +27,26 @@ public class MessageIn extends Message {
     }
 
     public boolean checkUpdate(Message message) {
-        boolean equal = true;
         if (StringUtils.hasText(getMessage())) {
             setMessage(message.getMessage());
-            equal = false;
         }
         if (getTime() == null) {
             setTime(message.getTime());
-            equal = false;
         }
         if (StringUtils.hasText(getTitle())) {
             setTitle(message.getTitle());
-            equal = false;
         }
         if (StringUtils.hasText(getResume())) {
             setResume(message.getResume());
-            equal = false;
         }
         if (getReleaseTime() == null) {
             setReleaseTime(message.getReleaseTime());
-            equal = false;
         }
         if (getOutTime() == null) {
             setOutTime(message.getOutTime());
-            equal = false;
         }
 
-        return equal && equals(message);
+        return equals(message);
 
     }
 }
