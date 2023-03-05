@@ -83,23 +83,23 @@ public class InformationClass{
 
     public boolean checkUpdate(InformationClass informationClass) {
         boolean update = true;
-        if (informationClass.getLocation() != null) {
+        if (location != null) {
             update = location.equals(informationClass.getLocation());
         }
-        if (informationClass.getBasicMessage() != null) {
-            update = basicMessage.equals(informationClass.basicMessage);
+        if (basicMessage != null) {
+            update &= basicMessage.equals(informationClass.basicMessage);
         }
-        if (informationClass.getName() != null) {
-            update = name.equals(informationClass.getName());
+        if (name != null) {
+            update &= name.equals(informationClass.getName());
         }
-        if (informationClass.getResume() != null) {
-            update = resume.equals(informationClass.resume);
+        if (resume != null) {
+            update &= resume.equals(informationClass.resume);
         }
-        if (informationClass.getType() != null) {
-            update = type.equals(informationClass.type);
+        if (type != null) {
+            update &= type.equals(informationClass.type);
         }
-        if (informationClass.getImgHref() != null) {
-            update = imgHref.equals(informationClass.imgHref);
+        if (imgHref != null) {
+            update &= imgHref.equals(informationClass.imgHref);
         }
         return update;
     }
