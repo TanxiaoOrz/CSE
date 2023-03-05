@@ -16,6 +16,7 @@ import org.springframework.stereotype.Component;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.concurrent.ConcurrentHashMap;
 
 @Component
 public class MessageDtoFactory {
@@ -47,7 +48,7 @@ public class MessageDtoFactory {
 
     public List<MessageDto> getMessageDtosOrderByRankScore(List<Message> messages, UserDto userDto) {
         List<MessageDto> showMessages = new ArrayList<>();
-        HashMap<Integer, Integer> messageModel = userDto!=null? userDto.getMessageModel():null;
+        ConcurrentHashMap<Integer, Integer> messageModel = userDto!=null? userDto.getMessageModel():null;
         Integer timeScore = timeScoreMax;
         Float average = surfMapper.getAverageSurfCountMessage();
         averageMessage = average!=null?average:0;

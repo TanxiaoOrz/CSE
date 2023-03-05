@@ -8,6 +8,7 @@ import com.example.cse.Vo.KeyAndType;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class InformationClassDto {
 
@@ -123,7 +124,7 @@ public class InformationClassDto {
         this.rankScore = rankScore;
     }
 
-    public void setRankScore(HashMap<Integer, Integer> keywordModels,HashMap<Integer, Integer> informationClassModel,Integer surfScore) {
+    public void setRankScore(ConcurrentHashMap<Integer, Integer> keywordModels, ConcurrentHashMap<Integer, Integer> informationClassModel, Integer surfScore) {
         int keyScore = 0;
         for (KeyAndType keyAndType:keyAndTypes) {
             Integer score = keywordModels.get(keyAndType.getKid());

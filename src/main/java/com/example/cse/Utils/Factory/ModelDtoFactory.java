@@ -17,6 +17,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.concurrent.ConcurrentHashMap;
 
 
 @Component
@@ -47,13 +48,13 @@ public class ModelDtoFactory {
 
     public void createUserModel(UserDto userDto) throws WrongDataException {
 
-        HashMap<Integer, Integer> keywordModels = new HashMap<>();
+        ConcurrentHashMap<Integer, Integer> keywordModels = new ConcurrentHashMap<>();
         userDto.setKeywordModels(keywordModels);
         calculateHobby(userDto);
 
-        HashMap<Integer, Integer> messageModel = new HashMap<>();
-        HashMap<Integer, Integer> informationClassModel = new HashMap<>();
-        HashMap<Integer, Integer> locationModel = new HashMap<>();
+        ConcurrentHashMap<Integer, Integer> messageModel = new ConcurrentHashMap<>();
+        ConcurrentHashMap<Integer, Integer> informationClassModel = new ConcurrentHashMap<>();
+        ConcurrentHashMap<Integer, Integer> locationModel = new ConcurrentHashMap<>();
 
         userDto.setMessageModel(messageModel);
         userDto.setLocationModels(locationModel);

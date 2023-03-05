@@ -89,7 +89,7 @@ public class InformationClassDtoFactory {
 
     private Integer calculateSurfScore(InformationClassDto informationClassDto) {
         Integer surfCountInformationClass = surfMapper.getSurfCountInformationClass(informationClassDto.getCid());
-        if (surfCountInformationClass == null) {
+        if (surfCountInformationClass == null ) {
             return 0;
         }
         if (surfCountInformationClass >=averageInformationClass)

@@ -7,6 +7,7 @@ import com.example.cse.Mapper.ProfessionMapper;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.concurrent.ConcurrentHashMap;
 
 //UserModel的相关构造暂时被停用，请记得修改
 public class UserDto {
@@ -18,10 +19,10 @@ public class UserDto {
     private String Grade;
     private List<ModelDto> modelDtos;
     private String UserPass;
-    private HashMap<Integer,Integer> informationClassModel;
-    private HashMap<Integer,Integer> messageModel;
-    private HashMap<Integer,Integer> locationModels;
-    private HashMap<Integer,Integer> keywordModels;
+    private ConcurrentHashMap<Integer,Integer> informationClassModel;
+    private ConcurrentHashMap<Integer,Integer> messageModel;
+    private ConcurrentHashMap<Integer,Integer> locationModels;
+    private ConcurrentHashMap<Integer,Integer> keywordModels;
 
     public List<ModelDto> getModelDtos() {
         return modelDtos;
@@ -73,35 +74,35 @@ public class UserDto {
         Grade = grade;
     }
 
-    public HashMap<Integer, Integer> getInformationClassModel() {
+    public ConcurrentHashMap<Integer, Integer> getInformationClassModel() {
         return informationClassModel;
     }
 
-    public void setInformationClassModel(HashMap<Integer, Integer> informationClassModel) {
+    public void setInformationClassModel(ConcurrentHashMap<Integer, Integer> informationClassModel) {
         this.informationClassModel = informationClassModel;
     }
 
-    public HashMap<Integer, Integer> getMessageModel() {
+    public ConcurrentHashMap<Integer, Integer> getMessageModel() {
         return messageModel;
     }
 
-    public void setMessageModel(HashMap<Integer, Integer> messageModel) {
+    public void setMessageModel(ConcurrentHashMap<Integer, Integer> messageModel) {
         this.messageModel = messageModel;
     }
 
-    public HashMap<Integer, Integer> getLocationModels() {
+    public ConcurrentHashMap<Integer, Integer> getLocationModels() {
         return locationModels;
     }
 
-    public void setLocationModels(HashMap<Integer, Integer> locationModels) {
+    public void setLocationModels(ConcurrentHashMap<Integer, Integer> locationModels) {
         this.locationModels = locationModels;
     }
 
-    public HashMap<Integer, Integer> getKeywordModels() {
+    public ConcurrentHashMap<Integer, Integer> getKeywordModels() {
         return keywordModels;
     }
 
-    public void setKeywordModels(HashMap<Integer, Integer> keywordModels) {
+    public void setKeywordModels(ConcurrentHashMap<Integer, Integer> keywordModels) {
         this.keywordModels = keywordModels;
     }
 
