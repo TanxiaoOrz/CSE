@@ -5,6 +5,7 @@ import com.example.cse.Entity.InformationClass.Location;
 import com.example.cse.Entity.InformationClass.Map;
 import com.example.cse.Entity.InformationClass.Message;
 
+import java.util.Comparator;
 import java.util.List;
 
 public class LocationDto  {
@@ -27,6 +28,15 @@ public class LocationDto  {
     private List<InformationClass> informationClasses;
     private List<MessageDto> messageShows;
     private List<InformationClassDto> informationShows;
+
+    private Integer rankScore;
+
+    public static class ScoreComparator implements Comparator<LocationDto> {
+        @Override
+        public int compare(LocationDto o1, LocationDto o2) {
+            return o2.rankScore- o1.rankScore;
+        }
+    }
 
 
     public LocationDto() {
@@ -151,5 +161,13 @@ public class LocationDto  {
 
     public void setInformationShows(List<InformationClassDto> informationShows) {
         this.informationShows = informationShows;
+    }
+
+    public Integer getRankScore() {
+        return rankScore;
+    }
+
+    public void setRankScore(Integer rankScore) {
+        this.rankScore = rankScore;
     }
 }

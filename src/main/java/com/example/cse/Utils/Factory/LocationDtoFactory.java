@@ -7,14 +7,19 @@ import com.example.cse.Dto.UserDto;
 import com.example.cse.Entity.InformationClass.InformationClass;
 import com.example.cse.Entity.InformationClass.Location;
 import com.example.cse.Entity.InformationClass.Message;
+import com.example.cse.Entity.Recommend.Surf;
 import com.example.cse.Mapper.InformationClassMapper;
 import com.example.cse.Mapper.MapMapper;
 import com.example.cse.Mapper.MessageMapper;
+import com.example.cse.Mapper.SurfMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.concurrent.ConcurrentHashMap;
 
 @Component
 public class LocationDtoFactory {
@@ -28,6 +33,13 @@ public class LocationDtoFactory {
     MessageDtoFactory messageDtoFactory;
     @Autowired
     InformationClassDtoFactory informationClassDtoFactory;
+    @Autowired
+    SurfMapper surfMapper;
+
+    @Value("${config.popular}")
+    Integer popularScore;
+
+    private float averageScore;
 
     public LocationDto getLocationDto(Location location) {
         LocationDto locationDto = new LocationDto(location);
@@ -60,5 +72,49 @@ public class LocationDtoFactory {
         }else {
             locationDto.setMessageShows(messageShows);
         }
+    }
+
+    public void getLocationsByRank(List<Location> locations, UserDto userDto) {
+        if (userDto == null) {
+            getLocationsByRank(locations);
+        }else {
+            List<LocationDto> locationDtos = new ArrayList<>();
+            Float averageSurfCountLocation = surfMapper.getAverageSurfCountLocation();
+            ConcurrentHashMap<Integer, Integer> locationModels = userDto.getLocationModels();
+            averageScore = averageSurfCountLocation!=null?averageSurfCountLocation:0;
+            for (Location location : locations) {
+                LocationDto locationDto = getLocationDto(location);
+                Integer modelScore = locationModels.get(locationDto.getLid());
+                if (modelScore == null) {
+                    modelScore = 0;
+                }
+                locationDto.setRankScore(calculateSurfScore(locationDto) + modelScore);
+                locationDtos.add(locationDto);
+            }
+            locationDtos.sort(new LocationDto.ScoreComparator());
+        }
+    }
+
+    public void getLocationsByRank(List<Location> locations) {
+        List<LocationDto> locationDtos = new ArrayList<>();
+        Float averageSurfCountLocation = surfMapper.getAverageSurfCountLocation();
+        averageScore = averageSurfCountLocation!=null?averageSurfCountLocation:0;
+        for (Location location : locations) {
+            LocationDto locationDto = getLocationDto(location);
+            locationDto.setRankScore(calculateSurfScore(locationDto));
+            locationDtos.add(locationDto);
+        }
+        locationDtos.sort(new LocationDto.ScoreComparator());
+    }
+
+    private Integer calculateSurfScore(LocationDto locationDto) {
+        Integer surfCountLocation = surfMapper.getSurfCountLocation(locationDto.getLid());
+        if (surfCountLocation == null) {
+            return 0;
+        }
+        if (surfCountLocation >= averageScore) {
+            return popularScore;
+        }else
+            return 0;
     }
 }
