@@ -1,6 +1,7 @@
 package com.example.cse.Entity.InformationClass;
 
 import java.util.Date;
+import java.util.Objects;
 
 public class Message{
     private Integer mid;//唯一消息标识号
@@ -68,20 +69,15 @@ public class Message{
     }
 
     @Override
-    public boolean equals(Object obj) {
-        try {
-            Message message = (Message) obj;
-            return mid.equals(message.mid)
-                    && title.equals(message.title)
-                    && time.equals(message.time)
-                    && resume.equals(message.resume)
-                    && this.message.equals(message.message)
-                    && releaseTime.equals(message.releaseTime)
-                    && outTime.equals(message.outTime);
-        }catch (Exception e) {
-            return false;
-        }
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Message message1 = (Message) o;
+        return mid.equals(message1.mid) && Objects.equals(time, message1.time) && Objects.equals(title, message1.title) && Objects.equals(resume, message1.resume) && Objects.equals(message, message1.message) && Objects.equals(releaseTime, message1.releaseTime) && Objects.equals(outTime, message1.outTime);
+    }
 
-
+    @Override
+    public int hashCode() {
+        return Objects.hash(mid, time, title, resume, message, releaseTime, outTime);
     }
 }
