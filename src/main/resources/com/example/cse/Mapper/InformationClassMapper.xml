@@ -25,11 +25,11 @@
     <update id="updateInformationClass">
         update information_class
         <set>
-            <if test="Name != null"> Name = #{name}, </if>
-            <if test="Resume != null"> Resume = #{resume}, </if>
-            <if test="BasicMessage != null"> BasicMessage = #{basicMessage}, </if>
-            <if test="Location != null"> Location = #{location}, </if>
-            <if test="Type != null"> Type = #{type} </if>
+            <if test="name != null"> Name = #{name}, </if>
+            <if test="resume != null"> Resume = #{resume}, </if>
+            <if test="basicMessage != null"> BasicMessage = #{basicMessage}, </if>
+            <if test="location != null"> Location = #{location}, </if>
+            <if test="type != null"> Type = #{type} </if>
         </set>
         where Cid = #{Cid};
     </update>

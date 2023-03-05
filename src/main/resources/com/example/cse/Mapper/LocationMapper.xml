@@ -22,13 +22,13 @@
     <update id="updateLocation">
         update information_class
         <set>
-            <if test="Name != null"> Name = #{Name}, </if>
-            <if test="Resume != null"> Resume = #{Resume}, </if>
-            <if test="BasicMessage != null"> BasicMessage = #{BasicMessage}, </if>
-            <if test="Ability != null"> Ability = #{Ability}, </if>
-            <if test="MapBelong != null"> MapBelong = #{MapBelong} </if>
-            <if test="MapOwn != null"> MapOwn = #{MapOwn}, </if>
-            <if test="ImgHref != null"> ImgHref = #{ImgHref} </if>
+            <if test="name != null"> Name = #{Name}, </if>
+            <if test="resume != null"> Resume = #{Resume}, </if>
+            <if test="basicMessage != null"> BasicMessage = #{BasicMessage}, </if>
+            <if test="ability != null"> Ability = #{Ability}, </if>
+            <if test="mapBelong != null"> MapBelong = #{MapBelong} </if>
+            <if test="mapOwn != null"> MapOwn = #{MapOwn}, </if>
+            <if test="imgHref != null"> ImgHref = #{ImgHref} </if>
         </set>
         where Cid = #{Cid};
     </update>
