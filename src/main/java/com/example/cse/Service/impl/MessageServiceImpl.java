@@ -49,8 +49,11 @@ public class MessageServiceImpl implements MessageService {
 
     @Override
     @Transactional
-    public Integer updateMessage(MessageIn message) {
+    public Integer updateMessage(MessageIn message) throws WrongDataException {
         Message oldMessage = messageMapper.getMessageByRule(message.getMid(),null,null).get(0);
+        if (oldMessage == null) {
+            throw new WrongDataException("错误的消息编号");
+        }
         Integer integer = 0;
         if (!message.checkUpdate(oldMessage)) {
             integer = messageMapper.updateMessage(message);

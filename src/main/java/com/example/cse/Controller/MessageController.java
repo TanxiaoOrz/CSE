@@ -65,11 +65,11 @@ public class MessageController {
     @PutMapping("/Manager")
     @ApiOperation(value = "管理员新建message",notes = "传入messageIn结构体,无需传入id,需要管理员权限")
     @ApiImplicitParam(name = "message",value = "要修改的message信息结构体,此处一定要修改编号",dataTypeClass = MessageIn.class,paramType = "body")
-    public Vo<String> updateMessage(@RequestBody MessageIn message) {
+    public Vo<String> updateMessage(@RequestBody MessageIn message) throws WrongDataException {
         if (message.getMid() == null) {
             return new Vo<>(Vo.WrongPostParameter,"请输入要修改的编号");
         }
-        Integer integer = messageService.newMessage(message);
+        Integer integer = messageService.updateMessage(message);
         if (integer==1)
             return new Vo<>("新建成功");
         else
@@ -84,6 +84,6 @@ public class MessageController {
         if (integer==1)
             return new Vo<>("删除成功");
         else
-            return new Vo<>(Vo.WrongPostParameter,"未知错误");
+            return new Vo<>(Vo.WrongPostParameter,"错误的编号");
     }
 }
