@@ -50,8 +50,8 @@ public class InformationClassController {
     }
 
     @PostMapping("/Manager")
-    @ApiOperation(value = "管理员新建message",notes = "传入informationClass结构体,无需传入id,需要管理员权限")
-    @ApiImplicitParam(name = "informationClass",value = "要新建的minformationClass信息结构体",dataTypeClass = InformationClass.class,paramType = "body")
+    @ApiOperation(value = "管理员新建informationClass",notes = "传入informationClass结构体,无需传入id,需要管理员权限")
+    @ApiImplicitParam(name = "informationClass",value = "要新建的informationClass信息结构体",dataTypeClass = InformationClass.class,paramType = "body")
     public Vo<String> newInformation(@RequestBody InformationClass informationClass) {
         Integer integer = informationClassService.newInformationClass(informationClass);
         if (integer==1)
@@ -61,7 +61,7 @@ public class InformationClassController {
     }
 
     @PutMapping("/Manager")
-    @ApiOperation(value = "管理员新建message",notes = "传入informationClass结构体,无需传入id,需要管理员权限")
+    @ApiOperation(value = "管理员新建informationClass",notes = "传入informationClass结构体,无需传入id,需要管理员权限")
     @ApiImplicitParam(name = "informationClass",value = "要修改的informationClass信息结构体,此处一定要修改编号",dataTypeClass = InformationClass.class,paramType = "body")
     public Vo<String> updateInformation(@RequestBody InformationClass informationClass) throws WrongDataException {
         if (informationClass.getCid() == null) {
@@ -75,7 +75,7 @@ public class InformationClassController {
     }
 
     @DeleteMapping("/Manager/{id}")
-    @ApiOperation(value = "管理员新建message",notes = "传入informationClass结构体,无需传入id,需要管理员权限")
+    @ApiOperation(value = "管理员新建informationClass",notes = "传入informationClass结构体,无需传入id,需要管理员权限")
     @ApiImplicitParam(name = "informationClass",value = "要删除的informationClass编号",dataTypeClass = Integer.class,paramType = "path")
     public Vo<String> deleteInformation(@PathVariable Integer id) {
         Integer integer = informationClassService.deleteInformationClass(id);
