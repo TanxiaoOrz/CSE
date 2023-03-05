@@ -52,7 +52,7 @@ public class InformationClassController {
     @PostMapping("/Manager")
     @ApiOperation(value = "管理员新建message",notes = "传入informationClass结构体,无需传入id,需要管理员权限")
     @ApiImplicitParam(name = "informationClass",value = "要新建的minformationClass信息结构体",dataTypeClass = InformationClass.class,paramType = "body")
-    public Vo<String> newMessage(@RequestBody InformationClass informationClass) {
+    public Vo<String> newInformation(@RequestBody InformationClass informationClass) {
         Integer integer = informationClassService.newInformationClass(informationClass);
         if (integer==1)
             return new Vo<>("新建成功");
@@ -63,21 +63,21 @@ public class InformationClassController {
     @PutMapping("/Manager")
     @ApiOperation(value = "管理员新建message",notes = "传入informationClass结构体,无需传入id,需要管理员权限")
     @ApiImplicitParam(name = "informationClass",value = "要修改的informationClass信息结构体,此处一定要修改编号",dataTypeClass = InformationClass.class,paramType = "body")
-    public Vo<String> updateMessage(@RequestBody InformationClass informationClass) {
+    public Vo<String> updateInformation(@RequestBody InformationClass informationClass) throws WrongDataException {
         if (informationClass.getCid() == null) {
             return new Vo<>(Vo.WrongPostParameter,"请输入要修改的编号");
         }
         Integer integer = informationClassService.updateInformationClass(informationClass);
         if (integer==1)
-            return new Vo<>("新建成功");
+            return new Vo<>("修改成功");
         else
-            return new Vo<>(Vo.WrongPostParameter,"没有作出修改");
+            return new Vo<>(Vo.WrongPostParameter,"未知错误");
     }
 
     @DeleteMapping("/Manager/{id}")
     @ApiOperation(value = "管理员新建message",notes = "传入informationClass结构体,无需传入id,需要管理员权限")
     @ApiImplicitParam(name = "informationClass",value = "要删除的informationClass编号",dataTypeClass = Integer.class,paramType = "path")
-    public Vo<String> deleteMessage(@PathVariable Integer id) {
+    public Vo<String> deleteInformation(@PathVariable Integer id) {
         Integer integer = informationClassService.deleteInformationClass(id);
         if (integer==1)
             return new Vo<>("删除成功");

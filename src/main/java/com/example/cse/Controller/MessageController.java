@@ -71,9 +71,9 @@ public class MessageController {
         }
         Integer integer = messageService.updateMessage(message);
         if (integer==1)
-            return new Vo<>("新建成功");
+            return new Vo<>("修改成功");
         else
-            return new Vo<>(Vo.WrongPostParameter,"没有作出修改");
+            return new Vo<>(Vo.WrongPostParameter,"未知错误");
     }
 
     @DeleteMapping("/Manager/{id}")

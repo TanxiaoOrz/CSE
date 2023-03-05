@@ -1,6 +1,7 @@
 package com.example.cse.Service.impl;
 
 import com.example.cse.Dto.MessageDto;
+import com.example.cse.Entity.InformationClass.Location;
 import com.example.cse.Entity.InformationClass.Message;
 import com.example.cse.Mapper.MessageMapper;
 import com.example.cse.Service.MessageService;
@@ -50,9 +51,11 @@ public class MessageServiceImpl implements MessageService {
     @Override
     @Transactional
     public Integer updateMessage(MessageIn message) throws WrongDataException {
-        Message oldMessage = messageMapper.getMessageByRule(message.getMid(),null,null).get(0);
-        if (oldMessage == null) {
-            throw new WrongDataException("错误的消息编号");
+        Message oldMessage;
+        try {
+            oldMessage = messageMapper.getMessageByRule(message.getMid(),null,null).get(0);
+        }catch (ArrayIndexOutOfBoundsException e) {
+            throw new WrongDataException("错误的地点编号");
         }
         Integer integer = 0;
         if (!message.checkUpdate(oldMessage)) {

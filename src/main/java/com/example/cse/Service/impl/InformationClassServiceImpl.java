@@ -3,8 +3,11 @@ package com.example.cse.Service.impl;
 import com.example.cse.Dto.InformationClassDto;
 import com.example.cse.Dto.UserDto;
 import com.example.cse.Entity.InformationClass.InformationClass;
+import com.example.cse.Entity.InformationClass.Location;
+import com.example.cse.Entity.InformationClass.Message;
 import com.example.cse.Mapper.InformationClassMapper;
 import com.example.cse.Service.InformationClassService;
+import com.example.cse.Utils.Exception.WrongDataException;
 import com.example.cse.Utils.Factory.InformationClassDtoFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -33,10 +36,15 @@ public class InformationClassServiceImpl implements InformationClassService {
     }
 
     @Override
-    public Integer updateInformationClass(InformationClass informationClass) {
-        InformationClass old = informationClassMapper.getInformationClassByRule(informationClass.getCid(),null,null).get(0);
+    public Integer updateInformationClass(InformationClass informationClass) throws WrongDataException {
+        InformationClass old ;
+        try {
+            old = informationClassMapper.getInformationClassByRule(informationClass.getCid(),null,null).get(0);
+        }catch (ArrayIndexOutOfBoundsException e) {
+            throw new WrongDataException("错误的编号");
+        }
         if (informationClass.checkUpdate(old))
-            return 0;
+            throw new WrongDataException("没有修改");
         return informationClassMapper.updateInformationClass(informationClass);
     }
 
