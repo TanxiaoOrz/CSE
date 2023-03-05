@@ -26,4 +26,22 @@ public class InformationClassServiceImpl implements InformationClassService {
 
         return informationClassDto;
     }
+
+    @Override
+    public Integer newInformationClass(InformationClass informationClass) {
+        return informationClassMapper.newInformationClass(informationClass);
+    }
+
+    @Override
+    public Integer updateInformationClass(InformationClass informationClass) {
+        InformationClass old = informationClassMapper.getInformationClassByRule(informationClass.getCid(),null,null).get(0);
+        if (informationClass.checkUpdate(old))
+            return 0;
+        return informationClassMapper.updateInformationClass(informationClass);
+    }
+
+    @Override
+    public Integer deleteInformationClass(Integer cid) {
+        return informationClassMapper.deleteInformationClass(cid);
+    }
 }
