@@ -16,20 +16,20 @@
     </select>
 
     <insert id="newLocation" >
-        insert into location (Name, Resume, BasicMessage, Ability, MapBelong,MapOwn,ImgHref) VALUES (#{Name}, #{Resume}, #{BasicMessage},#{Ability}, #{MapBelong}, #{MapOwn}, #{ImgHref});
+        insert into location (Name, Resume, BasicMessage, Ability, MapBelong,MapOwn,ImgHref) VALUES (#{name}, #{resume}, #{nasicMessage},#{ability}, #{mapBelong}, #{mapOwn}, #{imgHref});
     </insert>
 
     <update id="updateLocation">
         update information_class
         <set>
-            <if test="name != null"> Name = #{Name}, </if>
-            <if test="resume != null"> Resume = #{Resume}, </if>
-            <if test="basicMessage != null"> BasicMessage = #{BasicMessage}, </if>
-            <if test="ability != null"> Ability = #{Ability}, </if>
-            <if test="mapBelong != null"> MapBelong = #{MapBelong} </if>
-            <if test="mapOwn != null"> MapOwn = #{MapOwn}, </if>
-            <if test="imgHref != null"> ImgHref = #{ImgHref} </if>
+            <if test="name != null"> Name = #{name}, </if>
+            <if test="resume != null"> Resume = #{resume}, </if>
+            <if test="basicMessage != null"> BasicMessage = #{basicMessage}, </if>
+            <if test="ability != null"> Ability = #{ability}, </if>
+            <if test="mapBelong != null"> MapBelong = #{mapBelong} </if>
+            <if test="mapOwn != null"> MapOwn = #{mapOwn}, </if>
+            <if test="imgHref != null"> ImgHref = #{imgHref} </if>
         </set>
-        where Cid = #{Cid};
+        where Lid = #{lid};
     </update>
 </mapper>

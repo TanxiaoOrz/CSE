@@ -3,72 +3,107 @@ package com.example.cse.Entity.InformationClass;
 import com.example.cse.Entity.Recommend.KeyWord;
 
 public class Location {
-    private Integer Lid;//唯一标识
-    private String Name;
-    private String Resume;
-    private String Ability;
-    private Integer BasicMessage;
+    private Integer lid;//唯一标识
+    private String name;
+    private String resume;
+    private String ability;
+    private Integer basicMessage;
 
 
 
-    private Integer MapBelong;
-    private Integer MapOwn;
+    private Integer mapBelong;
+    private Integer mapOwn;
     private String imgHref;//所携带的图片
-    private Integer X;//所在地图坐标
-    private Integer Y;
+    private Integer x;//所在地图坐标
+    private Integer y;
+
+
+    public boolean checkUpdate(Location old) {
+        boolean update = true;
+        if (name != null) {
+            update = name.equals(old.name);
+        }
+        if (resume != null) {
+            update &= resume.equals(old.resume);
+        }
+        if (ability != null) {
+            update &= ability.equals(old.ability);
+        }
+        if (basicMessage != null) {
+            update &= basicMessage.equals(old.basicMessage);
+        }
+        if (mapBelong != null) {
+            update &= mapBelong.equals(old.mapBelong);
+        }
+        if (mapOwn != null) {
+            update &= mapOwn.equals(old.mapOwn);
+        }
+        if (x != null) {
+            update &= x.equals(old.x);
+        }
+        if (y != null) {
+            update &= y.equals(old.y);
+        }
+        if (imgHref != null) {
+            update &= imgHref.equals(old.imgHref);
+        }
+        return  update;
+    }
 
     public Integer getLid() {
-        return Lid;
+        return lid;
     }
 
     public void setLid(Integer lid) {
-        Lid = lid;
+        this.lid = lid;
     }
 
     public String getName() {
-        return Name;
+        return name;
     }
 
     public void setName(String name) {
-        Name = name;
-    }
-    public Integer getBasicMessage() {
-        return BasicMessage;
+        this.name = name;
     }
 
-    public void setBasicMessage(Integer basicMessage) {
-        BasicMessage = basicMessage;
-    }
     public String getResume() {
-        return Resume;
+        return resume;
     }
 
     public void setResume(String resume) {
-        Resume = resume;
+        this.resume = resume;
     }
 
     public String getAbility() {
-        return Ability;
+        return ability;
     }
 
     public void setAbility(String ability) {
-        Ability = ability;
+        this.ability = ability;
+    }
+
+    public Integer getBasicMessage() {
+        return basicMessage;
+    }
+
+    public void setBasicMessage(Integer basicMessage) {
+        this.basicMessage = basicMessage;
     }
 
     public Integer getMapBelong() {
-        return MapBelong;
+        return mapBelong;
     }
 
     public void setMapBelong(Integer mapBelong) {
-        MapBelong = mapBelong;
+        this.mapBelong = mapBelong;
     }
 
     public Integer getMapOwn() {
-        return MapOwn;
+        return mapOwn;
     }
 
     public void setMapOwn(Integer mapOwn) {
-        MapOwn = mapOwn;
+        this.mapOwn = mapOwn;
     }
 
     public String getImgHref() {
@@ -80,18 +115,18 @@ public class Location {
     }
 
     public Integer getX() {
-        return X;
+        return x;
     }
 
     public void setX(Integer x) {
-        X = x;
+        this.x = x;
     }
 
     public Integer getY() {
-        return Y;
+        return y;
     }
 
     public void setY(Integer y) {
-        Y = y;
+        this.y = y;
     }
 }
