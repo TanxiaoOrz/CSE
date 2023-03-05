@@ -38,7 +38,7 @@ public class InformationClassDtoFactory {
     @Value("${config.popular}")
     Integer popularScore;
 
-    float averageInformationClass;
+    private float averageInformationClass;
 
     public InformationClassDto getInformationClassDto(InformationClass informationClass) {
         InformationClassDto informationClassDto = new InformationClassDto(informationClass);
