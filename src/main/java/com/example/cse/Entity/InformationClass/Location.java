@@ -8,9 +8,6 @@ public class Location {
     private String resume;
     private String ability;
     private Integer basicMessage;
-
-
-
     private Integer mapBelong;
     private Integer mapOwn;
     private String imgHref;//所携带的图片
