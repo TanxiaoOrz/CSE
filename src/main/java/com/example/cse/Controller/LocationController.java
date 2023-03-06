@@ -1,5 +1,6 @@
 package com.example.cse.Controller;
 
+import com.example.cse.Dto.InformationClassDto;
 import com.example.cse.Dto.LocationDto;
 import com.example.cse.Dto.UserDto;
 import com.example.cse.Entity.InformationClass.Location;
@@ -16,6 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 @RestController
 @RequestMapping("/cse/Location")
@@ -36,13 +38,38 @@ public class LocationController {
             @ApiImplicitParam(name = "informationMessageLimit",value = "需要详细展示的informationClass中message数量",dataTypeClass = Integer.class,paramType = "query")
 
     })
-    public Vo<LocationDto> getMessage(@PathVariable Integer id, @RequestParam(required = false)Integer informationLimit, @RequestParam(required = false)Integer messageLimit, @RequestParam(required = false)Integer informationMessageLimit, HttpServletRequest request) throws WrongDataException {
+    public Vo<LocationDto> getLocation(@PathVariable Integer id, @RequestParam(required = false)Integer informationLimit, @RequestParam(required = false)Integer messageLimit, @RequestParam(required = false)Integer informationMessageLimit, HttpServletRequest request) throws WrongDataException {
         UserDto userDto = (UserDto) request.getAttribute("UserDto");
         LocationDto locationDto = locationService.getLocation(id,userDto,informationLimit,messageLimit,informationMessageLimit);
         if (userDto != null) {
             surfService.newSurf(userDto,id, SurfService.LOCATION);
         }
         return new Vo<>(locationDto);
+    }
+
+    @GetMapping("/User")
+    @ApiOperation(value = "普通用户获取多个locaiton接口，", notes = "供首页和地点列表使用,token会做检测，无token也可," +
+            "\n四个limit同时有代表获取展示的个数，同时没有代表获取所有")
+    @ApiImplicitParams({
+            @ApiImplicitParam(value = "locationLimit",name = "地点的数量",dataTypeClass = Integer.class,paramType = "query"),
+            @ApiImplicitParam(value = "informationLimit",name = "地点中展示信息类的数量",dataTypeClass = Integer.class,paramType = "query"),
+            @ApiImplicitParam(value = "messageLimit",name = "地点中展示的信息数量",dataTypeClass = Integer.class,paramType = "query"),
+            @ApiImplicitParam(value = "informationMessageLimit",name = "地点中信息类中展示的信息数量",dataTypeClass = Integer.class,paramType = "query")
+    })
+    public Vo<List<LocationDto>> getLocations(@RequestParam(required = false) Integer informationLimit,
+                                                      @RequestParam(required = false) Integer messageLimit,
+                                                      @RequestParam(required = false) Integer informationMessageLimit,
+                                                      @RequestParam(required = false) Integer locationLimit,
+                                                      HttpServletRequest request) throws WrongDataException {
+        UserDto userDto = (UserDto) request.getAttribute("UserDto");
+        List<LocationDto> returns;
+        if (informationLimit==null&&messageLimit==null&&informationMessageLimit==null&&locationLimit==null) {
+            returns = locationService.getLocationsAll(userDto);
+        }else if (informationLimit!=null&&messageLimit!=null&&informationMessageLimit!=null&&locationLimit!=null){
+            returns = locationService.getLocationsShow(userDto,locationLimit,informationLimit,messageLimit,informationMessageLimit);
+        }else
+            throw new WrongDataException("Parameter的空值个数不符合要求");
+        return new Vo<>(returns);
     }
 
     @PostMapping("/Manager")

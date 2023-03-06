@@ -1,6 +1,7 @@
 package com.example.cse.Controller;
 
 import com.example.cse.Dto.InformationClassDto;
+import com.example.cse.Dto.LocationDto;
 import com.example.cse.Dto.MessageDto;
 import com.example.cse.Dto.UserDto;
 import com.example.cse.Entity.InformationClass.InformationClass;
@@ -21,6 +22,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 @RestController
 @RequestMapping("/cse/InformationClass")
@@ -31,13 +33,36 @@ public class InformationClassController {
     @Autowired
     SurfServiceImpl surfService;
 
+    @GetMapping("/User")
+    @ApiOperation(value = "普通用户获取多个informationClass接口，", notes = "供首页和分类信息使用,token会做检测，无token也可," +
+            "\n两个limit同时有代表获取展示的个数，同时没有代表获取所有")
+    @ApiImplicitParams({
+            @ApiImplicitParam(value = "classLimit",name = "信息类的数量",dataTypeClass = Integer.class,paramType = "query"),
+            @ApiImplicitParam(value = "messageLimit",name = "信息类中展示的信息数量",dataTypeClass = Integer.class,paramType = "query"),
+            @ApiImplicitParam(value = "type",name = "信息类中类型要求",dataTypeClass = String.class,paramType = "query")
+    })
+    public Vo<List<InformationClassDto>> getInformationClasses(@RequestParam(required = false) Integer classLimit,
+                                                            @RequestParam(required = false) Integer messageLimit,
+                                                            @RequestParam(required = false) String type,
+                                                            HttpServletRequest request) throws WrongDataException {
+        UserDto userDto = (UserDto) request.getAttribute("UserDto");
+        List<InformationClassDto> returns;
+        if (classLimit==null&&messageLimit==null) {
+            returns = informationClassService.getInformationClassesAll(userDto,type);
+        }else if (classLimit!=null&&messageLimit!=null){
+            returns = informationClassService.getInformationClassesShow(userDto,classLimit,messageLimit,type);
+        }else
+            throw new WrongDataException("Parameter的空值个数不符合要求");
+        return new Vo<>(returns);
+    }
+
     @GetMapping("/User/{id}")
     @ApiOperation(value = "普通用户的获取information接口",notes = "获取informationClass的展示结构体,需要传入id,token会做检测，无token也可")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "id",value = "对应InformationClass的编号",dataTypeClass = Integer.class,paramType = "path"),
             @ApiImplicitParam(name = "limit",value = "需要详细展示的InformationClass数量",dataTypeClass = Integer.class,paramType = "query")
     })
-    public Vo<InformationClassDto> getMessage(@PathVariable Integer id,@RequestParam(required = false) Integer limit, HttpServletRequest request) throws WrongDataException {
+    public Vo<InformationClassDto> getInformation(@PathVariable Integer id,@RequestParam(required = false) Integer limit, HttpServletRequest request) throws WrongDataException {
         UserDto userDto = (UserDto) request.getAttribute("UserDto");
         InformationClassDto informationClassDto = informationClassService.getInformationClass(userDto,id,limit);
         if (userDto != null) {
