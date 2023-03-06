@@ -46,16 +46,20 @@ public class LocationDtoFactory {
         locationDto.setBasicMessage(messageMapper.getMessageByRule(location.getBasicMessage(),null,null).get(0));
         locationDto.setMapBelong(mapMapper.getMapByMid(location.getMapBelong()));
         locationDto.setMapOwn(mapMapper.getMapByMid(location.getMapOwn()));
-        locationDto.setInformationClasses(informationClassMapper.getInformationClassByRule(null,null, locationDto.getLid()));
         locationDto.setMessages(messageMapper.getMessageByRule(null,null, locationDto.getLid()));
+        locationDto.setInformationClasses(informationClassMapper.getInformationClassByRule(null,null, locationDto.getLid()));
         return locationDto;
     }
 
     public void calculateShow(LocationDto locationDto, UserDto userDto, Integer informationLimit, Integer messageLimit, Integer informationMessageLimit) {
+        locationDto.setMessages(messageMapper.getMessageByRule(null,null, locationDto.getLid()));
+        locationDto.setInformationClasses(informationClassMapper.getInformationClassByRule(null,null, locationDto.getLid()));
+
         List<InformationClassDto> informationShows = informationClassDtoFactory.getInformationClassDtosByRankScore(locationDto.getInformationClasses(), userDto);
 
         ArrayList<InformationClassDto> deletes = new ArrayList<>();
         for (InformationClassDto informationClassDto:informationShows) {
+
             if (informationClassDtoFactory.calculateShowMessages(informationClassDto,userDto,informationMessageLimit)) {
                 deletes.add(informationClassDto);
             }

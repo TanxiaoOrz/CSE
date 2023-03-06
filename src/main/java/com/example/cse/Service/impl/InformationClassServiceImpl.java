@@ -12,6 +12,9 @@ import com.example.cse.Utils.Factory.InformationClassDtoFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Service
 public class InformationClassServiceImpl implements InformationClassService {
     @Autowired
@@ -51,5 +54,31 @@ public class InformationClassServiceImpl implements InformationClassService {
     @Override
     public Integer deleteInformationClass(Integer cid) {
         return informationClassMapper.deleteInformationClass(cid);
+    }
+
+    @Override
+    public List<InformationClassDto> getInformationClasses(UserDto userDto, Integer classLimit, Integer messageLimit, String type) {
+
+        List<InformationClass> types = informationClassMapper.searchInformationClass(type, null, null, null);
+        List<InformationClassDto> dtos = informationClassDtoFactory.getInformationClassDtosByRankScore(types, userDto);
+        List<InformationClassDto> deletes = new ArrayList<>();
+
+        int count = 0;
+
+        for (InformationClassDto informationClassDto: dtos) {
+            if (informationClassDtoFactory.calculateShowMessages(informationClassDto,userDto,messageLimit)) {
+                count++;
+            }else {
+                deletes.add(informationClassDto);
+            }
+            if (count == classLimit)
+                break;
+        }
+
+        if (!deletes.isEmpty())
+            dtos.removeAll(deletes);
+
+        return dtos.subList(0,classLimit);
+
     }
 }
