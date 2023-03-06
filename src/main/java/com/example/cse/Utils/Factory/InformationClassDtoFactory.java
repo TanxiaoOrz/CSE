@@ -48,13 +48,16 @@ public class InformationClassDtoFactory {
         }
 
         informationClassDto.setKeyAndTypes(keyTypeMapper.getKeyAndTypeByCid(informationClassDto.getCid()));
-        informationClassDto.setMessages(messageMapper.getMessageByRule(null, informationClassDto.getCid(),null));
+
 
         return informationClassDto;
     }
 
 
     public boolean calculateShowMessages(InformationClassDto informationClassDto, UserDto userDto,Integer limit) {
+
+        informationClassDto.setMessages(messageMapper.getMessageByRule(null, informationClassDto.getCid(),null));
+
         List<MessageDto> showMessages = messageDtoFactory.getMessageDtosOrderByRankScore(informationClassDto.getMessages(), userDto);
         if (limit == null) {
             informationClassDto.setShowMessages(showMessages);

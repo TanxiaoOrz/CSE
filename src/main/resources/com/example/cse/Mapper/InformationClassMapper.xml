@@ -33,4 +33,28 @@
         </set>
         where Cid = #{Cid};
     </update>
+
+    <select id="searchInformationClass" resultType="com.example.cse.Entity.InformationClass.InformationClass">
+        select * from information_class
+        <where>
+            <if test="Type!=null">
+                Type = #{Type}
+            </if>
+            <if test="Adds!=null and Adds.size > 0" >
+                 <foreach collection="list" item="Withs" open="concat(Name,Resume) regexp concat_ws('&amp;'," close=")" separator=",">
+                    #{Adds}
+                 </foreach>
+            </if>
+            <if test="Default!=null and Default.size > 0" >
+                <foreach collection="list" item="Default" open="concat(Name,Resume) regexp concat_ws('|'," close=")" separator=",">
+                    #{Default}
+                </foreach>
+            </if>
+            <if test="Minuses!=null and Minuses.size > 0" >
+                <foreach collection="list" item="Minuses" open="not concat(Name,Resume) regexp concat_ws('|'," close=")" separator=",">
+                    #{Minuses}
+                </foreach>
+            </if>
+        </where>
+    </select>
 </mapper>

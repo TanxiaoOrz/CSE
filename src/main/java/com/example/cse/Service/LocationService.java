@@ -10,7 +10,9 @@ import java.util.List;
 public interface LocationService {
     LocationDto getLocation(Integer lid, UserDto userDto, Integer informationLimit, Integer messageLimit, Integer informationMessageLimit);
 
-    List<LocationDto> getLocations(UserDto userDto);
+    List<LocationDto> getLocationsShow(UserDto userDto, Integer locationLimit, Integer informationLimit, Integer messageLimit, Integer informationMessageLimit);
+
+    List<LocationDto> getLocationsAll(UserDto userDto);
 
     Integer newLocation(Location location);
 

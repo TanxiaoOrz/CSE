@@ -3,8 +3,6 @@ package com.example.cse.Service.impl;
 import com.example.cse.Dto.InformationClassDto;
 import com.example.cse.Dto.UserDto;
 import com.example.cse.Entity.InformationClass.InformationClass;
-import com.example.cse.Entity.InformationClass.Location;
-import com.example.cse.Entity.InformationClass.Message;
 import com.example.cse.Mapper.InformationClassMapper;
 import com.example.cse.Service.InformationClassService;
 import com.example.cse.Utils.Exception.WrongDataException;
@@ -57,7 +55,7 @@ public class InformationClassServiceImpl implements InformationClassService {
     }
 
     @Override
-    public List<InformationClassDto> getInformationClasses(UserDto userDto, Integer classLimit, Integer messageLimit, String type) {
+    public List<InformationClassDto> getInformationClassesShow(UserDto userDto, Integer classLimit, Integer messageLimit, String type) {
 
         List<InformationClass> types = informationClassMapper.searchInformationClass(type, null, null, null);
         List<InformationClassDto> dtos = informationClassDtoFactory.getInformationClassDtosByRankScore(types, userDto);
@@ -80,5 +78,10 @@ public class InformationClassServiceImpl implements InformationClassService {
 
         return dtos.subList(0,classLimit);
 
+    }
+
+    public List<InformationClassDto> getInformationClassesAll(UserDto userDto, String type) {
+        List<InformationClass> informationClasses = informationClassMapper.searchInformationClass(type, null, null, null);
+        return informationClassDtoFactory.getInformationClassDtosByRankScore(informationClasses, userDto);
     }
 }

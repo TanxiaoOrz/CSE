@@ -19,4 +19,9 @@ public interface InformationClassMapper {
     @Update("update information_class set DeprecatedFlag = 1 where Cid = #{Cid}")
     Integer deleteInformationClass(@Param("Cid") Integer cid);
 
+    List<InformationClass> searchInformationClass(@Param("Type")String type,
+                                                  @Param("Defaults")List<String> defaults,
+                                                  @Param("Adds")List<String> adds,
+                                                  @Param("Minuses")List<String> minuses);
+
 }

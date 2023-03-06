@@ -30,8 +30,19 @@ public class LocationServiceImpl implements LocationService {
     }
 
     @Override
-    public List<LocationDto> getLocations(UserDto userDto) {
-        return null;
+    public List<LocationDto> getLocationsShow(UserDto userDto, Integer locationLimit, Integer informationLimit, Integer messageLimit, Integer informationMessageLimit) {
+        List<Location> locations = locationMapper.getLocationByRule(null, null);
+        List<LocationDto> locationDtos = locationDtoFactory.getLocationsByRank(locations,userDto);
+        for (LocationDto locationDto:locationDtos) {
+            locationDtoFactory.calculateShow(locationDto,userDto,informationLimit,messageLimit,informationMessageLimit);
+        }
+        return locationDtos;
+    }
+
+    @Override
+    public List<LocationDto> getLocationsAll(UserDto userDto) {
+        List<Location> locations = locationMapper.getLocationByRule(null, null);
+        return locationDtoFactory.getLocationsByRank(locations,userDto);
     }
 
     @Override
