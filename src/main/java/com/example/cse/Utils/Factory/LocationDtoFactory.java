@@ -74,9 +74,9 @@ public class LocationDtoFactory {
         }
     }
 
-    public void getLocationsByRank(List<Location> locations, UserDto userDto) {
+    public  List<LocationDto> getLocationsByRank(List<Location> locations, UserDto userDto) {
         if (userDto == null) {
-            getLocationsByRank(locations);
+            return getLocationsByRank(locations);
         }else {
             List<LocationDto> locationDtos = new ArrayList<>();
             Float averageSurfCountLocation = surfMapper.getAverageSurfCountLocation();
@@ -92,10 +92,11 @@ public class LocationDtoFactory {
                 locationDtos.add(locationDto);
             }
             locationDtos.sort(new LocationDto.ScoreComparator());
+            return locationDtos;
         }
     }
 
-    public void getLocationsByRank(List<Location> locations) {
+    public  List<LocationDto> getLocationsByRank(List<Location> locations) {
         List<LocationDto> locationDtos = new ArrayList<>();
         Float averageSurfCountLocation = surfMapper.getAverageSurfCountLocation();
         averageScore = averageSurfCountLocation!=null?averageSurfCountLocation:0;
@@ -105,6 +106,7 @@ public class LocationDtoFactory {
             locationDtos.add(locationDto);
         }
         locationDtos.sort(new LocationDto.ScoreComparator());
+        return locationDtos;
     }
 
     private Integer calculateSurfScore(LocationDto locationDto) {
