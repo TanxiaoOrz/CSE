@@ -29,8 +29,8 @@ public class LocationController {
     @Autowired
     SurfServiceImpl surfService;
 
-    @GetMapping("/User/{id}")
-    @ApiOperation(value = "普通用户的获取Location接口",notes = "获取Location的展示结构体,需要传入id,token会做检测，无token也可")
+    @GetMapping({"/User/{id}","/Manager/{id}"})
+    @ApiOperation(value = "获取Location接口",notes = "获取Location的展示结构体,需要传入id,token会做检测，无token也可")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "id",value = "对应Location的编号",dataTypeClass = Integer.class,paramType = "path"),
             @ApiImplicitParam(name = "informationLimit",value = "需要详细展示的informationCLass数量",dataTypeClass = Integer.class,paramType = "query"),
@@ -47,8 +47,8 @@ public class LocationController {
         return new Vo<>(locationDto);
     }
 
-    @GetMapping("/User")
-    @ApiOperation(value = "普通用户获取多个locaiton接口，", notes = "供首页和地点列表使用,token会做检测，无token也可," +
+    @GetMapping({"/User","/Manager"})
+    @ApiOperation(value = "获取多个location接口", notes = "供首页和地点列表使用,token会做检测，无token也可," +
             "\n四个limit同时有代表获取展示的个数，同时没有代表获取所有")
     @ApiImplicitParams({
             @ApiImplicitParam(value = "locationLimit",name = "地点的数量",dataTypeClass = Integer.class,paramType = "query"),

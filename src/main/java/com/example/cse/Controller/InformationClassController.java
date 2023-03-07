@@ -33,7 +33,7 @@ public class InformationClassController {
     @Autowired
     SurfServiceImpl surfService;
 
-    @GetMapping("/User")
+    @GetMapping({"/User","/Manager"})
     @ApiOperation(value = "普通用户获取多个informationClass接口，", notes = "供首页和分类信息使用,token会做检测，无token也可," +
             "\n两个limit同时有代表获取展示的个数，同时没有代表获取所有")
     @ApiImplicitParams({
@@ -56,7 +56,7 @@ public class InformationClassController {
         return new Vo<>(returns);
     }
 
-    @GetMapping("/User/{id}")
+    @GetMapping({"/User/{id}","/Manager/{id}"})
     @ApiOperation(value = "普通用户的获取information接口",notes = "获取informationClass的展示结构体,需要传入id,token会做检测，无token也可")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "id",value = "对应InformationClass的编号",dataTypeClass = Integer.class,paramType = "path"),

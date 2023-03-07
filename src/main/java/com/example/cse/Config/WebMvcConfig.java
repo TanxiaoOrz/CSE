@@ -31,7 +31,8 @@ public class WebMvcConfig extends WebMvcConfigurationSupport{
     @Autowired
     UserServiceImpl userService;
 
-    protected boolean checkToken(HttpServletRequest request, HttpServletResponse response,boolean tokenNullable) throws IOException {
+
+    protected boolean checkToken(HttpServletRequest request, HttpServletResponse response,boolean tokenNullable,int checkType) throws IOException {
         if (request.getMethod().equals("OPTIONS"))
             return true;
         String token = request.getHeader("token");
@@ -39,18 +40,23 @@ public class WebMvcConfig extends WebMvcConfigurationSupport{
         if (StringUtils.hasText(token) && tokenNullable) //对于部分不强制登录的界面的返回方式
             return true;
 
-        String description;
+        String description = "错误的权限请求!!!";
         try {
             DecodedJWT decodedJWT = tokenService.verifyToken(token);
-            if (tokenService.checkTokenType(decodedJWT, TokenServiceImpl.UserType)){
-                UserDto userDto= tokenService.getUserByToken(decodedJWT);
-                if (userDto == null) {
-                    userDto = userService.getUserByUid(decodedJWT.getClaim("Uid").asString());
-                }
-                request.setAttribute("UserDto",userDto);
-                return true;
-            }else{
-                description = "错误的权限请求!!!";
+            switch (checkType) {
+                case TokenServiceImpl.UserType:
+                    if (tokenService.checkTokenType(decodedJWT, TokenServiceImpl.UserType)) {
+                        UserDto userDto = tokenService.getUserByToken(decodedJWT);
+                        if (userDto == null) {
+                            userDto = userService.getUserByUid(decodedJWT.getClaim("Uid").asString());
+                        }
+                        request.setAttribute("UserDto", userDto);
+                        return true;
+                    }
+                    break;
+                case TokenServiceImpl.ManagerType:
+                    if (tokenService.checkTokenType(decodedJWT,TokenServiceImpl.ManagerType))
+                        return true;
             }
         }catch (TokenExpiredException e) {
             description = "Token已经过期!!!";
@@ -73,11 +79,7 @@ public class WebMvcConfig extends WebMvcConfigurationSupport{
     class UserGet implements HandlerInterceptor {
         @Override
         public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-            if (request.getMethod().equals("GET")){
-                return checkToken(request, response, true);
-            }else {
-                return true;
-            }
+            return checkToken(request, response, true,TokenServiceImpl.UserType);
         }
 
         @Override
@@ -97,7 +99,7 @@ public class WebMvcConfig extends WebMvcConfigurationSupport{
             if (request.getMethod().equals("POST")){
                 return true;
             }else {
-                return checkToken(request, response, false);
+                return checkToken(request, response, false,TokenServiceImpl.UserType);
             }
         }
 
@@ -112,11 +114,33 @@ public class WebMvcConfig extends WebMvcConfigurationSupport{
         }
     }
 
+    class ManagerCheck implements HandlerInterceptor {
+        @Override
+        public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
+            if (request.getMethod().equals("POST")){
+                return true;
+            }else {
+                return checkToken(request, response, false,TokenServiceImpl.ManagerType);
+            }
+        }
+
+        @Override
+        public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {
+            HandlerInterceptor.super.postHandle(request, response, handler, modelAndView);
+        }
+
+        @Override
+        public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) throws Exception {
+            HandlerInterceptor.super.afterCompletion(request, response, handler, ex);
+        }
+    }
+
+
     class TokenCheck implements HandlerInterceptor {
 
         @Override
         public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-            return checkToken(request,response,false);
+            return checkToken(request,response,false,TokenServiceImpl.UserType);
         }
 
         @Override
@@ -158,8 +182,27 @@ public class WebMvcConfig extends WebMvcConfigurationSupport{
                        "/webjars/**",
                        "/doc.html");
        registry.addInterceptor(new UserGet())
+               .addPathPatterns("/cse/Location/User")
+               .addPathPatterns("/cse/Location/User/**")
                .addPathPatterns("/cse/InformationClass/User/**")
+               .addPathPatterns("/cse/InformationClass/User")
                .addPathPatterns("/cse/Message/User/**")
+               .excludePathPatterns("/favicon.ico")
+               .excludePathPatterns("/swagger-ui.html/**",
+                       "/swagger-ui/**",
+                       "/swagger-resources/**",
+                       "/v2/api-docs",
+                       "/v3/api-docs",
+                       "/v3/api-docs/swagger-config",
+                       "/webjars/**",
+                       "/doc.html");
+       registry.addInterceptor(new ManagerCheck())
+               .addPathPatterns("/cse/Location/Manager")
+               .addPathPatterns("/cse/Location/Manager/**")
+               .addPathPatterns("/cse/InformationClass/Manager/**")
+               .addPathPatterns("/cse/InformationClass/Manager")
+               .addPathPatterns("/cse/Message/Manager/**")
+               .addPathPatterns("/cse/Message/Manager")
                .excludePathPatterns("/favicon.ico")
                .excludePathPatterns("/swagger-ui.html/**",
                        "/swagger-ui/**",
