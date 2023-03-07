@@ -35,6 +35,12 @@ public class MessageServiceImpl implements MessageService {
     }
 
     @Override
+    public List<MessageDto> getMessages() {
+        List<Message> messages = messageMapper.getMessageByRule(null, null, null);
+        return messageDtoFactory.getMessageDtosOrderByRankScore(messages,null);
+    }
+
+    @Override
     @Transactional
     public Integer newMessage(MessageIn message) {
         Integer integer = messageMapper.newMessage(message);

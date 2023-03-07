@@ -5,9 +5,13 @@ import com.example.cse.Entity.InformationClass.Message;
 import com.example.cse.Utils.Exception.WrongDataException;
 import com.example.cse.Vo.MessageIn;
 
+import java.util.List;
+
 public interface MessageService {
 
     MessageDto getMessage(Integer mid) throws WrongDataException;
+
+    List<MessageDto> getMessages();
 
     Integer newMessage(MessageIn message);
 
