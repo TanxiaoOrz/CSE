@@ -7,6 +7,7 @@ import com.example.cse.Mapper.MessageMapper;
 import com.example.cse.Service.MessageService;
 import com.example.cse.Utils.Exception.WrongDataException;
 import com.example.cse.Utils.Factory.MessageDtoFactory;
+import com.example.cse.Utils.SearchUtils;
 import com.example.cse.Vo.MessageIn;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -35,8 +36,13 @@ public class MessageServiceImpl implements MessageService {
     }
 
     @Override
-    public List<MessageDto> getMessages() {
-        List<Message> messages = messageMapper.getMessageByRule(null, null, null);
+    public List<MessageDto> searchMessages(String search) {
+        List<String> adds = new ArrayList<>();
+        List<String> minuses = new ArrayList<>();
+        List<String> defaults = new ArrayList<>();
+        SearchUtils.splitSearch(search,adds,minuses,defaults);
+
+        List<Message> messages = messageMapper.searchMessage(defaults,adds,minuses);
         return messageDtoFactory.getMessageDtosOrderByRankScore(messages,null);
     }
 

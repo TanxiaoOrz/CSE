@@ -11,7 +11,7 @@ public interface MessageService {
 
     MessageDto getMessage(Integer mid) throws WrongDataException;
 
-    List<MessageDto> getMessages();
+    List<MessageDto> searchMessages(String search);
 
     Integer newMessage(MessageIn message);
 

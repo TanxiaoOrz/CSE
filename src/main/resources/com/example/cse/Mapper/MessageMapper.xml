@@ -10,10 +10,10 @@
                 message.Mid = #{Mid}
             </if>
             <if test="RelativeInformationClass!=null">
-                Mid in (select Mid from cse.message_information_class where Mid = #{RelativeInformationClass})
+                and Mid in (select Mid from cse.message_information_class where Mid = #{RelativeInformationClass})
             </if>
             <if test="RelativeLocation!=null">
-                Mid in (select Mid from message_location where Lid = #{RelativeLocation})
+                and Mid in (select Mid from message_location where Lid = #{RelativeLocation})
             </if>
         </where>
         order by ReleaseTime desc;
@@ -47,4 +47,24 @@
         insert into message_location (Mid, Lid) VALUES (#{Mid}, #{Lid});
     </insert>
 
+    <select id="searchMessage" resultType="com.example.cse.Entity.InformationClass.Message">
+        select * from message
+        <where>
+            <if test="Adds!=null and Adds.size > 0" >
+                <foreach collection="list" item="Withs" open="concat(Title,message->'$.message') regexp concat_ws('&amp;'," close=")" separator=",">
+                    #{Adds}
+                </foreach>
+            </if>
+            <if test="Default!=null and Default.size > 0" >
+                <foreach collection="list" item="Default" open="and concat(Title,message->'$.message') regexp concat_ws('|'," close=")" separator=",">
+                     #{Default}
+                </foreach>
+            </if>
+            <if test="Minuses!=null and Minuses.size > 0" >
+                <foreach collection="list" item="Minuses" open="and not concat(Title,message->'$.message') regexp concat_ws('|'," close=")" separator=",">
+                    and #{Minuses}
+                </foreach>
+            </if>
+        </where>
+    </select>
 </mapper>

@@ -30,7 +30,7 @@ public class MessageController {
     @Autowired
     SurfServiceImpl surfService;
 
-    @GetMapping({"/User/{id}","/Manager/{id}"})
+    @GetMapping({"/User/{id}","/{id}"})
     @ApiOperation(value = "普通用户的获取message接口",notes = "获取message的展示结构体,需要传入id,如果进行了token的传递")
     @ApiImplicitParam(name = "id",value = "对应message的编号",dataTypeClass = Integer.class,paramType = "path")
     public Vo<MessageDto> getMessage(@PathVariable Integer id, HttpServletRequest request) throws WrongDataException {
@@ -52,10 +52,11 @@ public class MessageController {
         return new Vo<>(message);
     }
 
-    @GetMapping("/Manager")
-    @ApiOperation(value = "获取全部message接口",notes = "获取message的展示结构体,目前只有manager的使用url,如果进行了token的传递")
-    public Vo<List<MessageDto>> getMessages() {
-        List<MessageDto> messages = messageService.getMessages();
+    @GetMapping()
+    @ApiOperation(value = "获取全部message接口",notes = "获取message的展示结构体,如果有搜索字符串按字符串规则筛选")
+    @ApiImplicitParam(value = "search", name = "搜索字符串",dataTypeClass = String.class,paramType = "query")
+    public Vo<List<MessageDto>> searchMessages(@RequestParam(required = false) String search) {
+        List<MessageDto> messages = messageService.searchMessages(search);
         return new Vo<>(messages);
     }
 

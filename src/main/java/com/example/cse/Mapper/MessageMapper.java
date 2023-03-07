@@ -36,4 +36,8 @@ public interface MessageMapper {
     @Update("update message set DeprecatedFlag = 1 where Mid = #{Mid};")
     Integer deleteMessage(@Param("Mid") Integer mid);
 
+    List<Message> searchMessage(@Param("Defaults")List<String> defaults,
+                                @Param("Adds")List<String> adds,
+                                @Param("Minuses")List<String> minuses);
+
 }
