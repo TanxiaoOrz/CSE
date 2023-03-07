@@ -7,6 +7,7 @@ import com.example.cse.Mapper.InformationClassMapper;
 import com.example.cse.Service.InformationClassService;
 import com.example.cse.Utils.Exception.WrongDataException;
 import com.example.cse.Utils.Factory.InformationClassDtoFactory;
+import com.example.cse.Utils.SearchUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -83,5 +84,18 @@ public class InformationClassServiceImpl implements InformationClassService {
     public List<InformationClassDto> getInformationClassesAll(UserDto userDto, String type) {
         List<InformationClass> informationClasses = informationClassMapper.searchInformationClass(type, null, null, null);
         return informationClassDtoFactory.getInformationClassDtosByRankScore(informationClasses, userDto);
+    }
+
+    @Override
+    public List<InformationClassDto> searchInformationClasses(String type, String search) {
+        List<String> adds = new ArrayList<>();
+        List<String> minuses = new ArrayList<>();
+        List<String> defaults = new ArrayList<>();
+
+        SearchUtils.splitSearch(search,adds,minuses,defaults);
+
+        List<InformationClass> informationClasses = informationClassMapper.searchInformationClass(type, defaults, adds, minuses);
+
+        return informationClassDtoFactory.getInformationClassDtosByRankScore(informationClasses,null);
     }
 }

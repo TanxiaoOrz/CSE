@@ -2,6 +2,7 @@ package com.example.cse.Controller;
 
 import com.example.cse.Dto.InformationClassDto;
 import com.example.cse.Dto.LocationDto;
+import com.example.cse.Dto.MessageDto;
 import com.example.cse.Dto.UserDto;
 import com.example.cse.Entity.InformationClass.Location;
 import com.example.cse.Service.SurfService;
@@ -29,7 +30,7 @@ public class LocationController {
     @Autowired
     SurfServiceImpl surfService;
 
-    @GetMapping({"/User/{id}","/Manager/{id}"})
+    @GetMapping({"/User/{id}","/{id}"})
     @ApiOperation(value = "获取Location接口",notes = "获取Location的展示结构体,需要传入id,token会做检测，无token也可")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "id",value = "对应Location的编号",dataTypeClass = Integer.class,paramType = "path"),
@@ -47,7 +48,7 @@ public class LocationController {
         return new Vo<>(locationDto);
     }
 
-    @GetMapping({"/User","/Manager"})
+    @GetMapping("/User")
     @ApiOperation(value = "获取多个location接口", notes = "供首页和地点列表使用,token会做检测，无token也可," +
             "\n四个limit同时有代表获取展示的个数，同时没有代表获取所有")
     @ApiImplicitParams({
@@ -70,6 +71,14 @@ public class LocationController {
         }else
             throw new WrongDataException("Parameter的空值个数不符合要求");
         return new Vo<>(returns);
+    }
+
+    @GetMapping()
+    @ApiOperation(value = "获取全部location接口",notes = "获取location的展示结构体,如果有搜索字符串按字符串规则筛选")
+    @ApiImplicitParam(value = "search", name = "搜索字符串",dataTypeClass = String.class,paramType = "query")
+    public Vo<List<LocationDto>> searchMessages(@RequestParam(required = false) String search) {
+        List<LocationDto> locationDtos = locationService.searchLocations(search);
+        return new Vo<>(locationDtos);
     }
 
     @PostMapping("/Manager")

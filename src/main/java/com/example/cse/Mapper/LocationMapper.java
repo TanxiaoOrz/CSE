@@ -18,4 +18,8 @@ public interface LocationMapper {
 
     @Update("update location set DeprecatedFlag = 1 where Lid = #{Lid}")
     Integer deleteLocation(@Param("Lid") Integer lid);
+
+    List<Location> searchLocation(@Param("Defaults")List<String> defaults,
+                                  @Param("Adds")List<String> adds,
+                                  @Param("Minuses")List<String> minuses);
 }

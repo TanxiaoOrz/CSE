@@ -1,5 +1,6 @@
 package com.example.cse.Service;
 
+import com.example.cse.Dto.InformationClassDto;
 import com.example.cse.Dto.LocationDto;
 import com.example.cse.Dto.UserDto;
 import com.example.cse.Entity.InformationClass.Location;
@@ -19,4 +20,6 @@ public interface LocationService {
     Integer updateLocation(Location location) throws WrongDataException;
 
     Integer deleteLocation(Integer lid);
+
+    List<LocationDto> searchLocations(String search);
 }

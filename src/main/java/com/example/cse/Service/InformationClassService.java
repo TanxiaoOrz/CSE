@@ -20,5 +20,5 @@ public interface InformationClassService {
 
     List<InformationClassDto> getInformationClassesAll(UserDto userDto, String type);
 
-
+    List<InformationClassDto> searchInformationClasses(String type,String search);
 }

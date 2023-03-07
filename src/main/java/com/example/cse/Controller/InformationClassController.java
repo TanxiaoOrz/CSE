@@ -33,7 +33,7 @@ public class InformationClassController {
     @Autowired
     SurfServiceImpl surfService;
 
-    @GetMapping({"/User","/Manager"})
+    @GetMapping("/User")
     @ApiOperation(value = "普通用户获取多个informationClass接口，", notes = "供首页和分类信息使用,token会做检测，无token也可," +
             "\n两个limit同时有代表获取展示的个数，同时没有代表获取所有")
     @ApiImplicitParams({
@@ -56,7 +56,7 @@ public class InformationClassController {
         return new Vo<>(returns);
     }
 
-    @GetMapping({"/User/{id}","/Manager/{id}"})
+    @GetMapping({"/User/{id}","/{id}"})
     @ApiOperation(value = "普通用户的获取information接口",notes = "获取informationClass的展示结构体,需要传入id,token会做检测，无token也可")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "id",value = "对应InformationClass的编号",dataTypeClass = Integer.class,paramType = "path"),
@@ -72,6 +72,17 @@ public class InformationClassController {
             }
         }
         return new Vo<>(informationClassDto);
+    }
+    @GetMapping()
+    @ApiOperation(value = "获取全部location接口",notes = "获取location的展示结构体,如果有搜索字符串按字符串规则筛选")
+    @ApiImplicitParams({
+            @ApiImplicitParam(value = "search", name = "搜索字符串",dataTypeClass = String.class,paramType = "query"),
+            @ApiImplicitParam(value = "type", name = "类型限定",dataTypeClass = String.class,paramType = "query")
+    })
+
+    public Vo<List<InformationClassDto>> searchInformationClass(@RequestParam(required = false) String search, @RequestParam(required = false) String type) {
+        List<InformationClassDto> informationClassDtos = informationClassService.searchInformationClasses(type,search);
+        return new Vo<>(informationClassDtos);
     }
 
     @PostMapping("/Manager")

@@ -2,14 +2,17 @@ package com.example.cse.Service.impl;
 
 import com.example.cse.Dto.LocationDto;
 import com.example.cse.Dto.UserDto;
+import com.example.cse.Entity.InformationClass.InformationClass;
 import com.example.cse.Entity.InformationClass.Location;
 import com.example.cse.Mapper.LocationMapper;
 import com.example.cse.Service.LocationService;
 import com.example.cse.Utils.Exception.WrongDataException;
 import com.example.cse.Utils.Factory.LocationDtoFactory;
+import com.example.cse.Utils.SearchUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -68,5 +71,18 @@ public class LocationServiceImpl implements LocationService {
     @Override
     public Integer deleteLocation(Integer lid) {
         return locationMapper.deleteLocation(lid);
+    }
+
+    @Override
+    public List<LocationDto> searchLocations(String search) {
+        List<String> adds = new ArrayList<>();
+        List<String> minuses = new ArrayList<>();
+        List<String> defaults = new ArrayList<>();
+
+        SearchUtils.splitSearch(search,adds,minuses,defaults);
+
+        List<Location> locations = locationMapper.searchLocation(defaults, adds, minuses);
+
+        return locationDtoFactory.getLocationsByRank(locations);
     }
 }

@@ -10,7 +10,7 @@
                 Lid = #{Lid}
             </if>
             <if test="RelativeMessage != null">
-                Lid in (select Lid from cse.message_Location where Mid = #{RelativeMessage})
+                and Lid in (select Lid from cse.message_Location where Mid = #{RelativeMessage})
             </if>
         </where>
     </select>
@@ -32,4 +32,25 @@
         </set>
         where Lid = #{lid};
     </update>
+
+    <select id="searchLocation" resultType="com.example.cse.Entity.InformationClass.Location">
+        select * from location
+        <where>
+            <if test="Adds!=null and Adds.size > 0" >
+                <foreach collection="list" item="Withs" open="concat(Name,Resume) regexp concat_ws('&amp;'," close=")" separator=",">
+                    #{Adds}
+                </foreach>
+            </if>
+            <if test="Default!=null and Default.size > 0" >
+                <foreach collection="list" item="Default" open="and concat(Name,Resume) regexp concat_ws('|'," close=")" separator=",">
+                    #{Default}
+                </foreach>
+            </if>
+            <if test="Minuses!=null and Minuses.size > 0" >
+                <foreach collection="list" item="Minuses" open="and not concat(Name,Resume) regexp concat_ws('|'," close=")" separator=",">
+                    #{Minuses}
+                </foreach>
+            </if>
+        </where>
+    </select>
 </mapper>
