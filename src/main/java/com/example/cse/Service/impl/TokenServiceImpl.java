@@ -15,6 +15,8 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.stereotype.Service;
+
+import javax.servlet.http.HttpServletRequest;
 import java.util.Calendar;
 
 
@@ -51,6 +53,18 @@ public class TokenServiceImpl implements TokenService, InitializingBean{
         cacheUtils.setCache("User",user.getUid().toString(),user);
 
         return token;
+    }
+
+    @Override
+    public String newTokenByManager(HttpServletRequest request) {
+        Calendar instance = Calendar.getInstance();
+        instance.add(Calendar.SECOND,tokenOutSecond);
+
+        return JWT.create()
+                .withClaim("type",ManagerType)
+                .withClaim("user-agent",request.getRemoteAddr())
+                .withExpiresAt(instance.getTime())
+                .sign(algorithm);
     }
 
     @Override
