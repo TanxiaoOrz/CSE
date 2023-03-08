@@ -66,8 +66,8 @@ public class MessageServiceImpl implements MessageService {
         Message oldMessage;
         try {
             oldMessage = messageMapper.getMessageByRule(message.getMid(),null,null).get(0);
-        }catch (ArrayIndexOutOfBoundsException e) {
-            throw new WrongDataException("错误的地点编号");
+        }catch (IndexOutOfBoundsException e) {
+            throw new WrongDataException("错误的编号");
         }
         Integer integer = 0;
         if (!message.checkUpdate(oldMessage)) {
