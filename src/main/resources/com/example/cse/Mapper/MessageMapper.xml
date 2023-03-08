@@ -32,7 +32,7 @@
                 <if test="time != null"> Time = #{time}, </if>
                 <if test="message != null"> message = #{message} </if>
             </set>
-        where Mid = #{Mid};
+        where Mid = #{mid};
     </update>
 
     <select id="getMessageClassType" resultType="java.lang.String">
