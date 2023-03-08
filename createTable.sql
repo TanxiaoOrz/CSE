@@ -55,13 +55,14 @@ CREATE TABLE `cse`.`user_hobby` (
 
 CREATE TABLE `cse`.`message` (
   `Mid` INT NOT NULL AUTO_INCREMENT,
-  `Title` VARCHAR(45) NULL,
+  `Title` VARCHAR(45) NOT NULL,
   `ReleaseTime` DATETIME NULL,
   `OutTime` DATETIME NULL,
   `Visual` JSON NULL,
   `message` JSON NULL,
   `DeprecatedFlag` TINYINT NULL DEFAULT 0,
-  PRIMARY KEY (`Mid`));
+  PRIMARY KEY (`Mid`),
+  UNIQUE INDEX `Title_UNIQUE` (`Title` ASC) VISIBLE);
 
 
 
@@ -98,7 +99,7 @@ CREATE TABLE `cse`.`map` (
 
 CREATE TABLE `cse`.`location` (
   `Lid` INT NOT NULL AUTO_INCREMENT,
-  `Name` VARCHAR(45) NULL,
+  `Name` VARCHAR(45) NOT NULL,
   `Resume` VARCHAR(45) NULL,
   `Ability` JSON NULL,
   `MapBelong` INT NULL,
@@ -109,6 +110,7 @@ CREATE TABLE `cse`.`location` (
   `Y` INT NULL,
   `DeprecatedFlag` TINYINT NULL DEFAULT 0,
   PRIMARY KEY (`Lid`),
+  UNIQUE INDEX `Name_UNIQUE` (`Name` ASC) VISIBLE,
   INDEX `LocationToMap_idx` (`MapBelong` ASC) VISIBLE,
   INDEX `LocationOwnMap_idx` (`MapOwn` ASC) VISIBLE,
   CONSTRAINT `LocationToMap`
@@ -129,7 +131,7 @@ CREATE TABLE `cse`.`location` (
 
 CREATE TABLE `cse`.`information_class` (
                                            `Cid` INT NOT NULL AUTO_INCREMENT,
-                                           `Name` VARCHAR(45) NULL,
+                                           `Name` VARCHAR(45) NOT NULL,
                                            `Resume` VARCHAR(100) NULL,
                                            `BasicMessage` INT NULL,
                                            `Type` ENUM('比赛', '部门', '活动', '资源') NOT NULL,
@@ -137,6 +139,7 @@ CREATE TABLE `cse`.`information_class` (
                                            `DeprecatedFlag` VARCHAR(45) NULL,
                                            `Location` INT NULL,
                                            PRIMARY KEY (`Cid`),
+                                           UNIQUE INDEX `Name_UNIQUE` (`Name` ASC) VISIBLE,
                                            CONSTRAINT `InformationClassToBasicMessage`
                                                FOREIGN KEY (`BasicMessage`)
                                                    REFERENCES `cse`.`message` (`Mid`)
@@ -351,9 +354,23 @@ USE `cse`$$
 CREATE DEFINER = CURRENT_USER TRIGGER `cse`.`information_class_BEFORE_INSERT` BEFORE INSERT ON `information_class` FOR EACH ROW
 BEGIN
     set new.DeprecatedFlag = 0;
+    if new.Resume is null then
+        set new.Resume = '简介';
+    end if;
 END$$
 DELIMITER ;
--- 废弃标志富
+-- 废弃标志符与默认值设定
+
+DELIMITER $$
+USE `cse`$$
+CREATE DEFINER = CURRENT_USER TRIGGER `cse`.`location_BEFORE_INSERT` BEFORE INSERT ON `location` FOR EACH ROW
+BEGIN
+    set new.DeprecatedFlag = 0;
+    if new.Resume is null then
+        set new.Resume = '简介';
+    end if;
+END$$
+DELIMITER ;
 
 DELIMITER $$
 USE `cse`$$
