@@ -16,11 +16,11 @@
     </select>
 
     <insert id="newLocation" >
-        insert into location (Name, Resume, BasicMessage, Ability, MapBelong,MapOwn,ImgHref) VALUES (#{name}, #{resume}, #{nasicMessage},#{ability}, #{mapBelong}, #{mapOwn}, #{imgHref});
+        insert into location (Name, Resume, BasicMessage, Ability, MapBelong,MapOwn,ImgHref) VALUES (#{name}, #{resume}, #{basicMessage},#{ability}, #{mapBelong}, #{mapOwn}, #{imgHref});
     </insert>
 
     <update id="updateLocation">
-        update information_class
+        update location
         <set>
             <if test="name != null"> Name = #{name}, </if>
             <if test="resume != null"> Resume = #{resume}, </if>
