@@ -11,11 +11,11 @@ public class SearchUtils {
             String[] split = search.split(" ");
             for (String s:split) {
                if (s.startsWith("+")) {
-                   adds.add(s);
+                   adds.add(s.substring(1));
                    continue;
                }
                if (s.startsWith("-")) {
-                   minuses.add(s);
+                   minuses.add(s.substring(1));
                    continue;
                }
                defaults.add(s);
