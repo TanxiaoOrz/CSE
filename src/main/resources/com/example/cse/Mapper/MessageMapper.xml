@@ -29,7 +29,7 @@
                 <if test="title != null"> Title = #{title}, </if>
                 <if test="releaseTime != null"> ReleaseTime = #{releaseTime}, </if>
                 <if test="outTime != null"> OutTime = #{outTime}, </if>
-                <if test="Time != null"> Time = #{time}, </if>
+                <if test="time != null"> Time = #{time}, </if>
                 <if test="message != null"> message = #{message} </if>
             </set>
         where Mid = #{Mid};
