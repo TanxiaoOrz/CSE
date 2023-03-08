@@ -7,6 +7,9 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+import java.sql.SQLException;
+import java.sql.SQLSyntaxErrorException;
+
 @RestControllerAdvice
 @Api(tags = "异常处理控制器")
 @CrossOrigin
@@ -20,6 +23,6 @@ public class ExceptionController {
     @ExceptionHandler(Exception.class)
     public Vo<Exception> handleException(Exception e){
         e.printStackTrace();
-        return new Vo<>(Vo.WrongPostParameter,e,e.getMessage());
+        return new Vo<>(Vo.WrongPostParameter,e.getMessage());
     }
 }
