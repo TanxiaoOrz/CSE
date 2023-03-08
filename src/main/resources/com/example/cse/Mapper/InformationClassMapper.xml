@@ -31,7 +31,7 @@
             <if test="location != null"> Location = #{location}, </if>
             <if test="type != null"> Type = #{type} </if>
         </set>
-        where Cid = #{Cid};
+        where Cid = #{cid};
     </update>
 
     <select id="searchInformationClass" resultType="com.example.cse.Entity.InformationClass.InformationClass">
