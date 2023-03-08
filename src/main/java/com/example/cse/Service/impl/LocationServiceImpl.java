@@ -39,7 +39,10 @@ public class LocationServiceImpl implements LocationService {
         for (LocationDto locationDto:locationDtos) {
             locationDtoFactory.calculateShow(locationDto,userDto,informationLimit,messageLimit,informationMessageLimit);
         }
-        return locationDtos;
+        if (locationDtos.size()<locationLimit)
+            return locationDtos;
+        else
+            return locationDtos.subList(0,locationLimit);
     }
 
     @Override
@@ -50,6 +53,7 @@ public class LocationServiceImpl implements LocationService {
 
     @Override
     public Integer newLocation(Location location) {
+        location.checkZeroToNull();
         return locationMapper.newLocation(location);
     }
 
@@ -58,13 +62,13 @@ public class LocationServiceImpl implements LocationService {
         Location old;
         try {
             old = locationMapper.getLocationByRule(location.getLid(), null).get(0);
-        }catch (ArrayIndexOutOfBoundsException e) {
+        }catch (IndexOutOfBoundsException e) {
             throw new WrongDataException("错误的地点编号");
         }
         if (location.checkUpdate(old)) {
             throw new WrongDataException("没有修改");
         }
-
+        location.checkZeroToNull();
         return locationMapper.updateLocation(location);
     }
 

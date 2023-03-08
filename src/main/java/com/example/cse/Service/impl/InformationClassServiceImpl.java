@@ -43,7 +43,7 @@ public class InformationClassServiceImpl implements InformationClassService {
         InformationClass old ;
         try {
             old = informationClassMapper.getInformationClassByRule(informationClass.getCid(),null,null).get(0);
-        }catch (ArrayIndexOutOfBoundsException e) {
+        }catch (IndexOutOfBoundsException e) {
             throw new WrongDataException("错误的编号");
         }
 
@@ -80,7 +80,10 @@ public class InformationClassServiceImpl implements InformationClassService {
         if (!deletes.isEmpty())
             dtos.removeAll(deletes);
 
-        return dtos.subList(0,classLimit);
+        if (dtos.size()<classLimit)
+            return dtos;
+        else
+            return dtos.subList(0,classLimit);
 
     }
 
