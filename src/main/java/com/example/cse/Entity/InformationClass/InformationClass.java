@@ -1,5 +1,7 @@
 package com.example.cse.Entity.InformationClass;
 
+import org.springframework.util.StringUtils;
+
 import java.util.Objects;
 
 public class InformationClass{
@@ -102,5 +104,26 @@ public class InformationClass{
             update &= imgHref.equals(informationClass.imgHref);
         }
         return update;
+    }
+
+    public void setZeroToNull() {
+        if (location !=null && location == 0) {
+            location =null;
+        }
+        if (basicMessage !=null && basicMessage == 0) {
+            basicMessage = null;
+        }
+        if (!StringUtils.hasText(type)) {
+            type = null;
+        }
+        if (!StringUtils.hasText(name)) {
+            name = null;
+        }if (!StringUtils.hasText(resume)) {
+            resume = null;
+        }
+        if (!StringUtils.hasText(imgHref)) {
+            imgHref = null;
+        }
+
     }
 }
