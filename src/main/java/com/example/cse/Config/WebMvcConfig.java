@@ -37,7 +37,7 @@ public class WebMvcConfig extends WebMvcConfigurationSupport{
             return true;
         String token = request.getHeader("token");
 
-        if (StringUtils.hasText(token) && tokenNullable) //对于部分不强制登录的界面的返回方式
+        if (!StringUtils.hasText(token) && tokenNullable) //对于部分不强制登录的界面的返回方式
             return true;
 
         String description = "错误的权限请求!!!";
