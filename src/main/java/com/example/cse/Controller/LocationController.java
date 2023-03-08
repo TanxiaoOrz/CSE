@@ -52,10 +52,10 @@ public class LocationController {
     @ApiOperation(value = "获取多个location接口", notes = "供首页和地点列表使用,token会做检测，无token也可," +
             "\n四个limit同时有代表获取展示的个数，同时没有代表获取所有")
     @ApiImplicitParams({
-            @ApiImplicitParam(value = "locationLimit",name = "地点的数量",dataTypeClass = Integer.class,paramType = "query"),
-            @ApiImplicitParam(value = "informationLimit",name = "地点中展示信息类的数量",dataTypeClass = Integer.class,paramType = "query"),
-            @ApiImplicitParam(value = "messageLimit",name = "地点中展示的信息数量",dataTypeClass = Integer.class,paramType = "query"),
-            @ApiImplicitParam(value = "informationMessageLimit",name = "地点中信息类中展示的信息数量",dataTypeClass = Integer.class,paramType = "query")
+            @ApiImplicitParam(name = "locationLimit",value = "地点的数量",dataTypeClass = Integer.class,paramType = "query"),
+            @ApiImplicitParam(name = "informationLimit",value = "地点中展示信息类的数量",dataTypeClass = Integer.class,paramType = "query"),
+            @ApiImplicitParam(name = "messageLimit",value = "地点中展示的信息数量",dataTypeClass = Integer.class,paramType = "query"),
+            @ApiImplicitParam(name = "informationMessageLimit",value = "地点中信息类中展示的信息数量",dataTypeClass = Integer.class,paramType = "query")
     })
     public Vo<List<LocationDto>> getLocations(@RequestParam(required = false) Integer informationLimit,
                                                       @RequestParam(required = false) Integer messageLimit,
@@ -75,7 +75,7 @@ public class LocationController {
 
     @GetMapping()
     @ApiOperation(value = "获取全部location接口",notes = "获取location的展示结构体,如果有搜索字符串按字符串规则筛选")
-    @ApiImplicitParam(value = "search", name = "搜索字符串",dataTypeClass = String.class,paramType = "query")
+    @ApiImplicitParam(name = "search", value = "搜索字符串",dataTypeClass = String.class,paramType = "query")
     public Vo<List<LocationDto>> searchMessages(@RequestParam(required = false) String search) {
         List<LocationDto> locationDtos = locationService.searchLocations(search);
         return new Vo<>(locationDtos);
@@ -93,7 +93,7 @@ public class LocationController {
     }
 
     @PutMapping("/Manager")
-    @ApiOperation(value = "管理员新建location",notes = "传入informationClass结构体,无需传入id,需要管理员权限")
+    @ApiOperation(value = "管理员修改location",notes = "传入informationClass结构体,无需传入id,需要管理员权限")
     @ApiImplicitParam(name = "location",value = "要修改的informationClass信息结构体,此处一定要修改编号",dataTypeClass = Location.class,paramType = "body")
     public Vo<String> updateInformation(@RequestBody Location location) throws WrongDataException {
         if (location.getLid() == null) {
@@ -107,13 +107,13 @@ public class LocationController {
     }
 
     @DeleteMapping("/Manager/{id}")
-    @ApiOperation(value = "管理员新建location",notes = "传入location结构体,无需传入id,需要管理员权限")
-    @ApiImplicitParam(name = "location",value = "要删除的location编号",dataTypeClass = Integer.class,paramType = "path")
+    @ApiOperation(value = "管理员删除location",notes = "传入location结构体,无需传入id,需要管理员权限")
+    @ApiImplicitParam(name = "id",value = "要删除的location编号",dataTypeClass = Integer.class,paramType = "path")
     public Vo<String> deleteInformation(@PathVariable Integer id) {
         Integer integer = locationService.deleteLocation(id);
         if (integer==1)
             return new Vo<>("删除成功");
         else
-            return new Vo<>(Vo.WrongPostParameter,"未知错误");
+            return new Vo<>(Vo.WrongPostParameter,"未知编号");
     }
 }

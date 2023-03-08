@@ -54,7 +54,7 @@ public class MessageController {
 
     @GetMapping()
     @ApiOperation(value = "获取全部message接口",notes = "获取message的展示结构体,如果有搜索字符串按字符串规则筛选")
-    @ApiImplicitParam(value = "search", name = "搜索字符串",dataTypeClass = String.class,paramType = "query")
+    @ApiImplicitParam(name = "search", value = "搜索字符串",dataTypeClass = String.class,paramType = "query")
     public Vo<List<MessageDto>> searchMessages(@RequestParam(required = false) String search) {
         List<MessageDto> messages = messageService.searchMessages(search);
         return new Vo<>(messages);
@@ -72,7 +72,7 @@ public class MessageController {
     }
 
     @PutMapping("/Manager")
-    @ApiOperation(value = "管理员新建message",notes = "传入messageIn结构体,无需传入id,需要管理员权限")
+    @ApiOperation(value = "管理员修改message",notes = "传入messageIn结构体,无需传入id,需要管理员权限")
     @ApiImplicitParam(name = "message",value = "要修改的message信息结构体,此处一定要修改编号",dataTypeClass = MessageIn.class,paramType = "body")
     public Vo<String> updateMessage(@RequestBody MessageIn message) throws WrongDataException {
         if (message.getMid() == null) {
@@ -86,8 +86,8 @@ public class MessageController {
     }
 
     @DeleteMapping("/Manager/{id}")
-    @ApiOperation(value = "管理员新建message",notes = "传入messageIn结构体,无需传入id,需要管理员权限")
-    @ApiImplicitParam(name = "message",value = "要删除的message编号",dataTypeClass = Integer.class,paramType = "path")
+    @ApiOperation(value = "管理员删除message",notes = "传入messageIn结构体,无需传入id,需要管理员权限")
+    @ApiImplicitParam(name = "id",value = "要删除的message编号",dataTypeClass = Integer.class,paramType = "path")
     public Vo<String> deleteMessage(@PathVariable Integer id) {
         Integer integer = messageService.deleteMessage(id);
         if (integer==1)
