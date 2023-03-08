@@ -34,6 +34,7 @@ public class InformationClassServiceImpl implements InformationClassService {
 
     @Override
     public Integer newInformationClass(InformationClass informationClass) {
+        informationClass.setZeroToNull();
         return informationClassMapper.newInformationClass(informationClass);
     }
 
@@ -45,8 +46,10 @@ public class InformationClassServiceImpl implements InformationClassService {
         }catch (ArrayIndexOutOfBoundsException e) {
             throw new WrongDataException("错误的编号");
         }
+
         if (informationClass.checkUpdate(old))
             throw new WrongDataException("没有修改");
+        informationClass.setZeroToNull();
         return informationClassMapper.updateInformationClass(informationClass);
     }
 
