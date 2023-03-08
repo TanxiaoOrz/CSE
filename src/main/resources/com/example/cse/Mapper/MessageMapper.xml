@@ -10,7 +10,7 @@
                 message.Mid = #{Mid}
             </if>
             <if test="RelativeInformationClass!=null">
-                and Mid in (select Mid from cse.message_information_class where Mid = #{RelativeInformationClass})
+                and Mid in (select Mid from cse.message_information_class where Cid = #{RelativeInformationClass})
             </if>
             <if test="RelativeLocation!=null">
                 and Mid in (select Mid from message_location where Lid = #{RelativeLocation})
@@ -19,8 +19,8 @@
         order by ReleaseTime desc;
     </select>
 
-    <insert id="newMessage" useGeneratedKeys="true" keyProperty="Mid">
-        insert into message (Title, ReleaseTime, OutTime, Visual, message) VALUES (#{title}, #{releaseTime}, #{outTime}, #{visual},#{message})
+    <insert id="newMessage" useGeneratedKeys="true" keyProperty="mid">
+        insert into message (Title, ReleaseTime, OutTime, Time, message) VALUES (#{title}, #{releaseTime}, #{outTime}, #{time},#{message})
     </insert>
 
     <update id="updateMessage">
@@ -29,7 +29,7 @@
                 <if test="title != null"> Title = #{title}, </if>
                 <if test="releaseTime != null"> ReleaseTime = #{releaseTime}, </if>
                 <if test="outTime != null"> OutTime = #{outTime}, </if>
-                <if test="visual != null"> Visual = #{visual}, </if>
+                <if test="Time != null"> Time = #{time}, </if>
                 <if test="message != null"> message = #{message} </if>
             </set>
         where Mid = #{Mid};
