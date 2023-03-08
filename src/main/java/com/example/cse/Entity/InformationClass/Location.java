@@ -1,6 +1,7 @@
 package com.example.cse.Entity.InformationClass;
 
 import com.example.cse.Entity.Recommend.KeyWord;
+import org.springframework.util.StringUtils;
 
 public class Location {
     private Integer lid;//唯一标识
@@ -14,6 +15,23 @@ public class Location {
     private Integer x;//所在地图坐标
     private Integer y;
 
+    public void checkZeroToNull() {
+        if (mapOwn !=null && mapOwn == 0) {
+            mapOwn =null;
+        }
+        if (mapBelong !=null && mapBelong == 0) {
+            mapBelong =null;
+        }
+        if (basicMessage !=null && basicMessage == 0) {
+            basicMessage = null;
+        }
+        if (!StringUtils.hasText(imgHref)) {
+            imgHref = null;
+        }
+        if (!StringUtils.hasText(ability)) {
+            ability = null;
+        }
+    }
 
     public boolean checkUpdate(Location old) {
         boolean update = true;
