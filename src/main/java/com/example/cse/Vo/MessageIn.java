@@ -27,16 +27,16 @@ public class MessageIn extends Message {
     }
 
     public boolean checkUpdate(Message message) {
-        if (StringUtils.hasText(getMessage())) {
+        if (!StringUtils.hasText(getMessage())) {
             setMessage(message.getMessage());
         }
         if (getTime() == null) {
             setTime(message.getTime());
         }
-        if (StringUtils.hasText(getTitle())) {
+        if (!StringUtils.hasText(getTitle())) {
             setTitle(message.getTitle());
         }
-        if (StringUtils.hasText(getResume())) {
+        if (!StringUtils.hasText(getResume())) {
             setResume(message.getResume());
         }
         if (getReleaseTime() == null) {
