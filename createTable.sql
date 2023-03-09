@@ -97,46 +97,25 @@ CREATE TABLE `cse`.`keyword` (
       ON UPDATE NO ACTION
 );
 
-CREATE TABLE `cse`.`map` (
-    `Mid` INT NOT NULL AUTO_INCREMENT,
-    `Name` VARCHAR(45) NULL,
-    `Resume` VARCHAR(100) NULL,
-    `Href` VARCHAR(100) NULL,
-    `DeprecatedFlag` TINYINT NULL DEFAULT 0,
-    PRIMARY KEY (`Mid`)
-);
 
 CREATE TABLE `cse`.`location` (
   `Lid` INT NOT NULL AUTO_INCREMENT,
   `Name` VARCHAR(45) NOT NULL,
-  `Resume` VARCHAR(45) NULL,
+  `Resume` VARCHAR(200) NULL,
   `Ability` JSON NULL,
-  `MapBelong` INT NULL,
+  `MapBelong` VARCHAR(200) NULL,
   `BasicMessage` INT NULL,
-  `MapOwn` INT NULL,
   `ImgHref` VARCHAR(200) NULL,
   `X` INT NULL,
   `Y` INT NULL,
   `DeprecatedFlag` TINYINT NULL DEFAULT 0,
   PRIMARY KEY (`Lid`),
   UNIQUE INDEX `Name_UNIQUE` (`Name` ASC) VISIBLE,
-  INDEX `LocationToMap_idx` (`MapBelong` ASC) VISIBLE,
-  INDEX `LocationOwnMap_idx` (`MapOwn` ASC) VISIBLE,
-  CONSTRAINT `LocationToMap`
-    FOREIGN KEY (`MapBelong`)
-    REFERENCES `cse`.`map` (`Mid`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
   CONSTRAINT `LocationToBasicMessage`
       FOREIGN KEY (`BasicMessage`)
           REFERENCES `cse`.`message` (`Mid`)
           ON DELETE NO ACTION
-          ON UPDATE NO ACTION,
-  CONSTRAINT `LocationOwnMap`
-    FOREIGN KEY (`MapOwn`)
-    REFERENCES `cse`.`map` (`Mid`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION);
+          ON UPDATE NO ACTION);
 
 CREATE TABLE `cse`.`information_class` (
                                            `Cid` INT NOT NULL AUTO_INCREMENT,
