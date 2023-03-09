@@ -397,6 +397,18 @@ DELIMITER ;
 
 DELIMITER $$
 USE `cse`$$
+CREATE DEFINER = CURRENT_USER TRIGGER `cse`.`information_class_BEFORE_DELETE` BEFORE DELETE ON `information_class` FOR EACH ROW
+BEGIN
+    delete from message_information_class where Cid = old.Cid;
+    delete from surf_information_class where Surf = old.Cid;
+    delete from information_class_key where Cid = old.Cid;
+    update favourite_information_class set favourite_information_class.like = null where favourite_information_class.like = old.Cid;
+END$$
+DELIMITER ;
+
+
+DELIMITER $$
+USE `cse`$$
 CREATE DEFINER = CURRENT_USER TRIGGER `cse`.`location_BEFORE_INSERT` BEFORE INSERT ON `location` FOR EACH ROW
 BEGIN
     set new.DeprecatedFlag = 0;
