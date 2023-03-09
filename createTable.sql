@@ -370,7 +370,30 @@ END$$
 DELIMITER ;
 -- 废弃标志符与默认值设定
 
+DELIMITER $$
+USE `cse`$$
+CREATE DEFINER = CURRENT_USER TRIGGER `cse`.`information_class_AFTER_INSERT` AFTER INSERT ON `information_class` FOR EACH ROW
+BEGIN
+    if not new.BasicMessage is null then
+        update message set AsBasicMessage = new.Cid * 2 where Mid = new.BasicMessage;
+    end if;
+END$$
+DELIMITER ;
+DROP TRIGGER IF EXISTS `cse`.`information_class_BEFORE_UPDATE`;
 
+DELIMITER $$
+USE `cse`$$
+CREATE DEFINER = CURRENT_USER TRIGGER `cse`.`information_class_BEFORE_UPDATE` BEFORE UPDATE ON `information_class` FOR EACH ROW
+BEGIN
+    if new.BasicMessage <> old.BasicMessage then
+        update message set AsBasicMessage = new.Cid*2 where Mid = new.BasicMessage;
+        if old.BasicMessage <> 0 then
+            update message set AsBasicMessage = 0 where Mid = old.BasicMessage;
+        end if;
+    end if;
+END$$
+DELIMITER ;
+-- 更新BasicMessage时对message表进行修改
 
 DELIMITER $$
 USE `cse`$$
@@ -379,6 +402,30 @@ BEGIN
     set new.DeprecatedFlag = 0;
     if new.Resume is null then
         set new.Resume = '简介';
+    end if;
+END$$
+DELIMITER ;
+
+DELIMITER $$
+USE `cse`$$
+CREATE DEFINER = CURRENT_USER TRIGGER `cse`.`location_AFTER_INSERT` AFTER INSERT ON `location` FOR EACH ROW
+BEGIN
+    if not new.BasicMessage is null then
+        update message set AsBasicMessage = new.Lid * 2 + 1 where Mid = new.BasicMessage;
+    end if;
+END$$
+DELIMITER ;
+DROP TRIGGER IF EXISTS `cse`.`location_BEFORE_UPDATE`;
+
+DELIMITER $$
+USE `cse`$$
+CREATE DEFINER = CURRENT_USER TRIGGER `cse`.`location_BEFORE_UPDATE` BEFORE UPDATE ON `location` FOR EACH ROW
+BEGIN
+    if new.BasicMessage <> old.BasicMessage then
+        update message set AsBasicMessage = new.Lid * 2 + 1 where Mid = new.BasicMessage;
+        if old.BasicMessage <> 0 then
+            update message set AsBasicMessage = 0 where Mid = old.BasicMessage;
+        end if;
     end if;
 END$$
 DELIMITER ;
