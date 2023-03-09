@@ -370,6 +370,8 @@ END$$
 DELIMITER ;
 -- 废弃标志符与默认值设定
 
+
+
 DELIMITER $$
 USE `cse`$$
 CREATE DEFINER = CURRENT_USER TRIGGER `cse`.`location_BEFORE_INSERT` BEFORE INSERT ON `location` FOR EACH ROW
@@ -418,6 +420,18 @@ BEGIN
 END$$
 DELIMITER ;
 -- 级联删除
+
+DELIMITER $$
+USE `cse`$$
+CREATE DEFINER = CURRENT_USER TRIGGER `cse`.`message_BEFORE_UPDATE` BEFORE UPDATE ON `message` FOR EACH ROW
+BEGIN
+    if new.AsBasicMessage <> 0 and old.message <> 0 then
+        signal sqlstate 'HY000' set message_text = '该消息已被地点类或信息类指定成为基本信息' ;
+    end if;
+END$$
+DELIMITER ;
+-- 保证不会出现一条消息被多个类指定为basicMessage
+
 
 DELIMITER $$
 USE `cse`$$
