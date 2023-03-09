@@ -9,19 +9,16 @@ public class Location {
     private String resume;
     private String ability;
     private Integer basicMessage;
-    private Integer mapBelong;
-    private Integer mapOwn;
+    private String mapBelong;
     private String imgHref;//所携带的图片
     private Integer x;//所在地图坐标
     private Integer y;
 
     public void checkZeroToNull() {
-        if (mapOwn !=null && mapOwn == 0) {
-            mapOwn =null;
-        }
-        if (mapBelong !=null && mapBelong == 0) {
+        if (!StringUtils.hasText(mapBelong)) {
             mapBelong =null;
         }
+
         if (basicMessage !=null && basicMessage == 0) {
             basicMessage = null;
         }
@@ -31,6 +28,7 @@ public class Location {
         if (!StringUtils.hasText(ability)) {
             ability = null;
         }
+
     }
 
     public boolean checkUpdate(Location old) {
@@ -49,9 +47,6 @@ public class Location {
         }
         if (mapBelong != null) {
             update &= mapBelong.equals(old.mapBelong);
-        }
-        if (mapOwn != null) {
-            update &= mapOwn.equals(old.mapOwn);
         }
         if (x != null) {
             update &= x.equals(old.x);
@@ -105,20 +100,12 @@ public class Location {
         this.basicMessage = basicMessage;
     }
 
-    public Integer getMapBelong() {
+    public String getMapBelong() {
         return mapBelong;
     }
 
-    public void setMapBelong(Integer mapBelong) {
+    public void setMapBelong(String mapBelong) {
         this.mapBelong = mapBelong;
-    }
-
-    public Integer getMapOwn() {
-        return mapOwn;
-    }
-
-    public void setMapOwn(Integer mapOwn) {
-        this.mapOwn = mapOwn;
     }
 
     public String getImgHref() {

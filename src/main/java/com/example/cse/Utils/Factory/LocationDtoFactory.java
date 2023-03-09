@@ -44,10 +44,7 @@ public class LocationDtoFactory {
     public LocationDto getLocationDto(Location location) {
         LocationDto locationDto = new LocationDto(location);
         locationDto.setBasicMessage(messageMapper.getMessageByRule(location.getBasicMessage(),null,null).get(0));
-        locationDto.setMapBelong(mapMapper.getMapByMid(location.getMapBelong()));
-        locationDto.setMapOwn(mapMapper.getMapByMid(location.getMapOwn()));
-        locationDto.setMessages(messageMapper.getMessageByRule(null,null, locationDto.getLid()));
-        locationDto.setInformationClasses(informationClassMapper.getInformationClassByRule(null,null, locationDto.getLid()));
+
         return locationDto;
     }
 

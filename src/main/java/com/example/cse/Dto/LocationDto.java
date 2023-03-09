@@ -18,8 +18,7 @@ public class LocationDto  {
 
 
 
-    private Map MapBelong;
-    private Map MapOwn;
+    private String MapBelong;
     private String imgHref;//所携带的图片
     private Integer X;//所在地图坐标
     private Integer Y;
@@ -91,21 +90,14 @@ public class LocationDto  {
         BasicMessage = basicMessage;
     }
 
-    public Map getMapBelong() {
+    public String getMapBelong() {
         return MapBelong;
     }
 
-    public void setMapBelong(Map mapBelong) {
+    public void setMapBelong(String mapBelong) {
         MapBelong = mapBelong;
     }
 
-    public Map getMapOwn() {
-        return MapOwn;
-    }
-
-    public void setMapOwn(Map mapOwn) {
-        MapOwn = mapOwn;
-    }
 
     public String getImgHref() {
         return imgHref;
