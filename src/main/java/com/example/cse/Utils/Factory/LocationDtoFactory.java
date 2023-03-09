@@ -4,12 +4,8 @@ import com.example.cse.Dto.InformationClassDto;
 import com.example.cse.Dto.LocationDto;
 import com.example.cse.Dto.MessageDto;
 import com.example.cse.Dto.UserDto;
-import com.example.cse.Entity.InformationClass.InformationClass;
 import com.example.cse.Entity.InformationClass.Location;
-import com.example.cse.Entity.InformationClass.Message;
-import com.example.cse.Entity.Recommend.Surf;
 import com.example.cse.Mapper.InformationClassMapper;
-import com.example.cse.Mapper.MapMapper;
 import com.example.cse.Mapper.MessageMapper;
 import com.example.cse.Mapper.SurfMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +13,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -25,8 +20,6 @@ import java.util.concurrent.ConcurrentHashMap;
 public class LocationDtoFactory {
     @Autowired
     MessageMapper messageMapper;
-    @Autowired
-    MapMapper mapMapper;
     @Autowired
     InformationClassMapper informationClassMapper;
     @Autowired

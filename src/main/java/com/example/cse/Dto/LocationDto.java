@@ -2,7 +2,6 @@ package com.example.cse.Dto;
 
 import com.example.cse.Entity.InformationClass.InformationClass;
 import com.example.cse.Entity.InformationClass.Location;
-import com.example.cse.Entity.InformationClass.Map;
 import com.example.cse.Entity.InformationClass.Message;
 
 import java.util.Comparator;
