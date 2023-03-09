@@ -58,13 +58,22 @@ CREATE TABLE `cse`.`message` (
   `Title` VARCHAR(45) NOT NULL,
   `ReleaseTime` DATETIME NULL,
   `OutTime` DATETIME NULL,
-  `Visual` JSON NULL,
+  `Time` JSON NULL,
   `message` JSON NULL,
+  `AsBasicMessage` INT null DEFAULT 0,
   `DeprecatedFlag` TINYINT NULL DEFAULT 0,
   PRIMARY KEY (`Mid`),
   UNIQUE INDEX `Title_UNIQUE` (`Title` ASC) VISIBLE);
 
-
+CREATE TABLE `cse`.`message_out` (
+                                     `Mid` INT NOT NULL ,
+                                     `Title` VARCHAR(45) NOT NULL,
+                                     `ReleaseTime` DATETIME NULL,
+                                     `OutTime` DATETIME NULL,
+                                     `message` JSON NULL,
+                                     `DeprecatedFlag` TINYINT NULL DEFAULT 0,
+                                     PRIMARY KEY (`Mid`),
+                                     UNIQUE INDEX `Title_UNIQUE` (`Title` ASC) VISIBLE);
 
 
 CREATE TABLE `cse`.`keyword_type` (
@@ -264,7 +273,7 @@ CREATE TABLE `cse`.`favourite_message` (
    `Uid` INT NOT NULL,
    `like` INT NOT NULL,
    `Time` DATETIME NOT NULL DEFAULT NOW(),
-   PRIMARY KEY (`Uid`, `like`),
+   PRIMARY KEY (`Uid`, `Time`),
    INDEX `favouriteToSection_idx` (`like` ASC) VISIBLE,
    CONSTRAINT `favouriteToMessage`
        FOREIGN KEY (`like`)
@@ -377,6 +386,7 @@ USE `cse`$$
 CREATE DEFINER = CURRENT_USER TRIGGER `cse`.`message_BEFORE_INSERT` BEFORE INSERT ON `message` FOR EACH ROW
 BEGIN
     set new.DeprecatedFlag = 0;
+    set new.AsBasicMessage = 0;
     if new.ReleaseTime IS NULL
     then set new.ReleaseTime = now();
     end if;
@@ -386,6 +396,38 @@ BEGIN
 END$$
 DELIMITER ;
 -- message规范输入
+
+DELIMITER $$
+USE `cse`$$
+CREATE DEFINER = CURRENT_USER TRIGGER `cse`.`message_BEFORE_DELETE` BEFORE DELETE ON `message` FOR EACH ROW
+BEGIN
+    if not old.AsBasicMessage = 0 then
+        set @choose = old.AsBasicMessage mod 2;
+        if @choose = 0 then
+            update information_class set BasicMessage = null where Cid = (old.AsBasicMessage)/2;
+        end if;
+        if @choose = 1 then
+            update location set BasicMessage = null where Lid = (old.AsBasicMessage - 1)/2;
+        end if;
+    end if;
+
+    delete from message_information_class where Mid = old.Mid;
+    delete from message_location where Mid = old.Mid;
+    delete from surf_message where Surf = old.Mid;
+    update favourite_message set favourite_message.like = null where favourite_message.like = old.Mid;
+END$$
+DELIMITER ;
+-- 级联删除
+
+DELIMITER $$
+USE `cse`$$
+CREATE DEFINER = CURRENT_USER TRIGGER `cse`.`message_AFTER_DELETE` AFTER DELETE ON `message` FOR EACH ROW
+BEGIN
+    insert into message_out (Mid,Title, ReleaseTime, OutTime, message) values (old.Mid,old.Title, old.ReleaseTime, old.OutTime, old.message);
+END$$
+DELIMITER ;
+-- 进入过时表
+
 DELIMITER $$
 USE `cse`$$
 CREATE DEFINER = CURRENT_USER TRIGGER `cse`.`favourite_information_class_BEFORE_INSERT` BEFORE INSERT ON `favourite_information_class` FOR EACH ROW
