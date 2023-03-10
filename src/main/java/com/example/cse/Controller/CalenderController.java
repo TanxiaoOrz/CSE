@@ -40,7 +40,6 @@ public class CalenderController {
         UserDto userDto = (UserDto) request.getAttribute("UserDto");
         Integer integer = calenderService.newUserCalender(userDto,calenderIn);
         if (integer == 1){
-            userService.calculateUserModel(userDto);
             return new Vo<>("新增成功");
         }else {
             return new Vo<>(Vo.WrongPostParameter,"未知错误，创建失败");
@@ -54,7 +53,6 @@ public class CalenderController {
         UserDto userDto = (UserDto) request.getAttribute("UserDto");
         Integer integer = calenderService.deleteUserCalender(userDto, calenderIn);
         if (integer == 1){
-            userService.calculateUserModel(userDto);
             return new Vo<>("删除成功");
         }else {
             return new Vo<>(Vo.WrongPostParameter,"未知错误，删除失败");
@@ -68,7 +66,7 @@ public class CalenderController {
         UserDto userDto = (UserDto) request.getAttribute("UserDto");
         Integer integer = calenderService.updateUserCalender(userDto,calenderIn);
         if (integer == 1){
-            return new Vo<>("新增成功");
+            return new Vo<>("修改成功");
         }else {
             return new Vo<>(Vo.WrongPostParameter,"未知错误，创建失败");
         }
