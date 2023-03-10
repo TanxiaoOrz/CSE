@@ -71,6 +71,28 @@ public class FavouriteServiceImpl implements FavouriteService {
     }
 
     @Override
+    public Integer deleteFavouriteNull(UserDto userDto, String type) throws NoDataException {
+        Integer integer;
+        switch (type){
+            case "message" : {
+                integer = favouriteMapper.deleteFavouriteMessage(userDto.getUid());
+                break;
+            }
+            case "location" : {
+                integer = favouriteMapper.deleteFavouriteLocation(userDto.getUid());
+                break;
+            }
+            case "informationClass" : {
+                integer = favouriteMapper.deleteFavouriteInformationClass(userDto.getUid());
+                break;
+            }
+            default:
+                throw new NoDataException("错误的Type字段");
+        }
+        return integer;
+    }
+
+    @Override
     public Integer newFavourite(UserDto userDto, Integer id, String type) throws NoDataException {
         Integer integer;
         switch (type){

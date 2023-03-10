@@ -10,6 +10,8 @@ public interface FavouriteService {
 
     Integer deleteFavourite(UserDto userDto, Integer id, String type) throws NoDataException;
 
+    Integer deleteFavouriteNull(UserDto userDto, String type) throws NoDataException;
+
     Integer newFavourite(UserDto userDto, Integer id, String type) throws NoDataException;
 
 }

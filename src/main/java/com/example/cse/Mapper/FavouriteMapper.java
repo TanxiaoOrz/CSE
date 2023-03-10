@@ -47,4 +47,15 @@ public interface FavouriteMapper {
     @Delete("delete from favourite_location where Uid = #{Uid} and `like`= #{Lid}")
     Integer deleteFavouriteLocation(@Param("Uid") Integer Uid,@Param("Mid") Integer Lid);
 
+    @Delete("delete from favourite_message where Uid = #{Uid} and `like`is null")
+    Integer deleteFavouriteMessage(@Param("Uid") Integer Uid);
+
+    @Delete("delete from favourite_information_class where Uid = #{Uid} and `like`is null")
+    Integer deleteFavouriteInformationClass(@Param("Uid") Integer Uid);
+
+    @Delete("delete from favourite_location where Uid = #{Uid} and `like` is null")
+    Integer deleteFavouriteLocation(@Param("Uid") Integer Uid);
+
+
+
 }
