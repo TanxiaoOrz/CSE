@@ -203,6 +203,8 @@ public class WebMvcConfig extends WebMvcConfigurationSupport{
                .addPathPatterns("/cse/InformationClass/Manager")
                .addPathPatterns("/cse/Message/Manager/**")
                .addPathPatterns("/cse/Message/Manager")
+               .addPathPatterns("/cse/Hobby/Manager")
+               .addPathPatterns("/cse/Profession/Manager")
                .excludePathPatterns("/favicon.ico")
                .excludePathPatterns("/swagger-ui.html/**",
                        "/swagger-ui/**",

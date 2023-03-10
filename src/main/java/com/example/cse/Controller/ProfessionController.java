@@ -24,9 +24,9 @@ public class ProfessionController {
     ProfessionServiceImpl professionService;
 
     //尚未增加权限监测
-    @PostMapping
+    @PostMapping("/Manager")
     @ApiImplicitParam(name = "profession",value = "新建专业结构体",dataTypeClass = ProfessionIn.class, paramType = "body")
-    @ApiOperation(value = "用户新建窗口",notes = "会对专业进行唯一性验证，token验证暂未实现")
+    @ApiOperation(value = "管理员新建窗口",notes = "会对专业进行唯一性验证，token验证暂未实现")
     public Vo<String> newProfession(@RequestBody ProfessionIn profession) throws NoDataException {
         Integer integer = professionService.newProfession(profession);
         if (integer == 1)

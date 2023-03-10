@@ -25,7 +25,7 @@ public class HobbyController {
     UserServiceImpl userService;
 
     @PutMapping("/manager")
-    @ApiOperation(value = "新建接口",notes = "需要管理员权限验证（未实现）,会检测空值与同名爱好是否存在")
+    @ApiOperation(value = "新建接口",notes = "需要管理员权限验证,会检测空值与同名爱好是否存在")
     @ApiImplicitParam(value = "hobby",name = "新建的爱好",dataTypeClass = HobbyIn.class, paramType = "body",required = true)
     public Vo<String> newHobby(@RequestBody HobbyIn hobby) throws NoDataException {
         Integer integer = hobbyService.newHobby(hobby);
@@ -35,8 +35,8 @@ public class HobbyController {
             return new Vo<>(Vo.WrongPostParameter,null,"未知错误，创建失败");
     }
 
-    @GetMapping
-    @ApiOperation(value = "获取所有爱好接口")
+    @GetMapping("/manager")
+    @ApiOperation(value = "获取所有爱好接口",notes = "此处需要管理员验证")
     public Vo<List<HobbyDto>> getHobbyAll() {
         List<HobbyDto> hobbyAll = hobbyService.getHobbyAll();
         return new Vo<>(Vo.Success, hobbyAll, null);
