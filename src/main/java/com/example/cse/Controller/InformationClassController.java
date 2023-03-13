@@ -11,6 +11,7 @@ import com.example.cse.Service.impl.InformationClassServiceImpl;
 import com.example.cse.Service.impl.MessageServiceImpl;
 import com.example.cse.Service.impl.SurfServiceImpl;
 import com.example.cse.Utils.Exception.WrongDataException;
+import com.example.cse.Vo.InformationClassIn;
 import com.example.cse.Vo.MessageIn;
 import com.example.cse.Vo.Vo;
 import io.swagger.annotations.Api;
@@ -87,8 +88,8 @@ public class InformationClassController {
 
     @PostMapping("/Manager")
     @ApiOperation(value = "管理员新建informationClass",notes = "传入informationClass结构体,无需传入id,需要管理员权限")
-    @ApiImplicitParam(name = "informationClass",value = "要新建的informationClass信息结构体",dataTypeClass = InformationClass.class,paramType = "body")
-    public Vo<String> newInformation(@RequestBody InformationClass informationClass) {
+    @ApiImplicitParam(name = "informationClass",value = "要新建的informationClass信息结构体",dataTypeClass = InformationClassIn.class,paramType = "body")
+    public Vo<String> newInformation(@RequestBody InformationClassIn informationClass) {
         Integer integer = informationClassService.newInformationClass(informationClass);
         if (integer==1)
             return new Vo<>("新建成功");
@@ -98,8 +99,8 @@ public class InformationClassController {
 
     @PutMapping("/Manager")
     @ApiOperation(value = "管理员修改informationClass",notes = "传入informationClass结构体,无需传入id,需要管理员权限")
-    @ApiImplicitParam(name = "informationClass",value = "要修改的informationClass信息结构体,此处一定要修改编号",dataTypeClass = InformationClass.class,paramType = "body")
-    public Vo<String> updateInformation(@RequestBody InformationClass informationClass) throws WrongDataException {
+    @ApiImplicitParam(name = "informationClass",value = "要修改的informationClass信息结构体,此处一定要修改编号",dataTypeClass = InformationClassIn.class,paramType = "body")
+    public Vo<String> updateInformation(@RequestBody InformationClassIn informationClass) throws WrongDataException {
         if (informationClass.getCid() == null) {
             return new Vo<>(Vo.WrongPostParameter,"请输入要修改的编号");
         }
