@@ -4,11 +4,14 @@ import com.example.cse.Entity.InformationClass.InformationClass;
 import com.example.cse.Entity.InformationClass.Location;
 import com.example.cse.Entity.InformationClass.Message;
 import com.example.cse.Entity.Recommend.KeyAndType;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 
 import java.util.Comparator;
 import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 
+@ApiModel(value = "信息类的包装类",description = "附带了地点与从属信息和要展示的信息以及关键词和分数")
 public class InformationClassDto {
 
     public static class ScoreComparator implements Comparator<InformationClassDto> {
@@ -18,21 +21,30 @@ public class InformationClassDto {
         }
     }
 
+    @ApiModelProperty("唯一编号")
     private Integer cid;
+    @ApiModelProperty("简介")
     private String resume;//简介
+    @ApiModelProperty("信息类名字")
     private String name;//名字
+    @ApiModelProperty(value = "类型",allowableValues = "比赛,部门,活动,资源")
     private String type;//类型
+    @ApiModelProperty("图片的路径")
     private String imgHref;//图片
 
+    @ApiModelProperty("描述该信息类的简介消息的id")
     private Message basicMessage;
 
+    @ApiModelProperty("从属于该类的消息")
     private List<Message> messages;
+    @ApiModelProperty("所在位置")
     private Location location;
 
+    @ApiModelProperty("附属的关键词")
     private List<KeyAndType> keyAndTypes;
-
+    @ApiModelProperty("要被排序展示的消息数组")
     private List<MessageDto> showMessages;
-
+    @ApiModelProperty("排序分数")
     private Integer rankScore;
 
     public Integer getCid() {

@@ -1,17 +1,27 @@
 package com.example.cse.Entity.InformationClass;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import org.springframework.util.StringUtils;
 
 import java.util.Objects;
 
+@ApiModel(value = "信息类的实体类",description = "没有任何包装的版本")
 public class InformationClass{
 
+    @ApiModelProperty("唯一编号")
     private Integer cid;
+    @ApiModelProperty("描述该信息类的简介消息的id")
     private Integer basicMessage;//在类页面一定显示的描述性信息
+    @ApiModelProperty("简介")
     private String resume;//简介
+    @ApiModelProperty("信息类名字")
     private String name;//名字
+    @ApiModelProperty(value = "类型",allowableValues = "比赛,部门,活动,资源")
     private String type;//类型
+    @ApiModelProperty("图片的路径")
     private String imgHref;//图片
+    @ApiModelProperty("位置对应的id")
     private Integer location;//所处未知
 
     public Integer getCid() {

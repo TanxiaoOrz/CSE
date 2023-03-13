@@ -1,11 +1,15 @@
 package com.example.cse.Vo;
 
 import com.example.cse.Entity.InformationClass.InformationClass;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 
 import java.util.List;
 
+@ApiModel(value = "信息类的传入类",description = "附带了关键词")
 public class InformationClassIn extends InformationClass {
-    List<Integer> keyAndTypes;
+    @ApiModelProperty("附属的关键词的id数组")
+    private List<Integer> keyAndTypes;
 
     public List<Integer> getKeyAndTypes() {
         return keyAndTypes;

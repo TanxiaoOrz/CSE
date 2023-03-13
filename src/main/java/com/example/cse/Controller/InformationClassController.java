@@ -57,15 +57,15 @@ public class InformationClassController {
         return new Vo<>(returns);
     }
 
-    @GetMapping({"/User/{id}","/{id}"})
-    @ApiOperation(value = "普通用户的获取information接口",notes = "获取informationClass的展示结构体,需要传入id,token会做检测，无token也可")
+    @GetMapping({"/User/{id}","{id}"})
+    @ApiOperation(value = "普通用户的获取information接口",notes = "获取informationClass的展示结构体,需要传入id,token会做检测，无token也可,管理员访问请使用无User的url")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "id",value = "对应InformationClass的编号",dataTypeClass = Integer.class,paramType = "path"),
-            @ApiImplicitParam(name = "limit",value = "需要详细展示的InformationClass数量",dataTypeClass = Integer.class,paramType = "query")
+            @ApiImplicitParam(name = "limit",value = "需要详细展示的message数量,若为0则标识全部展示",dataTypeClass = Integer.class,paramType = "query")
     })
     public Vo<InformationClassDto> getInformation(@PathVariable Integer id,@RequestParam(required = false) Integer limit, HttpServletRequest request) throws WrongDataException {
         UserDto userDto = (UserDto) request.getAttribute("UserDto");
-        InformationClassDto informationClassDto = informationClassService.getInformationClass(userDto,id,limit);
+        InformationClassDto informationClassDto = informationClassService.getInformationClass(userDto,id,limit==0?null:limit);
         if (userDto != null) {
             surfService.newSurf(userDto,id, SurfService.INFORMATION_CLASS);
             if (informationClassDto.getLocation() != null) {
@@ -74,8 +74,8 @@ public class InformationClassController {
         }
         return new Vo<>(informationClassDto);
     }
-    @GetMapping()
-    @ApiOperation(value = "获取全部location接口",notes = "获取location的展示结构体,如果有搜索字符串按字符串规则筛选")
+    @GetMapping("/Search")
+    @ApiOperation(value = "获取全部location接口",notes = "获取informationClass的展示结构体,如果有搜索字符串按字符串规则筛选")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "search", value = "搜索字符串",dataTypeClass = String.class,paramType = "query"),
             @ApiImplicitParam(name = "type", value = "类型限定",dataTypeClass = String.class,paramType = "query")
@@ -98,21 +98,21 @@ public class InformationClassController {
     }
 
     @PutMapping("/Manager")
-    @ApiOperation(value = "管理员修改informationClass",notes = "传入informationClass结构体,无需传入id,需要管理员权限")
+    @ApiOperation(value = "管理员修改informationClass",notes = "传入informationClass结构体,需要id,需要管理员权限")
     @ApiImplicitParam(name = "informationClass",value = "要修改的informationClass信息结构体,此处一定要修改编号",dataTypeClass = InformationClassIn.class,paramType = "body")
     public Vo<String> updateInformation(@RequestBody InformationClassIn informationClass) throws WrongDataException {
         if (informationClass.getCid() == null) {
             return new Vo<>(Vo.WrongPostParameter,"请输入要修改的编号");
         }
         Integer integer = informationClassService.updateInformationClass(informationClass);
-        if (integer==1)
+        if (integer != 0 )
             return new Vo<>("修改成功");
         else
-            return new Vo<>(Vo.WrongPostParameter,"未知错误");
+            return new Vo<>(Vo.WrongPostParameter,"没有做出修改");
     }
 
     @DeleteMapping("/Manager/{id}")
-    @ApiOperation(value = "管理员删除informationClass",notes = "传入informationClass结构体,无需传入id,需要管理员权限")
+    @ApiOperation(value = "管理员删除informationClass",notes = "传入informationClass结构体,需要传入id,需要管理员权限")
     @ApiImplicitParam(name = "id",value = "要删除的informationClass编号",dataTypeClass = Integer.class,paramType = "path")
     public Vo<String> deleteInformation(@PathVariable Integer id) {
         Integer integer = informationClassService.deleteInformationClass(id);
