@@ -21,7 +21,7 @@ public class KeywordController {
     @Autowired
     KeyServiceImpl keyService;
 
-    @PostMapping("/manager/Keyword")
+    @PostMapping("/Manager/Keyword")
     @ApiOperation(value = "管理员新建关键词",notes = "传入关键词结构体，需要进行管理员验证")
     @ApiImplicitParam(name = "keyWord",value = "要新建的关键词结构体",dataTypeClass = KeyWord.class,paramType = "body")
     public Vo<String> newKey(@RequestBody KeyWord keyWord) {
@@ -31,7 +31,7 @@ public class KeywordController {
             return new Vo<>("位置错误");
     }
 
-    @PostMapping("/manager/KeyType")
+    @PostMapping("/Manager/KeyType")
     @ApiOperation(value = "管理员新建关键词类型",notes = "传入关键词类型结构体，需要进行管理员验证")
     @ApiImplicitParam(name = "keyWordType",value = "要新建的关键词类型结构体",dataTypeClass = KeyWordType.class,paramType = "body")
     public Vo<String> newType(@RequestBody KeyWordType keyWordType) {
