@@ -1,10 +1,9 @@
 package com.example.cse.Vo;
 
-import com.example.cse.Entity.InformationClass.InformationClass;
+import com.example.cse.Entity.Recommend.KeyAndType;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
-import java.util.Date;
 import java.util.List;
 
 @ApiModel(value = "FavouriteInformationClass",description = "用户喜欢的具体类")

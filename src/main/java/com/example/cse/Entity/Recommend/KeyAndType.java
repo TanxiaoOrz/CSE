@@ -1,4 +1,4 @@
-package com.example.cse.Vo;
+package com.example.cse.Entity.Recommend;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
