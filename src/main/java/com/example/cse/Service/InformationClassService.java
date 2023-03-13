@@ -19,7 +19,5 @@ public interface InformationClassService {
 
     List<InformationClassDto> getInformationClassesShow(UserDto userDto, Integer classLimit, Integer messageLimit, String type);
 
-    List<InformationClassDto> getInformationClassesAll(UserDto userDto, String type);
-
     List<InformationClassDto> searchInformationClasses(String type,String search);
 }

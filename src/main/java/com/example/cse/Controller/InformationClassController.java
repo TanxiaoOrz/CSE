@@ -42,18 +42,13 @@ public class InformationClassController {
             @ApiImplicitParam(name = "messageLimit",value = "信息类中展示的信息数量",dataTypeClass = Integer.class,paramType = "query"),
             @ApiImplicitParam(name = "type",value = "信息类中类型要求",dataTypeClass = String.class,paramType = "query")
     })
-    public Vo<List<InformationClassDto>> getInformationClasses(@RequestParam(required = false) Integer classLimit,
-                                                            @RequestParam(required = false) Integer messageLimit,
-                                                            @RequestParam(required = false) String type,
+    public Vo<List<InformationClassDto>> getInformationClasses(@RequestParam Integer classLimit,
+                                                            @RequestParam Integer messageLimit,
+                                                            @RequestParam String type,
                                                             HttpServletRequest request) throws WrongDataException {
         UserDto userDto = (UserDto) request.getAttribute("UserDto");
         List<InformationClassDto> returns;
-        if (classLimit==null&&messageLimit==null) {
-            returns = informationClassService.getInformationClassesAll(userDto,type);
-        }else if (classLimit!=null&&messageLimit!=null){
             returns = informationClassService.getInformationClassesShow(userDto,classLimit,messageLimit,type);
-        }else
-            throw new WrongDataException("Parameter的空值个数不符合要求");
         return new Vo<>(returns);
     }
 

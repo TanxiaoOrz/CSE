@@ -113,10 +113,6 @@ public class InformationClassServiceImpl implements InformationClassService {
 
     }
 
-    public List<InformationClassDto> getInformationClassesAll(UserDto userDto, String type) {
-        List<InformationClass> informationClasses = informationClassMapper.searchInformationClass(type, null, null, null);
-        return informationClassDtoFactory.getInformationClassDtosByRankScore(informationClasses, userDto);
-    }
 
     @Override
     public List<InformationClassDto> searchInformationClasses(String type, String search) {
