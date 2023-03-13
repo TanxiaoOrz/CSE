@@ -1,7 +1,11 @@
 package com.example.cse.Mapper;
 
-import com.example.cse.Vo.KeyAndType;
+import com.example.cse.Entity.Recommend.KeyAndType;
+import com.example.cse.Entity.Recommend.KeyWord;
+import com.example.cse.Entity.Recommend.KeyWordType;
+import com.example.cse.Entity.Recommend.TypeWithKey;
 import org.apache.ibatis.annotations.*;
+import sun.security.rsa.RSAUtil;
 
 import java.util.List;
 
@@ -19,5 +23,17 @@ public interface KeyTypeMapper {
 
     @Select("select Kid from information_class_key where Cid = #{Cid}")
     List<Integer> getKidsByCid(@Param("Cid")Integer Cid);
+
+    @Insert("insert into keyword (KeyName, KeywordType, KeyResume) VALUES (#{KeyName}, #{KeywordType}, #{KeyResume})")
+    Integer newKeyword(KeyWord keyWord);
+
+    @Insert("insert into keyword_type (TypeName, TypeResume) VALUES (#{TypeName}, #{TypeResume})")
+    Integer newKeywordType(KeyWordType keyWordType);
+
+    @Select("select * from keyword_type")
+    List<TypeWithKey> getAllType();
+
+    @Select("select Kid from keyword where KeywordType = #{Tid}")
+    List<KeyWord> getKeysByTid(@Param("Tid")Integer tid);
 
 }
