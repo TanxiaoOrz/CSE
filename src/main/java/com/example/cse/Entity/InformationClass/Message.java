@@ -1,15 +1,26 @@
 package com.example.cse.Entity.InformationClass;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+
 import java.util.Date;
 import java.util.Objects;
 
+@ApiModel(value = "消息的存储实体类",description = "没有任何包装")
 public class Message{
+    @ApiModelProperty("唯一消息标识号")
     private Integer mid;//唯一消息标识号
-    private Date time;//需要占用的时间
+    @ApiModelProperty("需要占用的时间,也是json字符串数组，后端不作解析，前端自己解析自己生成")
+    private String time;//需要占用的时间
+    @ApiModelProperty("消息标题")
     private String title;//消息标题
+    @ApiModelProperty("消息简介")
     private String resume;//消息简介
+    @ApiModelProperty(value = "消息本体,json字符串包含file数组内部是附件路径，image数组内部时携带的图片路径，message消息字符串",example = "{\"file\": [], \"image\": [], \"message\": \"\"}")
     private String message;//消息本体
+    @ApiModelProperty("消息放出时间")
     private Date releaseTime;//消息放出时间
+    @ApiModelProperty("消息过期时间")
     private Date outTime;//消息过期时间
 
     public Integer getMid() {
@@ -20,11 +31,11 @@ public class Message{
         this.mid = mid;
     }
 
-    public Date getTime() {
+    public String getTime() {
         return time;
     }
 
-    public void setTime(Date time) {
+    public void setTime(String time) {
         this.time = time;
     }
 

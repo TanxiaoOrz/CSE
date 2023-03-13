@@ -31,7 +31,7 @@ public class MessageController {
     SurfServiceImpl surfService;
 
     @GetMapping({"/User/{id}","/{id}"})
-    @ApiOperation(value = "普通用户的获取message接口",notes = "获取message的展示结构体,需要传入id,如果进行了token的传递")
+    @ApiOperation(value = "普通用户的获取message接口",notes = "获取message的展示结构体,需要传入id,token会做检测，无token也可，管理员访问请使用无User的url")
     @ApiImplicitParam(name = "id",value = "对应message的编号",dataTypeClass = Integer.class,paramType = "path")
     public Vo<MessageDto> getMessage(@PathVariable Integer id, HttpServletRequest request) throws WrongDataException {
         UserDto userDto = (UserDto) request.getAttribute("UserDto");
@@ -52,7 +52,7 @@ public class MessageController {
         return new Vo<>(message);
     }
 
-    @GetMapping()
+    @GetMapping("/Search")
     @ApiOperation(value = "获取全部message接口",notes = "获取message的展示结构体,如果有搜索字符串按字符串规则筛选")
     @ApiImplicitParam(name = "search", value = "搜索字符串",dataTypeClass = String.class,paramType = "query")
     public Vo<List<MessageDto>> searchMessages(@RequestParam(required = false) String search) {
@@ -65,28 +65,28 @@ public class MessageController {
     @ApiImplicitParam(name = "message",value = "要新建的message信息结构体",dataTypeClass = MessageIn.class,paramType = "body")
     public Vo<String> newMessage(@RequestBody MessageIn message) {
         Integer integer = messageService.newMessage(message);
-        if (integer==1)
+        if (integer != 0)
             return new Vo<>("新建成功");
         else
             return new Vo<>(Vo.WrongPostParameter,"未知错误");
     }
 
     @PutMapping("/Manager")
-    @ApiOperation(value = "管理员修改message",notes = "传入messageIn结构体,无需传入id,需要管理员权限")
+    @ApiOperation(value = "管理员修改message",notes = "传入messageIn结构体,需要传入id,需要管理员权限")
     @ApiImplicitParam(name = "message",value = "要修改的message信息结构体,此处一定要修改编号",dataTypeClass = MessageIn.class,paramType = "body")
     public Vo<String> updateMessage(@RequestBody MessageIn message) throws WrongDataException {
         if (message.getMid() == null) {
             return new Vo<>(Vo.WrongPostParameter,"请输入要修改的编号");
         }
         Integer integer = messageService.updateMessage(message);
-        if (integer==1)
+        if (integer != 0)
             return new Vo<>("修改成功");
         else
             return new Vo<>(Vo.WrongPostParameter,"未知错误");
     }
 
     @DeleteMapping("/Manager/{id}")
-    @ApiOperation(value = "管理员删除message",notes = "传入messageIn结构体,无需传入id,需要管理员权限")
+    @ApiOperation(value = "管理员删除message",notes = "需要传入id,需要管理员权限")
     @ApiImplicitParam(name = "id",value = "要删除的message编号",dataTypeClass = Integer.class,paramType = "path")
     public Vo<String> deleteMessage(@PathVariable Integer id) {
         Integer integer = messageService.deleteMessage(id);

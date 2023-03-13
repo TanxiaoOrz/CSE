@@ -3,11 +3,15 @@ package com.example.cse.Dto;
 import com.example.cse.Entity.InformationClass.InformationClass;
 import com.example.cse.Entity.InformationClass.Location;
 import com.example.cse.Entity.InformationClass.Message;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+import io.swagger.annotations.ApiOperation;
 
 import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 
+@ApiModel(value = "消息的包装类",description = "附带了地点与信息类和分数")
 public class MessageDto extends Message{
 
     public static class ScoreComparator implements Comparator<MessageDto> {
@@ -17,10 +21,13 @@ public class MessageDto extends Message{
         }
     }
 
+    @ApiModelProperty("评价分数，排序使用")
     private Integer rankScore;
 
+    @ApiModelProperty("消息所涉及的地点列表")
     private List<Location> locations;
 
+    @ApiModelProperty("消息所从属的信息类列表")
     private List<InformationClass> relationInformationClass;
 
     public MessageDto() {

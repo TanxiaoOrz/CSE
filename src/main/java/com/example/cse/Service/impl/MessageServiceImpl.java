@@ -106,6 +106,7 @@ public class MessageServiceImpl implements MessageService {
     }
 
     @Override
+    @Transactional
     public Integer deleteMessage(Integer mid) {
         return messageMapper.deleteMessage(mid);
     }
