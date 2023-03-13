@@ -1,17 +1,29 @@
 package com.example.cse.Entity.InformationClass;
 
 import com.example.cse.Entity.Recommend.KeyWord;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import org.springframework.util.StringUtils;
 
+@ApiModel("地点的实体类")
 public class Location {
+    @ApiModelProperty("唯一id标识")
     private Integer lid;//唯一标识
+    @ApiModelProperty("地点名")
     private String name;
+    @ApiModelProperty("地点简介")
     private String resume;
+    @ApiModelProperty("地点权能")
     private String ability;
+    @ApiModelProperty("简介消息的id")
     private Integer basicMessage;
+    @ApiModelProperty("所属地图的路径")
     private String mapBelong;
+    @ApiModelProperty("图片的路径")
     private String imgHref;//所携带的图片
+    @ApiModelProperty("横坐标的偏移量")
     private Integer x;//所在地图坐标
+    @ApiModelProperty("纵坐标的偏移量")
     private Integer y;
 
     public void checkZeroToNull() {

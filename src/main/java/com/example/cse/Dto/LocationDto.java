@@ -3,30 +3,42 @@ package com.example.cse.Dto;
 import com.example.cse.Entity.InformationClass.InformationClass;
 import com.example.cse.Entity.InformationClass.Location;
 import com.example.cse.Entity.InformationClass.Message;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 
 import java.util.Comparator;
 import java.util.List;
 
+@ApiModel(value = "地点的包装类",description = "填充了基本信息，附加了从属的消息与信息类，排行分数，展示消息与展示信息类")
 public class LocationDto  {
 
-    private Integer Lid;//唯一标识
-    private String Name;
-    private String Resume;
-    private String Ability;
-    private Message BasicMessage;
-
-
-
-    private String MapBelong;
+    @ApiModelProperty("唯一id标识")
+    private Integer lid;//唯一标识
+    @ApiModelProperty("地点名")
+    private String name;
+    @ApiModelProperty("地点简介")
+    private String resume;
+    @ApiModelProperty("地点权能")
+    private String ability;
+    @ApiModelProperty("简介消息的id")
+    private Message basicMessage;
+    @ApiModelProperty("所属地图的路径")
+    private String mapBelong;
+    @ApiModelProperty("图片的路径")
     private String imgHref;//所携带的图片
-    private Integer X;//所在地图坐标
-    private Integer Y;
-
+    @ApiModelProperty("横坐标的偏移量")
+    private Integer x;//所在地图坐标
+    @ApiModelProperty("纵坐标的偏移量")
+    private Integer y;
+    @ApiModelProperty("位于该地点的消息")
     private List<Message> messages;
+    @ApiModelProperty("位于该地点的信息类")
     private List<InformationClass> informationClasses;
+    @ApiModelProperty("要被排序展示的消息数组")
     private List<MessageDto> messageShows;
+    @ApiModelProperty("要被排序展示的信息类数组")
     private List<InformationClassDto> informationShows;
-
+    @ApiModelProperty("排序分数")
     private Integer rankScore;
 
     public static class ScoreComparator implements Comparator<LocationDto> {
@@ -50,53 +62,52 @@ public class LocationDto  {
     }
 
     public Integer getLid() {
-        return Lid;
+        return lid;
     }
 
     public void setLid(Integer lid) {
-        Lid = lid;
+        this.lid = lid;
     }
 
     public String getName() {
-        return Name;
+        return name;
     }
 
     public void setName(String name) {
-        Name = name;
+        this.name = name;
     }
 
     public String getResume() {
-        return Resume;
+        return resume;
     }
 
     public void setResume(String resume) {
-        Resume = resume;
+        this.resume = resume;
     }
 
     public String getAbility() {
-        return Ability;
+        return ability;
     }
 
     public void setAbility(String ability) {
-        Ability = ability;
+        this.ability = ability;
     }
 
     public Message getBasicMessage() {
-        return BasicMessage;
+        return basicMessage;
     }
 
     public void setBasicMessage(Message basicMessage) {
-        BasicMessage = basicMessage;
+        this.basicMessage = basicMessage;
     }
 
     public String getMapBelong() {
-        return MapBelong;
+        return mapBelong;
     }
 
     public void setMapBelong(String mapBelong) {
-        MapBelong = mapBelong;
+        this.mapBelong = mapBelong;
     }
-
 
     public String getImgHref() {
         return imgHref;
@@ -107,19 +118,19 @@ public class LocationDto  {
     }
 
     public Integer getX() {
-        return X;
+        return x;
     }
 
     public void setX(Integer x) {
-        X = x;
+        this.x = x;
     }
 
     public Integer getY() {
-        return Y;
+        return y;
     }
 
     public void setY(Integer y) {
-        Y = y;
+        this.y = y;
     }
 
     public List<Message> getMessages() {

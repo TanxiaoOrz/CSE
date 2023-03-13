@@ -90,7 +90,7 @@ public class LocationController {
     }
 
     @PutMapping("/Manager")
-    @ApiOperation(value = "管理员修改location",notes = "传入informationClass结构体,无需传入id,需要管理员权限")
+    @ApiOperation(value = "管理员修改location",notes = "传入informationClass结构体,需要传入id,需要管理员权限")
     @ApiImplicitParam(name = "location",value = "要修改的informationClass信息结构体,此处一定要修改编号",dataTypeClass = Location.class,paramType = "body")
     public Vo<String> updateInformation(@RequestBody Location location) throws WrongDataException {
         if (location.getLid() == null) {
@@ -104,7 +104,7 @@ public class LocationController {
     }
 
     @DeleteMapping("/Manager/{id}")
-    @ApiOperation(value = "管理员删除location",notes = "传入location结构体,无需传入id,需要管理员权限")
+    @ApiOperation(value = "管理员删除location",notes = "传入location结构体,需要传入id,需要管理员权限")
     @ApiImplicitParam(name = "id",value = "要删除的location编号",dataTypeClass = Integer.class,paramType = "path")
     public Vo<String> deleteInformation(@PathVariable Integer id) {
         Integer integer = locationService.deleteLocation(id);
