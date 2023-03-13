@@ -57,19 +57,16 @@ public class LocationController {
             @ApiImplicitParam(name = "messageLimit",value = "地点中展示的信息数量",dataTypeClass = Integer.class,paramType = "query"),
             @ApiImplicitParam(name = "informationMessageLimit",value = "地点中信息类中展示的信息数量",dataTypeClass = Integer.class,paramType = "query")
     })
-    public Vo<List<LocationDto>> getLocations(@RequestParam(required = false) Integer informationLimit,
-                                                      @RequestParam(required = false) Integer messageLimit,
-                                                      @RequestParam(required = false) Integer informationMessageLimit,
-                                                      @RequestParam(required = false) Integer locationLimit,
-                                                      HttpServletRequest request) throws WrongDataException {
+    public Vo<List<LocationDto>> getLocations(@RequestParam Integer informationLimit,
+                                                      @RequestParam Integer messageLimit,
+                                                      @RequestParam Integer informationMessageLimit,
+                                                      @RequestParam Integer locationLimit,
+                                                      HttpServletRequest request){
         UserDto userDto = (UserDto) request.getAttribute("UserDto");
         List<LocationDto> returns;
-        if (informationLimit==null&&messageLimit==null&&informationMessageLimit==null&&locationLimit==null) {
-            returns = locationService.getLocationsAll(userDto);
-        }else if (informationLimit!=null&&messageLimit!=null&&informationMessageLimit!=null&&locationLimit!=null){
-            returns = locationService.getLocationsShow(userDto,locationLimit,informationLimit,messageLimit,informationMessageLimit);
-        }else
-            throw new WrongDataException("Parameter的空值个数不符合要求");
+
+        returns = locationService.getLocationsShow(userDto,locationLimit,informationLimit,messageLimit,informationMessageLimit);
+
         return new Vo<>(returns);
     }
 

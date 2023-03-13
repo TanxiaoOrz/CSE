@@ -46,12 +46,6 @@ public class LocationServiceImpl implements LocationService {
     }
 
     @Override
-    public List<LocationDto> getLocationsAll(UserDto userDto) {
-        List<Location> locations = locationMapper.getLocationByRule(null, null);
-        return locationDtoFactory.getLocationsByRank(locations,userDto);
-    }
-
-    @Override
     public Integer newLocation(Location location) {
         location.checkZeroToNull();
         return locationMapper.newLocation(location);

@@ -13,8 +13,6 @@ public interface LocationService {
 
     List<LocationDto> getLocationsShow(UserDto userDto, Integer locationLimit, Integer informationLimit, Integer messageLimit, Integer informationMessageLimit);
 
-    List<LocationDto> getLocationsAll(UserDto userDto);
-
     Integer newLocation(Location location);
 
     Integer updateLocation(Location location) throws WrongDataException;
