@@ -126,11 +126,11 @@ public class ModelDtoFactory {
         long day = 1000 * 60 * 60 * 24;
         long week = day * 7;
         if (compare<= day)
-            addHobbyModel(userDto,calenderShortScore,calender);
+            addHobbyModel(userDto,calenderShortScore*sign,calender);
         else if (compare<= week)
-            addHobbyModel(userDto,calenderMiddleScore,calender);
+            addHobbyModel(userDto,calenderMiddleScore*sign,calender);
         else
-            addHobbyModel(userDto,calenderLongScore, calender);
+            addHobbyModel(userDto,calenderLongScore*sign, calender);
     }
 
     private void addHobbyModel(UserDto userDto,Integer score,Calender calender) throws WrongDataException {

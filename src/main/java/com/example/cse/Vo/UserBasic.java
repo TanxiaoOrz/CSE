@@ -6,7 +6,7 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import io.swagger.models.auth.In;
 
-@ApiModel(value = "UserBasicOut",description = "回传用户基本信息的结构体")
+@ApiModel(value = "用户基本信息的结构体")
 public class UserBasic {
     @ApiModelProperty("用户编号")
     protected Integer uid;

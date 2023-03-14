@@ -3,7 +3,7 @@ package com.example.cse.Vo;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
-@ApiModel(value = "Vo", description = "对返回的信息进行结果包装或错误描述")
+@ApiModel(value = "标准包装类", description = "对返回的信息进行结果包装或错误描述")
 public class Vo<Value> {
     //正常返回
     public static int Success = 0;
@@ -14,7 +14,7 @@ public class Vo<Value> {
     //错误的数据存储
     public static int WrongDataGet = 2;
 
-    @ApiModelProperty(value = "返回成功与否描述")
+    @ApiModelProperty(value = "返回成功与否描述,0成功，-1权限错误，1错误的参数，2得到了不符合标准的数据，请联系管理员")
     int status;//对于返回
     @ApiModelProperty(value = "返回的具体数据")
     Value data;

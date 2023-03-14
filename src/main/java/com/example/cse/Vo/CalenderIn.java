@@ -8,14 +8,14 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
 
-@ApiModel(value = "CalenderIn",description = "传入的")
+@ApiModel(value = "日志的生成类",description = "传入日志信息")
 public class CalenderIn {
-    @ApiModelProperty(value = "时间",hidden = false)
+    @ApiModelProperty(value = "时间")
     @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
     private String time;
-    @ApiModelProperty(value = "描述",hidden = false)
+    @ApiModelProperty(value = "描述")
     private String description;
-    @ApiModelProperty(value = "关联信息的指向描述体",hidden = false)
+    @ApiModelProperty(value = "关联信息的指向描述体")
     private TypeString relationFunction;
 
     public String getTime() {

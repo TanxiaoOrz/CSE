@@ -4,7 +4,7 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
 import java.util.Date;
-@ApiModel(value = "FavouriteLocation",description = "用户喜欢的地点")
+@ApiModel(value = "用户喜欢的地点结构体")
 public class FavouriteLocation{
 
     @ApiModelProperty(value = "具体类编号")

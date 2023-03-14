@@ -6,7 +6,7 @@ import io.swagger.annotations.ApiModelProperty;
 
 import java.util.List;
 
-@ApiModel("用户的代办日历")
+@ApiModel("用户的代办日历包装类")
 public class CalenderOut {
     @ApiModelProperty(value = "当前日期之前")
     private List<CalenderDto<? super Object>> before;
