@@ -1,8 +1,10 @@
 package com.example.cse.Service.impl;
 
 import com.example.cse.Dto.MessageDto;
+import com.example.cse.Dto.UserDto;
 import com.example.cse.Entity.InformationClass.Location;
 import com.example.cse.Entity.InformationClass.Message;
+import com.example.cse.Mapper.FavouriteMapper;
 import com.example.cse.Mapper.MessageMapper;
 import com.example.cse.Service.MessageService;
 import com.example.cse.Utils.Exception.WrongDataException;
@@ -21,18 +23,25 @@ import java.util.List;
 public class MessageServiceImpl implements MessageService {
     @Autowired
     MessageMapper messageMapper;
-
+    @Autowired
+    FavouriteMapper favouriteMapper;
     @Autowired
     MessageDtoFactory messageDtoFactory;
 
 
     @Override
-    public MessageDto getMessage(Integer mid) throws WrongDataException {
+    public MessageDto getMessage(Integer mid, UserDto userDto) throws WrongDataException {
         if (mid == null) {
             throw new WrongDataException("缺少mid");
         }
         Message message = messageMapper.getMessageByRule(mid,null,null).get(0);
-        return messageDtoFactory.getMessageDto(message);
+
+        MessageDto messageDto = messageDtoFactory.getMessageDto(message);
+        if (userDto == null) {
+            messageDto.setIsFavourite(0);
+        }else
+            messageDto.setIsFavourite(favouriteMapper.getFavouriteMidByUid(userDto.getUid()).contains(messageDto.getMid())?1:0);
+        return messageDto;
     }
 
     @Override

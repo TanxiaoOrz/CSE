@@ -41,7 +41,7 @@ public class MessageController {
     public Vo<MessageDto> getMessage(@PathVariable Integer id,@RequestParam Integer out, HttpServletRequest request) throws NoDataException {
         if (out == 0){
             UserDto userDto = (UserDto) request.getAttribute("UserDto");
-            MessageDto message = messageService.getMessage(id);
+            MessageDto message = messageService.getMessage(id,userDto);
             if (message == null) {
                 throw new NoDataException(Vo.WrongPostParameter,"没有找到该消息，可能输入了错误的mid或该mid已过时，请在过时消息中搜索");
             }

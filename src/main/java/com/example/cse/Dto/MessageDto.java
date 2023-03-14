@@ -21,6 +21,9 @@ public class MessageDto extends Message{
         }
     }
 
+    @ApiModelProperty("是否被收藏，0否1是")
+    private Integer isFavourite;
+
     @ApiModelProperty("评价分数，排序使用")
     private Integer rankScore;
 
@@ -53,7 +56,13 @@ public class MessageDto extends Message{
             rankScore -= outTimeScore;
     }
 
+    public Integer getIsFavourite() {
+        return isFavourite;
+    }
 
+    public void setIsFavourite(Integer isFavourite) {
+        this.isFavourite = isFavourite;
+    }
 
     public Integer getRankScore() {
         return rankScore;
