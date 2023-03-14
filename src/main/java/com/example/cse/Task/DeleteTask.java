@@ -10,13 +10,20 @@ public class DeleteTask {
     @Autowired
     DeleteMapper deleteMapper;
 
-    @Scheduled(cron = "0 0 1 * * ?")
-    public void deleteWorks() {
+    @Scheduled(cron = "0 0 3 * * ?")
+    public void deleteStorage() {
         deleteMapper.deleteMessage();
         deleteMapper.deleteOutMessage();
         deleteMapper.deleteInformationClass();
         deleteMapper.deleteLocation();
         deleteMapper.deleteCalender();
+    }
+
+    @Scheduled(cron = "0 15 1 * * ?")
+    public void deleteSurf() {
+        deleteMapper.deleteMessageSurfOut();
+        deleteMapper.deleteLocationSurfOut();
+        deleteMapper.deleteInformationClassSurfOut();
     }
 
 }
