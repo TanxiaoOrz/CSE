@@ -11,6 +11,9 @@ public interface MessageMapper {
 
     List<Message> getMessageByRule(@Param("Mid") Integer mid, @Param("RelativeInformationClass") Integer cid, @Param("RelativeLocation") Integer lid);
 
+    @Select("select * from message_out where Mid = #{Mid}")
+    Message getMessageOut(@Param("Mid") Integer mid);
+
     Integer newMessage(Message message);
 
     Integer updateMessage(Message message);
@@ -39,5 +42,9 @@ public interface MessageMapper {
     List<Message> searchMessage(@Param("Defaults")List<String> defaults,
                                 @Param("Adds")List<String> adds,
                                 @Param("Minuses")List<String> minuses);
+
+    List<Message> searchMessageOut(@Param("Defaults")List<String> defaults,
+                                    @Param("Adds")List<String> adds,
+                                    @Param("Minuses")List<String> minuses);
 
 }

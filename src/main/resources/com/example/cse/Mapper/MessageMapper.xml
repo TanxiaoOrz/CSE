@@ -67,4 +67,25 @@
             </if>
         </where>
     </select>
+
+    <select id="searchMessageOut" resultType="com.example.cse.Entity.InformationClass.Message">
+        select * from message_out
+        <where>
+            <if test="Adds!=null and Adds.size > 0" >
+                <foreach collection="Adds" item="Add" open="concat(Title,message->'$.message') regexp concat_ws('&amp;'," close=")" separator=",">
+                    #{Add}
+                </foreach>
+            </if>
+            <if test="Defaults!=null and Defaults.size > 0" >
+                <foreach collection="Defaults" item="Default" open="and concat(Title,message->'$.message') regexp concat_ws('|'," close=")" separator=",">
+                    #{Default}
+                </foreach>
+            </if>
+            <if test="Minuses!=null and Minuses.size > 0" >
+                <foreach collection="Minuses" item="Minus" open="and not concat(Title,message->'$.message') regexp concat_ws('|'," close=")" separator=",">
+                    #{Minus}
+                </foreach>
+            </if>
+        </where>
+    </select>
 </mapper>

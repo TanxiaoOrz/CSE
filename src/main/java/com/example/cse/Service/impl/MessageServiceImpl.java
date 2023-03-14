@@ -106,6 +106,26 @@ public class MessageServiceImpl implements MessageService {
     }
 
     @Override
+    public MessageDto getMessageOut(Integer mid) throws WrongDataException {
+        if (mid == null) {
+            throw new WrongDataException("缺少mid");
+        }
+        Message message = messageMapper.getMessageOut(mid);
+        return messageDtoFactory.getMessageDto(message);
+    }
+
+    @Override
+    public List<MessageDto> searchMessagesOut(String search) {
+        List<String> adds = new ArrayList<>();
+        List<String> minuses = new ArrayList<>();
+        List<String> defaults = new ArrayList<>();
+        SearchUtils.splitSearch(search,adds,minuses,defaults);
+
+        List<Message> messages = messageMapper.searchMessageOut(defaults,adds,minuses);
+        return messageDtoFactory.getMessageDtosOrderByRankScore(messages,null);
+    }
+
+    @Override
     @Transactional
     public Integer deleteMessage(Integer mid) {
         return messageMapper.deleteMessage(mid);

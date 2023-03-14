@@ -8,11 +8,13 @@ import com.example.cse.Service.MessageService;
 import com.example.cse.Service.SurfService;
 import com.example.cse.Service.impl.MessageServiceImpl;
 import com.example.cse.Service.impl.SurfServiceImpl;
+import com.example.cse.Utils.Exception.NoDataException;
 import com.example.cse.Utils.Exception.WrongDataException;
 import com.example.cse.Vo.MessageIn;
 import com.example.cse.Vo.Vo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -32,31 +34,51 @@ public class MessageController {
 
     @GetMapping({"/User/{id}","/{id}"})
     @ApiOperation(value = "普通用户的获取message接口",notes = "获取message的展示结构体,需要传入id,token会做检测，无token也可，管理员访问请使用无User的url")
-    @ApiImplicitParam(name = "id",value = "对应message的编号",dataTypeClass = Integer.class,paramType = "path")
-    public Vo<MessageDto> getMessage(@PathVariable Integer id, HttpServletRequest request) throws WrongDataException {
-        UserDto userDto = (UserDto) request.getAttribute("UserDto");
-        MessageDto message = messageService.getMessage(id);
-        if (userDto != null) {
-            surfService.newSurf(userDto,id, SurfService.MESSAGE);
-            if (message.getLocations() != null) {
-                for (Location location : message.getLocations()) {
-                    surfService.newSurf(userDto,location.getLid(),SurfService.LOCATION);
-                }
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "id",value = "对应message的编号",dataTypeClass = Integer.class,paramType = "path"),
+            @ApiImplicitParam(name = "out",value = "是否是过时的消息,0代表不是",dataTypeClass = Integer.class,paramType = "query",example = "0")
+    })
+    public Vo<MessageDto> getMessage(@PathVariable Integer id,@RequestParam Integer out, HttpServletRequest request) throws NoDataException {
+        if (out == 0){
+            UserDto userDto = (UserDto) request.getAttribute("UserDto");
+            MessageDto message = messageService.getMessage(id);
+            if (message == null) {
+                throw new NoDataException(Vo.WrongPostParameter,"没有找到该消息，可能输入了错误的mid或该mid已过时，请在过时消息中搜索");
             }
-            if (message.getRelationInformationClass() != null)
-                for (InformationClass informationClass:message.getRelationInformationClass()) {
-                    surfService.newSurf(userDto,informationClass.getCid(),SurfService.INFORMATION_CLASS);
+            if (userDto != null) {
+                surfService.newSurf(userDto, id, SurfService.MESSAGE);
+                if (message.getLocations() != null) {
+                    for (Location location : message.getLocations()) {
+                        surfService.newSurf(userDto, location.getLid(), SurfService.LOCATION);
+                    }
                 }
-
+                if (message.getRelationInformationClass() != null)
+                    for (InformationClass informationClass : message.getRelationInformationClass()) {
+                        surfService.newSurf(userDto, informationClass.getCid(), SurfService.INFORMATION_CLASS);
+                    }
+            }
+            return new Vo<>(message);
+        }else {
+            MessageDto message = messageService.getMessageOut(id);
+            if (message == null) {
+                throw new NoDataException(Vo.WrongPostParameter,"没有找到该消息可能输入了错误的mid或该消息未过时，请在过时消息中搜索");
+            }
+            return new Vo<>(message);
         }
-        return new Vo<>(message);
     }
 
     @GetMapping("/Search")
     @ApiOperation(value = "获取全部message接口",notes = "获取message的展示结构体,如果有搜索字符串按字符串规则筛选")
-    @ApiImplicitParam(name = "search", value = "搜索字符串",dataTypeClass = String.class,paramType = "query")
-    public Vo<List<MessageDto>> searchMessages(@RequestParam(required = false) String search) {
-        List<MessageDto> messages = messageService.searchMessages(search);
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "search", value = "搜索字符串",dataTypeClass = String.class,paramType = "query"),
+            @ApiImplicitParam(name = "out",value = "是否是过时的消息,0代表不是",dataTypeClass = Integer.class,paramType = "query",example = "0")
+    })
+    public Vo<List<MessageDto>> searchMessages(@RequestParam(required = false) String search,@RequestParam Integer out) {
+        List<MessageDto> messages;
+        if (out == 0)
+            messages= messageService.searchMessages(search);
+        else
+            messages= messageService.searchMessagesOut(search);
         return new Vo<>(messages);
     }
 
