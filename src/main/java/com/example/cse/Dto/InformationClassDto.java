@@ -46,6 +46,8 @@ public class InformationClassDto {
     private List<MessageDto> showMessages;
     @ApiModelProperty("排序分数")
     private Integer rankScore;
+    @ApiModelProperty("是否被收藏，0否1是")
+    private Integer isFavourite;
 
     public Integer getCid() {
         return cid;
@@ -154,5 +156,13 @@ public class InformationClassDto {
         name = informationClass.getName();
         type = informationClass.getType();
         imgHref = informationClass.getImgHref();
+    }
+
+    public Integer getIsFavourite() {
+        return isFavourite;
+    }
+
+    public void setIsFavourite(Integer isFavourite) {
+        this.isFavourite = isFavourite;
     }
 }

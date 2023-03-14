@@ -3,6 +3,7 @@ package com.example.cse.Service.impl;
 import com.example.cse.Dto.InformationClassDto;
 import com.example.cse.Dto.UserDto;
 import com.example.cse.Entity.InformationClass.InformationClass;
+import com.example.cse.Mapper.FavouriteMapper;
 import com.example.cse.Mapper.InformationClassMapper;
 import com.example.cse.Mapper.KeyTypeMapper;
 import com.example.cse.Service.InformationClassService;
@@ -23,6 +24,8 @@ public class InformationClassServiceImpl implements InformationClassService {
     @Autowired
     KeyTypeMapper keyTypeMapper;
     @Autowired
+    FavouriteMapper favouriteMapper;
+    @Autowired
     InformationClassDtoFactory informationClassDtoFactory;
 
     @Override
@@ -32,7 +35,10 @@ public class InformationClassServiceImpl implements InformationClassService {
         InformationClassDto informationClassDto = informationClassDtoFactory.getInformationClassDto(informationClass);
 
         informationClassDtoFactory.calculateShowMessages(informationClassDto,userDto,limit);
-
+        if (userDto == null) {
+            informationClassDto.setIsFavourite(0);
+        }else
+            informationClassDto.setIsFavourite(favouriteMapper.getFavouriteCidByUid(userDto.getUid()).contains(informationClassDto.getCid())?1:0);
         return informationClassDto;
     }
 
