@@ -31,13 +31,22 @@ public class CalenderDtoFactory {
         TypeString string = new Gson().fromJson(calender.getRelationFunction(), TypeString.class);
         switch (string.getType()){
             case "message":{
-                return new CalenderDto<>(calender,messageMapper.getMessageByRule(string.getId(),null,null).get(0),"message");
+                List<Message> messageByRule = messageMapper.getMessageByRule(string.getId(), null, null);
+                if (messageByRule.isEmpty())
+                    return new CalenderDto<>(calender,null,"message");
+                return new CalenderDto<>(calender, messageByRule.get(0),"message");
             }
             case "informationClass":{
-                return new CalenderDto<>(calender,informationClassMapper.getInformationClassByRule(string.getId(),null,null).get(0),"information");
+                List<InformationClass> informationClasses = informationClassMapper.getInformationClassByRule(string.getId(), null, null);
+                if (informationClasses.isEmpty())
+                    return new CalenderDto<>(calender, null,"information");
+                return new CalenderDto<>(calender, informationClasses.get(0),"information");
             }
             case "location": {
-                return new CalenderDto<>(calender,locationMapper.getLocationByRule(string.getId(),null).get(0),"Location");
+                List<Location> location = locationMapper.getLocationByRule(string.getId(), null);
+                if (location.isEmpty())
+                    return new CalenderDto<>(calender, null,"Location");
+                return new CalenderDto<>(calender, location.get(0),"Location");
             }
             default: throw new WrongDataException("错误的RelationFunction存储,"
                     +"Calender: uid = "+calender.getUid()+", time = "+calender.getTime());
