@@ -382,6 +382,7 @@ BEGIN
     delete from surf_information_class where Surf = old.Cid;
     delete from information_class_key where Cid = old.Cid;
     update favourite_information_class set favourite_information_class.like = null where favourite_information_class.like = old.Cid;
+    update message set AsBasicMessage = 0 where Mid = old.BasicMessage;
 END$$
 DELIMITER ;
 
@@ -428,7 +429,7 @@ BEGIN
     update information_class set Location = null where Location = old.Lid;
     delete from message_location where Lid = old.Lid;
     delete from surf_location where Surf = old.Lid;
-
+    update message set AsBasicMessage = 0 where Mid = old.BasicMessage;
     update favourite_location set favourite_location.like = null where favourite_location.like = old.Lid;
 END$$
 DELIMITER ;
