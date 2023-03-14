@@ -75,15 +75,15 @@ public class FavouriteServiceImpl implements FavouriteService {
         Integer integer;
         switch (type){
             case "message" : {
-                integer = favouriteMapper.deleteFavouriteMessage(userDto.getUid());
+                integer = favouriteMapper.deleteFavouriteMessageNull(userDto.getUid());
                 break;
             }
             case "location" : {
-                integer = favouriteMapper.deleteFavouriteLocation(userDto.getUid());
+                integer = favouriteMapper.deleteFavouriteLocationNull(userDto.getUid());
                 break;
             }
             case "informationClass" : {
-                integer = favouriteMapper.deleteFavouriteInformationClass(userDto.getUid());
+                integer = favouriteMapper.deleteFavouriteInformationClassNull(userDto.getUid());
                 break;
             }
             default:

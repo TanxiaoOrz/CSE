@@ -20,7 +20,7 @@ public interface FavouriteMapper {
     @Select("select `like` from favourite_location where Uid = #{Uid}")
     List<Integer> getFavouriteLidByUid(@Param("Uid") Integer Uid);
 
-    @Select("select Mid,Title,Time from message, favourite_message where Uid = #{Uid} and `like` = message.Mid order by Time desc")
+    @Select("select Mid,Title,favourite_message.Time from message, favourite_message where Uid = #{Uid} and `like` = message.Mid order by Time desc")
     List<FavouriteMessage> getFavouriteMessageByUser(@Param("Uid") Integer Uid);
 
     @Select("select Cid,Name,Time,Type from favourite_information_class,information_class where Uid = #{Uid} and Cid = favourite_information_class.like order by Time desc")
@@ -48,13 +48,13 @@ public interface FavouriteMapper {
     Integer deleteFavouriteLocation(@Param("Uid") Integer Uid,@Param("Mid") Integer Lid);
 
     @Delete("delete from favourite_message where Uid = #{Uid} and `like`is null")
-    Integer deleteFavouriteMessage(@Param("Uid") Integer Uid);
+    Integer deleteFavouriteMessageNull(@Param("Uid") Integer Uid);
 
     @Delete("delete from favourite_information_class where Uid = #{Uid} and `like`is null")
-    Integer deleteFavouriteInformationClass(@Param("Uid") Integer Uid);
+    Integer deleteFavouriteInformationClassNull(@Param("Uid") Integer Uid);
 
     @Delete("delete from favourite_location where Uid = #{Uid} and `like` is null")
-    Integer deleteFavouriteLocation(@Param("Uid") Integer Uid);
+    Integer deleteFavouriteLocationNull(@Param("Uid") Integer Uid);
 
 
 
