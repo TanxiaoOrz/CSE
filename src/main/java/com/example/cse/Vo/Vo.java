@@ -3,7 +3,7 @@ package com.example.cse.Vo;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
-@ApiModel(value = "标准包装类", description = "对返回的信息进行结果包装或错误描述")
+@ApiModel(description = "标准包装类对返回的信息进行结果包装或错误描述")
 public class Vo<Value> {
     //正常返回
     public static int Success = 0;

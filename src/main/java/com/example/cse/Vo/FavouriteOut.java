@@ -5,7 +5,7 @@ import io.swagger.annotations.ApiModelProperty;
 
 import java.util.List;
 
-@ApiModel(value = "用户喜欢列表结构体")
+@ApiModel(description = "用户喜欢列表结构体")
 public class FavouriteOut {
     @ApiModelProperty("具体类")
     private List<FavouriteInformationClass> classes;

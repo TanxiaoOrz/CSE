@@ -6,7 +6,7 @@ import io.swagger.annotations.ApiModelProperty;
 
 import java.util.List;
 
-@ApiModel(value = "信息类的传入类",description = "附带了关键词")
+@ApiModel(description = "信息类的传入类附带了关键词")
 public class InformationClassIn extends InformationClass {
     @ApiModelProperty("附属的关键词的id数组")
     private List<Integer> keyAndTypes;

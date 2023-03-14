@@ -11,7 +11,7 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 
-@ApiModel(value = "信息类的包装类",description = "附带了地点与从属信息和要展示的信息以及关键词和分数")
+@ApiModel(description = "信息类的包装类,附带了地点与从属信息和要展示的信息以及关键词和分数")
 public class InformationClassDto {
 
     public static class ScoreComparator implements Comparator<InformationClassDto> {

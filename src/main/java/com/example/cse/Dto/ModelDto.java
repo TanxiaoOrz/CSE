@@ -3,7 +3,7 @@ package com.example.cse.Dto;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
-@ApiModel("推荐模型")
+@ApiModel(description = "推荐模型")
 public class ModelDto {
 
     @ApiModelProperty("推荐对象的id")

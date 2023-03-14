@@ -8,7 +8,7 @@ import org.springframework.util.StringUtils;
 
 import java.util.List;
 
-@ApiModel(value = "消息的传入类",description = "附带地点与信息类的id")
+@ApiModel(description = "消息的传入类附带地点与信息类的id")
 public class MessageIn extends Message {
     @ApiModelProperty("消息所涉及的地点列表，此处需要的它们的id数组")
     List<Integer> locations;

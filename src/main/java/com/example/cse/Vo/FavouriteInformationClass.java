@@ -6,7 +6,7 @@ import io.swagger.annotations.ApiModelProperty;
 
 import java.util.List;
 
-@ApiModel(value = "用户喜欢的信息类结构体")
+@ApiModel(description = "用户喜欢的信息类结构体")
 public class FavouriteInformationClass{
     @ApiModelProperty(value = "具体类编号")
     private Integer cid;

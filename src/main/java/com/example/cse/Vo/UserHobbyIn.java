@@ -4,7 +4,7 @@ import com.example.cse.Utils.Exception.NoDataException;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
-@ApiModel("用户修改爱好时的结构体")
+@ApiModel(description = "用户修改爱好时的结构体")
 public class UserHobbyIn {
     @ApiModelProperty(value = "修改的爱好编号")
     private Integer hid;

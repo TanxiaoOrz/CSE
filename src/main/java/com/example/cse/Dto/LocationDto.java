@@ -9,7 +9,7 @@ import io.swagger.annotations.ApiModelProperty;
 import java.util.Comparator;
 import java.util.List;
 
-@ApiModel(value = "地点的包装类",description = "填充了基本信息，附加了从属的消息与信息类，排行分数，展示消息与展示信息类")
+@ApiModel(description = "地点的包装类,填充了基本信息，附加了从属的消息与信息类，排行分数，展示消息与展示信息类")
 public class LocationDto  {
 
     @ApiModelProperty("唯一id标识")

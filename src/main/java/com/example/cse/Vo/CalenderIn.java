@@ -8,7 +8,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
 
-@ApiModel(value = "日志的生成类",description = "传入日志信息")
+@ApiModel(description = "日志的生成类传入日志信息")
 public class CalenderIn {
     @ApiModelProperty(value = "时间")
     @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")

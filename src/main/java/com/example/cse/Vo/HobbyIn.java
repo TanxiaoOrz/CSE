@@ -6,7 +6,7 @@ import io.swagger.annotations.ApiModelProperty;
 
 import java.util.List;
 
-@ApiModel(value = "创建喜好时的结构体")
+@ApiModel(description = "创建喜好时的结构体")
 public class HobbyIn extends HobbyOut{
 
     @ApiModelProperty("附带的推荐模型")

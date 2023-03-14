@@ -6,7 +6,7 @@ import io.swagger.annotations.ApiModelProperty;
 import java.util.Date;
 import java.util.Objects;
 
-@ApiModel(value = "消息的存储实体类",description = "没有任何包装")
+@ApiModel(description = "消息的存储实体类,没有任何包装")
 public class Message{
     @ApiModelProperty("唯一消息标识号")
     private Integer mid;//唯一消息标识号

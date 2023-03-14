@@ -5,16 +5,24 @@ import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@ApiModel(description = "爱好包装类")
 public class HobbyDto {
 
+    @ApiModelProperty("唯一id")
     private Integer Hid;
+    @ApiModelProperty("爱好名")
     private String name;
+    @ApiModelProperty("描述")
     private String description;
+    @ApiModelProperty("类型")
     private String type;
+    @ApiModelProperty("附属的推荐模型")
     private List<ModelDto> modelDtos;
 
     public HobbyDto(Hobby hobby){

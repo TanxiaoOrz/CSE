@@ -11,7 +11,7 @@ import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 
-@ApiModel(value = "消息的包装类",description = "附带了地点与信息类和分数")
+@ApiModel(description = "消息的包装类,附带了地点与信息类和分数")
 public class MessageDto extends Message{
 
     public static class ScoreComparator implements Comparator<MessageDto> {

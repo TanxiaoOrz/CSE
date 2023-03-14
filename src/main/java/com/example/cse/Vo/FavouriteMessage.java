@@ -6,7 +6,7 @@ import io.swagger.annotations.ApiModelProperty;
 
 import java.util.Date;
 
-@ApiModel(value = "用户喜欢的消息结构体")
+@ApiModel(description = "用户喜欢的消息结构体")
 public class FavouriteMessage {
 
     @ApiModelProperty(value = "消息编号")

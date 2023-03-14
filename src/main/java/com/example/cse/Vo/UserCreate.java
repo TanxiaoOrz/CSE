@@ -7,7 +7,7 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import org.springframework.util.StringUtils;
 
-@ApiModel(value = "创建用户的结构体", description = "创建用户是传递的结构体")
+@ApiModel( description = "创建用户是传递的结构体")
 public class UserCreate extends UserPass {
     @ApiModelProperty(value = "用户姓名")
     protected String userName;

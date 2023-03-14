@@ -5,7 +5,7 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import org.springframework.util.StringUtils;
 
-@ApiModel(value = "专业的传入结构体")
+@ApiModel(description = "专业的传入结构体")
 public class ProfessionIn {
     @ApiModelProperty(value = "专业名",required = true)
     protected String professionName;

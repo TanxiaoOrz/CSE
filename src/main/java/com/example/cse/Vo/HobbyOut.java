@@ -9,7 +9,7 @@ import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
 import java.util.List;
 
-@ApiModel(value = "喜好输出结构体")
+@ApiModel(description = "喜好输出结构体")
 public class HobbyOut {
 
     @ApiModelProperty("爱好编号")

@@ -5,7 +5,7 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import org.springframework.util.StringUtils;
 
-@ApiModel("地点的实体类")
+@ApiModel(description = "地点的实体类")
 public class Location {
     @ApiModelProperty("唯一id标识")
     private Integer lid;//唯一标识

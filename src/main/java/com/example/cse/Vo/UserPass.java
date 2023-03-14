@@ -5,7 +5,7 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import org.springframework.util.StringUtils;
 
-@ApiModel(value = "登录结构体",description = "获取token需要传递的结构体")
+@ApiModel(description = "登录结构体获取token需要传递的结构体")
 public class UserPass {
     @ApiModelProperty(value = "用户学号")
     protected String userCode;

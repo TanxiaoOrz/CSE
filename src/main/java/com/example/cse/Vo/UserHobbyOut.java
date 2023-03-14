@@ -4,7 +4,7 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
 import java.util.List;
-@ApiModel(value = "获取用户的爱好回传结构体",description = "包含三个等级")
+@ApiModel(description = "获取用户的爱好回传结构体包含三个等级")
 public class UserHobbyOut {
     @ApiModelProperty(value = "感兴趣的")
     private List<HobbyOut> interested;

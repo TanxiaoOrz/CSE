@@ -6,7 +6,7 @@ import org.springframework.util.StringUtils;
 
 import java.util.Objects;
 
-@ApiModel(value = "信息类的实体类",description = "没有任何包装的版本")
+@ApiModel(description = "信息类的实体类，没有任何包装的版本")
 public class InformationClass{
 
     @ApiModelProperty("唯一编号")
