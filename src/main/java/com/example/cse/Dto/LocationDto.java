@@ -40,6 +40,8 @@ public class LocationDto  {
     private List<InformationClassDto> informationShows;
     @ApiModelProperty("排序分数")
     private Integer rankScore;
+    @ApiModelProperty("是否被收藏，0否1是")
+    private Integer isFavourite;
 
     public static class ScoreComparator implements Comparator<LocationDto> {
         @Override
@@ -171,5 +173,13 @@ public class LocationDto  {
 
     public void setRankScore(Integer rankScore) {
         this.rankScore = rankScore;
+    }
+
+    public Integer getIsFavourite() {
+        return isFavourite;
+    }
+
+    public void setIsFavourite(Integer isFavourite) {
+        this.isFavourite = isFavourite;
     }
 }

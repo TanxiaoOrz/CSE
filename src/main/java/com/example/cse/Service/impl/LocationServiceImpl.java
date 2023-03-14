@@ -4,6 +4,7 @@ import com.example.cse.Dto.LocationDto;
 import com.example.cse.Dto.UserDto;
 import com.example.cse.Entity.InformationClass.InformationClass;
 import com.example.cse.Entity.InformationClass.Location;
+import com.example.cse.Mapper.FavouriteMapper;
 import com.example.cse.Mapper.LocationMapper;
 import com.example.cse.Service.LocationService;
 import com.example.cse.Utils.Exception.WrongDataException;
@@ -22,6 +23,8 @@ public class LocationServiceImpl implements LocationService {
     LocationMapper locationMapper;
     @Autowired
     LocationDtoFactory locationDtoFactory;
+    @Autowired
+    FavouriteMapper favouriteMapper;
 
 
     @Override
@@ -29,6 +32,10 @@ public class LocationServiceImpl implements LocationService {
         Location location = locationMapper.getLocationByRule(lid, null).get(0);
         LocationDto locationDto = locationDtoFactory.getLocationDto(location);
         locationDtoFactory.calculateShow(locationDto,userDto,informationLimit,messageLimit,informationMessageLimit);
+        if (userDto == null) {
+            locationDto.setIsFavourite(0);
+        }else
+            locationDto.setIsFavourite(favouriteMapper.getFavouriteLidByUid(userDto.getUid()).contains(locationDto.getLid())?1:0);
         return locationDto;
     }
 
