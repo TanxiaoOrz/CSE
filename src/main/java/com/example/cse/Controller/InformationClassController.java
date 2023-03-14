@@ -45,7 +45,7 @@ public class InformationClassController {
     public Vo<List<InformationClassDto>> getInformationClasses(@RequestParam Integer classLimit,
                                                             @RequestParam Integer messageLimit,
                                                             @RequestParam String type,
-                                                            HttpServletRequest request) throws WrongDataException {
+                                                            HttpServletRequest request) {
         UserDto userDto = (UserDto) request.getAttribute("UserDto");
         List<InformationClassDto> returns;
             returns = informationClassService.getInformationClassesShow(userDto,classLimit,messageLimit,type);
@@ -70,7 +70,7 @@ public class InformationClassController {
         return new Vo<>(informationClassDto);
     }
     @GetMapping("/Search")
-    @ApiOperation(value = "获取全部location接口",notes = "获取informationClass的展示结构体,如果有搜索字符串按字符串规则筛选")
+    @ApiOperation(value = "获取全部information接口",notes = "获取informationClass的展示结构体,如果有搜索字符串按字符串规则筛选")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "search", value = "搜索字符串",dataTypeClass = String.class,paramType = "query"),
             @ApiImplicitParam(name = "type", value = "类型限定",dataTypeClass = String.class,paramType = "query")
