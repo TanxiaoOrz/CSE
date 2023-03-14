@@ -16,7 +16,7 @@ public class DeleteTask {
     @Autowired
     DeleteMapper deleteMapper;
 
-    @Scheduled(cron = "0 0 3 * * ?")
+    @Scheduled(cron = "0 1 3 * * ?")
     public void deleteStorage() {
         Integer deleteMessage = deleteMapper.deleteMessage();
         logger.info("删除消息数量："  + deleteMessage);
@@ -30,7 +30,7 @@ public class DeleteTask {
         logger.info("删除代办事务数量："  + deleteCalender);
     }
 
-    @Scheduled(cron = "0 15 1 * * ?")
+    @Scheduled(cron = "0 15 3 * * ?")
     public void deleteSurf() {
         Integer deleteMessageSurfOut = deleteMapper.deleteMessageSurfOut();
         logger.info("删除过时消息浏览记录：" +deleteMessageSurfOut);

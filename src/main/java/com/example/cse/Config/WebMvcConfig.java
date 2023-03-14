@@ -25,6 +25,13 @@ import java.io.IOException;
 @Configuration
 public class WebMvcConfig extends WebMvcConfigurationSupport{
 
+
+    public void setOpen(boolean open) {
+        this.open = open;
+    }
+
+    private boolean open =true;
+
     @Autowired
     TokenServiceImpl tokenService;
 
@@ -154,15 +161,43 @@ public class WebMvcConfig extends WebMvcConfigurationSupport{
         }
     }
 
+    class TimeCheck implements HandlerInterceptor {
+        @Override
+        public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
+            return open;
+        }
+
+        @Override
+        public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {
+            HandlerInterceptor.super.postHandle(request, response, handler, modelAndView);
+        }
+
+        @Override
+        public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) throws Exception {
+            HandlerInterceptor.super.afterCompletion(request, response, handler, ex);
+        }
+    }
+
     @Override
     protected void addInterceptors(InterceptorRegistry registry){
-       registry.addInterceptor(new TokenCheck())
-               .addPathPatterns("/cse/User/**")
-               .addPathPatterns("/cse/Hobby/User")
-               .excludePathPatterns("/cse/User")
-               .excludePathPatterns("/cse/Token/**")//不需要拦截的地
-               .excludePathPatterns("/favicon.ico")
-               .excludePathPatterns("/swagger-ui.html/**",
+        registry.addInterceptor(new TimeCheck())
+                .addPathPatterns("/**")
+                .excludePathPatterns("/favicon.ico")
+                .excludePathPatterns("/swagger-ui.html/**",
+                        "/swagger-ui/**",
+                        "/swagger-resources/**",
+                        "/v2/api-docs",
+                        "/v3/api-docs",
+                        "/v3/api-docs/swagger-config",
+                        "/webjars/**",
+                        "/doc.html");
+        registry.addInterceptor(new TokenCheck())
+                .addPathPatterns("/cse/User/**")
+                .addPathPatterns("/cse/Hobby/User")
+                .excludePathPatterns("/cse/User")
+                .excludePathPatterns("/cse/Token/**")//不需要拦截的地
+                .excludePathPatterns("/favicon.ico")
+                .excludePathPatterns("/swagger-ui.html/**",
                        "/swagger-ui/**",
                        "/swagger-resources/**",
                        "/v2/api-docs",
@@ -170,7 +205,7 @@ public class WebMvcConfig extends WebMvcConfigurationSupport{
                        "/v3/api-docs/swagger-config",
                        "/webjars/**",
                        "/doc.html");
-       registry.addInterceptor(new UserCheck())
+        registry.addInterceptor(new UserCheck())
                .addPathPatterns("/cse/User")
                .excludePathPatterns("/favicon.ico")
                .excludePathPatterns("/swagger-ui.html/**",
@@ -181,7 +216,7 @@ public class WebMvcConfig extends WebMvcConfigurationSupport{
                        "/v3/api-docs/swagger-config",
                        "/webjars/**",
                        "/doc.html");
-       registry.addInterceptor(new UserGet())
+        registry.addInterceptor(new UserGet())
                .addPathPatterns("/cse/Location/User")
                .addPathPatterns("/cse/Location/User/**")
                .addPathPatterns("/cse/InformationClass/User/**")
@@ -196,7 +231,7 @@ public class WebMvcConfig extends WebMvcConfigurationSupport{
                        "/v3/api-docs/swagger-config",
                        "/webjars/**",
                        "/doc.html");
-       registry.addInterceptor(new ManagerCheck())
+        registry.addInterceptor(new ManagerCheck())
                .addPathPatterns("/cse/Location/Manager")
                .addPathPatterns("/cse/Location/Manager/**")
                .addPathPatterns("/cse/InformationClass/Manager/**")
@@ -216,7 +251,7 @@ public class WebMvcConfig extends WebMvcConfigurationSupport{
                        "/webjars/**",
                        "/doc.html");
 
-       super.addInterceptors(registry);
+        super.addInterceptors(registry);
     }
 
     @Override
