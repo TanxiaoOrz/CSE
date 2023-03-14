@@ -233,9 +233,9 @@ CREATE TABLE `cse`.`message_location` (
 
 CREATE TABLE `cse`.`favourite_location` (
     `Uid` INT NOT NULL,
-    `like` INT NOT NULL,
+    `like` INT  NULL,
     `Time` DATETIME NOT NULL DEFAULT NOW(),
-    PRIMARY KEY (`Uid`, `like`),
+    PRIMARY KEY (`Uid`, `Time`),
     INDEX `favouriteToLocation_idx` (`like` ASC) VISIBLE,
     CONSTRAINT `favouriteToLocation`
         FOREIGN KEY (`like`)
@@ -267,9 +267,9 @@ CREATE TABLE `cse`.`favourite_message` (
 
 CREATE TABLE `cse`.`favourite_information_class` (
                                                      `Uid` INT NOT NULL,
-                                                     `like` INT NOT NULL,
+                                                     `like` INT NULL,
                                                      `Time` DATETIME NOT NULL DEFAULT NOW(),
-                                                     PRIMARY KEY (`Uid`, `like`),
+                                                     PRIMARY KEY (`Uid`, `Time`),
                                                      INDEX `favouriteToLocation_idx` (`like` ASC) VISIBLE,
                                                      CONSTRAINT `favouriteToInformationClass`
                                                          FOREIGN KEY (`like`)
