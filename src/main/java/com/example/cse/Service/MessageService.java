@@ -22,6 +22,6 @@ public interface MessageService {
 
     Integer updateMessage(MessageIn message) throws WrongDataException;
 
-    Integer deleteMessage(Integer mid);
+    Integer deleteMessage(Integer mid, boolean out);
 
 }

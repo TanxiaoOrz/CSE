@@ -4,7 +4,6 @@ import com.example.cse.Dto.MessageDto;
 import com.example.cse.Dto.UserDto;
 import com.example.cse.Entity.InformationClass.InformationClass;
 import com.example.cse.Entity.InformationClass.Location;
-import com.example.cse.Service.MessageService;
 import com.example.cse.Service.SurfService;
 import com.example.cse.Service.impl.MessageServiceImpl;
 import com.example.cse.Service.impl.SurfServiceImpl;
@@ -17,7 +16,6 @@ import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -109,9 +107,12 @@ public class MessageController {
 
     @DeleteMapping("/Manager/{id}")
     @ApiOperation(value = "管理员删除message",notes = "需要传入id,需要管理员权限")
-    @ApiImplicitParam(name = "id",value = "要删除的message编号",dataTypeClass = Integer.class,paramType = "path")
-    public Vo<String> deleteMessage(@PathVariable Integer id) {
-        Integer integer = messageService.deleteMessage(id);
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "id",value = "要删除的message编号",dataTypeClass = Integer.class,paramType = "path"),
+            @ApiImplicitParam(name = "out",value = "是否是过时的消息,0代表不是",dataTypeClass = Integer.class,paramType = "query",example = "0")
+    })
+    public Vo<String> deleteMessage(@PathVariable Integer id,@RequestParam Integer out) {
+        Integer integer = messageService.deleteMessage(id,out!=0);
         if (integer==1)
             return new Vo<>("删除成功");
         else

@@ -47,4 +47,7 @@ public interface MessageMapper {
                                     @Param("Adds")List<String> adds,
                                     @Param("Minuses")List<String> minuses);
 
+    @Update("update message_out set DeprecatedFlag = 1 where Mid = #{Mid}")
+    Integer deleteMessageOut(@Param("Mid")Integer mid);
+
 }
