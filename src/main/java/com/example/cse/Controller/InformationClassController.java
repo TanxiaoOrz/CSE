@@ -5,6 +5,7 @@ import com.example.cse.Dto.LocationDto;
 import com.example.cse.Dto.MessageDto;
 import com.example.cse.Dto.UserDto;
 import com.example.cse.Entity.InformationClass.InformationClass;
+import com.example.cse.Entity.InformationClass.Location;
 import com.example.cse.Service.InformationClassService;
 import com.example.cse.Service.SurfService;
 import com.example.cse.Service.impl.InformationClassServiceImpl;
@@ -64,7 +65,9 @@ public class InformationClassController {
         if (userDto != null) {
             surfService.newSurf(userDto,id, SurfService.INFORMATION_CLASS);
             if (informationClassDto.getLocation() != null) {
-                surfService.newSurf(userDto,informationClassDto.getLocation().getLid(),SurfService.LOCATION);
+                for (Location e : informationClassDto.getLocation()) {
+                    surfService.newSurf(userDto, e.getLid(), SurfService.LOCATION);
+                }
             }
         }
         return new Vo<>(informationClassDto);
