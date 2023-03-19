@@ -125,19 +125,29 @@ CREATE TABLE `cse`.`information_class` (
                                            `Type` ENUM('比赛', '部门', '活动', '资源') NOT NULL,
                                            `ImgHref` VARCHAR(200) NULL,
                                            `DeprecatedFlag` VARCHAR(45) NULL,
-                                           `Location` INT NULL,
                                            PRIMARY KEY (`Cid`),
                                            UNIQUE INDEX `Name_UNIQUE` (`Name` ASC) VISIBLE,
                                            CONSTRAINT `InformationClassToBasicMessage`
                                                FOREIGN KEY (`BasicMessage`)
                                                    REFERENCES `cse`.`message` (`Mid`)
                                                    ON DELETE NO ACTION
-                                                   ON UPDATE NO ACTION,
-                                           CONSTRAINT `InformationClassToLocation`
-                                               FOREIGN KEY (`Location`)
-                                                   REFERENCES `cse`.`location` (`Lid`)
-                                                   ON DELETE NO ACTION
                                                    ON UPDATE NO ACTION);
+
+CREATE TABLE `cse`.`information_class_location` (
+                                                    `Cid` INT NOT NULL,
+                                                    `Lid` INT NOT NULL,
+                                                    PRIMARY KEY (`Cid`, `Lid`),
+                                                    CONSTRAINT `informationClassToLocation`
+                                                        FOREIGN KEY (`Lid`)
+                                                            REFERENCES `cse`.`location` (`Lid`)
+                                                            ON DELETE NO ACTION
+                                                            ON UPDATE NO ACTION,
+                                                    CONSTRAINT `locationToInformationClass`
+                                                        FOREIGN KEY (`Cid`)
+                                                            REFERENCES `cse`.`information_class` (`Cid`)
+                                                            ON DELETE NO ACTION
+                                                            ON UPDATE NO ACTION);
+
 CREATE TABLE `cse`.`surf_location` (
                                        `Time` DATETIME NOT NULL default now(),
                                        `Uid` INT NOT NULL,
@@ -381,6 +391,7 @@ BEGIN
     delete from message_information_class where Cid = old.Cid;
     delete from surf_information_class where Surf = old.Cid;
     delete from information_class_key where Cid = old.Cid;
+    delete from information_class_location where Cid = old.Cid;
     update favourite_information_class set favourite_information_class.like = null where favourite_information_class.like = old.Cid;
     update message set AsBasicMessage = 0 where Mid = old.BasicMessage;
 END$$
@@ -426,8 +437,8 @@ DELIMITER $$
 USE `cse`$$
 CREATE DEFINER = CURRENT_USER TRIGGER `cse`.`location_BEFORE_DELETE` BEFORE DELETE ON `location` FOR EACH ROW
 BEGIN
-    update information_class set Location = null where Location = old.Lid;
     delete from message_location where Lid = old.Lid;
+    delete from information_class_location where Lid = old.Lid;
     delete from surf_location where Surf = old.Lid;
     update message set AsBasicMessage = 0 where Mid = old.BasicMessage;
     update favourite_location set favourite_location.like = null where favourite_location.like = old.Lid;
