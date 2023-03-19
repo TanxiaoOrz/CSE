@@ -1,9 +1,7 @@
 package com.example.cse.Mapper;
 
 import com.example.cse.Entity.InformationClass.InformationClass;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Update;
+import org.apache.ibatis.annotations.*;
 
 import java.util.List;
 
@@ -23,5 +21,11 @@ public interface InformationClassMapper {
                                                   @Param("Defaults")List<String> defaults,
                                                   @Param("Adds")List<String> adds,
                                                   @Param("Minuses")List<String> minuses);
+
+    @Insert("insert into information_class_location (Cid, Lid) VALUES (#{Cid}, #{Lid})")
+    Integer newInformationClassRelationLocation(@Param("Lid")Integer lid,@Param("Cid")Integer cid);
+
+    @Delete("delete from information_class_location where Cid = #{Cid} and Lid = #{Lid}")
+    Integer deleteInformationClassRelationLocation(@Param("Lid")Integer lid,@Param("Cid")Integer cid);
 
 }

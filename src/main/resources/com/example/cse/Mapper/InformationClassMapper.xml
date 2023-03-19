@@ -13,13 +13,13 @@
                 Cid in (select Cid from cse.message_information_class where Mid = #{RelativeMessage})
             </if>
             <if test="RelativeLocation != null">
-                Location = #{RelativeLocation}
+                Cid in (select Cid from cse.information_class_location where Lid = #{RelativeLocation})
             </if>
         </where>
     </select>
 
     <insert id="newInformationClass" >
-        insert into information_class (Name, Resume, BasicMessage, Location, Type) VALUES (#{name}, #{resume}, #{basicMessage}, #{location}, #{type})
+        insert into information_class (Name, Resume, BasicMessage, Type) VALUES (#{name}, #{resume}, #{basicMessage}, #{type})
     </insert>
 
     <update id="updateInformationClass">
@@ -28,7 +28,6 @@
             <if test="name != null"> Name = #{name}, </if>
             <if test="resume != null"> Resume = #{resume}, </if>
             <if test="basicMessage != null"> BasicMessage = #{basicMessage}, </if>
-            <if test="location != null"> Location = #{location}, </if>
             <if test="type != null"> Type = #{type} </if>
         </set>
         where Cid = #{cid};
