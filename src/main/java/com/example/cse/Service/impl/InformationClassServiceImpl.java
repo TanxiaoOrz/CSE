@@ -6,6 +6,7 @@ import com.example.cse.Entity.InformationClass.InformationClass;
 import com.example.cse.Mapper.FavouriteMapper;
 import com.example.cse.Mapper.InformationClassMapper;
 import com.example.cse.Mapper.KeyTypeMapper;
+import com.example.cse.Mapper.LocationMapper;
 import com.example.cse.Service.InformationClassService;
 import com.example.cse.Utils.Exception.WrongDataException;
 import com.example.cse.Utils.Factory.InformationClassDtoFactory;
@@ -25,6 +26,8 @@ public class InformationClassServiceImpl implements InformationClassService {
     KeyTypeMapper keyTypeMapper;
     @Autowired
     FavouriteMapper favouriteMapper;
+    @Autowired
+    LocationMapper locationMapper;
     @Autowired
     InformationClassDtoFactory informationClassDtoFactory;
 
@@ -55,15 +58,10 @@ public class InformationClassServiceImpl implements InformationClassService {
 
     @Override
     public Integer updateInformationClass(InformationClassIn informationClass) throws WrongDataException {
-        InformationClass old ;
-        try {
-            old = informationClassMapper.getInformationClassByRule(informationClass.getCid(),null,null).get(0);
-        }catch (IndexOutOfBoundsException e) {
-            throw new WrongDataException("错误的编号");
-        }
 
-        if (informationClass.checkUpdate(old))
-            throw new WrongDataException("没有修改");
+        if (informationClassMapper.getInformationClassByRule(informationClass.getCid(), null, null).isEmpty())
+            throw new WrongDataException("错误的编号");
+
         informationClass.setZeroToNull();
         Integer integer = informationClassMapper.updateInformationClass(informationClass);
 
@@ -79,6 +77,21 @@ public class InformationClassServiceImpl implements InformationClassService {
             }
             for (Integer kid : insert) {
                 integer = keyTypeMapper.newKeyAndTypeLink(informationClass.getCid(),kid);
+            }
+        }
+
+        List<Integer> location = informationClass.getLocation();
+        if (location != null) {
+            List<Integer> olds = locationMapper.getLidByCid(informationClass.getCid());
+            ArrayList<Integer> delete = new ArrayList<>(olds);
+            delete.removeAll(location);
+            ArrayList<Integer> insert = new ArrayList<>(location);
+            insert.removeAll(olds);
+            for (Integer lid : delete) {
+                integer = informationClassMapper.newInformationClassRelationLocation(lid, informationClass.getCid());
+            }
+            for (Integer lid : insert) {
+                integer = informationClassMapper.deleteInformationClassRelationLocation(lid, informationClass.getCid());
             }
         }
 
