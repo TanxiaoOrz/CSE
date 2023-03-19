@@ -38,7 +38,7 @@ public class InformationClassDto {
     @ApiModelProperty("从属于该类的消息")
     private List<Message> messages;
     @ApiModelProperty("所在位置")
-    private Location location;
+    private List<Location> location;
 
     @ApiModelProperty("附属的关键词")
     private List<KeyAndType> keyAndTypes;
@@ -105,11 +105,11 @@ public class InformationClassDto {
         this.messages = messages;
     }
 
-    public Location getLocation() {
+    public List<Location> getLocation() {
         return location;
     }
 
-    public void setLocation(Location location) {
+    public void setLocation(List<Location> location) {
         this.location = location;
     }
 

@@ -21,8 +21,7 @@ public class InformationClass{
     private String type;//类型
     @ApiModelProperty("图片的路径")
     private String imgHref;//图片
-    @ApiModelProperty("位置对应的id")
-    private Integer location;//所处未知
+
 
     public Integer getCid() {
         return cid;
@@ -72,32 +71,22 @@ public class InformationClass{
         this.imgHref = imgHref;
     }
 
-    public Integer getLocation() {
-        return location;
-    }
-
-    public void setLocation(Integer location) {
-        this.location = location;
-    }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         InformationClass that = (InformationClass) o;
-        return cid.equals(that.cid) && Objects.equals(basicMessage, that.basicMessage) && Objects.equals(resume, that.resume) && Objects.equals(name, that.name) && Objects.equals(type, that.type) && Objects.equals(imgHref, that.imgHref) && Objects.equals(location, that.location);
+        return cid.equals(that.cid) && Objects.equals(basicMessage, that.basicMessage) && Objects.equals(resume, that.resume) && Objects.equals(name, that.name) && Objects.equals(type, that.type) && Objects.equals(imgHref, that.imgHref);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(cid, basicMessage, resume, name, type, imgHref, location);
+        return Objects.hash(cid, basicMessage, resume, name, type, imgHref);
     }
 
     public boolean checkUpdate(InformationClass informationClass) {
         boolean update = true;
-        if (location != null) {
-            update = location.equals(informationClass.getLocation());
-        }
         if (basicMessage != null) {
             update &= basicMessage.equals(informationClass.basicMessage);
         }
@@ -117,9 +106,6 @@ public class InformationClass{
     }
 
     public void setZeroToNull() {
-        if (location !=null && location == 0) {
-            location =null;
-        }
         if (basicMessage !=null && basicMessage == 0) {
             basicMessage = null;
         }

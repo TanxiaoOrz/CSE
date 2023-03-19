@@ -10,6 +10,8 @@ import java.util.List;
 public class InformationClassIn extends InformationClass {
     @ApiModelProperty("附属的关键词的id数组")
     private List<Integer> keyAndTypes;
+    @ApiModelProperty("所在地点的id数组")
+    private List<Integer> location;
 
     public List<Integer> getKeyAndTypes() {
         return keyAndTypes;
@@ -17,5 +19,13 @@ public class InformationClassIn extends InformationClass {
 
     public void setKeyAndTypes(List<Integer> keyAndTypes) {
         this.keyAndTypes = keyAndTypes;
+    }
+
+    public List<Integer> getLocation() {
+        return location;
+    }
+
+    public void setLocation(List<Integer> location) {
+        this.location = location;
     }
 }
