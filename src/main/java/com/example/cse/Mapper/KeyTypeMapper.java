@@ -34,7 +34,7 @@ public interface KeyTypeMapper {
     Integer deleteKeyAndTypeLinkLocation(@Param("Lid")Integer lid,@Param("Kid")Integer kid);
 
     @Select("select Kid from location_key where Lid = #{Lid}")
-    List<Integer> getLidsByCid(@Param("Lid")Integer lid);
+    List<Integer> getKidsByLid(@Param("Lid")Integer lid);
 
     @Insert("insert into keyword (KeyName, KeywordType, KeyResume) VALUES (#{KeyName}, #{KeywordType}, #{KeyResume})")
     Integer newKeyword(KeyWord keyWord);
