@@ -102,7 +102,6 @@ CREATE TABLE `cse`.`location` (
   `Lid` INT NOT NULL AUTO_INCREMENT,
   `Name` VARCHAR(45) NOT NULL,
   `Resume` VARCHAR(200) NULL,
-  `Ability` JSON NULL,
   `MapBelong` VARCHAR(200) NULL,
   `BasicMessage` INT NULL,
   `ImgHref` VARCHAR(200) NULL,
@@ -187,11 +186,27 @@ CREATE TABLE `cse`.`surf_information_class` (
                                                     ON DELETE NO ACTION ON UPDATE NO ACTION
 );
 
+CREATE TABLE `cse`.`location_key` (
+                                               `Lid` INT NOT NULL,
+                                               `Kid` INT NOT NULL,
+                                               PRIMARY KEY (`Lid`, `Kid`),
+                                               INDEX `LocationToKey_idx` (`Lid` ASC) VISIBLE,
+                                               CONSTRAINT `LocationToKey`
+                                                   FOREIGN KEY (`Kid`)
+                                                       REFERENCES `cse`.`keyword` (`Kid`)
+                                                       ON DELETE NO ACTION
+                                                       ON UPDATE NO ACTION,
+                                               CONSTRAINT `KeyToLocation`
+                                                   FOREIGN KEY (`Lid`)
+                                                       REFERENCES `cse`.`location` (`Lid`)
+                                                       ON DELETE NO ACTION
+                                                       ON UPDATE NO ACTION);
+
 CREATE TABLE `cse`.`information_class_key` (
                                                `Cid` INT NOT NULL,
                                                `Kid` INT NOT NULL,
                                                PRIMARY KEY (`Cid`, `Kid`),
-                                               INDEX `InformationClassToKey_idx` (`Kid` ASC) VISIBLE,
+                                               INDEX `InformationClassToKey_idx` (`Cid` ASC) VISIBLE,
                                                CONSTRAINT `InformationClassToKey`
                                                    FOREIGN KEY (`Kid`)
                                                        REFERENCES `cse`.`keyword` (`Kid`)
