@@ -9,6 +9,7 @@ import com.example.cse.Service.SurfService;
 import com.example.cse.Service.impl.LocationServiceImpl;
 import com.example.cse.Service.impl.SurfServiceImpl;
 import com.example.cse.Utils.Exception.WrongDataException;
+import com.example.cse.Vo.LocationIn;
 import com.example.cse.Vo.Vo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
@@ -80,8 +81,8 @@ public class LocationController {
 
     @PostMapping("/Manager")
     @ApiOperation(value = "管理员新建location",notes = "传入location结构体,无需传入id,需要管理员权限")
-    @ApiImplicitParam(name = "location",value = "要新建的location信息结构体",dataTypeClass = Location.class,paramType = "body")
-    public Vo<String> newInformation(@RequestBody Location location) {
+    @ApiImplicitParam(name = "location",value = "要新建的location信息结构体",dataTypeClass = LocationIn.class,paramType = "body")
+    public Vo<String> newInformation(@RequestBody LocationIn location) {
         Integer integer = locationService.newLocation(location);
         if (integer==1)
             return new Vo<>("新建成功");
@@ -91,8 +92,8 @@ public class LocationController {
 
     @PutMapping("/Manager")
     @ApiOperation(value = "管理员修改location",notes = "传入informationClass结构体,需要传入id,需要管理员权限")
-    @ApiImplicitParam(name = "location",value = "要修改的informationClass信息结构体,此处一定要修改编号",dataTypeClass = Location.class,paramType = "body")
-    public Vo<String> updateInformation(@RequestBody Location location) throws WrongDataException {
+    @ApiImplicitParam(name = "location",value = "要修改的informationClass信息结构体,此处一定要修改编号",dataTypeClass = LocationIn.class,paramType = "body")
+    public Vo<String> updateInformation(@RequestBody LocationIn location) throws WrongDataException {
         if (location.getLid() == null) {
             return new Vo<>(Vo.WrongPostParameter,"请输入要修改的编号");
         }
