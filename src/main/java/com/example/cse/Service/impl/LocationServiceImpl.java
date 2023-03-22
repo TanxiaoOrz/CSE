@@ -5,11 +5,13 @@ import com.example.cse.Dto.UserDto;
 import com.example.cse.Entity.InformationClass.InformationClass;
 import com.example.cse.Entity.InformationClass.Location;
 import com.example.cse.Mapper.FavouriteMapper;
+import com.example.cse.Mapper.KeyTypeMapper;
 import com.example.cse.Mapper.LocationMapper;
 import com.example.cse.Service.LocationService;
 import com.example.cse.Utils.Exception.WrongDataException;
 import com.example.cse.Utils.Factory.LocationDtoFactory;
 import com.example.cse.Utils.SearchUtils;
+import com.example.cse.Vo.LocationIn;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -25,6 +27,8 @@ public class LocationServiceImpl implements LocationService {
     LocationDtoFactory locationDtoFactory;
     @Autowired
     FavouriteMapper favouriteMapper;
+    @Autowired
+    KeyTypeMapper keyTypeMapper;
 
 
     @Override
@@ -53,24 +57,47 @@ public class LocationServiceImpl implements LocationService {
     }
 
     @Override
-    public Integer newLocation(Location location) {
+    public Integer newLocation(LocationIn location) {
         location.checkZeroToNull();
-        return locationMapper.newLocation(location);
+        Integer integer = locationMapper.newLocation(location);
+
+        for (Integer kid:location.getKeyAndTypes()) {
+            keyTypeMapper.newKeyAndTypeLinkLocation(location.getLid(),kid);
+        }
+
+
+        return integer;
     }
 
     @Override
-    public Integer updateLocation(Location location) throws WrongDataException {
+    public Integer updateLocation(LocationIn location) throws WrongDataException {
         Location old;
         try {
             old = locationMapper.getLocationByRule(location.getLid(), null).get(0);
         }catch (IndexOutOfBoundsException e) {
             throw new WrongDataException("错误的地点编号");
         }
-        if (location.checkUpdate(old)) {
-            throw new WrongDataException("没有修改");
+        Integer integer = 0;
+        if (!location.checkUpdate(old)) {
+            location.checkZeroToNull();
+            integer = locationMapper.updateLocation(location);
         }
-        location.checkZeroToNull();
-        return locationMapper.updateLocation(location);
+        List<Integer> keys = location.getKeyAndTypes();
+        if (keys != null) {
+            List<Integer> olds = keyTypeMapper.getKidsByLid(location.getLid());
+            ArrayList<Integer> delete = new ArrayList<>(olds);
+            delete.removeAll(keys);
+            ArrayList<Integer> insert = new ArrayList<>(keys);
+            insert.removeAll(olds);
+            for (Integer kid : delete) {
+                integer += keyTypeMapper.deleteKeyAndTypeLinkLocation(location.getLid(),kid);
+            }
+            for (Integer kid : insert) {
+                integer += keyTypeMapper.newKeyAndTypeLinkLocation(location.getLid(),kid);
+            }
+        }
+
+        return integer;
     }
 
     @Override

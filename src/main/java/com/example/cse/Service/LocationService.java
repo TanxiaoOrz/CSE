@@ -5,6 +5,7 @@ import com.example.cse.Dto.LocationDto;
 import com.example.cse.Dto.UserDto;
 import com.example.cse.Entity.InformationClass.Location;
 import com.example.cse.Utils.Exception.WrongDataException;
+import com.example.cse.Vo.LocationIn;
 
 import java.util.List;
 
@@ -13,9 +14,9 @@ public interface LocationService {
 
     List<LocationDto> getLocationsShow(UserDto userDto, Integer locationLimit, Integer informationLimit, Integer messageLimit, Integer informationMessageLimit);
 
-    Integer newLocation(Location location);
+    Integer newLocation(LocationIn location);
 
-    Integer updateLocation(Location location) throws WrongDataException;
+    Integer updateLocation(LocationIn location) throws WrongDataException;
 
     Integer deleteLocation(Integer lid);
 
