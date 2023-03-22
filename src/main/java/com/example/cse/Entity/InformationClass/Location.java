@@ -13,8 +13,6 @@ public class Location {
     private String name;
     @ApiModelProperty("地点简介")
     private String resume;
-    @ApiModelProperty("地点权能")
-    private String ability;
     @ApiModelProperty("简介消息的id")
     private Integer basicMessage;
     @ApiModelProperty("所属地图的路径")
@@ -37,9 +35,6 @@ public class Location {
         if (!StringUtils.hasText(imgHref)) {
             imgHref = null;
         }
-        if (!StringUtils.hasText(ability)) {
-            ability = null;
-        }
 
     }
 
@@ -50,9 +45,6 @@ public class Location {
         }
         if (resume != null) {
             update &= resume.equals(old.resume);
-        }
-        if (ability != null) {
-            update &= ability.equals(old.ability);
         }
         if (basicMessage != null) {
             update &= basicMessage.equals(old.basicMessage);
@@ -96,13 +88,6 @@ public class Location {
         this.resume = resume;
     }
 
-    public String getAbility() {
-        return ability;
-    }
-
-    public void setAbility(String ability) {
-        this.ability = ability;
-    }
 
     public Integer getBasicMessage() {
         return basicMessage;
