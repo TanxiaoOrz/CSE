@@ -5,7 +5,9 @@ import com.example.cse.Dto.LocationDto;
 import com.example.cse.Dto.MessageDto;
 import com.example.cse.Dto.UserDto;
 import com.example.cse.Entity.InformationClass.Location;
+import com.example.cse.Entity.Recommend.KeyAndType;
 import com.example.cse.Mapper.InformationClassMapper;
+import com.example.cse.Mapper.KeyTypeMapper;
 import com.example.cse.Mapper.MessageMapper;
 import com.example.cse.Mapper.SurfMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +30,8 @@ public class LocationDtoFactory {
     InformationClassDtoFactory informationClassDtoFactory;
     @Autowired
     SurfMapper surfMapper;
+    @Autowired
+    KeyTypeMapper keyTypeMapper;
 
     @Value("${config.popular}")
     Integer popularScore;
@@ -37,6 +41,7 @@ public class LocationDtoFactory {
     public LocationDto getLocationDto(Location location) {
         LocationDto locationDto = new LocationDto(location);
         locationDto.setBasicMessage(messageMapper.getMessageByRule(location.getBasicMessage(),null,null).get(0));
+        locationDto.setKeyAndTypes(keyTypeMapper.getKeyAndTypeByLid(locationDto.getLid()));
 
         return locationDto;
     }
@@ -77,12 +82,20 @@ public class LocationDtoFactory {
             ConcurrentHashMap<Integer, Integer> locationModels = userDto.getLocationModels();
             averageScore = averageSurfCountLocation!=null?averageSurfCountLocation:0;
             for (Location location : locations) {
+
                 LocationDto locationDto = getLocationDto(location);
                 Integer modelScore = locationModels.get(locationDto.getLid());
                 if (modelScore == null) {
                     modelScore = 0;
                 }
-                locationDto.setRankScore(calculateSurfScore(locationDto) + modelScore);
+                ConcurrentHashMap<Integer, Integer> keywordModels = userDto.getKeywordModels();
+                int keyScore = 0;
+                for (KeyAndType keyAndType:locationDto.getKeyAndTypes()) {
+                    Integer score = keywordModels.get(keyAndType.getKid());
+                    keyScore += score!=null? score : 0;
+                }
+
+                locationDto.setRankScore(calculateSurfScore(locationDto) + modelScore +keyScore);
                 locationDtos.add(locationDto);
             }
             locationDtos.sort(new LocationDto.ScoreComparator());
