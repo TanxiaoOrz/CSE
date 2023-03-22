@@ -73,10 +73,10 @@ public class InformationClassServiceImpl implements InformationClassService {
             ArrayList<Integer> insert = new ArrayList<>(keys);
             insert.removeAll(olds);
             for (Integer kid : delete) {
-                integer = keyTypeMapper.deleteKeyAndTypeLink(informationClass.getCid(),kid);
+                integer += keyTypeMapper.deleteKeyAndTypeLink(informationClass.getCid(),kid);
             }
             for (Integer kid : insert) {
-                integer = keyTypeMapper.newKeyAndTypeLink(informationClass.getCid(),kid);
+                integer += keyTypeMapper.newKeyAndTypeLink(informationClass.getCid(),kid);
             }
         }
 

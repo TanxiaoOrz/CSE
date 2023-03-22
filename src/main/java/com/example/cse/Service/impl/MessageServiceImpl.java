@@ -90,10 +90,10 @@ public class MessageServiceImpl implements MessageService {
             ArrayList<Integer> insert = new ArrayList<>(relations);
             insert.removeAll(old);
             for (Integer cid : delete) {
-                integer = messageMapper.deleteMessageRelationClass(message.getMid(),cid);
+                integer += messageMapper.deleteMessageRelationClass(message.getMid(),cid);
             }
             for (Integer cid : insert) {
-                integer = messageMapper.newMessageRelationClass(message.getMid(), cid);
+                integer += messageMapper.newMessageRelationClass(message.getMid(), cid);
             }
         }
         relations = message.getLocations();
@@ -104,10 +104,10 @@ public class MessageServiceImpl implements MessageService {
             ArrayList<Integer> insert = new ArrayList<>(relations);
             insert.removeAll(old);
             for (Integer cid : delete) {
-                integer = messageMapper.deleteMessageRelationLocation(message.getMid(),cid);
+                integer += messageMapper.deleteMessageRelationLocation(message.getMid(),cid);
             }
             for (Integer cid : insert) {
-                integer = messageMapper.newMessageRelationLocation(message.getMid(), cid);
+                integer += messageMapper.newMessageRelationLocation(message.getMid(), cid);
             }
         }
 
