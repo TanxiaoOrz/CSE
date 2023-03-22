@@ -16,7 +16,7 @@
     </select>
 
     <insert id="newLocation" >
-        insert into location (Name, Resume, BasicMessage, Ability, MapBelong,MapOwn,ImgHref) VALUES (#{name}, #{resume}, #{basicMessage},#{ability}, #{mapBelong}, #{mapOwn}, #{imgHref});
+        insert into location (Name, Resume, BasicMessage, MapBelong,ImgHref) VALUES (#{name}, #{resume}, #{basicMessage}, #{mapBelong}, #{imgHref});
     </insert>
 
     <update id="updateLocation">
@@ -25,7 +25,6 @@
             <if test="name != null"> Name = #{name}, </if>
             <if test="resume != null"> Resume = #{resume}, </if>
             <if test="basicMessage != null"> BasicMessage = #{basicMessage}, </if>
-            <if test="ability != null"> Ability = #{ability}, </if>
             <if test="mapBelong != null"> MapBelong = #{mapBelong} </if>
             <if test="mapOwn != null"> MapOwn = #{mapOwn}, </if>
             <if test="imgHref != null"> ImgHref = #{imgHref} </if>
