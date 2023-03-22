@@ -24,6 +24,18 @@ public interface KeyTypeMapper {
     @Select("select Kid from information_class_key where Cid = #{Cid}")
     List<Integer> getKidsByCid(@Param("Cid")Integer Cid);
 
+    @Select("select keyword.Kid, keyword.KeyResume, keyword.KeyName, TypeName,TypeResume from location_key,keyword,keyword_type where Lid = #{Lid} and keyword.Kid = location_key.Kid and keyword.KeywordType = keyword_type.Tid")
+    List<KeyAndType> getKeyAndTypeByLid(@Param("Lid")Integer lid);
+
+    @Insert("insert into location_key (Lid, Kid) VALUES (#{Lid}, #{Kid})")
+    Integer newKeyAndTypeLinkLocation(@Param("Lid")Integer lid,@Param("Kid")Integer kid);
+
+    @Delete("delete from location_key where Lid = #{Lid} and Kid = #{Kid}")
+    Integer deleteKeyAndTypeLinkLocation(@Param("Lid")Integer lid,@Param("Kid")Integer kid);
+
+    @Select("select Kid from location_key where Lid = #{Lid}")
+    List<Integer> getLidsByCid(@Param("Lid")Integer lid);
+
     @Insert("insert into keyword (KeyName, KeywordType, KeyResume) VALUES (#{KeyName}, #{KeywordType}, #{KeyResume})")
     Integer newKeyword(KeyWord keyWord);
 
