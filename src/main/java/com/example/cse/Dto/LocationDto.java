@@ -3,6 +3,7 @@ package com.example.cse.Dto;
 import com.example.cse.Entity.InformationClass.InformationClass;
 import com.example.cse.Entity.InformationClass.Location;
 import com.example.cse.Entity.InformationClass.Message;
+import com.example.cse.Entity.Recommend.KeyAndType;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
@@ -18,8 +19,6 @@ public class LocationDto  {
     private String name;
     @ApiModelProperty("地点简介")
     private String resume;
-    @ApiModelProperty("地点权能")
-    private String ability;
     @ApiModelProperty("简介消息的id")
     private Message basicMessage;
     @ApiModelProperty("所属地图的路径")
@@ -38,6 +37,8 @@ public class LocationDto  {
     private List<MessageDto> messageShows;
     @ApiModelProperty("要被排序展示的信息类数组")
     private List<InformationClassDto> informationShows;
+    @ApiModelProperty("地点权能")
+    private List<KeyAndType> keyAndTypes;
     @ApiModelProperty("排序分数")
     private Integer rankScore;
     @ApiModelProperty("是否被收藏，0否1是")
@@ -57,7 +58,6 @@ public class LocationDto  {
 
     public LocationDto(Location location) {
         setLid(location.getLid());
-        setAbility(location.getAbility());
         setImgHref(location.getImgHref());
         setName(location.getName());
         setResume(location.getResume());
@@ -87,13 +87,6 @@ public class LocationDto  {
         this.resume = resume;
     }
 
-    public String getAbility() {
-        return ability;
-    }
-
-    public void setAbility(String ability) {
-        this.ability = ability;
-    }
 
     public Message getBasicMessage() {
         return basicMessage;
@@ -173,6 +166,14 @@ public class LocationDto  {
 
     public void setRankScore(Integer rankScore) {
         this.rankScore = rankScore;
+    }
+
+    public List<KeyAndType> getKeyAndTypes() {
+        return keyAndTypes;
+    }
+
+    public void setKeyAndTypes(List<KeyAndType> keyAndTypes) {
+        this.keyAndTypes = keyAndTypes;
     }
 
     public Integer getIsFavourite() {
