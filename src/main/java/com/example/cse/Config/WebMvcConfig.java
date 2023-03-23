@@ -197,6 +197,7 @@ public class WebMvcConfig extends WebMvcConfigurationSupport{
                 .excludePathPatterns("/cse/User")
                 .excludePathPatterns("/cse/Token/**")//不需要拦截的地
                 .excludePathPatterns("/favicon.ico")
+                .excludePathPatterns("file")
                 .excludePathPatterns("/swagger-ui.html/**",
                        "/swagger-ui/**",
                        "/swagger-resources/**",
@@ -262,6 +263,7 @@ public class WebMvcConfig extends WebMvcConfigurationSupport{
                 .addResourceLocations("classpath:/META-INF/resources/webjars/");
         registry.addResourceHandler("/swagger-ui/**")
                 .addResourceLocations("classpath:/META-INF/resources/webjars/springfox-swagger-ui/");
+        registry.addResourceHandler("/**").addResourceLocations("classpath:/static/");
         super.addResourceHandlers(registry);
     }
 
