@@ -62,15 +62,20 @@ public class ModelDtoFactory {
 
 
         for (Integer mid:favouriteMapper.getFavouriteMidByUid(userDto.getUid())) {
-            ModelUtils.addModel(messageModel, mid, favouriteScore);
+            if (mid != null) {
+                ModelUtils.addModel(messageModel, mid, favouriteScore);
+            }
+
         }
 
         for (Integer cid:favouriteMapper.getFavouriteCidByUid(userDto.getUid())) {
-            ModelUtils.addModel(informationClassModel, cid, favouriteScore);
+            if (cid != null)
+                ModelUtils.addModel(informationClassModel, cid, favouriteScore);
         }
 
         for (Integer lid:favouriteMapper.getFavouriteLidByUid(userDto.getUid())) {
-            ModelUtils.addModel(locationModel, lid, favouriteScore);
+            if (lid != null)
+                ModelUtils.addModel(locationModel, lid, favouriteScore);
         }
 
 
