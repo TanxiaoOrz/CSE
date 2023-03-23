@@ -16,7 +16,7 @@ public interface SurfMapper {
     @Insert("insert into surf_information_class (Uid, Surf) VALUES (#{Uid},#{Cid})")
     Integer newInformationSurf(@Param("Uid") Integer uid,@Param("Cid") Integer cid);
 
-    @Insert("insert into surf_message (Uid, Surf) VALUES (#{Uid},#{Lid})")
+    @Insert("insert into surf_location (Uid, Surf) VALUES (#{Uid},#{Lid})")
     Integer newLocationSurf(@Param("Uid") Integer uid,@Param("Lid") Integer lid);
 
     @Select("select avg(counts) from surf_count_message")
