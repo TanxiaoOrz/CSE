@@ -15,6 +15,9 @@ public interface KeyTypeMapper {
     @Select("select keyword.Kid, keyword.KeyResume, keyword.KeyName, TypeName,TypeResume from information_class_key,keyword,keyword_type where Cid = #{Cid} and keyword.Kid = information_class_key.Kid and keyword.KeywordType = keyword_type.Tid")
     List<KeyAndType> getKeyAndTypeByCid(@Param("Cid")Integer Cid);
 
+    @Select("select keyword.Kid, keyword.KeyResume, keyword.KeyName, TypeName,TypeResume from keyword,keyword_type where Kid = #{Kid} and keyword.KeywordType = keyword_type.Tid")
+    KeyAndType getKeyAndTypeByKid(@Param("Kid")Integer Kid);
+
     @Insert("insert into information_class_key (Cid, Kid) VALUES (#{Cid}, #{Kid})")
     Integer newKeyAndTypeLink(@Param("Cid")Integer cid,@Param("Kid")Integer kid);
 
