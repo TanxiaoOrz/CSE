@@ -12,5 +12,7 @@ public interface SurfService {
 
     Integer newSurf(UserDto userDto,Integer id,Integer type) throws WrongDataException;
 
+    Integer newSurf(Integer id,Integer type) throws WrongDataException;
+
     List<Integer> getSurfRank(UserDto userDto,Integer type);
 }
