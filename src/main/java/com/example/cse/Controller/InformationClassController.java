@@ -62,14 +62,14 @@ public class InformationClassController {
     public Vo<InformationClassDto> getInformation(@PathVariable Integer id,@RequestParam(required = false) Integer limit, HttpServletRequest request) throws WrongDataException {
         UserDto userDto = (UserDto) request.getAttribute("UserDto");
         InformationClassDto informationClassDto = informationClassService.getInformationClass(userDto,id,limit==0?null:limit);
-        if (userDto != null) {
+
             surfService.newSurf(userDto,id, SurfService.INFORMATION_CLASS);
             if (informationClassDto.getLocation() != null) {
                 for (Location e : informationClassDto.getLocation()) {
                     surfService.newSurf(userDto, e.getLid(), SurfService.LOCATION);
                 }
             }
-        }
+
         return new Vo<>(informationClassDto);
     }
     @GetMapping("/Search")

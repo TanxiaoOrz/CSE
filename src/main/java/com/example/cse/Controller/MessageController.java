@@ -43,18 +43,18 @@ public class MessageController {
             if (message == null) {
                 throw new NoDataException(Vo.WrongPostParameter,"没有找到该消息，可能输入了错误的mid或该mid已过时，请在过时消息中搜索");
             }
-            if (userDto != null) {
-                surfService.newSurf(userDto, id, SurfService.MESSAGE);
-                if (message.getLocations() != null) {
-                    for (Location location : message.getLocations()) {
-                        surfService.newSurf(userDto, location.getLid(), SurfService.LOCATION);
+
+                    surfService.newSurf(userDto, id, SurfService.MESSAGE);
+                    if (message.getLocations() != null) {
+                        for (Location location : message.getLocations()) {
+                            surfService.newSurf(userDto, location.getLid(), SurfService.LOCATION);
+                        }
                     }
-                }
-                if (message.getRelationInformationClass() != null)
-                    for (InformationClass informationClass : message.getRelationInformationClass()) {
-                        surfService.newSurf(userDto, informationClass.getCid(), SurfService.INFORMATION_CLASS);
-                    }
-            }
+                    if (message.getRelationInformationClass() != null)
+                        for (InformationClass informationClass : message.getRelationInformationClass()) {
+                            surfService.newSurf(userDto, informationClass.getCid(), SurfService.INFORMATION_CLASS);
+                        }
+
             return new Vo<>(message);
         }else {
             MessageDto message = messageService.getMessageOut(id);

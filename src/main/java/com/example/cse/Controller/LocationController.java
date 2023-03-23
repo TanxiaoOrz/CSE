@@ -43,9 +43,9 @@ public class LocationController {
     public Vo<LocationDto> getLocation(@PathVariable Integer id, @RequestParam(required = false)Integer informationLimit, @RequestParam(required = false)Integer messageLimit, @RequestParam(required = false)Integer informationMessageLimit, HttpServletRequest request) throws WrongDataException {
         UserDto userDto = (UserDto) request.getAttribute("UserDto");
         LocationDto locationDto = locationService.getLocation(id,userDto,informationLimit,messageLimit,informationMessageLimit);
-        if (userDto != null) {
+
             surfService.newSurf(userDto,id, SurfService.LOCATION);
-        }
+
         return new Vo<>(locationDto);
     }
 
