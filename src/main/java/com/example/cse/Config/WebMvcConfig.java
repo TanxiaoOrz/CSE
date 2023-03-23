@@ -240,17 +240,18 @@ public class WebMvcConfig extends WebMvcConfigurationSupport{
                        "/webjars/**",
                        "/doc.html");
         registry.addInterceptor(new ManagerCheck())
-               .addPathPatterns("/cse/Location/Manager")
-               .addPathPatterns("/cse/Location/Manager/**")
-               .addPathPatterns("/cse/InformationClass/Manager/**")
-               .addPathPatterns("/cse/InformationClass/Manager")
-               .addPathPatterns("/cse/Message/Manager/**")
-               .addPathPatterns("/cse/Message/Manager")
-               .addPathPatterns("/cse/Hobby/Manager")
-               .addPathPatterns("/cse/Profession/Manager")
-               .addPathPatterns("/cse/Key/Manager")
-               .excludePathPatterns("/favicon.ico")
-               .excludePathPatterns("/swagger-ui.html/**",
+                .addPathPatterns("/cse/Location/Manager")
+                .addPathPatterns("/cse/Location/Manager/**")
+                .addPathPatterns("/cse/InformationClass/Manager/**")
+                .addPathPatterns("/cse/InformationClass/Manager")
+                .addPathPatterns("/cse/Message/Manager/**")
+                .addPathPatterns("/cse/Message/Manager")
+                .addPathPatterns("/cse/Hobby/Manager")
+                .addPathPatterns("/cse/Profession/Manager")
+                .addPathPatterns("/cse/Key/Manager")
+                .addPathPatterns("cse/File/upload")
+                .excludePathPatterns("/favicon.ico")
+                .excludePathPatterns("/swagger-ui.html/**",
                        "/swagger-ui/**",
                        "/swagger-resources/**",
                        "/v2/api-docs",
