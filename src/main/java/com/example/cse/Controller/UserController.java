@@ -3,6 +3,7 @@ package com.example.cse.Controller;
 import com.example.cse.Dto.UserDto;
 import com.example.cse.Service.impl.UserServiceImpl;
 import com.example.cse.Utils.Exception.NoDataException;
+import com.example.cse.Vo.SurfMost;
 import com.example.cse.Vo.UserCreate;
 import com.example.cse.Vo.UserBasic;
 import com.example.cse.Vo.Vo;
@@ -48,5 +49,11 @@ public class UserController {
             return new Vo<>(Vo.Success,"用户基本信息更新成功",null);
         else
             return new Vo<>(Vo.WrongPostParameter,null,"未知错误，创建失败");
+    }
+
+    @GetMapping("/most")
+    @ApiOperation(value = "获取访问最多的数据",notes = "需要经过token验证")
+    public Vo<SurfMost> getUserMost(HttpServletRequest request) {
+        return new Vo<>(userService.getUserSurfMost((UserDto) request.getAttribute("UserDto")));
     }
 }

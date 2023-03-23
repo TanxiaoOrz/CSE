@@ -1,19 +1,18 @@
 package com.example.cse.Service.impl;
 
+import com.example.cse.Dto.SurfCounts;
 import com.example.cse.Dto.UserDto;
+import com.example.cse.Entity.InformationClass.InformationClass;
+import com.example.cse.Entity.InformationClass.Location;
+import com.example.cse.Entity.Recommend.KeyAndType;
 import com.example.cse.Entity.UserClass.Profession;
 import com.example.cse.Entity.UserClass.User;
-import com.example.cse.Mapper.HobbyMapper;
-import com.example.cse.Mapper.ProfessionMapper;
-import com.example.cse.Mapper.UserMapper;
+import com.example.cse.Mapper.*;
 import com.example.cse.Service.UserService;
 import com.example.cse.Utils.CacheUtils;
 import com.example.cse.Utils.Exception.NoDataException;
 import com.example.cse.Utils.Factory.ModelDtoFactory;
-import com.example.cse.Vo.UserBasic;
-import com.example.cse.Vo.UserCreate;
-import com.example.cse.Vo.UserPass;
-import com.example.cse.Vo.Vo;
+import com.example.cse.Vo.*;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
@@ -21,6 +20,8 @@ import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 
@@ -37,6 +38,14 @@ public class UserServiceImpl implements UserService{
     CacheUtils cacheUtils;
     @Autowired
     ModelDtoFactory modelDtoFactory;
+    @Autowired
+    SurfMapper surfMapper;
+    @Autowired
+    KeyTypeMapper keyTypeMapper;
+    @Autowired
+    InformationClassMapper informationClassMapper;
+    @Autowired
+    LocationMapper locationMapper;
 
     @Override
     public UserDto getUserByNamePass(UserPass userPass) throws NoDataException{
@@ -116,6 +125,43 @@ public class UserServiceImpl implements UserService{
     @Override
     public void calculateUserModel(UserDto userDto) {
 
+    }
+
+    @Override
+    public SurfMost getUserSurfMost(UserDto userDto) {
+
+        List<Integer> informationClassCounts = new ArrayList<>();
+        List<Integer> locationCounts = new ArrayList<>();
+        List<Integer> keyCounts = new ArrayList<>();
+
+        List<InformationClass> informationClasses = new ArrayList<>();
+        List<Location> locations = new ArrayList<>();
+        List<KeyAndType> keyAndTypes = new ArrayList<>();
+
+        List<SurfCounts> keysCounts = surfMapper.getSurfMostKeysCounts(userDto.getUid());
+
+        for (SurfCounts key:
+             keysCounts) {
+            keyCounts.add(key.getCounts());
+            keyAndTypes.add(keyTypeMapper.getKeyAndTypeByKid(key.getId()));
+        }
+
+        List<SurfCounts> locationsCounts = surfMapper.getSurfMostLocationsCounts(userDto.getUid());
+
+        for (SurfCounts location:
+                locationsCounts) {
+            locationCounts.add(location.getCounts());
+            locations.add(locationMapper.getLocationByRule(location.getId(),null).get(0));
+        }
+
+        List<SurfCounts> informationClassesCounts = surfMapper.getSurfMostInformationClassesCounts(userDto.getUid());
+
+        for (SurfCounts informationClass:
+                informationClassesCounts) {
+            informationClassCounts.add(informationClass.getCounts());
+            informationClasses.add(informationClassMapper.getInformationClassByRule(informationClass.getId(),null,null).get(0));
+        }
+        return new SurfMost(informationClassCounts,locationCounts,keyCounts,informationClasses,locations,keyAndTypes);
     }
 
 
