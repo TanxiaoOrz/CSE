@@ -149,9 +149,9 @@ CREATE TABLE `cse`.`information_class_location` (
 
 CREATE TABLE `cse`.`surf_location` (
                                        `Time` DATETIME NOT NULL default now(),
-                                       `Uid` INT NOT NULL,
+                                       `Uid` INT  NULL,
                                        `Surf` INT NOT NULL,
-                                       PRIMARY KEY (`Time` , `Uid` , `Surf`),
+                                       PRIMARY KEY (`Time` , `Surf`),
                                        CONSTRAINT `surf_location` FOREIGN KEY (`Surf`)
                                            REFERENCES `cse`.`location` (`Lid`)
                                            ON DELETE NO ACTION ON UPDATE NO ACTION,
@@ -162,9 +162,9 @@ CREATE TABLE `cse`.`surf_location` (
 
 CREATE TABLE `cse`.`surf_message` (
                                       `Time` DATETIME NOT NULL default now(),
-                                      `Uid` INT NOT NULL,
+                                      `Uid` INT NULL,
                                       `Surf` INT NOT NULL,
-                                      PRIMARY KEY (`Time` , `Uid` , `Surf`),
+                                      PRIMARY KEY (`Time` , `Surf`),
                                       CONSTRAINT `surf_message` FOREIGN KEY (`Surf`)
                                           REFERENCES `cse`.`message` (`Mid`)
                                           ON DELETE NO ACTION ON UPDATE NO ACTION,
@@ -175,9 +175,9 @@ CREATE TABLE `cse`.`surf_message` (
 
 CREATE TABLE `cse`.`surf_information_class` (
                                                 `Time` DATETIME NOT NULL default now(),
-                                                `Uid` INT NOT NULL,
+                                                `Uid` INT NULL,
                                                 `Surf` INT NOT NULL,
-                                                PRIMARY KEY (`Time` , `Uid` , `Surf`),
+                                                PRIMARY KEY (`Time` , `Surf`),
                                                 CONSTRAINT `surf_information_class` FOREIGN KEY (`Surf`)
                                                     REFERENCES `cse`.`information_class` (`Cid`)
                                                     ON DELETE NO ACTION ON UPDATE NO ACTION,
