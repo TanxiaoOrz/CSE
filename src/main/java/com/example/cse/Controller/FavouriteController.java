@@ -69,13 +69,12 @@ public class FavouriteController {
     @DeleteMapping("/null")
     @ApiOperation(value = "用户删除喜欢",notes = "需要登录")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "id",value = "对应喜欢的编号",dataTypeClass = Integer.class,paramType = "path"),
             @ApiImplicitParam(name = "type",value = "喜欢的类型,限定message，location，informationClass",dataTypeClass = String.class,paramType = "query")
     })
     public Vo<String> deleteUserFavouriteNUll(HttpServletRequest request,@RequestParam String type) throws NoDataException {
         UserDto userDto = (UserDto) request.getAttribute("UserDto");
         Integer integer = favouriteService.deleteFavouriteNull(userDto, type);
-        if (integer == 1){
+        if (integer != 0){
             return new Vo<>("删除成功");
         }else {
             return new Vo<>(Vo.WrongPostParameter,"未知错误，删除失败");
