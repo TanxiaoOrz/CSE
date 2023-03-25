@@ -152,7 +152,7 @@ CREATE TABLE `cse`.`surf_location` (
                                        `Time` DATETIME NOT NULL default now(),
                                        `Uid` INT  NULL,
                                        `Surf` INT NOT NULL,
-                                       PRIMARY KEY (`Time` , `Surf`,`id`),
+                                       PRIMARY KEY (`id`),
                                        CONSTRAINT `surf_location` FOREIGN KEY (`Surf`)
                                            REFERENCES `cse`.`location` (`Lid`)
                                            ON DELETE NO ACTION ON UPDATE NO ACTION,
@@ -166,7 +166,7 @@ CREATE TABLE `cse`.`surf_message` (
                                       `Time` DATETIME NOT NULL default now(),
                                       `Uid` INT NULL,
                                       `Surf` INT NOT NULL,
-                                      PRIMARY KEY (`Time` , `Surf`,`id`),
+                                      PRIMARY KEY (`id`),
                                       CONSTRAINT `surf_message` FOREIGN KEY (`Surf`)
                                           REFERENCES `cse`.`message` (`Mid`)
                                           ON DELETE NO ACTION ON UPDATE NO ACTION,
@@ -180,7 +180,7 @@ CREATE TABLE `cse`.`surf_information_class` (
                                                 `Time` DATETIME NOT NULL default now(),
                                                 `Uid` INT NULL,
                                                 `Surf` INT NOT NULL,
-                                                PRIMARY KEY (`Time` , `Surf`,`id`),
+                                                PRIMARY KEY (`id`),
                                                 CONSTRAINT `surf_information_class` FOREIGN KEY (`Surf`)
                                                     REFERENCES `cse`.`information_class` (`Cid`)
                                                     ON DELETE NO ACTION ON UPDATE NO ACTION,
@@ -505,7 +505,7 @@ DELIMITER $$
 USE `cse`$$
 CREATE DEFINER = CURRENT_USER TRIGGER `cse`.`message_BEFORE_UPDATE` BEFORE UPDATE ON `message` FOR EACH ROW
 BEGIN
-    if new.AsBasicMessage <> 0 and old.message <> 0 then
+    if new.AsBasicMessage <> 0 and old.AsBasicMessage <> 0 then
         signal sqlstate 'HY000' set message_text = '该消息已被地点类或信息类指定成为基本信息' ;
     end if;
 END$$
