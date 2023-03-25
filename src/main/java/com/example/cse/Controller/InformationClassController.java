@@ -29,6 +29,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/cse/InformationClass")
 @Api(tags = "informationClass接口")
+@CrossOrigin
 public class InformationClassController {
     @Autowired
     InformationClassServiceImpl informationClassService;

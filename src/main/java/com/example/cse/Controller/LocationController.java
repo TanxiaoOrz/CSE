@@ -24,6 +24,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/cse/Location")
 @Api(tags = "Location接口")
+@CrossOrigin
 public class LocationController {
     @Autowired
     LocationServiceImpl locationService;

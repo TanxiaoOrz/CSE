@@ -19,6 +19,7 @@ import javax.servlet.http.HttpServletRequest;
 @RestController
 @RequestMapping("/cse/User/Calender")
 @Api(tags = "代办日历接口")
+@CrossOrigin
 public class CalenderController {
     @Autowired
     CalenderServiceImpl calenderService;

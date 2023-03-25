@@ -16,6 +16,7 @@ import java.util.List;
 @RestController
 @RequestMapping("cse/Key")
 @Api(tags = "关键词接口")
+@CrossOrigin
 public class KeywordController {
 
     @Autowired

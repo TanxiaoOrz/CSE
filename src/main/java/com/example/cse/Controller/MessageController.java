@@ -24,6 +24,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/cse/Message")
 @Api(tags = "message接口")
+@CrossOrigin
 public class MessageController {
     @Autowired
     MessageServiceImpl messageService;

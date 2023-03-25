@@ -14,6 +14,7 @@ import java.io.IOException;
 
 @RestController("/cse/File")
 @Api(tags = "文件的上传接口")
+@CrossOrigin
 public class FileController {
 
     @Autowired

@@ -18,6 +18,7 @@ import java.util.List;
 @RestController
 @RequestMapping("cse/Hobby")
 @Api(tags = "爱好接口")
+@CrossOrigin
 public class HobbyController {
     @Autowired
     HobbyServiceImpl hobbyService;

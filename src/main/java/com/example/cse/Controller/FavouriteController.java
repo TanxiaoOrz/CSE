@@ -18,6 +18,7 @@ import javax.servlet.http.HttpServletRequest;
 @RestController
 @RequestMapping("/cse/User/Favourite")
 @Api(tags = "用户的favourite接口")
+@CrossOrigin
 public class FavouriteController {
 
     @Autowired
