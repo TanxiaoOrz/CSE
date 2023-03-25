@@ -41,11 +41,11 @@ public class InformationClassController {
     @ApiImplicitParams({
             @ApiImplicitParam(name = "classLimit",value = "信息类的数量",dataTypeClass = Integer.class,paramType = "query"),
             @ApiImplicitParam(name = "messageLimit",value = "信息类中展示的信息数量",dataTypeClass = Integer.class,paramType = "query"),
-            @ApiImplicitParam(name = "type",value = "信息类中类型要求",dataTypeClass = String.class,paramType = "query")
+            @ApiImplicitParam(name = "type",value = "信息类中类型限定,可以没有",dataTypeClass = String.class,paramType = "query")
     })
     public Vo<List<InformationClassDto>> getInformationClasses(@RequestParam Integer classLimit,
                                                             @RequestParam Integer messageLimit,
-                                                            @RequestParam String type,
+                                                            @RequestParam(required = false) String type,
                                                             HttpServletRequest request) {
         UserDto userDto = (UserDto) request.getAttribute("UserDto");
         List<InformationClassDto> returns;
