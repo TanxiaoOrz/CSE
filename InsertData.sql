@@ -52,14 +52,36 @@ INSERT INTO `cse`.`keyword` (`Kid`, `KeyName`, `KeywordType`) VALUES ('13', '空
 INSERT INTO `cse`.`keyword` (`Kid`, `KeyName`, `KeywordType`) VALUES ('14', '维修', '4');
 INSERT INTO `cse`.`keyword` (`Kid`, `KeyName`, `KeywordType`) VALUES ('15', '承办', '4');
 -- 关键词填写
+INSERT INTO `cse`.`location` (`Lid`, `Name`, `Resume`) VALUES ('1', '计算机中心', '计算机中心位于上海理工大学北校区湛恩图书馆左侧，常常承办一些计算机类的比赛，同');
+INSERT INTO `cse`.`location` (`Lid`, `Name`, `Resume`) VALUES ('2', '图书馆', '：学校580校区，共有两个大型图书馆，分别是位于北校区的湛恩图书馆，和334校区图书');
+INSERT INTO `cse`.`location` (`Lid`, `Name`, `Resume`) VALUES ('3', '第一教学楼', '第一教学楼，简称“一教”，位于上海理工大学580校区，靠近516号校门，设施齐全，同学们');
+INSERT INTO `cse`.`location` (`Lid`, `Name`, `Resume`) VALUES ('4', '公共服务中心', '学校多个职能办公室所在地');
+-- 消息预填写
 
+INSERT INTO `cse`.`information_class` (`Cid`, `Name`, `Type`) VALUES ('1', '蓝桥杯', '比赛');
+INSERT INTO `cse`.`information_class` (`Cid`, `Name`, `Type`) VALUES ('2', '互联网+', '比赛');
+INSERT INTO `cse`.`information_class` (`Cid`, `Name`, `Type`) VALUES ('3', '数学建模', '比赛');
+INSERT INTO `cse`.`information_class` (`Cid`, `Name`, `Type`) VALUES ('4', '计算机设计大赛', '比赛');
+INSERT INTO `cse`.`information_class` (`Cid`, `Name`, `Type`) VALUES ('5', '走进海沈村活动', '活动');
+INSERT INTO `cse`.`information_class` (`Cid`, `Name`, `Type`) VALUES ('6', '“秋炫沪江，我是光荣劳动者”活动', '活动');
+INSERT INTO `cse`.`information_class` (`Cid`, `Name`, `Type`) VALUES ('7', '打响医匠品牌活动', '活动');
+INSERT INTO `cse`.`information_class` (`Cid`, `Name`, `Type`) VALUES ('8', '理学院“实验大变身”活动', '活动');
+INSERT INTO `cse`.`information_class` (`Cid`, `Name`, `Type`) VALUES ('9', '会聘上海', '活动');
+INSERT INTO `cse`.`information_class` (`Cid`, `Name`, `Type`) VALUES ('10', '光电学院挑战杯专题讲座', '活动');
+INSERT INTO `cse`.`information_class` (`Cid`, `Name`, `Type`) VALUES ('11', '尚旅军团全员大会', '活动');
+INSERT INTO `cse`.`information_class` (`Cid`, `Name`, `Resume`, `Type`) VALUES ('12', '教务处', '发布学校的教学通知', '部门');
+INSERT INTO `cse`.`information_class` (`Cid`, `Name`, `Type`) VALUES ('13', '后勤管理处', '部门');
+INSERT INTO `cse`.`information_class` (`Cid`, `Name`, `Type`) VALUES ('14', '校长办公室', '部门');
+INSERT INTO `cse`.`information_class` (`Cid`, `Name`, `Type`) VALUES ('15', '财务处', '部门');
+INSERT INTO `cse`.`information_class` (`Cid`, `Name`, `Type`) VALUES ('16', '科学发展研究院', '部门');
+INSERT INTO `cse`.`information_class` (`Cid`, `Name`, `Type`) VALUES ('17', '学生工作部', '部门');
+INSERT INTO `cse`.`information_class` (`Cid`, `Name`, `Type`) VALUES ('18', '创新创业学院', '部门');
 
 INSERT INTO `cse`.`message` (`Title`, `message`,`ReleaseTime`,OutTime) VALUES ('蓝桥杯预选赛通知', '{"message":"蓝桥杯比赛消息通知","image":[],"file":[]}','2022-10-07 08:05:54','2023-05-07 23:59:59');
 INSERT INTO `cse`.`message` (`Title`, `message`,`ReleaseTime`,OutTime) VALUES ('其他信息', '{"message":"其他信息","image":[],"file":[]}','2022-09-05 08:05:54','2023-05-07 23:59:59');
 INSERT INTO `cse`.`message` (`Title`, `message`,`ReleaseTime`,OutTime) VALUES ('蓝桥杯简介', '{"message":"蓝桥杯比赛简介","image":[],"file":[]}','2019-03-18 08:05:54','2032-10-07 08:05:54');
 INSERT INTO `cse`.`message` (`Mid`, `Title`, `ReleaseTime`, `OutTime`, `message`, `AsBasicMessage`) VALUES ('4', '蓝桥杯预选赛成功举办', '2022-11-14 08:45:54', '2023-12-31 23:59:59', '{\"file\": [], \"image\": [], \"message\": \"蓝桥杯预选赛成功举办\"}', '0');
 INSERT INTO `cse`.`message` (`Mid`, `Title`, `ReleaseTime`, `OutTime`, `message`, `AsBasicMessage`) VALUES ('5', '总决赛荣获嘉奖', '2022-07-04 09:33:35', '2023-12-31 23:59:59', '{\"file\": [], \"image\": [], \"message\": \"总决赛荣获嘉奖\"}', '0');
--- 消息预填写
 
 INSERT INTO `cse`.`message` (`Mid`, `Title`, `ReleaseTime`, `OutTime`, `message`, `AsBasicMessage`) VALUES ('6', '蓝桥杯市赛获奖', '2022-05-29 10:43:44', '2023-12-31 23:59:59', '{\"file\": [], \"image\": [], \"message\": \"蓝桥杯市赛获奖\"}', '0');
 INSERT INTO `cse`.`message` (`Mid`, `Title`, `ReleaseTime`, `OutTime`, `message`, `AsBasicMessage`) VALUES ('7', '互联网+简介', '2016-02-23 10:43:44', '2023-12-31 23:59:59', '{\"file\": [], \"image\": [], \"message\": \"互联网+简介\"}', '0');
@@ -95,9 +117,7 @@ INSERT INTO `cse`.`message` (`Mid`, `Title`, `ReleaseTime`, `OutTime`, `message`
 
 
 
-INSERT INTO `cse`.`location` (`Lid`, `Name`, `Resume`) VALUES ('1', '计算机中心', '计算机中心位于上海理工大学北校区湛恩图书馆左侧，常常承办一些计算机类的比赛，同');
-INSERT INTO `cse`.`location` (`Lid`, `Name`, `Resume`) VALUES ('2', '图书馆', '：学校580校区，共有两个大型图书馆，分别是位于北校区的湛恩图书馆，和334校区图书');
-INSERT INTO `cse`.`location` (`Lid`, `Name`, `Resume`) VALUES ('3', '第一教学楼', '第一教学楼，简称“一教”，位于上海理工大学580校区，靠近516号校门，设施齐全，同学们');
+
 
 
 
@@ -113,24 +133,7 @@ INSERT INTO `cse`.`message` (`Mid`, `Title`, `ReleaseTime`, `OutTime`, `message`
 
 
 
-INSERT INTO `cse`.`information_class` (`Cid`, `Name`, `Type`) VALUES ('1', '蓝桥杯', '比赛');
-INSERT INTO `cse`.`information_class` (`Cid`, `Name`, `Type`) VALUES ('2', '互联网+', '比赛');
-INSERT INTO `cse`.`information_class` (`Cid`, `Name`, `Type`) VALUES ('3', '数学建模', '比赛');
-INSERT INTO `cse`.`information_class` (`Cid`, `Name`, `Type`) VALUES ('4', '计算机设计大赛', '比赛');
-INSERT INTO `cse`.`information_class` (`Cid`, `Name`, `Type`) VALUES ('5', '走进海沈村活动', '活动');
-INSERT INTO `cse`.`information_class` (`Cid`, `Name`, `Type`) VALUES ('6', '“秋炫沪江，我是光荣劳动者”活动', '活动');
-INSERT INTO `cse`.`information_class` (`Cid`, `Name`, `Type`) VALUES ('7', '打响医匠品牌活动', '活动');
-INSERT INTO `cse`.`information_class` (`Cid`, `Name`, `Type`) VALUES ('8', '理学院“实验大变身”活动', '活动');
-INSERT INTO `cse`.`information_class` (`Cid`, `Name`, `Type`) VALUES ('9', '会聘上海', '资源');
-INSERT INTO `cse`.`information_class` (`Cid`, `Name`, `Type`) VALUES ('10', '光电学院挑战杯专题讲座', '活动');
-INSERT INTO `cse`.`information_class` (`Cid`, `Name`, `Type`) VALUES ('11', '尚旅军团全员大会', '活动');
-INSERT INTO `cse`.`information_class` (`Cid`, `Name`, `Resume`, `Type`) VALUES ('12', '教务处', '发布学校的教学通知', '部门');
-INSERT INTO `cse`.`information_class` (`Cid`, `Name`, `Type`) VALUES ('13', '后勤管理处', '部门');
-INSERT INTO `cse`.`information_class` (`Cid`, `Name`, `Type`) VALUES ('14', '校长办公室', '部门');
-INSERT INTO `cse`.`information_class` (`Cid`, `Name`, `Type`) VALUES ('15', '财务处', '部门');
-INSERT INTO `cse`.`information_class` (`Cid`, `Name`, `Type`) VALUES ('16', '科学发展研究院', '部门');
-INSERT INTO `cse`.`information_class` (`Cid`, `Name`, `Type`) VALUES ('17', '学生工作部', '部门');
-INSERT INTO `cse`.`information_class` (`Cid`, `Name`, `Type`) VALUES ('18', '创新创业学院', '部门');
+
 
 
 
@@ -157,3 +160,5 @@ INSERT INTO `cse`.`message` (`Mid`, `Title`, `ReleaseTime`, `OutTime`, `message`
 INSERT INTO `cse`.`message` (`Mid`, `Title`, `ReleaseTime`, `OutTime`, `message`, `AsBasicMessage`) VALUES ('62', '关于2023年寒假安排的通知', '2023-01-04 14:27:21', '2023-12-31 23:59:59', '{\"file\": [], \"image\": [], \"message\": \"https://ids6.usst.edu.cn/authserver/login?service=http%3A%2F%2Fwww.usst.edu.cn%2F2023%2F0104%2Fc954a51912%2Fpage.psp\"}', '0');
 INSERT INTO `cse`.`message` (`Mid`, `Title`, `ReleaseTime`, `OutTime`, `message`, `AsBasicMessage`) VALUES ('64', ' 2022年12月全国大学英语四、六级考试笔试考前须知及防疫安全提示', '2022-11-25 14:02:09', '2023-12-31 23:59:59', '{\"file\": [], \"image\": [], \"message\": \"http://jwc.usst.edu.cn/2022/1125/c10239a283627/page.htm\"}', '0');
 INSERT INTO `cse`.`message` (`Mid`, `Title`, `ReleaseTime`, `OutTime`, `message`, `AsBasicMessage`) VALUES ('65', ' 关于2022年下半年全国大学英语四、六级等级考试报名的通知', '2022-10-24 09:08:07', '2023-12-31 23:59:59', '{\"file\": [], \"image\": [], \"message\": \"https://jwc.usst.edu.cn/2022/1020/c10239a281385/page.psp\"}', '0');
+
+
