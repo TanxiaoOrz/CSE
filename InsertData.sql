@@ -57,6 +57,8 @@ INSERT INTO `cse`.`keyword` (`Kid`, `KeyName`, `KeywordType`) VALUES ('15', '承
 INSERT INTO `cse`.`message` (`Title`, `message`,`ReleaseTime`,OutTime) VALUES ('蓝桥杯预选赛通知', '{"message":"蓝桥杯比赛消息通知","image":[],"file":[]}','2022-10-07 08:05:54','2023-05-07 23:59:59');
 INSERT INTO `cse`.`message` (`Title`, `message`,`ReleaseTime`,OutTime) VALUES ('其他信息', '{"message":"其他信息","image":[],"file":[]}','2022-09-05 08:05:54','2023-05-07 23:59:59');
 INSERT INTO `cse`.`message` (`Title`, `message`,`ReleaseTime`,OutTime) VALUES ('蓝桥杯简介', '{"message":"蓝桥杯比赛简介","image":[],"file":[]}','2019-03-18 08:05:54','2032-10-07 08:05:54');
+INSERT INTO `cse`.`message` (`Mid`, `Title`, `ReleaseTime`, `OutTime`, `message`, `AsBasicMessage`) VALUES ('4', '蓝桥杯预选赛成功举办', '2022-11-14 08:45:54', '2023-12-31 23:59:59', '{\"file\": [], \"image\": [], \"message\": \"蓝桥杯预选赛成功举办\"}', '0');
+INSERT INTO `cse`.`message` (`Mid`, `Title`, `ReleaseTime`, `OutTime`, `message`, `AsBasicMessage`) VALUES ('5', '总决赛荣获嘉奖', '2022-07-04 09:33:35', '2023-12-31 23:59:59', '{\"file\": [], \"image\": [], \"message\": \"总决赛荣获嘉奖\"}', '0');
 -- 消息预填写
 
 INSERT INTO `cse`.`message` (`Mid`, `Title`, `ReleaseTime`, `OutTime`, `message`, `AsBasicMessage`) VALUES ('6', '蓝桥杯市赛获奖', '2022-05-29 10:43:44', '2023-12-31 23:59:59', '{\"file\": [], \"image\": [], \"message\": \"蓝桥杯市赛获奖\"}', '0');
