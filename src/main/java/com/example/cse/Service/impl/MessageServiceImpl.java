@@ -10,6 +10,7 @@ import com.example.cse.Service.MessageService;
 import com.example.cse.Utils.Exception.WrongDataException;
 import com.example.cse.Utils.Factory.MessageDtoFactory;
 import com.example.cse.Utils.SearchUtils;
+import com.example.cse.Vo.LatestMessages;
 import com.example.cse.Vo.MessageIn;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -45,13 +46,13 @@ public class MessageServiceImpl implements MessageService {
     }
 
     @Override
-    public List<MessageDto> searchMessages(String search) {
+    public List<MessageDto> searchMessages(String search,String type) {
         List<String> adds = new ArrayList<>();
         List<String> minuses = new ArrayList<>();
         List<String> defaults = new ArrayList<>();
         SearchUtils.splitSearch(search,adds,minuses,defaults);
 
-        List<Message> messages = messageMapper.searchMessage(defaults,adds,minuses);
+        List<Message> messages = messageMapper.searchMessage(defaults,adds,minuses,type);
         return messageDtoFactory.getMessageDtosOrderByRankScore(messages,null);
     }
 
@@ -141,5 +142,15 @@ public class MessageServiceImpl implements MessageService {
             return messageMapper.deleteMessageOut(mid);
         else
             return messageMapper.deleteMessage(mid);
+    }
+
+    @Override
+    public LatestMessages getLastMessagesTypes() {
+        LatestMessages latestMessages = new LatestMessages();
+        latestMessages.setActivities(this.messageMapper.getLastMessageByType("活动"));
+        latestMessages.setContests(this.messageMapper.getLastMessageByType("比赛"));
+        latestMessages.setResources(this.messageMapper.getLastMessageByType("资源"));
+        latestMessages.setSections(this.messageMapper.getLastMessageByType("部门"));
+        return latestMessages;
     }
 }

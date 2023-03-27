@@ -41,7 +41,8 @@ public interface MessageMapper {
 
     List<Message> searchMessage(@Param("Defaults")List<String> defaults,
                                 @Param("Adds")List<String> adds,
-                                @Param("Minuses")List<String> minuses);
+                                @Param("Minuses")List<String> minuses,
+                                @Param("Type") String type);
 
     List<Message> searchMessageOut(@Param("Defaults")List<String> defaults,
                                     @Param("Adds")List<String> adds,
@@ -49,5 +50,8 @@ public interface MessageMapper {
 
     @Update("update message_out set DeprecatedFlag = 1 where Mid = #{Mid}")
     Integer deleteMessageOut(@Param("Mid")Integer mid);
+
+    @Select({"SELECT * from message where Mid in (SELECT Mid from message_information_class where Cid in (SELECT Cid from information_class where Type = #{Type})) order by ReleaseTime desc limit 15"})
+    List<Message> getLastMessageByType(@Param("Type") String type);
 
 }

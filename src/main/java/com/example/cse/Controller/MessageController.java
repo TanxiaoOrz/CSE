@@ -9,6 +9,7 @@ import com.example.cse.Service.impl.MessageServiceImpl;
 import com.example.cse.Service.impl.SurfServiceImpl;
 import com.example.cse.Utils.Exception.NoDataException;
 import com.example.cse.Utils.Exception.WrongDataException;
+import com.example.cse.Vo.LatestMessages;
 import com.example.cse.Vo.MessageIn;
 import com.example.cse.Vo.Vo;
 import io.swagger.annotations.Api;
@@ -30,6 +31,12 @@ public class MessageController {
     MessageServiceImpl messageService;
     @Autowired
     SurfServiceImpl surfService;
+
+    @GetMapping({"/latest"})
+    @ApiOperation(value = "获取个部门最新消息",notes = "不需要任何token验证")
+    public Vo<LatestMessages> getLatestMessages() {
+        return new Vo<>(messageService.getLastMessagesTypes());
+    }
 
     @GetMapping({"/User/{id}","/{id}"})
     @ApiOperation(value = "普通用户的获取message接口",notes = "获取message的展示结构体,需要传入id,token会做检测，无token也可，管理员访问请使用无User的url")
@@ -70,12 +77,13 @@ public class MessageController {
     @ApiOperation(value = "获取全部message接口",notes = "获取message的展示结构体,如果有搜索字符串按字符串规则筛选")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "search", value = "搜索字符串",dataTypeClass = String.class,paramType = "query"),
-            @ApiImplicitParam(name = "out",value = "是否是过时的消息,0代表不是",dataTypeClass = Integer.class,paramType = "query",example = "0")
+            @ApiImplicitParam(name = "out",value = "是否是过时的消息,0代表不是",dataTypeClass = Integer.class,paramType = "query",example = "0"),
+            @ApiImplicitParam(name = "type", value = "消息的类型",dataTypeClass = String.class,paramType = "query",allowableValues = "活动,资源,比赛,部门")
     })
-    public Vo<List<MessageDto>> searchMessages(@RequestParam(required = false) String search,@RequestParam Integer out) {
+    public Vo<List<MessageDto>> searchMessages(@RequestParam(required = false) String search,@RequestParam(required = false) String type,@RequestParam Integer out) {
         List<MessageDto> messages;
         if (out == 0)
-            messages= messageService.searchMessages(search);
+            messages= messageService.searchMessages(search,type);
         else
             messages= messageService.searchMessagesOut(search);
         return new Vo<>(messages);
