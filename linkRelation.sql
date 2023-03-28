@@ -49,10 +49,27 @@ INSERT INTO `cse`.`message_information_class` (`Mid`, `Cid`) VALUES ('65', '12')
 INSERT INTO `cse`.`message_information_class` (`Mid`, `Cid`) VALUES ('64', '12');
 
 
-
-INSERT INTO `cse`.`information_class_location` (`Cid`, `Lid`) VALUES ('19', '4');
-INSERT INTO `cse`.`information_class_location` (`Cid`, `Lid`) VALUES ('20', '4');
-INSERT INTO `cse`.`information_class_location` (`Cid`, `Lid`) VALUES ('21', '4');
+INSERT INTO `cse`.`information_class_location` (`Cid`, `Lid`) VALUES ('1', '1');
+INSERT INTO `cse`.`information_class_location` (`Cid`, `Lid`) VALUES ('2', '3');
+INSERT INTO `cse`.`information_class_location` (`Cid`, `Lid`) VALUES ('3', '3');
+INSERT INTO `cse`.`information_class_location` (`Cid`, `Lid`) VALUES ('4', '3');
+INSERT INTO `cse`.`information_class_location` (`Cid`, `Lid`) VALUES ('5', '2');
+INSERT INTO `cse`.`information_class_location` (`Cid`, `Lid`) VALUES ('6', '1');
+INSERT INTO `cse`.`information_class_location` (`Cid`, `Lid`) VALUES ('7', '2');
+INSERT INTO `cse`.`information_class_location` (`Cid`, `Lid`) VALUES ('8', '1');
+INSERT INTO `cse`.`information_class_location` (`Cid`, `Lid`) VALUES ('9', '2');
+INSERT INTO `cse`.`information_class_location` (`Cid`, `Lid`) VALUES ('10', '2');
+INSERT INTO `cse`.`information_class_location` (`Cid`, `Lid`) VALUES ('11', '2');
+INSERT INTO `cse`.`information_class_location` (`Cid`, `Lid`) VALUES ('12', '4');
+INSERT INTO `cse`.`information_class_location` (`Cid`, `Lid`) VALUES ('13', '4');
+INSERT INTO `cse`.`information_class_location` (`Cid`, `Lid`) VALUES ('14', '4');
+INSERT INTO `cse`.`information_class_location` (`Cid`, `Lid`) VALUES ('15', '4');
+INSERT INTO `cse`.`information_class_location` (`Cid`, `Lid`) VALUES ('16', '4');
+INSERT INTO `cse`.`information_class_location` (`Cid`, `Lid`) VALUES ('17', '4');
+INSERT INTO `cse`.`information_class_location` (`Cid`, `Lid`) VALUES ('18', '4');
+INSERT INTO `cse`.`information_class_location` (`Cid`, `Lid`) VALUES ('19', '1');
+INSERT INTO `cse`.`information_class_location` (`Cid`, `Lid`) VALUES ('20', '1');
+INSERT INTO `cse`.`information_class_location` (`Cid`, `Lid`) VALUES ('21', '1');
 
 
 INSERT INTO `cse`.`information_class_key` (`Cid`, `Kid`) VALUES ('1', '1');
