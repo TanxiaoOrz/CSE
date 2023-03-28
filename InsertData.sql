@@ -25,11 +25,6 @@ INSERT INTO `cse`.`hobby` (`Hid`, `Name`, `Type`, `DeprecatedFlag`) VALUES ('17'
 INSERT INTO `cse`.`user` (`UserCode`, `UserPass`, `UserName`, `Grade`, `Profession`, `Sex`) VALUES ('123456', '123456', 'testUser', '2020', '1', '男');
 -- 默认用户
 
-INSERT INTO `cse`.`message` (`Title`, `message`) VALUES ('蓝桥杯预选赛通知', '{"message":"蓝桥杯比赛消息通知","image":[],"file":[]}');
-INSERT INTO `cse`.`message` (`Title`, `message`) VALUES ('其他信息', '{"message":"其他信息","image":[],"file":[]}');
-INSERT INTO `cse`.`message` (`Title`, `message`) VALUES ('蓝桥杯简介', '{"message":"蓝桥杯比赛简介","image":[],"file":[]}');
--- 消息预填写
-
 INSERT INTO `cse`.`keyword_type` (`TypeName`, `TypeResume`) VALUES ('比赛等级', '一个比赛的等级划分，通常有国、市、校');
 INSERT INTO `cse`.`keyword_type` (`TypeName`, `TypeResume`) VALUES ('比赛需求', '该比赛需要的技术');
 INSERT INTO `cse`.`keyword_type` (`TypeName`, `TypeResume`) VALUES ('活动综测分', '参与该活动能够提供综测分');
@@ -52,6 +47,46 @@ INSERT INTO `cse`.`keyword` (`Kid`, `KeyName`, `KeywordType`) VALUES ('13', '空
 INSERT INTO `cse`.`keyword` (`Kid`, `KeyName`, `KeywordType`) VALUES ('14', '维修', '4');
 INSERT INTO `cse`.`keyword` (`Kid`, `KeyName`, `KeywordType`) VALUES ('15', '承办', '4');
 -- 关键词填写
+INSERT INTO `cse`.`keyword_type` (`Tid`, `TypeName`, `TypeResume`) VALUES ('5', '比赛专业倾向', '针对特定的专业，进行相关比赛的推荐');
+INSERT INTO `cse`.`keyword_type` (`Tid`, `TypeName`, `TypeResume`) VALUES ('6', '资源数量等级', '根据数量等级，方便判断是否选择该资源');
+INSERT INTO `cse`.`keyword_type` (`Tid`, `TypeName`, `TypeResume`) VALUES ('7', '资源适用人群', '针对不同年级，或者专业等一些人群特点进行划分推荐');
+INSERT INTO `cse`.`keyword_type` (`Tid`, `TypeName`, `TypeResume`) VALUES ('8', '资源使用目的', '针对不同目的进行筛选推荐');
+INSERT INTO `cse`.`keyword_type` (`Tid`, `TypeName`, `TypeResume`) VALUES ('9', '活动时长', '针对大家对于时间的规划，进行划分');
+INSERT INTO `cse`.`keyword_type` (`Tid`, `TypeName`, `TypeResume`) VALUES ('10', '影响方向', '针对不同方向，进行资源信息筛选');
+
+
+UPDATE `cse`.`keyword` SET `KeyName` = '不抢手' WHERE (`Kid` = '15');
+UPDATE `cse`.`keyword` SET `KeyName` = '普通' WHERE (`Kid` = '14');
+UPDATE `cse`.`keyword` SET `KeyName` = '抢手' WHERE (`Kid` = '13');
+UPDATE `cse`.`keyword` SET `KeyName` = '非常抢手' WHERE (`Kid` = '12');
+UPDATE `cse`.`keyword` SET `KeyName` = '普通综测分' WHERE (`Kid` = '11');
+UPDATE `cse`.`keyword` SET `KeyName` = '较低综测分' WHERE (`Kid` = '10');
+UPDATE `cse`.`keyword` SET `KeyName` = '较高综测分' WHERE (`Kid` = '9');
+UPDATE `cse`.`keyword` SET `KeyName` = '文档编写' WHERE (`Kid` = '8');
+UPDATE `cse`.`keyword` SET `KeyName` = '较强英语能力' WHERE (`Kid` = '7');
+UPDATE `cse`.`keyword` SET `KeyName` = '嵌入式开发' WHERE (`Kid` = '6');
+UPDATE `cse`.`keyword` SET `KeyName` = 'C++语言' WHERE (`Kid` = '5');
+INSERT INTO `cse`.`keyword` (`Kid`, `KeyName`, `KeywordType`) VALUES ('16', '计算机专业', '5');
+INSERT INTO `cse`.`keyword` (`Kid`, `KeyName`, `KeywordType`) VALUES ('17', '光电信息专业', '5');
+INSERT INTO `cse`.`keyword` (`Kid`, `KeyName`, `KeywordType`) VALUES ('18', '大数据专业', '5');
+INSERT INTO `cse`.`keyword` (`Kid`, `KeyName`, `KeywordType`) VALUES ('19', '数量充裕', '6');
+INSERT INTO `cse`.`keyword` (`Kid`, `KeyName`, `KeywordType`) VALUES ('20', '数量适中', '6');
+INSERT INTO `cse`.`keyword` (`KeyName`, `KeywordType`) VALUES ('数量紧张', '6');
+INSERT INTO `cse`.`keyword` (`KeyName`, `KeywordType`) VALUES ('适用于大一', '7');
+INSERT INTO `cse`.`keyword` (`KeyName`, `KeywordType`) VALUES ('适用于大二大三', '7');
+INSERT INTO `cse`.`keyword` (`KeyName`, `KeywordType`) VALUES ('适用于大四', '7');
+INSERT INTO `cse`.`keyword` (`KeyName`, `KeywordType`) VALUES ('适用于研究生', '7');
+INSERT INTO `cse`.`keyword` (`KeyName`, `KeywordType`) VALUES ('社交', '8');
+INSERT INTO `cse`.`keyword` (`KeyName`, `KeywordType`) VALUES ('开阔视野', '8');
+INSERT INTO `cse`.`keyword` (`KeyName`, `KeywordType`) VALUES ('增加实践能力', '8');
+INSERT INTO `cse`.`keyword` (`KeyName`, `KeywordType`) VALUES ('时间较长，需要耐心', '9');
+INSERT INTO `cse`.`keyword` (`KeyName`, `KeywordType`) VALUES ('时间适中可以考虑', '9');
+INSERT INTO `cse`.`keyword` (`KeyName`, `KeywordType`) VALUES ('时间较短，性价比高', '9');
+INSERT INTO `cse`.`keyword` (`KeyName`, `KeywordType`) VALUES ('学习', '10');
+INSERT INTO `cse`.`keyword` (`KeyName`, `KeywordType`) VALUES ('生活', '10');
+INSERT INTO `cse`.`keyword` (`KeyName`, `KeywordType`) VALUES ('实习、工作 ', '10');
+
+
 INSERT INTO `cse`.`location` (`Lid`, `Name`, `Resume`) VALUES ('1', '计算机中心', '计算机中心位于上海理工大学北校区湛恩图书馆左侧，常常承办一些计算机类的比赛，同');
 INSERT INTO `cse`.`location` (`Lid`, `Name`, `Resume`) VALUES ('2', '图书馆', '：学校580校区，共有两个大型图书馆，分别是位于北校区的湛恩图书馆，和334校区图书');
 INSERT INTO `cse`.`location` (`Lid`, `Name`, `Resume`) VALUES ('3', '第一教学楼', '第一教学楼，简称“一教”，位于上海理工大学580校区，靠近516号校门，设施齐全，同学们');
@@ -76,6 +111,10 @@ INSERT INTO `cse`.`information_class` (`Cid`, `Name`, `Type`) VALUES ('15', '财
 INSERT INTO `cse`.`information_class` (`Cid`, `Name`, `Type`) VALUES ('16', '科学发展研究院', '部门');
 INSERT INTO `cse`.`information_class` (`Cid`, `Name`, `Type`) VALUES ('17', '学生工作部', '部门');
 INSERT INTO `cse`.`information_class` (`Cid`, `Name`, `Type`) VALUES ('18', '创新创业学院', '部门');
+INSERT INTO `cse`.`information_class` (`Cid`, `Name`, `Type`) VALUES ('19', '招聘资源', '资源');
+INSERT INTO `cse`.`information_class` (`Name`, `Type`) VALUES ('自习室资源', '资源');
+INSERT INTO `cse`.`information_class` (`Name`, `Type`) VALUES ('教室资源', '资源');
+
 
 INSERT INTO `cse`.`message` (`Title`, `message`,`ReleaseTime`,OutTime) VALUES ('蓝桥杯预选赛通知', '{"message":"蓝桥杯比赛消息通知","image":[],"file":[]}','2022-10-07 08:05:54','2023-05-07 23:59:59');
 INSERT INTO `cse`.`message` (`Title`, `message`,`ReleaseTime`,OutTime) VALUES ('其他信息', '{"message":"其他信息","image":[],"file":[]}','2022-09-05 08:05:54','2023-05-07 23:59:59');
