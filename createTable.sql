@@ -310,6 +310,14 @@ CREATE TABLE `cse`.`favourite_information_class` (
                                                              ON DELETE NO ACTION
                                                              ON UPDATE NO ACTION);
 
+CREATE TABLE `cse`.`basic_model` (
+                                     `Bid` INT NOT NULL AUTO_INCREMENT COMMENT '唯一标识id',
+                                     `id` INT NULL COMMENT '推荐的对象的id',
+                                     `type` VARCHAR(45) NULL COMMENT '推荐对象的类型',
+                                     `score` INT NULL COMMENT '推荐分值',
+                                     PRIMARY KEY (`Bid`))
+    COMMENT = '存储基础信息运算出来的推荐';
+
 -- 触发器创建
 DELIMITER $$
 USE `cse`$$
