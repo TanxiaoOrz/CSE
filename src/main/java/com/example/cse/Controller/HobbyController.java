@@ -61,7 +61,6 @@ public class HobbyController {
         UserDto userDto = (UserDto) request.getAttribute("UserDto");
         Integer integer = hobbyService.updateUserHobby(userHobbyIn, userDto);
         if (integer == 1){
-            userService.calculateUserModel(userDto);
             return new Vo<>("爱好修改成功");
         }else {
             return new Vo<>(Vo.WrongPostParameter,null,"未知错误，创建失败");

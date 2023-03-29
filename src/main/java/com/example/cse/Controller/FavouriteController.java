@@ -44,7 +44,6 @@ public class FavouriteController {
         UserDto userDto = (UserDto) request.getAttribute("UserDto");
         Integer integer = favouriteService.newFavourite(userDto, id, type);
         if (integer == 1){
-            userService.calculateUserModel(userDto);
             return new Vo<>("新增成功");
         }else {
             return new Vo<>(Vo.WrongPostParameter,"未知错误，创建失败");

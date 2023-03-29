@@ -133,10 +133,6 @@ public class UserServiceImpl implements UserService{
         return integer;
     }
 
-    @Override
-    public void calculateUserModel(UserDto userDto) {
-
-    }
 
     @Override
     public SurfMost getUserSurfMost(UserDto userDto) {
