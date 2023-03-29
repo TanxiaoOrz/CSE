@@ -318,6 +318,13 @@ CREATE TABLE `cse`.`basic_model` (
                                      PRIMARY KEY (`Bid`))
     COMMENT = '存储基础信息运算出来的推荐';
 
+CREATE TABLE `cse`.`profession_basic_model` (
+                                                `pid` INT NOT NULL COMMENT '专业的id',
+                                                `bid` INT NOT NULL COMMENT '模型的id',
+                                                PRIMARY KEY (`pid`, `bid`))
+    COMMENT = '专业与模型的关联表';
+
+
 -- 触发器创建
 DELIMITER $$
 USE `cse`$$
