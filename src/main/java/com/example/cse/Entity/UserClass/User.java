@@ -1,13 +1,27 @@
 package com.example.cse.Entity.UserClass;
 
+import com.example.cse.Vo.UserCreate;
+
 public class User {
-    private Integer Uid;
-    private String UserCode;
+    private Integer uid;
+    private String userCode;
     private String userName;
-    private String Sex;
-    private Integer Profession;
-    private String Grade;
-    private String UserModel;
+    private String sex;
+    private Integer profession;
+    private String grade;
+    private String userModel;
+    private String userPass;
+    public User(UserCreate userCreate) {
+        userCode = userCreate.getUserCode();
+        userName = userCreate.getUserName();
+        sex = userCreate.getSex();
+        profession = userCreate.getProfession();
+        grade = userCreate.getGrade();
+        userPass = userCreate.getUserPass();
+    }
+
+    public User() {
+    }
 
     public String getUserName() {
         return userName;
@@ -17,61 +31,61 @@ public class User {
         this.userName = userName;
     }
 
-    private String UserPass;
+
 
     public String getUserPass() {
-        return UserPass;
+        return userPass;
     }
 
     public void setUserPass(String userPass) {
-        UserPass = userPass;
+        this.userPass = userPass;
     }
 
     public Integer getUid() {
-        return Uid;
+        return uid;
     }
 
     public void setUid(Integer uid) {
-        Uid = uid;
+        this.uid = uid;
     }
 
     public String getUserCode() {
-        return UserCode;
+        return userCode;
     }
 
     public void setUserCode(String userCode) {
-        UserCode = userCode;
+        this.userCode = userCode;
     }
 
     public String getSex() {
-        return Sex;
+        return sex;
     }
 
     public void setSex(String sex) {
-        Sex = sex;
+        this.sex = sex;
     }
 
     public Integer getProfession() {
-        return Profession;
+        return profession;
     }
 
     public void setProfession(Integer profession) {
-        Profession = profession;
+        this.profession = profession;
     }
 
     public String getGrade() {
-        return Grade;
+        return grade;
     }
 
     public void setGrade(String grade) {
-        Grade = grade;
+        this.grade = grade;
     }
 
     public String getUserModel() {
-        return UserModel;
+        return userModel;
     }
 
     public void setUserModel(String userModel) {
-        UserModel = userModel;
+        this.userModel = userModel;
     }
 }
