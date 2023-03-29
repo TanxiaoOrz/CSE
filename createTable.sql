@@ -319,15 +319,15 @@ CREATE TABLE `cse`.`basic_model` (
     COMMENT = '存储基础信息运算出来的推荐';
 
 CREATE TABLE `cse`.`profession_basic_model` (
-                                                `pid` INT NOT NULL COMMENT '专业的id',
-                                                `bid` INT NOT NULL COMMENT '模型的id',
-                                                PRIMARY KEY (`pid`, `bid`))
+                                                `Pid` INT NOT NULL COMMENT '专业的id',
+                                                `Bid` INT NOT NULL COMMENT '模型的id',
+                                                PRIMARY KEY (`Pid`, `Bid`))
     COMMENT = '专业与模型的关联表';
 
 CREATE TABLE `cse`.`year_basic_model` (
-                                          `year` INT NOT NULL COMMENT '年级',
-                                          `bid` VARCHAR(45) NOT NULL COMMENT '模型id',
-                                          PRIMARY KEY (`year`, `bid`))
+                                          `Year` INT NOT NULL COMMENT '年级',
+                                          `Bid` VARCHAR(45) NOT NULL COMMENT '模型id',
+                                          PRIMARY KEY (`Year`, `Bid`))
     COMMENT = '年级对应的模型表';
 
 
