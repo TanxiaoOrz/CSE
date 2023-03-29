@@ -84,6 +84,8 @@ public class UserServiceImpl implements UserService{
 
     @Override
     public Integer updateUser(UserBasic newUser, UserDto oldUser) throws NoDataException{
+        newUser.check();
+
         User user = new User();
         boolean empty = false;
         if (newUser.getUid().equals(oldUser.getUid()))

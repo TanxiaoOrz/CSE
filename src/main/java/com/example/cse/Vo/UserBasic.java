@@ -2,6 +2,7 @@ package com.example.cse.Vo;
 
 import com.example.cse.Dto.UserDto;
 import com.example.cse.Entity.UserClass.Profession;
+import com.example.cse.Utils.Exception.WrongDataException;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import io.swagger.models.auth.In;
@@ -24,7 +25,15 @@ public class UserBasic {
     public UserBasic() {
     }
 
-    public UserBasic(UserDto userDto) {
+    public void check() throws WrongDataException {
+        try {
+            Integer.valueOf(grade);
+        }catch (NumberFormatException e) {
+            throw new WrongDataException("年假字符串无法被转化成数字");
+        }
+    }
+
+    public UserBasic(UserDto userDto){
         this.uid = userDto.getUid();
         this.userCode = userDto.getUserCode();
         this.userName = userDto.getUserName();

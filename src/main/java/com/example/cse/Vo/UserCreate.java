@@ -3,6 +3,7 @@ package com.example.cse.Vo;
 import com.example.cse.Mapper.ProfessionMapper;
 import com.example.cse.Mapper.UserMapper;
 import com.example.cse.Utils.Exception.NoDataException;
+import com.example.cse.Utils.Exception.WrongDataException;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import org.springframework.util.StringUtils;
@@ -11,7 +12,7 @@ import org.springframework.util.StringUtils;
 public class UserCreate extends UserPass {
     @ApiModelProperty(value = "用户姓名")
     protected String userName;
-    @ApiModelProperty(value = "用户年级")
+    @ApiModelProperty(value = "用户年级,只允许传递纯数字字符串")
     protected String grade;
     @ApiModelProperty(value = "用户性别,只接受男或女")
     protected String sex;
@@ -25,6 +26,13 @@ public class UserCreate extends UserPass {
         }
         if (!StringUtils.hasText(grade)) {
             throw new NoDataException(Vo.WrongPostParameter, "缺少年级");
+
+        }else {
+            try {
+                Integer.valueOf(grade);
+            }catch (NumberFormatException e) {
+                throw new WrongDataException("年假字符串无法被转化成数字");
+            }
         }
         if (!StringUtils.hasText(sex)) {
             throw new NoDataException(Vo.WrongPostParameter, "缺少性别");
