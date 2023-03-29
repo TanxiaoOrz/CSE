@@ -41,7 +41,7 @@ public class UserController {
     }
 
     @PutMapping
-    @ApiOperation(value = "用户基本信息修改接口", notes = "需要经过token验证")
+    @ApiOperation(value = "用户基本信息修改接口", notes = "需要经过token验证，需要正确传递uid")
     public Vo<String> updateUser(@RequestBody UserBasic user,HttpServletRequest request) throws NoDataException {
         UserDto userDto = (UserDto) request.getAttribute("UserDto");
         Integer integer = userService.updateUser(user,userDto);
