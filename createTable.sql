@@ -324,6 +324,12 @@ CREATE TABLE `cse`.`profession_basic_model` (
                                                 PRIMARY KEY (`pid`, `bid`))
     COMMENT = '专业与模型的关联表';
 
+CREATE TABLE `cse`.`year_basic_model` (
+                                          `year` INT NOT NULL COMMENT '年级',
+                                          `bid` VARCHAR(45) NOT NULL COMMENT '模型id',
+                                          PRIMARY KEY (`year`, `bid`))
+    COMMENT = '年级对应的模型表';
+
 
 -- 触发器创建
 DELIMITER $$
