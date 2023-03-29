@@ -7,6 +7,7 @@ import com.example.cse.Mapper.FavouriteMapper;
 import com.example.cse.Mapper.KeyTypeMapper;
 import com.example.cse.Mapper.MessageMapper;
 import com.example.cse.Service.FavouriteService;
+import com.example.cse.Utils.CacheUtils;
 import com.example.cse.Utils.Exception.NoDataException;
 import com.example.cse.Utils.ModelUtils;
 import com.example.cse.Vo.FavouriteInformationClass;
@@ -29,6 +30,8 @@ public class FavouriteServiceImpl implements FavouriteService {
     KeyTypeMapper keyTypeMapper;
     @Autowired
     MessageMapper messageMapper;
+    @Autowired
+    CacheUtils cacheUtils;
 
     @Override
     public FavouriteOut getFavouriteByUser(UserDto userDto) {
@@ -67,6 +70,7 @@ public class FavouriteServiceImpl implements FavouriteService {
             default:
                 throw new NoDataException("错误的Type字段");
         }
+        cacheUtils.setCache("User",userDto.getUid().toString(),userDto);
         return integer;
     }
 
@@ -89,6 +93,7 @@ public class FavouriteServiceImpl implements FavouriteService {
             default:
                 throw new NoDataException("错误的Type字段");
         }
+        cacheUtils.setCache("User",userDto.getUid().toString(),userDto);
         return integer;
     }
 
@@ -114,6 +119,7 @@ public class FavouriteServiceImpl implements FavouriteService {
             default:
                 throw new NoDataException("错误的Type字段");
         }
+        cacheUtils.setCache("User",userDto.getUid().toString(),userDto);
         return integer;
     }
 }

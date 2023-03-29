@@ -5,6 +5,7 @@ import com.example.cse.Dto.UserDto;
 import com.example.cse.Entity.Recommend.Hobby;
 import com.example.cse.Mapper.HobbyMapper;
 import com.example.cse.Service.HobbyService;
+import com.example.cse.Utils.CacheUtils;
 import com.example.cse.Utils.Exception.NoDataException;
 import com.example.cse.Utils.Factory.ModelDtoFactory;
 import com.example.cse.Vo.HobbyIn;
@@ -22,6 +23,8 @@ public class HobbyServiceImpl implements HobbyService {
     HobbyMapper hobbyMapper;
     @Autowired
     ModelDtoFactory modelDtoFactory;
+    @Autowired
+    CacheUtils cacheUtils;
 
     @Override
     public Integer newHobby(HobbyIn hobbyIn) throws NoDataException {
@@ -63,6 +66,7 @@ public class HobbyServiceImpl implements HobbyService {
 
         Integer integer = hobbyMapper.updateUserHobby(userDto.getUid(), userHobby.getHid(), userHobby.getDegree());
         modelDtoFactory.calculateHobby(userDto);
+        cacheUtils.setCache("User",userDto.getUid().toString(),userDto);
         return integer;
     }
 }

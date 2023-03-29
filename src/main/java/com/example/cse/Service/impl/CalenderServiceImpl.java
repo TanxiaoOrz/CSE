@@ -5,6 +5,7 @@ import com.example.cse.Dto.UserDto;
 import com.example.cse.Entity.UserClass.Calender;
 import com.example.cse.Mapper.CalenderMapper;
 import com.example.cse.Service.CalenderService;
+import com.example.cse.Utils.CacheUtils;
 import com.example.cse.Utils.Exception.NoDataException;
 import com.example.cse.Utils.Exception.WrongDataException;
 import com.example.cse.Utils.Factory.CalenderDtoFactory;
@@ -26,6 +27,8 @@ public class CalenderServiceImpl implements CalenderService {
     CalenderDtoFactory factory;
     @Autowired
     ModelDtoFactory modelDtoFactory;
+    @Autowired
+    CacheUtils cacheUtils;
 
     @Override
     public CalenderOut getUserCalender(UserDto userDto) throws WrongDataException {
@@ -54,6 +57,7 @@ public class CalenderServiceImpl implements CalenderService {
         Calender calender = new Calender(calenderIn, userDto.getUid(), false);
         Integer integer = calenderMapper.updateCalenderDeprecated(calender);
         modelDtoFactory.calculateCalenderModel(userDto,-1,calender);
+        cacheUtils.setCache("User",userDto.getUid().toString(),userDto);
         return integer;
     }
 
@@ -66,6 +70,7 @@ public class CalenderServiceImpl implements CalenderService {
         calender.setRelationFunction(new Gson().toJson(calenderIn.getRelationFunction()));
         Integer integer = calenderMapper.newCalender(calender);
         modelDtoFactory.calculateCalenderModel(userDto,1,calender);
+        cacheUtils.setCache("User",userDto.getUid().toString(),userDto);
         return integer;
     }
 
