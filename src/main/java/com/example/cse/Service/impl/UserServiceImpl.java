@@ -55,7 +55,7 @@ public class UserServiceImpl implements UserService{
             return null;
         }
         UserDto userDto = new UserDto(user, professionMapper);
-        modelDtoFactory.createUserModel(userDto);
+        modelDtoFactory.createSuggestionModel(userDto);
         return userDto;
     }
 
@@ -77,7 +77,9 @@ public class UserServiceImpl implements UserService{
     public Integer newUser(UserCreate userCreate) throws NoDataException {
         userCreate.checkNull(professionMapper,userMapper);
         if (userMapper.checkUserExist(userCreate.getUserCode())==0) {
-            return userMapper.newUser(userCreate);
+            User newUser = new User(userCreate);
+            modelDtoFactory.createUserModel(newUser);
+            return userMapper.newUser(newUser);
         }else
             throw new NoDataException(Vo.WrongPostParameter,"该学号已存在");
     }
@@ -96,12 +98,14 @@ public class UserServiceImpl implements UserService{
             user.setUserName(newUser.getUserName());
             oldUser.setUserName(newUser.getUserName());
             empty = true;
-        }
+        }else
+            user.setUserName(oldUser.getUserName());
         if (StringUtils.hasText(newUser.getSex())&&!Objects.equals(newUser.getSex(), oldUser.getSex())){
             user.setSex(newUser.getSex());
             oldUser.setSex(newUser.getSex());
             empty = true;
-        }
+        }else
+            user.setSex(oldUser.getSex());
         if (newUser.getProfession()!=null&&!Objects.equals(newUser.getProfession(), oldUser.getProfession().getPid())){
             user.setProfession(newUser.getProfession());
             Profession profession = professionMapper.getProfessionByPid(newUser.getProfession());
@@ -110,15 +114,20 @@ public class UserServiceImpl implements UserService{
             }
             oldUser.setProfession(profession);
             empty = true;
-        }
+        }else
+            user.setProfession(oldUser.getProfession().getPid());
         if (StringUtils.hasText(newUser.getGrade())&&!Objects.equals(newUser.getGrade(), oldUser.getGrade())){
             user.setGrade(newUser.getGrade());
             oldUser.setGrade(newUser.getGrade());
             empty = true;
-        }
+        }else
+            user.setGrade(oldUser.getGrade());
         if (!empty)
             throw new NoDataException(Vo.WrongPostParameter,"没有进行更改");
+
+        modelDtoFactory.updateUserModel(oldUser,user);
         Integer integer =userMapper.updateUser(user);
+
         cacheUtils.setCache("User",oldUser.getUid().toString(),oldUser);
 
         return integer;

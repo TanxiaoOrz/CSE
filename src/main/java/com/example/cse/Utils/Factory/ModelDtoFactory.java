@@ -4,10 +4,8 @@ import com.example.cse.Dto.HobbyDto;
 import com.example.cse.Dto.ModelDto;
 import com.example.cse.Dto.UserDto;
 import com.example.cse.Entity.UserClass.Calender;
-import com.example.cse.Mapper.CalenderMapper;
-import com.example.cse.Mapper.FavouriteMapper;
-import com.example.cse.Mapper.HobbyMapper;
-import com.example.cse.Mapper.SurfMapper;
+import com.example.cse.Entity.UserClass.User;
+import com.example.cse.Mapper.*;
 import com.example.cse.Utils.Exception.WrongDataException;
 import com.example.cse.Utils.ModelUtils;
 import com.example.cse.Utils.TypeString;
@@ -15,8 +13,11 @@ import com.google.gson.Gson;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
+
+import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
-import java.util.HashMap;
+import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 
 
@@ -30,6 +31,8 @@ public class ModelDtoFactory {
     HobbyMapper hobbyMapper;
     @Autowired
     SurfMapper surfMapper;
+    @Autowired
+    ModelMapper modelMapper;
 
     @Value("${config.favourite}")
     private Integer favouriteScore;
@@ -46,7 +49,34 @@ public class ModelDtoFactory {
     @Value("${config.surfMost}")
     private Integer surfScore;
 
-    public void createUserModel(UserDto userDto) throws WrongDataException {
+    public List<ModelDto> createUserModel(User user) {
+        ArrayList<ModelDto> modelDtos = new ArrayList<>();
+        Calendar instance = Calendar.getInstance();
+        int nowStudyYear = instance.get(Calendar.YEAR)  - (instance.get(Calendar.MONTH)<9? 0 :1);
+
+        modelDtos.addAll(modelMapper.getModelByYear(nowStudyYear+1 - Integer.parseInt(user.getGrade())));
+        modelDtos.addAll(modelMapper.getModelByProfession(user.getProfession()));
+
+        user.setUserModel(new Gson().toJson(modelDtos));
+
+        return modelDtos;
+    }
+
+    public void updateUserModel(UserDto userDto, User user) {
+        for (ModelDto model:
+                userDto.getUserModel()) {
+            calculateModelDto(userDto,model,false);
+        }
+        userDto.setUserModel(createUserModel(user));
+
+        for (ModelDto model:
+                userDto.getUserModel()) {
+            calculateModelDto(userDto,model,true);
+        }
+
+    }
+
+    public void createSuggestionModel(UserDto userDto) throws WrongDataException {
 
         ConcurrentHashMap<Integer, Integer> keywordModels = new ConcurrentHashMap<>();
         userDto.setKeywordModels(keywordModels);
@@ -59,6 +89,13 @@ public class ModelDtoFactory {
         userDto.setMessageModel(messageModel);
         userDto.setLocationModels(locationModel);
         userDto.setInformationClassModel(informationClassModel);
+
+        if (userDto.getUserModel() != null) {
+            for (ModelDto model :
+                    userDto.getUserModel()) {
+                calculateModelDto(userDto, model, true);
+            }
+        }
 
 
         for (Integer mid:favouriteMapper.getFavouriteMidByUid(userDto.getUid())) {
@@ -84,25 +121,25 @@ public class ModelDtoFactory {
             calculateCalenderModel(userDto,1,calender);
         }
 
-        Integer surfscore = this.surfScore;
+        Integer surfScore = this.surfScore;
         for (Integer mid:surfMapper.getSurfMostMessages(userDto.getUid())) {
-            ModelUtils.addModel(messageModel,mid,surfscore);
-            if (surfscore>0)
-                surfscore--;
+            ModelUtils.addModel(messageModel,mid,surfScore);
+            if (surfScore>0)
+                surfScore--;
         }
 
-        surfscore = this.surfScore;
+        surfScore = this.surfScore;
         for (Integer lid:surfMapper.getSurfMostLocations(userDto.getUid())) {
-            ModelUtils.addModel(messageModel,lid,surfscore);
-            if (surfscore>0)
-                surfscore--;
+            ModelUtils.addModel(messageModel,lid,surfScore);
+            if (surfScore>0)
+                surfScore--;
         }
 
-        surfscore = this.surfScore;
+        surfScore = this.surfScore;
         for (Integer cid:surfMapper.getSurfMostInformationClasses(userDto.getUid())) {
-            ModelUtils.addModel(messageModel,cid,surfscore);
-            if (surfscore>0)
-                surfscore--;
+            ModelUtils.addModel(messageModel,cid,surfScore);
+            if (surfScore>0)
+                surfScore--;
         }
 
     }
@@ -113,7 +150,7 @@ public class ModelDtoFactory {
                 continue;
             }
             for (ModelDto model: hobby.getModel()) {
-                ModelUtils.addModel(userDto.getKeywordModels(), model.getId(), model.getScore());
+                calculateModelDto(userDto,model,true);
             }
         }
         for (HobbyDto hobby: HobbyDto.createHobbyDtoList(hobbyMapper.getHobbyByUserDegree(userDto.getUid(), "uninterested"))) {
@@ -121,7 +158,7 @@ public class ModelDtoFactory {
                 continue;
             }
             for (ModelDto model: hobby.getModel()) {
-                ModelUtils.addModel(userDto.getKeywordModels(), model.getId(), -model.getScore());
+                calculateModelDto(userDto,model,false);
             }
         }
     }
@@ -157,5 +194,20 @@ public class ModelDtoFactory {
                     +"Calender: uid = "+calender.getUid()+", time = "+calender.getTime());
         }
     }
+
+    private void calculateModelDto(UserDto userDto, ModelDto model, boolean add) {
+        switch (model.getType()) {
+            case "keyword" :
+                ModelUtils.addModel(userDto.getKeywordModels(), model.getId(), model.getScore() * (add?1:-1));
+                break;
+            case "informationClass":
+                ModelUtils.addModel(userDto.getInformationClassModel(), model.getId(), model.getScore() * (add?1:-1));
+                break;
+            case "location" :
+                ModelUtils.addModel(userDto.getLocationModels(), model.getId(), model.getScore() * (add?1:-1));
+                break;
+        }
+    }
+
 
 }
