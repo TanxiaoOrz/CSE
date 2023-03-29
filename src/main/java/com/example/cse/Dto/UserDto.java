@@ -3,7 +3,12 @@ package com.example.cse.Dto;
 import com.example.cse.Entity.UserClass.Profession;
 import com.example.cse.Entity.UserClass.User;
 import com.example.cse.Mapper.ProfessionMapper;
+import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonParser;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -17,20 +22,13 @@ public class UserDto {
     private String Sex;
     private Profession Profession;
     private String Grade;
-    private List<ModelDto> modelDtos;
+    private List<ModelDto> userModel;
     private String UserPass;
     private ConcurrentHashMap<Integer,Integer> informationClassModel;
     private ConcurrentHashMap<Integer,Integer> messageModel;
     private ConcurrentHashMap<Integer,Integer> locationModels;
     private ConcurrentHashMap<Integer,Integer> keywordModels;
 
-    public List<ModelDto> getModelDtos() {
-        return modelDtos;
-    }
-
-    public void setModelDtos(List<ModelDto> modelDtos) {
-        this.modelDtos = modelDtos;
-    }
     public String getUserPass() {
         return UserPass;
     }
@@ -74,6 +72,24 @@ public class UserDto {
         Grade = grade;
     }
 
+    public List<ModelDto> getUserModel() {
+        return userModel;
+    }
+
+    public void setUserModel(List<ModelDto> userModel) {
+        this.userModel = userModel;
+    }
+
+    public void setUserModel(String userModel) {
+        JsonArray array = new JsonParser().parse(userModel).getAsJsonArray();
+        Gson gson = new Gson();
+        this.userModel = new ArrayList<>();
+        for (JsonElement element:array){
+            ModelDto modelDto = gson.fromJson(element,ModelDto.class);
+            this.userModel.add(modelDto);
+        }
+    }
+
     public ConcurrentHashMap<Integer, Integer> getInformationClassModel() {
         return informationClassModel;
     }
@@ -112,9 +128,14 @@ public class UserDto {
         this.setUserName(user.getUserName());
         this.setUserCode(user.getUserCode());
         this.setSex(user.getSex());
-        this.setProfession(professionMapper.getProfessionByPid(user.getUid()));
+        this.setProfession(professionMapper.getProfessionByPid(user.getProfession()));
         this.setGrade(user.getGrade());
         this.setUserPass(user.getUserPass());
+
+        if (user.getUserModel() != null) {
+            setUserModel(user.getUserModel());
+
+        }
     }
 
 }
