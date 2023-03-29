@@ -1,5 +1,3 @@
-INSERT INTO `cse`.`location` (`Lid`, `Name`, `Resume`) VALUES ('4', '公共服务中心', '学校的大部分机关部门所在地');
-
 
 INSERT INTO `cse`.`message_location` (`Mid`, `Lid`) VALUES ('1', '4');
 INSERT INTO `cse`.`message_location` (`Mid`, `Lid`) VALUES ('2', '4');
