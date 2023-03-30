@@ -1,18 +1,10 @@
 package com.example.cse.Dto;
 
 import com.example.cse.Entity.UserClass.Calender;
-import com.example.cse.Mapper.InformationClassMapper;
-import com.example.cse.Mapper.LocationMapper;
-import com.example.cse.Mapper.MessageMapper;
-import com.example.cse.Utils.TypeString;
-import com.example.cse.Vo.CalenderOut;
-import com.google.gson.Gson;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 @ApiModel(value = "CalenderDto",description = "待办日历")
 public class CalenderDto<T> {

@@ -8,7 +8,7 @@ import com.example.cse.Entity.UserClass.User;
 import com.example.cse.Mapper.*;
 import com.example.cse.Utils.Exception.WrongDataException;
 import com.example.cse.Utils.ModelUtils;
-import com.example.cse.Utils.TypeString;
+import com.example.cse.Vo.TypeString;
 import com.google.gson.Gson;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;

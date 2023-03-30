@@ -1,4 +1,4 @@
-package com.example.cse.Utils;
+package com.example.cse.Vo;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
