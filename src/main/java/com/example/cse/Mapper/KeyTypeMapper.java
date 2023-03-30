@@ -51,4 +51,7 @@ public interface KeyTypeMapper {
     @Select("select Kid from keyword where KeywordType = #{Tid}")
     List<KeyWord> getKeysByTid(@Param("Tid")Integer tid);
 
+    @Select("select Kid from keyword")
+    List<Integer> getKidsAll();
+
 }
