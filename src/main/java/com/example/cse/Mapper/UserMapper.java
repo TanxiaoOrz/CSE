@@ -5,13 +5,16 @@ import com.example.cse.Vo.UserCreate;
 import com.example.cse.Vo.UserPass;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Select;
 
 import java.util.List;
 
 @Mapper
 public interface UserMapper {
 
-    List<User> findAll();
+    @Select("SELECT Uid from user_hobby where Hid = #{Hid} and degree = #{degree}")
+    List<Integer> getUidsByHobby(@Param("Hid")Integer hid,@Param("degree")String degree);
+
 
     User getUserByNamePass(UserPass userPass);
 
@@ -22,5 +25,7 @@ public interface UserMapper {
     Integer checkUserExist(@Param("userCode") String userCode);
 
     Integer updateUser(User user);
+
+
 
 }
