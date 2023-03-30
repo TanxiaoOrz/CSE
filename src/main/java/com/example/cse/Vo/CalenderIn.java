@@ -7,7 +7,6 @@ import io.swagger.annotations.ApiModelProperty;
 @ApiModel(description = "日志的生成类传入日志信息")
 public class CalenderIn {
     @ApiModelProperty(value = "时间")
-    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
     private String time;
     @ApiModelProperty(value = "描述")
     private String description;
