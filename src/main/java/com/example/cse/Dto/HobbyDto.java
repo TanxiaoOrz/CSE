@@ -31,13 +31,7 @@ public class HobbyDto {
         description = hobby.getDescription();
         type = hobby.getType();
         if (hobby.getModel() != null) {
-            JsonArray array = new JsonParser().parse(hobby.getModel()).getAsJsonArray();
-            Gson gson = new Gson();
-            modelDtos = new ArrayList<>();
-            for (JsonElement element:array){
-                ModelDto modelDto = gson.fromJson(element,ModelDto.class);
-                modelDtos.add(modelDto);
-            }
+            modelDtos = ModelDto.getModelDtos(hobby.getModel());
         }
     }
 

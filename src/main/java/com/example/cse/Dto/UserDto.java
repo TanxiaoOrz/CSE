@@ -81,12 +81,8 @@ public class UserDto {
     }
 
     public void setUserModel(String userModel) {
-        JsonArray array = new JsonParser().parse(userModel).getAsJsonArray();
-        Gson gson = new Gson();
-        this.userModel = new ArrayList<>();
-        for (JsonElement element:array){
-            ModelDto modelDto = gson.fromJson(element,ModelDto.class);
-            this.userModel.add(modelDto);
+        if (userModel != null) {
+            this.userModel = ModelDto.getModelDtos(userModel);
         }
     }
 

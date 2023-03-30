@@ -1,7 +1,14 @@
 package com.example.cse.Dto;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonParser;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @ApiModel(description = "推荐模型")
 public class ModelDto {
@@ -12,6 +19,17 @@ public class ModelDto {
     Integer score;
     @ApiModelProperty(value = "该模型针对的对象类型",allowableValues = "keyword,informationClass,location")
     String type;
+
+    public static List<ModelDto> getModelDtos(String model) {
+        JsonArray array = new JsonParser().parse(model).getAsJsonArray();
+        Gson gson = new Gson();
+        List<ModelDto> modelDtos = new ArrayList<>();
+        for (JsonElement element:array){
+            ModelDto modelDto = gson.fromJson(element,ModelDto.class);
+            modelDtos.add(modelDto);
+        }
+        return modelDtos;
+    }
 
     public Integer getId() {
         return id;
