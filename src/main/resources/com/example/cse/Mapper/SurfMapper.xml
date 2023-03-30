@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.cse.Mapper.SurfMapper">
+
+    <select id="getCountKeyByUser" resultType="java.lang.Integer">
+        select count(*) from surf_information_class
+        <where>
+            Uid in
+            <foreach collection="Uids" item="Uid" open="(" close=")" separator=",">
+                #{Uid}
+            </foreach>
+            <if test="Kid != null">
+                And Surf in (Select Cid from information_class_key where Kid = #{Kid})
+            </if>
+        </where>
+    </select>
+
+
+</mapper>

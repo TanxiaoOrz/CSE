@@ -57,4 +57,7 @@ public interface SurfMapper {
 
     @Select("select x.Kid as id,count(Surf) as counts  from surf_information_class,information_class_key as x where Surf in (select cid from information_class_key as link where link.Kid = x.kid and Uid = #{Uid}) group by x.kid")
     List<SurfCounts> getSurfMostKeysCounts(@Param("Uid")Integer uid);
+
+
+    Integer getCountKeyByUser(@Param("Uids") List<Integer> uids,@Param("Kid") Integer kid);
 }
