@@ -15,6 +15,12 @@ public interface UserMapper {
     @Select("SELECT Uid from user_hobby where Hid = #{Hid} and degree = #{degree}")
     List<Integer> getUidsByHobby(@Param("Hid")Integer hid,@Param("degree")String degree);
 
+    @Select("SELECT Uid from user where Profession = #{Pid}")
+    List<Integer> getUidsByPid(@Param("Pid")Integer pid);
+
+    @Select("select Uid from user where Grade = #{Grade}")
+    List<Integer> getUidsByYear(@Param("Grade")String grade);
+
 
     User getUserByNamePass(UserPass userPass);
 
