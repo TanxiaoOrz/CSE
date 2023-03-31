@@ -7,6 +7,7 @@ import com.auth0.jwt.interfaces.DecodedJWT;
 import com.example.cse.Dto.UserDto;
 import com.example.cse.Service.impl.TokenServiceImpl;
 import com.example.cse.Service.impl.UserServiceImpl;
+import com.example.cse.Utils.Exception.SleepException;
 import com.example.cse.Vo.Vo;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -171,7 +172,10 @@ public class WebMvcConfig extends WebMvcConfigurationSupport{
     class TimeCheck implements HandlerInterceptor {
         @Override
         public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-            return open;
+            if (!open){
+                throw new SleepException();
+            }
+            return true;
         }
 
         @Override
@@ -249,7 +253,8 @@ public class WebMvcConfig extends WebMvcConfigurationSupport{
                 .addPathPatterns("/cse/Hobby/Manager")
                 .addPathPatterns("/cse/Profession/Manager")
                 .addPathPatterns("/cse/Key/Manager")
-                .addPathPatterns("cse/File/upload")
+                .addPathPatterns("/cse/File/upload")
+                .addPathPatterns("/cse/Manager/**")
                 .excludePathPatterns("/favicon.ico")
                 .excludePathPatterns("/swagger-ui.html/**",
                        "/swagger-ui/**",
