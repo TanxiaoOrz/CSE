@@ -7,6 +7,7 @@ import com.auth0.jwt.interfaces.DecodedJWT;
 import com.example.cse.Dto.UserDto;
 import com.example.cse.Service.impl.TokenServiceImpl;
 import com.example.cse.Service.impl.UserServiceImpl;
+import com.example.cse.Utils.Exception.NoDataException;
 import com.example.cse.Utils.Exception.SleepException;
 import com.example.cse.Vo.Vo;
 import com.fasterxml.jackson.databind.DeserializationFeature;
@@ -47,7 +48,10 @@ public class WebMvcConfig extends WebMvcConfigurationSupport{
     UserServiceImpl userService;
 
 
-    protected boolean checkToken(HttpServletRequest request, HttpServletResponse response,boolean tokenNullable,int checkType) throws IOException {
+    protected boolean checkToken(HttpServletRequest request, HttpServletResponse response,boolean tokenNullable,int checkType) throws NoDataException {
+        if (!open){
+            throw new SleepException();
+        }
         if (request.getMethod().equals("OPTIONS"))
             return true;
         String token = request.getHeader("token");
@@ -83,12 +87,7 @@ public class WebMvcConfig extends WebMvcConfigurationSupport{
             e.printStackTrace();
             description = "无效token~~";
         }
-        Vo<String> vo = new Vo<>(Vo.NoAuthority,null,description);
-
-        response.setContentType("application/json;charset=UTF-8");
-        response.getWriter().println(new Gson().toJson(vo));
-
-        return false;
+        throw new NoDataException(Vo.NoAuthority,description);
     }
 
     class UserGet implements HandlerInterceptor {
@@ -169,39 +168,9 @@ public class WebMvcConfig extends WebMvcConfigurationSupport{
         }
     }
 
-    class TimeCheck implements HandlerInterceptor {
-        @Override
-        public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-            if (!open){
-                throw new SleepException();
-            }
-            return true;
-        }
-
-        @Override
-        public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {
-            HandlerInterceptor.super.postHandle(request, response, handler, modelAndView);
-        }
-
-        @Override
-        public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) throws Exception {
-            HandlerInterceptor.super.afterCompletion(request, response, handler, ex);
-        }
-    }
 
     @Override
     protected void addInterceptors(InterceptorRegistry registry){
-        registry.addInterceptor(new TimeCheck())
-                .addPathPatterns("/**")
-                .excludePathPatterns("/favicon.ico")
-                .excludePathPatterns("/swagger-ui.html/**",
-                        "/swagger-ui/**",
-                        "/swagger-resources/**",
-                        "/v2/api-docs",
-                        "/v3/api-docs",
-                        "/v3/api-docs/swagger-config",
-                        "/webjars/**",
-                        "/doc.html");
         registry.addInterceptor(new TokenCheck())
                 .addPathPatterns("/cse/User/**")
                 .addPathPatterns("/cse/Hobby/User")
