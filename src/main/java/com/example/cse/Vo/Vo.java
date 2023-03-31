@@ -14,6 +14,8 @@ public class Vo<Value> {
     //错误的数据存储
     public static int WrongDataGet = 2;
 
+    public static int ServeSleep = 3;
+
     @ApiModelProperty(value = "返回成功与否描述,0成功，-1权限错误，1错误的参数，2得到了不符合标准的数据，请联系管理员")
     int status;//对于返回
     @ApiModelProperty(value = "返回的具体数据")
