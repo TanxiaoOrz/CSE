@@ -2,24 +2,34 @@ INSERT INTO `cse`.`profession` (`ProfessionName`, `ProfessionDescription`, `Depr
 INSERT INTO `cse`.`profession` (`ProfessionName`, `ProfessionDescription`, `DeprecatedFlag`) VALUES ('数据科学与大数据技术', '暂无', '0');
 -- 专业的当前数据
 
-INSERT INTO `cse`.`hobby` (`Description`, `Name`, `Type`) VALUES ('', '考研', '个人发展');
-INSERT INTO `cse`.`hobby` (`Description`, `Name`, `Type`) VALUES ('', '保研', '个人发展');
-INSERT INTO `cse`.`hobby` (`Description`, `Name`, `Type`) VALUES ('', '竞赛', '个人发展');
-INSERT INTO `cse`.`hobby` (`Description`, `Name`, `Type`) VALUES ('', '出国留学', '个人发展');
-INSERT INTO `cse`.`hobby` (`Description`, `Name`, `Type`) VALUES ('', '课外实践', '个人提升');
-INSERT INTO `cse`.`hobby` (`Description`, `Name`, `Type`) VALUES ('', '语言', '个人提升');
-INSERT INTO `cse`.`hobby` (`Description`, `Name`, `Type`) VALUES ('', '证书考取', '个人提升');
-INSERT INTO `cse`.`hobby` (`Description`, `Name`, `Type`) VALUES ('', '阅读', '个人提升');
-
-INSERT INTO `cse`.`hobby` (`Hid`, `Name`, `Type`, `DeprecatedFlag`) VALUES ('9', '前端设计', '专业爱好', '0');
-INSERT INTO `cse`.`hobby` (`Hid`, `Name`, `Type`, `DeprecatedFlag`) VALUES ('10', '后端开发', '专业爱好', '0');
-INSERT INTO `cse`.`hobby` (`Hid`, `Name`, `Type`, `DeprecatedFlag`) VALUES ('11', '数据挖掘', '专业爱好', '0');
-INSERT INTO `cse`.`hobby` (`Hid`, `Name`, `Type`, `DeprecatedFlag`) VALUES ('12', '数据分析', '专业爱好', '0');
-INSERT INTO `cse`.`hobby` (`Hid`, `Name`, `Type`) VALUES ('13', 'Python语言', '专业爱好');
-INSERT INTO `cse`.`hobby` (`Hid`, `Name`, `Type`, `DeprecatedFlag`) VALUES ('14', 'C语言', '专业爱好', '0');
-INSERT INTO `cse`.`hobby` (`Hid`, `Name`, `Type`, `DeprecatedFlag`) VALUES ('15', 'C++语言', '专业爱好', '0');
-INSERT INTO `cse`.`hobby` (`Hid`, `Name`, `Type`, `DeprecatedFlag`) VALUES ('16', 'Java语言', '专业爱好', '0');
-INSERT INTO `cse`.`hobby` (`Hid`, `Name`, `Type`, `DeprecatedFlag`) VALUES ('17', '实习就业', '个人发展', '0');
+INSERT INTO cse.hobby (`Hid`,`Description`,`Name`,`Type`,`Model`,`DeprecatedFlag`) VALUES (1,'','考研','个人发展',NULL,0);
+INSERT INTO cse.hobby (`Hid`,`Description`,`Name`,`Type`,`Model`,`DeprecatedFlag`) VALUES (2,'','保研','个人发展',NULL,0);
+INSERT INTO cse.hobby (`Hid`,`Description`,`Name`,`Type`,`Model`,`DeprecatedFlag`) VALUES (3,'','竞赛','个人发展',NULL,0);
+INSERT INTO cse.hobby (`Hid`,`Description`,`Name`,`Type`,`Model`,`DeprecatedFlag`) VALUES (4,'','出国留学','个人发展',NULL,0);
+INSERT INTO cse.hobby (`Hid`,`Description`,`Name`,`Type`,`Model`,`DeprecatedFlag`) VALUES (5,'','课外实践','个人提升',NULL,0);
+INSERT INTO cse.hobby (`Hid`,`Description`,`Name`,`Type`,`Model`,`DeprecatedFlag`) VALUES (6,'','语言','个人提升',NULL,0);
+INSERT INTO cse.hobby (`Hid`,`Description`,`Name`,`Type`,`Model`,`DeprecatedFlag`) VALUES (7,'','证书考取','个人提升',NULL,0);
+INSERT INTO cse.hobby (`Hid`,`Description`,`Name`,`Type`,`Model`,`DeprecatedFlag`) VALUES (8,'','阅读','个人提升',NULL,0);
+INSERT INTO cse.hobby (`Hid`,`Description`,`Name`,`Type`,`Model`,`DeprecatedFlag`) VALUES (9,NULL,'前端设计','专业爱好',NULL,0);
+INSERT INTO cse.hobby (`Hid`,`Description`,`Name`,`Type`,`Model`,`DeprecatedFlag`) VALUES (10,NULL,'后端开发','专业爱好',NULL,0);
+INSERT INTO cse.hobby (`Hid`,`Description`,`Name`,`Type`,`Model`,`DeprecatedFlag`) VALUES (11,NULL,'数据挖掘','专业爱好',NULL,0);
+INSERT INTO cse.hobby (`Hid`,`Description`,`Name`,`Type`,`Model`,`DeprecatedFlag`) VALUES (12,NULL,'数据分析','专业爱好',NULL,0);
+INSERT INTO cse.hobby (`Hid`,`Description`,`Name`,`Type`,`Model`,`DeprecatedFlag`) VALUES (13,NULL,'Python语言','专业爱好',NULL,0);
+INSERT INTO cse.hobby (`Hid`,`Description`,`Name`,`Type`,`Model`,`DeprecatedFlag`) VALUES (14,NULL,'C语言','专业爱好',NULL,0);
+INSERT INTO cse.hobby (`Hid`,`Description`,`Name`,`Type`,`Model`,`DeprecatedFlag`) VALUES (15,NULL,'C++语言','专业爱好',NULL,0);
+INSERT INTO cse.hobby (`Hid`,`Description`,`Name`,`Type`,`Model`,`DeprecatedFlag`) VALUES (16,NULL,'Java语言','专业爱好',NULL,0);
+INSERT INTO cse.hobby (`Hid`,`Description`,`Name`,`Type`,`Model`,`DeprecatedFlag`) VALUES (17,NULL,'实习就业','个人发展',NULL,0);
+INSERT INTO cse.hobby (`Hid`,`Description`,`Name`,`Type`,`Model`,`DeprecatedFlag`) VALUES (18,NULL,'热爱实践，提高实践能力','性格偏好',NULL,0);
+INSERT INTO cse.hobby (`Hid`,`Description`,`Name`,`Type`,`Model`,`DeprecatedFlag`) VALUES (19,NULL,'热爱看世界，想要增加知识广度','性格偏好',NULL,0);
+INSERT INTO cse.hobby (`Hid`,`Description`,`Name`,`Type`,`Model`,`DeprecatedFlag`) VALUES (20,NULL,'寻觅志同道合的朋友，热爱社交','性格偏好',NULL,0);
+INSERT INTO cse.hobby (`Hid`,`Description`,`Name`,`Type`,`Model`,`DeprecatedFlag`) VALUES (21,NULL,'挑战自我，钟情于高难度比赛','学业偏好',NULL,0);
+INSERT INTO cse.hobby (`Hid`,`Description`,`Name`,`Type`,`Model`,`DeprecatedFlag`) VALUES (22,NULL,'渴望二进制世界，喜欢计算机技术','学业偏好',NULL,0);
+INSERT INTO cse.hobby (`Hid`,`Description`,`Name`,`Type`,`Model`,`DeprecatedFlag`) VALUES (23,NULL,'重在参与，不强求回报','活动偏好',NULL,0);
+INSERT INTO cse.hobby (`Hid`,`Description`,`Name`,`Type`,`Model`,`DeprecatedFlag`) VALUES (24,NULL,'高付出，高回报','活动偏好',NULL,0);
+INSERT INTO cse.hobby (`Hid`,`Description`,`Name`,`Type`,`Model`,`DeprecatedFlag`) VALUES (25,NULL,'沉浸式活动体验','活动偏好',NULL,0);
+INSERT INTO cse.hobby (`Hid`,`Description`,`Name`,`Type`,`Model`,`DeprecatedFlag`) VALUES (26,NULL,'沉浸式学习','学业偏好',NULL,0);
+INSERT INTO cse.hobby (`Hid`,`Description`,`Name`,`Type`,`Model`,`DeprecatedFlag`) VALUES (27,NULL,'稳中求进，保证获得资源','资源偏好',NULL,0);
+INSERT INTO cse.hobby (`Hid`,`Description`,`Name`,`Type`,`Model`,`DeprecatedFlag`) VALUES (28,NULL,'剑走偏锋，争取少数资源','资源偏好',NULL,0);
 -- 当前兴趣爱好数据
 
 INSERT INTO `cse`.`user` (`UserCode`, `UserPass`, `UserName`, `Grade`, `Profession`, `Sex`) VALUES ('123456', '123456', 'testUser', '2020', '1', '男');
@@ -29,91 +39,86 @@ INSERT INTO `cse`.`keyword_type` (`TypeName`, `TypeResume`) VALUES ('比赛等�
 INSERT INTO `cse`.`keyword_type` (`TypeName`, `TypeResume`) VALUES ('比赛需求', '该比赛需要的技术');
 INSERT INTO `cse`.`keyword_type` (`TypeName`, `TypeResume`) VALUES ('活动综测分', '参与该活动能够提供综测分');
 INSERT INTO `cse`.`keyword_type` (`Tid`, `TypeName`, `TypeResume`) VALUES ('4', '资源共享', '最早获得各类资源的一手消息，及时抓住机会，提升自我');
--- 关键词类型预填写
-
-INSERT INTO `cse`.`keyword` (`KeyName`, `KeywordType`) VALUES ('国赛', '1');
-INSERT INTO `cse`.`keyword` (`KeyName`, `KeywordType`) VALUES ('省赛', '1');
-INSERT INTO `cse`.`keyword` (`KeyName`, `KeywordType`) VALUES ('市赛', '1');
-INSERT INTO `cse`.`keyword` (`KeyName`, `KeywordType`) VALUES ('校赛', '1');
-INSERT INTO `cse`.`keyword` (`KeyName`, `KeywordType`) VALUES ('前端', '2');
-INSERT INTO `cse`.`keyword` (`KeyName`, `KeywordType`) VALUES ('Android', '2');
-INSERT INTO `cse`.`keyword` (`KeyName`, `KeywordType`) VALUES ('后端', '2');
-INSERT INTO `cse`.`keyword` (`KeyName`, `KeywordType`) VALUES ('嵌入式', '2');
-INSERT INTO `cse`.`keyword` (`KeyName`, `KeywordType`) VALUES ('主题教育活动', '3');
-INSERT INTO `cse`.`keyword` (`KeyName`, `KeywordType`) VALUES ('公益活动', '3');
-INSERT INTO `cse`.`keyword` (`KeyName`, `KeywordType`) VALUES ('党课教育', '3');
-INSERT INTO `cse`.`keyword` (`Kid`, `KeyName`, `KeywordType`) VALUES ('12', '禁止开放', '4');
-INSERT INTO `cse`.`keyword` (`Kid`, `KeyName`, `KeywordType`) VALUES ('13', '空间占用', '4');
-INSERT INTO `cse`.`keyword` (`Kid`, `KeyName`, `KeywordType`) VALUES ('14', '维修', '4');
-INSERT INTO `cse`.`keyword` (`Kid`, `KeyName`, `KeywordType`) VALUES ('15', '承办', '4');
--- 关键词填写
 INSERT INTO `cse`.`keyword_type` (`Tid`, `TypeName`, `TypeResume`) VALUES ('5', '比赛专业倾向', '针对特定的专业，进行相关比赛的推荐');
 INSERT INTO `cse`.`keyword_type` (`Tid`, `TypeName`, `TypeResume`) VALUES ('6', '资源数量等级', '根据数量等级，方便判断是否选择该资源');
 INSERT INTO `cse`.`keyword_type` (`Tid`, `TypeName`, `TypeResume`) VALUES ('7', '资源适用人群', '针对不同年级，或者专业等一些人群特点进行划分推荐');
 INSERT INTO `cse`.`keyword_type` (`Tid`, `TypeName`, `TypeResume`) VALUES ('8', '资源使用目的', '针对不同目的进行筛选推荐');
 INSERT INTO `cse`.`keyword_type` (`Tid`, `TypeName`, `TypeResume`) VALUES ('9', '活动时长', '针对大家对于时间的规划，进行划分');
 INSERT INTO `cse`.`keyword_type` (`Tid`, `TypeName`, `TypeResume`) VALUES ('10', '影响方向', '针对不同方向，进行资源信息筛选');
+-- 关键词类型预填写
+
+INSERT INTO cse.keyword (Kid, KeyName, KeywordType, KeyResume) VALUES (1, '国赛', 1, null);
+INSERT INTO cse.keyword (Kid, KeyName, KeywordType, KeyResume) VALUES (2, '省赛', 1, null);
+INSERT INTO cse.keyword (Kid, KeyName, KeywordType, KeyResume) VALUES (3, '市赛', 1, null);
+INSERT INTO cse.keyword (Kid, KeyName, KeywordType, KeyResume) VALUES (4, '校赛', 1, null);
+INSERT INTO cse.keyword (Kid, KeyName, KeywordType, KeyResume) VALUES (5, 'C++语言', 2, null);
+INSERT INTO cse.keyword (Kid, KeyName, KeywordType, KeyResume) VALUES (6, '嵌入式开发', 2, null);
+INSERT INTO cse.keyword (Kid, KeyName, KeywordType, KeyResume) VALUES (7, '较强英语能力', 2, null);
+INSERT INTO cse.keyword (Kid, KeyName, KeywordType, KeyResume) VALUES (8, '文档编写', 2, null);
+INSERT INTO cse.keyword (Kid, KeyName, KeywordType, KeyResume) VALUES (9, '较高综测分', 3, null);
+INSERT INTO cse.keyword (Kid, KeyName, KeywordType, KeyResume) VALUES (10, '较低综测分', 3, null);
+INSERT INTO cse.keyword (Kid, KeyName, KeywordType, KeyResume) VALUES (11, '普通综测分', 3, null);
+INSERT INTO cse.keyword (Kid, KeyName, KeywordType, KeyResume) VALUES (12, '非常抢手', 4, null);
+INSERT INTO cse.keyword (Kid, KeyName, KeywordType, KeyResume) VALUES (13, '抢手', 4, null);
+INSERT INTO cse.keyword (Kid, KeyName, KeywordType, KeyResume) VALUES (14, '普通', 4, null);
+INSERT INTO cse.keyword (Kid, KeyName, KeywordType, KeyResume) VALUES (15, '不抢手', 4, null);
+INSERT INTO cse.keyword (Kid, KeyName, KeywordType, KeyResume) VALUES (16, '计算机专业', 5, null);
+INSERT INTO cse.keyword (Kid, KeyName, KeywordType, KeyResume) VALUES (17, '光电信息专业', 5, null);
+INSERT INTO cse.keyword (Kid, KeyName, KeywordType, KeyResume) VALUES (18, '大数据专业', 5, null);
+INSERT INTO cse.keyword (Kid, KeyName, KeywordType, KeyResume) VALUES (19, '数量充裕', 6, null);
+INSERT INTO cse.keyword (Kid, KeyName, KeywordType, KeyResume) VALUES (20, '数量适中', 6, null);
+INSERT INTO cse.keyword (Kid, KeyName, KeywordType, KeyResume) VALUES (21, '数量紧张', 6, null);
+INSERT INTO cse.keyword (Kid, KeyName, KeywordType, KeyResume) VALUES (22, '适用于大一', 7, null);
+INSERT INTO cse.keyword (Kid, KeyName, KeywordType, KeyResume) VALUES (23, '适用于大二大三', 7, null);
+INSERT INTO cse.keyword (Kid, KeyName, KeywordType, KeyResume) VALUES (24, '适用于大四', 7, null);
+INSERT INTO cse.keyword (Kid, KeyName, KeywordType, KeyResume) VALUES (25, '适用于研究生', 7, null);
+INSERT INTO cse.keyword (Kid, KeyName, KeywordType, KeyResume) VALUES (26, '社交', 8, null);
+INSERT INTO cse.keyword (Kid, KeyName, KeywordType, KeyResume) VALUES (27, '开阔视野', 8, null);
+INSERT INTO cse.keyword (Kid, KeyName, KeywordType, KeyResume) VALUES (28, '增加实践能力', 8, null);
+INSERT INTO cse.keyword (Kid, KeyName, KeywordType, KeyResume) VALUES (29, '时间较长，需要耐心', 9, null);
+INSERT INTO cse.keyword (Kid, KeyName, KeywordType, KeyResume) VALUES (30, '时间适中可以考虑', 9, null);
+INSERT INTO cse.keyword (Kid, KeyName, KeywordType, KeyResume) VALUES (31, '时间较短，性价比高', 9, null);
+INSERT INTO cse.keyword (Kid, KeyName, KeywordType, KeyResume) VALUES (32, '学习', 10, null);
+INSERT INTO cse.keyword (Kid, KeyName, KeywordType, KeyResume) VALUES (33, '生活', 10, null);
+INSERT INTO cse.keyword (Kid, KeyName, KeywordType, KeyResume) VALUES (34, '实习、工作 ', 10, null);
+-- 关键词填写
 
 
-UPDATE `cse`.`keyword` SET `KeyName` = '不抢手' WHERE (`Kid` = '15');
-UPDATE `cse`.`keyword` SET `KeyName` = '普通' WHERE (`Kid` = '14');
-UPDATE `cse`.`keyword` SET `KeyName` = '抢手' WHERE (`Kid` = '13');
-UPDATE `cse`.`keyword` SET `KeyName` = '非常抢手' WHERE (`Kid` = '12');
-UPDATE `cse`.`keyword` SET `KeyName` = '普通综测分' WHERE (`Kid` = '11');
-UPDATE `cse`.`keyword` SET `KeyName` = '较低综测分' WHERE (`Kid` = '10');
-UPDATE `cse`.`keyword` SET `KeyName` = '较高综测分' WHERE (`Kid` = '9');
-UPDATE `cse`.`keyword` SET `KeyName` = '文档编写' WHERE (`Kid` = '8');
-UPDATE `cse`.`keyword` SET `KeyName` = '较强英语能力' WHERE (`Kid` = '7');
-UPDATE `cse`.`keyword` SET `KeyName` = '嵌入式开发' WHERE (`Kid` = '6');
-UPDATE `cse`.`keyword` SET `KeyName` = 'C++语言' WHERE (`Kid` = '5');
-INSERT INTO `cse`.`keyword` (`Kid`, `KeyName`, `KeywordType`) VALUES ('16', '计算机专业', '5');
-INSERT INTO `cse`.`keyword` (`Kid`, `KeyName`, `KeywordType`) VALUES ('17', '光电信息专业', '5');
-INSERT INTO `cse`.`keyword` (`Kid`, `KeyName`, `KeywordType`) VALUES ('18', '大数据专业', '5');
-INSERT INTO `cse`.`keyword` (`Kid`, `KeyName`, `KeywordType`) VALUES ('19', '数量充裕', '6');
-INSERT INTO `cse`.`keyword` (`Kid`, `KeyName`, `KeywordType`) VALUES ('20', '数量适中', '6');
-INSERT INTO `cse`.`keyword` (`KeyName`, `KeywordType`) VALUES ('数量紧张', '6');
-INSERT INTO `cse`.`keyword` (`KeyName`, `KeywordType`) VALUES ('适用于大一', '7');
-INSERT INTO `cse`.`keyword` (`KeyName`, `KeywordType`) VALUES ('适用于大二大三', '7');
-INSERT INTO `cse`.`keyword` (`KeyName`, `KeywordType`) VALUES ('适用于大四', '7');
-INSERT INTO `cse`.`keyword` (`KeyName`, `KeywordType`) VALUES ('适用于研究生', '7');
-INSERT INTO `cse`.`keyword` (`KeyName`, `KeywordType`) VALUES ('社交', '8');
-INSERT INTO `cse`.`keyword` (`KeyName`, `KeywordType`) VALUES ('开阔视野', '8');
-INSERT INTO `cse`.`keyword` (`KeyName`, `KeywordType`) VALUES ('增加实践能力', '8');
-INSERT INTO `cse`.`keyword` (`KeyName`, `KeywordType`) VALUES ('时间较长，需要耐心', '9');
-INSERT INTO `cse`.`keyword` (`KeyName`, `KeywordType`) VALUES ('时间适中可以考虑', '9');
-INSERT INTO `cse`.`keyword` (`KeyName`, `KeywordType`) VALUES ('时间较短，性价比高', '9');
-INSERT INTO `cse`.`keyword` (`KeyName`, `KeywordType`) VALUES ('学习', '10');
-INSERT INTO `cse`.`keyword` (`KeyName`, `KeywordType`) VALUES ('生活', '10');
-INSERT INTO `cse`.`keyword` (`KeyName`, `KeywordType`) VALUES ('实习、工作 ', '10');
 
 
-INSERT INTO `cse`.`location` (`Lid`, `Name`, `Resume`) VALUES ('1', '计算机中心', '计算机中心位于上海理工大学北校区湛恩图书馆左侧，常常承办一些计算机类的比赛，同');
-INSERT INTO `cse`.`location` (`Lid`, `Name`, `Resume`) VALUES ('2', '图书馆', '：学校580校区，共有两个大型图书馆，分别是位于北校区的湛恩图书馆，和334校区图书');
-INSERT INTO `cse`.`location` (`Lid`, `Name`, `Resume`) VALUES ('3', '第一教学楼', '第一教学楼，简称“一教”，位于上海理工大学580校区，靠近516号校门，设施齐全，同学们');
-INSERT INTO `cse`.`location` (`Lid`, `Name`, `Resume`) VALUES ('4', '公共服务中心', '学校多个职能办公室所在地');
--- 消息预填写
 
-INSERT INTO `cse`.`information_class` (`Cid`, `Name`, `Type`) VALUES ('1', '蓝桥杯', '比赛');
-INSERT INTO `cse`.`information_class` (`Cid`, `Name`, `Type`) VALUES ('2', '互联网+', '比赛');
-INSERT INTO `cse`.`information_class` (`Cid`, `Name`, `Type`) VALUES ('3', '数学建模', '比赛');
-INSERT INTO `cse`.`information_class` (`Cid`, `Name`, `Type`) VALUES ('4', '计算机设计大赛', '比赛');
-INSERT INTO `cse`.`information_class` (`Cid`, `Name`, `Type`) VALUES ('5', '走进海沈村活动', '活动');
-INSERT INTO `cse`.`information_class` (`Cid`, `Name`, `Type`) VALUES ('6', '“秋炫沪江，我是光荣劳动者”活动', '活动');
-INSERT INTO `cse`.`information_class` (`Cid`, `Name`, `Type`) VALUES ('7', '打响医匠品牌活动', '活动');
-INSERT INTO `cse`.`information_class` (`Cid`, `Name`, `Type`) VALUES ('8', '理学院“实验大变身”活动', '活动');
-INSERT INTO `cse`.`information_class` (`Cid`, `Name`, `Type`) VALUES ('9', '会聘上海', '活动');
-INSERT INTO `cse`.`information_class` (`Cid`, `Name`, `Type`) VALUES ('10', '光电学院挑战杯专题讲座', '活动');
-INSERT INTO `cse`.`information_class` (`Cid`, `Name`, `Type`) VALUES ('11', '尚旅军团全员大会', '活动');
-INSERT INTO `cse`.`information_class` (`Cid`, `Name`, `Resume`, `Type`) VALUES ('12', '教务处', '发布学校的教学通知', '部门');
-INSERT INTO `cse`.`information_class` (`Cid`, `Name`, `Type`) VALUES ('13', '后勤管理处', '部门');
-INSERT INTO `cse`.`information_class` (`Cid`, `Name`, `Type`) VALUES ('14', '校长办公室', '部门');
-INSERT INTO `cse`.`information_class` (`Cid`, `Name`, `Type`) VALUES ('15', '财务处', '部门');
-INSERT INTO `cse`.`information_class` (`Cid`, `Name`, `Type`) VALUES ('16', '科学发展研究院', '部门');
-INSERT INTO `cse`.`information_class` (`Cid`, `Name`, `Type`) VALUES ('17', '学生工作部', '部门');
-INSERT INTO `cse`.`information_class` (`Cid`, `Name`, `Type`) VALUES ('18', '创新创业学院', '部门');
-INSERT INTO `cse`.`information_class` (`Cid`, `Name`, `Type`) VALUES ('19', '招聘资源', '资源');
-INSERT INTO `cse`.`information_class` (`Name`, `Type`) VALUES ('自习室资源', '资源');
-INSERT INTO `cse`.`information_class` (`Name`, `Type`) VALUES ('教室资源', '资源');
+
+INSERT INTO cse.location (`Lid`,`Name`,`Resume`,`MapBelong`,`BasicMessage`,`ImgHref`,`X`,`Y`,`DeprecatedFlag`) VALUES (1,'计算机中心','位于北校区湛恩图书馆左侧，承办计算机类的比赛，以及计算机类实验课程',NULL,NULL,NULL,NULL,NULL,0);
+INSERT INTO cse.location (`Lid`,`Name`,`Resume`,`MapBelong`,`BasicMessage`,`ImgHref`,`X`,`Y`,`DeprecatedFlag`) VALUES (2,'图书馆','包含位于北校区的湛恩图书馆和334校区图书馆，预约功能完善，环境优美，体验沉浸式学习',NULL,NULL,NULL,NULL,NULL,0);
+INSERT INTO cse.location (`Lid`,`Name`,`Resume`,`MapBelong`,`BasicMessage`,`ImgHref`,`X`,`Y`,`DeprecatedFlag`) VALUES (3,'第一教学楼','简称“一教”，位于580校区毛像附近，设施齐全，承办大型考试，也用于同学自习',NULL,NULL,NULL,NULL,NULL,0);
+INSERT INTO cse.location (`Lid`,`Name`,`Resume`,`MapBelong`,`BasicMessage`,`ImgHref`,`X`,`Y`,`DeprecatedFlag`) VALUES (4,'公共服务中心','学校的大部分机关部门所在地，包含教务处，后勤管理处，财务处等重要部门',NULL,NULL,NULL,NULL,NULL,0);
+-- 地点预填写
+
+INSERT INTO cse.information_class (`Cid`,`Name`,`Resume`,`BasicMessage`,`Type`,`ImgHref`,`DeprecatedFlag`) VALUES (1,'蓝桥杯','校级A类赛事，可加综测分，可认证学分',NULL,'比赛',NULL,'0');
+INSERT INTO cse.information_class (`Cid`,`Name`,`Resume`,`BasicMessage`,`Type`,`ImgHref`,`DeprecatedFlag`) VALUES (2,'互联网+','顶级A类赛事之一，含金量高，但难度大，有能力要求',NULL,'比赛',NULL,'0');
+INSERT INTO cse.information_class (`Cid`,`Name`,`Resume`,`BasicMessage`,`Type`,`ImgHref`,`DeprecatedFlag`) VALUES (3,'数学建模','顶级A类赛事之一，难度适中，含金量较高，对数学能力有要求',NULL,'比赛',NULL,'0');
+INSERT INTO cse.information_class (`Cid`,`Name`,`Resume`,`BasicMessage`,`Type`,`ImgHref`,`DeprecatedFlag`) VALUES (4,'计算机设计大赛','计算机类火热A类赛事之一，锻炼实践设计能力，国赛含金量高',NULL,'比赛',NULL,'0');
+INSERT INTO cse.information_class (`Cid`,`Name`,`Resume`,`BasicMessage`,`Type`,`ImgHref`,`DeprecatedFlag`) VALUES (5,'走进海沈村活动','劳动最光荣，奋斗最幸福，在帮助乡村建设的同时，让上理学子向“真善美新”进发。',NULL,'活动',NULL,'0');
+INSERT INTO cse.information_class (`Cid`,`Name`,`Resume`,`BasicMessage`,`Type`,`ImgHref`,`DeprecatedFlag`) VALUES (6,'“秋炫沪江，我是光荣劳动者”活动','通过体验校内各种工作岗位，提高大家劳动意识',NULL,'活动',NULL,'0');
+INSERT INTO cse.information_class (`Cid`,`Name`,`Resume`,`BasicMessage`,`Type`,`ImgHref`,`DeprecatedFlag`) VALUES (7,'打响医匠品牌活动','探讨具有中国特色的“医械工匠”教育，在医疗器械自主创新新征程上踔厉前行，是主题党日活动',NULL,'活动',NULL,'0');
+INSERT INTO cse.information_class (`Cid`,`Name`,`Resume`,`BasicMessage`,`Type`,`ImgHref`,`DeprecatedFlag`) VALUES (8,'理学院“实验大变身”活动','通过集体劳动，美化实验室环境',NULL,'活动',NULL,'0');
+INSERT INTO cse.information_class (`Cid`,`Name`,`Resume`,`BasicMessage`,`Type`,`ImgHref`,`DeprecatedFlag`) VALUES (9,'机房资源','各种主要包含计算机类赛事占用信息和实验课程占用信息的发布',NULL,'资源',NULL,'0');
+INSERT INTO cse.information_class (`Cid`,`Name`,`Resume`,`BasicMessage`,`Type`,`ImgHref`,`DeprecatedFlag`) VALUES (10,'光电学院挑战杯专题讲座','挑战杯是顶尖创新赛事，专题讲座活动将会具体介绍比赛详情，积极参加',NULL,'活动',NULL,'0');
+INSERT INTO cse.information_class (`Cid`,`Name`,`Resume`,`BasicMessage`,`Type`,`ImgHref`,`DeprecatedFlag`) VALUES (11,'尚旅军团全员大会','综测活动，参与即可获得相关综测分，花费时间短，性价比高',NULL,'活动',NULL,'0');
+INSERT INTO cse.information_class (`Cid`,`Name`,`Resume`,`BasicMessage`,`Type`,`ImgHref`,`DeprecatedFlag`) VALUES (12,'教务处','发布学校的各类教学通知，外链一网畅学等常用平台',NULL,'部门',NULL,'0');
+INSERT INTO cse.information_class (`Cid`,`Name`,`Resume`,`BasicMessage`,`Type`,`ImgHref`,`DeprecatedFlag`) VALUES (13,'后勤管理处','主要负责发布学生，教职工相关的后勤服务类信息',NULL,'部门',NULL,'0');
+INSERT INTO cse.information_class (`Cid`,`Name`,`Resume`,`BasicMessage`,`Type`,`ImgHref`,`DeprecatedFlag`) VALUES (14,'校长办公室','主要发布全校范围的信息，例如寒暑假安排等',NULL,'部门',NULL,'0');
+INSERT INTO cse.information_class (`Cid`,`Name`,`Resume`,`BasicMessage`,`Type`,`ImgHref`,`DeprecatedFlag`) VALUES (15,'财务处','管理学校财务，奖学金，津补贴发放等',NULL,'部门',NULL,'0');
+INSERT INTO cse.information_class (`Cid`,`Name`,`Resume`,`BasicMessage`,`Type`,`ImgHref`,`DeprecatedFlag`) VALUES (16,'科学发展研究院','各类创新创业项目信息集成点，早知道，早申报',NULL,'部门',NULL,'0');
+INSERT INTO cse.information_class (`Cid`,`Name`,`Resume`,`BasicMessage`,`Type`,`ImgHref`,`DeprecatedFlag`) VALUES (17,'学生工作部','专门发布学生的相关事务信息',NULL,'部门',NULL,'0');
+INSERT INTO cse.information_class (`Cid`,`Name`,`Resume`,`BasicMessage`,`Type`,`ImgHref`,`DeprecatedFlag`) VALUES (18,'创新创业学院','主要发布竞赛信息，创新创业项目信息，以及竞赛，项目相关的讲座等信息',NULL,'部门',NULL,'0');
+INSERT INTO cse.information_class (`Cid`,`Name`,`Resume`,`BasicMessage`,`Type`,`ImgHref`,`DeprecatedFlag`) VALUES (19,'招聘资源','校招相关信息集成，大三实习，大四找工作最方便的途径，每年大约两到三次，在516校区灯光球场',NULL,'资源',NULL,'0');
+INSERT INTO cse.information_class (`Cid`,`Name`,`Resume`,`BasicMessage`,`Type`,`ImgHref`,`DeprecatedFlag`) VALUES (20,'自习室资源','考研，学习自习室，主要在580小区和334校区，环境优美，设施齐全',NULL,'资源',NULL,'0');
+INSERT INTO cse.information_class (`Cid`,`Name`,`Resume`,`BasicMessage`,`Type`,`ImgHref`,`DeprecatedFlag`) VALUES (21,'教室资源','最快了解教室余量，开放时间等信息，防止耽误日常规划',NULL,'资源',NULL,'0');
+INSERT INTO cse.information_class (`Cid`,`Name`,`Resume`,`BasicMessage`,`Type`,`ImgHref`,`DeprecatedFlag`) VALUES (22,'老师资源','各家名师荟萃，专业，研究方向集成展示',NULL,'资源',NULL,'0');
+INSERT INTO cse.information_class (`Cid`,`Name`,`Resume`,`BasicMessage`,`Type`,`ImgHref`,`DeprecatedFlag`) VALUES (23,'食堂资源','餐厅开放时间早知道，特色菜品优先体验',NULL,'资源',NULL,'0');
+INSERT INTO cse.information_class (`Cid`,`Name`,`Resume`,`BasicMessage`,`Type`,`ImgHref`,`DeprecatedFlag`) VALUES (24,'课程资源','示范课程信息，名师讲课，受益多多',NULL,'资源',NULL,'0');
+-- 信息类预填写
 
 
 INSERT INTO `cse`.`message` (`Title`, `message`,`ReleaseTime`,OutTime) VALUES ('蓝桥杯预选赛通知', '{"message":"蓝桥杯比赛消息通知","image":[],"file":[]}','2022-10-07 08:05:54','2023-05-07 23:59:59');
@@ -121,7 +126,6 @@ INSERT INTO `cse`.`message` (`Title`, `message`,`ReleaseTime`,OutTime) VALUES ('
 INSERT INTO `cse`.`message` (`Title`, `message`,`ReleaseTime`,OutTime) VALUES ('蓝桥杯简介', '{"message":"蓝桥杯比赛简介","image":[],"file":[]}','2019-03-18 08:05:54','2032-10-07 08:05:54');
 INSERT INTO `cse`.`message` (`Mid`, `Title`, `ReleaseTime`, `OutTime`, `message`, `AsBasicMessage`) VALUES ('4', '蓝桥杯预选赛成功举办', '2022-11-14 08:45:54', '2023-12-31 23:59:59', '{\"file\": [], \"image\": [], \"message\": \"蓝桥杯预选赛成功举办\"}', '0');
 INSERT INTO `cse`.`message` (`Mid`, `Title`, `ReleaseTime`, `OutTime`, `message`, `AsBasicMessage`) VALUES ('5', '总决赛荣获嘉奖', '2022-07-04 09:33:35', '2023-12-31 23:59:59', '{\"file\": [], \"image\": [], \"message\": \"总决赛荣获嘉奖\"}', '0');
-
 INSERT INTO `cse`.`message` (`Mid`, `Title`, `ReleaseTime`, `OutTime`, `message`, `AsBasicMessage`) VALUES ('6', '蓝桥杯市赛获奖', '2022-05-29 10:43:44', '2023-12-31 23:59:59', '{\"file\": [], \"image\": [], \"message\": \"蓝桥杯市赛获奖\"}', '0');
 INSERT INTO `cse`.`message` (`Mid`, `Title`, `ReleaseTime`, `OutTime`, `message`, `AsBasicMessage`) VALUES ('7', '互联网+简介', '2016-02-23 10:43:44', '2023-12-31 23:59:59', '{\"file\": [], \"image\": [], \"message\": \"互联网+简介\"}', '0');
 INSERT INTO `cse`.`message` (`Mid`, `Title`, `ReleaseTime`, `OutTime`, `message`, `AsBasicMessage`) VALUES ('8', '总决赛取得最好成绩', '2022-12-06 11:23:24', '2023-12-31 23:59:59', '{\"file\": [], \"image\": [], \"message\": \"总决赛取得最好成绩\"}', '0');
@@ -135,8 +139,6 @@ INSERT INTO `cse`.`message` (`Mid`, `Title`, `ReleaseTime`, `OutTime`, `message`
 INSERT INTO `cse`.`message` (`Mid`, `Title`, `ReleaseTime`, `OutTime`, `message`, `AsBasicMessage`) VALUES ('16', '数学建模竞赛证书领取', '2022-09-22 15:35:24', '2023-12-31 23:59:59', '{\"file\": [], \"image\": [], \"message\": \"数学建模竞赛证书领取\"}', '0');
 INSERT INTO `cse`.`message` (`Mid`, `Title`, `ReleaseTime`, `OutTime`, `message`, `AsBasicMessage`) VALUES ('17', '数学建模校内选拔赛', '2022-04-26 13:25:04', '2023-12-31 23:59:59', '{\"file\": [], \"image\": [], \"message\": \"数学建模校内选拔赛\"}', '0');
 INSERT INTO `cse`.`message` (`Mid`, `Title`, `ReleaseTime`, `OutTime`, `message`, `AsBasicMessage`) VALUES ('18', '荣获美赛一等奖', '2021-04-27 18:45:32', '2023-12-31 23:59:59', '{\"file\": [], \"image\": [], \"message\": \"荣获美赛一等奖\"}', '0');
-
-
 INSERT INTO `cse`.`message` (`Mid`, `Title`, `ReleaseTime`, `OutTime`, `message`, `AsBasicMessage`) VALUES ('19', '第一教学楼校内比价', '2022-09-01 14:15:44', '2023-12-31 23:59:59', '{\"file\": [], \"image\": [], \"message\": \"https://www.usst.edu.cn/2022/0901/c54a50048/page.htm\"}', '0');
 INSERT INTO `cse`.`message` (`Mid`, `Title`, `ReleaseTime`, `OutTime`, `message`, `AsBasicMessage`) VALUES ('20', '第一教学楼临时封闭通知', '2022-03-25 13:25:04', '2023-12-31 23:59:59', '{\"file\": [], \"image\": [], \"message\": \"https://www.usst.edu.cn/2022/0325/c479a45747/page.htm\"}', '0');
 INSERT INTO `cse`.`message` (`Mid`, `Title`, `ReleaseTime`, `OutTime`, `message`, `AsBasicMessage`) VALUES ('21', '第一教学楼停电通知', '2020-12-31 11:05:34', '2023-12-31 23:59:59', '{\"file\": [], \"image\": [], \"message\": \"https://www.usst.edu.cn/2020/1231/c479a40435/page.htm\"}', '0');
@@ -153,13 +155,6 @@ INSERT INTO `cse`.`message` (`Mid`, `Title`, `ReleaseTime`, `OutTime`, `message`
 INSERT INTO `cse`.`message` (`Mid`, `Title`, `ReleaseTime`, `OutTime`, `message`, `AsBasicMessage`) VALUES ('32', '校园网主机房通知', '2020-08-14 13:25:04', '2023-12-31 23:59:59', '{\"file\": [], \"image\": [], \"message\": \"https://www.usst.edu.cn/2020/0814/c479a38686/page.htm\"}', '0');
 INSERT INTO `cse`.`message` (`Mid`, `Title`, `ReleaseTime`, `OutTime`, `message`, `AsBasicMessage`) VALUES ('33', '蓝桥杯机房占用', '2023-03-26 11:25:33', '2023-12-31 23:59:59', '{\"file\": [], \"image\": [], \"message\": \"蓝桥杯机房占用\"}', '0');
 INSERT INTO `cse`.`message` (`Mid`, `Title`, `ReleaseTime`, `OutTime`, `message`, `AsBasicMessage`) VALUES ('34', '天梯赛机房占用', '2023-03-16 16:45:04', '2023-12-31 23:59:59', '{\"file\": [], \"image\": [], \"message\": \"天梯赛机房占用\"}', '0');
-
-
-
-
-
-
-
 INSERT INTO `cse`.`message` (`Mid`, `Title`, `ReleaseTime`, `OutTime`, `message`) VALUES ('35', '走进海沈村活动', '2022-11-24 11:42:21', '2023-12-31 23:59:59', '{\"file\": [], \"image\": [], \"message\": \"https://www.usst.edu.cn/2022/1124/c934a51502/page.htm\"}');
 INSERT INTO `cse`.`message` (`Mid`, `Title`, `ReleaseTime`, `OutTime`, `message`) VALUES ('36', '“秋炫沪江，我是光荣劳动者”活动', '2022-11-24 09:11:32', '2023-12-31 23:59:59', '{\"file\": [], \"image\": [], \"message\": \"https://www.usst.edu.cn/2022/1124/c1017a51487/page.htm\"}');
 INSERT INTO `cse`.`message` (`Mid`, `Title`, `ReleaseTime`, `OutTime`, `message`) VALUES ('37', '打响医匠品牌活动', '2022-12-16 13:22:51', '2023-12-31 23:59:59', '{\"file\": [], \"image\": [], \"message\": \"https://www.usst.edu.cn/2022/1219/c1612a51818/page.htm\"}');
@@ -167,15 +162,6 @@ INSERT INTO `cse`.`message` (`Mid`, `Title`, `ReleaseTime`, `OutTime`, `message`
 INSERT INTO `cse`.`message` (`Mid`, `Title`, `ReleaseTime`, `OutTime`, `message`) VALUES ('39', '会聘上海', '2022-11-30 16:12:41', '2023-12-31 23:59:59', '{\"file\": [], \"image\": [], \"message\": \"https://www.usst.edu.cn/2022/1130/c934a51579/page.htm\"}');
 INSERT INTO `cse`.`message` (`Mid`, `Title`, `ReleaseTime`, `OutTime`, `message`) VALUES ('40', '光电学院挑战杯专题讲座', '2023-03-15 20:00:00', '2023-12-31 23:59:59', '{\"file\": [], \"image\": [], \"message\": \"光电学院挑战杯专题讲座\"}');
 INSERT INTO `cse`.`message` (`Mid`, `Title`, `ReleaseTime`, `OutTime`, `message`) VALUES ('41', '尚旅军团全员大会', '2023-03-15 00:00:00', '2023-12-31 23:59:59', '{\"file\": [], \"image\": [], \"message\": \"尚旅军团全员大会\"}');
-
-
-
-
-
-
-
-
-
 INSERT INTO `cse`.`message` (`Mid`, `Title`, `ReleaseTime`, `OutTime`, `message`, `AsBasicMessage`) VALUES ('42', '2022年研究生考试教学楼暂停开放通知', '2022-12-21 14:42:11', '2023-12-31 23:59:59', '{\"file\": [], \"image\": [], \"message\": \"https://yjs.usst.edu.cn/2022/1221/c7111a285015/page.htm\"}', '0');
 INSERT INTO `cse`.`message` (`Mid`, `Title`, `ReleaseTime`, `OutTime`, `message`, `AsBasicMessage`) VALUES ('43', '宿舍洗衣机项目成交公告', '2022-12-30 13:52:09', '2023-12-31 23:59:59', '{\"file\": [], \"image\": [], \"message\": \"https://www.usst.edu.cn/2023/0103/c1017a51908/page.htm\"}', '0');
 INSERT INTO `cse`.`message` (`Mid`, `Title`, `ReleaseTime`, `OutTime`, `message`, `AsBasicMessage`) VALUES ('44', '暂停教职工班车服务通知', '2022-12-23 11:12:23', '2023-12-31 23:59:59', '{\"file\": [], \"image\": [], \"message\": \"https://ids6.usst.edu.cn/authserver/login?service=http%3A%2F%2Fwww.usst.edu.cn%2F2022%2F1223%2Fc1017a51870%2Fpage.psp\"}', '0');
@@ -199,5 +185,5 @@ INSERT INTO `cse`.`message` (`Mid`, `Title`, `ReleaseTime`, `OutTime`, `message`
 INSERT INTO `cse`.`message` (`Mid`, `Title`, `ReleaseTime`, `OutTime`, `message`, `AsBasicMessage`) VALUES ('62', '关于2023年寒假安排的通知', '2023-01-04 14:27:21', '2023-12-31 23:59:59', '{\"file\": [], \"image\": [], \"message\": \"https://ids6.usst.edu.cn/authserver/login?service=http%3A%2F%2Fwww.usst.edu.cn%2F2023%2F0104%2Fc954a51912%2Fpage.psp\"}', '0');
 INSERT INTO `cse`.`message` (`Mid`, `Title`, `ReleaseTime`, `OutTime`, `message`, `AsBasicMessage`) VALUES ('64', ' 2022年12月全国大学英语四、六级考试笔试考前须知及防疫安全提示', '2022-11-25 14:02:09', '2023-12-31 23:59:59', '{\"file\": [], \"image\": [], \"message\": \"http://jwc.usst.edu.cn/2022/1125/c10239a283627/page.htm\"}', '0');
 INSERT INTO `cse`.`message` (`Mid`, `Title`, `ReleaseTime`, `OutTime`, `message`, `AsBasicMessage`) VALUES ('65', ' 关于2022年下半年全国大学英语四、六级等级考试报名的通知', '2022-10-24 09:08:07', '2023-12-31 23:59:59', '{\"file\": [], \"image\": [], \"message\": \"https://jwc.usst.edu.cn/2022/1020/c10239a281385/page.psp\"}', '0');
-
+-- 消息预填写
 
