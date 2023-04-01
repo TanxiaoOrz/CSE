@@ -6,6 +6,8 @@ import com.example.cse.Dto.ModelDto;
 import com.example.cse.Mapper.*;
 import com.example.cse.Service.ModelService;
 import com.google.gson.Gson;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -14,6 +16,8 @@ import java.util.*;
 
 @Service
 public class ModelServiceImpl implements ModelService {
+
+    Logger logger = LoggerFactory.getLogger(getClass());
 
     @Autowired
     HobbyMapper hobbyMapper;
@@ -61,6 +65,9 @@ public class ModelServiceImpl implements ModelService {
         List<HobbyDto> hobbies = HobbyDto.createHobbyDtoList(hobbyMapper.getHobbyAll());
         List<RankObject<HobbyDto>> rankKey = new ArrayList<>();
         List<RankObject<HobbyDto>> rankInformation = new ArrayList<>();
+        logger.info("开始计算爱好模型分数");
+        int i = 0;
+        int all = hobbies.size();
         for (HobbyDto hobby:
              hobbies) {
             if (hobby.getModel() == null) {
@@ -72,15 +79,17 @@ public class ModelServiceImpl implements ModelService {
                     hobby.getModel()) {
                 buildupRankList(hobby, rankKey, rankInformation, userInterested, surfInterestA, model);
             }
+            logger.info("计算爱好模型进度："+(++i)+" / "+all);
         }
-
+        logger.info("开始排序");
         Collections.sort(rankKey);
         Collections.sort(rankInformation);
         Set<HobbyDto> hobbiesToUpdate = new HashSet<>();
+        logger.info("开始打分");
         updateModels(rankKey, hobbiesToUpdate);
         updateModels(rankInformation,hobbiesToUpdate);
         Gson gson = new Gson();
-
+        logger.info("开始更新");
         hobbiesToUpdate.forEach(e->hobbyMapper.updateHobbyModel(e.getHid(),gson.toJson(e.getModel())));
 
     }
@@ -91,8 +100,10 @@ public class ModelServiceImpl implements ModelService {
     public void regenerateHobbyModel() {
         List<HobbyDto> hobbies = HobbyDto.createHobbyDtoList(hobbyMapper.getHobbyAll());
         List<RankObject<HobbyDto>> rankKey = new ArrayList<>();
-
         List<Integer> kids = keyTypeMapper.getKidsAll();
+        logger.info("开始重新生成爱好模型");
+        int i = 0;
+        int all = hobbies.size();
         for (HobbyDto hobby:
                 hobbies) {
 
@@ -112,12 +123,15 @@ public class ModelServiceImpl implements ModelService {
                     Integer surfInterestA = surfMapper.getCountKeyByUser(userInterested,null);
                     rankKey.add(new RankObject<>(hobby, model, (surfInterestedK / surfInterestA)));
                 }
+                logger.info("有效行计算进度："+ (++i) +" / "+all);
             }
-
+            logger.info("开始排序");
+            Collections.sort(rankKey);
+            logger.info("开始打分");
             Set<HobbyDto> hobbiesToUpdate = new HashSet<>();
             updateModels(rankKey, hobbiesToUpdate);
-
             Gson gson = new Gson();
+            logger.info("开始更新");
             hobbiesToUpdate.forEach(e->hobbyMapper.updateHobbyModel(e.getHid(),gson.toJson(e.getModel())));
 
         }
@@ -129,6 +143,7 @@ public class ModelServiceImpl implements ModelService {
         List<Integer> pids = professionMapper.getPidAll();
         List<RankObject<BasicModelDto>> rankKey = new ArrayList<>();
         List<RankObject<BasicModelDto>> rankInformation = new ArrayList<>();
+        logger.info("开始重新生成专业模型");
         for (Integer pid : pids) {
             List<BasicModelDto> modelDtos = modelMapper.getBasicModelByProfession(pid);
             if (modelDtos.isEmpty()) {
@@ -141,7 +156,7 @@ public class ModelServiceImpl implements ModelService {
                 buildupRankList(model, rankKey, rankInformation, userIn,surfInterestA,model);
             }
         }
-
+        logger.info("开始排序");
         Collections.sort(rankKey);
         Collections.sort(rankInformation);
         Set<BasicModelDto> basicToUpdate = new HashSet<>();
@@ -151,6 +166,7 @@ public class ModelServiceImpl implements ModelService {
         rankKey.clear();
         rankInformation.clear();
 
+        logger.info("开始重新生成年级模型");
         Calendar instance = Calendar.getInstance();
         int nowStudyYear = instance.get(Calendar.YEAR)  - (instance.get(Calendar.MONTH)<9 ? 0 :1);
         for (int year = 0; year < 4; year++) {
@@ -167,13 +183,14 @@ public class ModelServiceImpl implements ModelService {
             }
 
         }
+        logger.info("开始排序");
+        Collections.sort(rankKey);
+        Collections.sort(rankInformation);
 
         updateModels(rankKey, basicToUpdate);
         updateModels(rankInformation,basicToUpdate);
-
+        logger.info("开始更新");
         basicToUpdate.forEach(modelMapper::updateBasicModels);
-
-
 
     }
 
