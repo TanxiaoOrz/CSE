@@ -9,6 +9,8 @@ public class Vo<Value> {
     public static int Success = 0;
     //没有权限
     public static int NoAuthority = -1;
+    //token过期
+    public static int OutToken = -2;
     //错误的数据携带
     public static int WrongPostParameter = 1;
     //错误的数据存储

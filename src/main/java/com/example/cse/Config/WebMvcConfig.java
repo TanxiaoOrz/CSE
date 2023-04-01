@@ -79,12 +79,12 @@ public class WebMvcConfig extends WebMvcConfigurationSupport{
             }
         }catch (TokenExpiredException e) {
             description = "Token已经过期!!!";
+            throw new NoDataException(Vo.OutToken,description);
         } catch (SignatureVerificationException e) {
             description = "签名错误!!!";
         } catch (AlgorithmMismatchException e){
             description = "加密算法不匹配!!!";
         } catch (Exception e) {
-            e.printStackTrace();
             description = "无效token~~";
         }
         throw new NoDataException(Vo.NoAuthority,description);
