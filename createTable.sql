@@ -1,46 +1,48 @@
 CREATE SCHEMA `cse` ;
 
 CREATE TABLE `cse`.`profession` (
-    `Pid` INT NOT NULL AUTO_INCREMENT,
-    `ProfessionName` VARCHAR(45) NULL,
-    `ProfessionDescription` varchar(100) null,
-    `DeprecatedFlag` TINYINT NULL DEFAULT 0,
+    `Pid` INT NOT NULL AUTO_INCREMENT comment '唯一id',
+    `ProfessionName` VARCHAR(45) NULL comment '专业名',
+    `ProfessionDescription` varchar(100) null comment '专业描述',
+    `DeprecatedFlag` TINYINT NULL DEFAULT 0 comment '废弃符号',
     PRIMARY KEY (`Pid`)
-);
+) comment = '专业';
 
 CREATE TABLE `cse`.`user` (
-  `Uid` INT NOT NULL AUTO_INCREMENT,
-  `UserCode` VARCHAR(45) NULL,
-  `UserPass` VARCHAR(45) NULL,
-  `UserName` VARCHAR(45) NULL,
-  `Grade` VARCHAR(45) NULL,
-  `Profession` INT NULL DEFAULT NULL,
-  `Sex` ENUM('男','女') NULL,
-  `UserModel` JSON NULL,
-  `DeprecatedFlag` TINYINT NULL DEFAULT 0,
+  `Uid` INT NOT NULL AUTO_INCREMENT comment '唯一id',
+  `UserCode` VARCHAR(45) NULL comment '学号',
+  `UserPass` VARCHAR(45) NULL comment '密码',
+  `UserName` VARCHAR(45) NULL comment '用户名',
+  `Grade` VARCHAR(45) NULL comment '入学年级',
+  `Profession` INT NULL DEFAULT NULL comment '专业id',
+  `Sex` ENUM('男','女') NULL  comment '性别',
+  `UserModel` JSON NULL  comment '基本信息生成的推荐模型',
+  `DeprecatedFlag` TINYINT NULL DEFAULT 0 comment '废弃符号',
   INDEX `Profession_idx` (`Profession` ASC) VISIBLE,
+  INDEX `Grade_idx` (`Grade` ASC) VISIBLE,
   CONSTRAINT `Profession`
       FOREIGN KEY (`Profession`)
           REFERENCES `cse`.`profession` (`Pid`)
           ON DELETE NO ACTION
           ON UPDATE NO ACTION,
-  PRIMARY KEY (`Uid`));
+  PRIMARY KEY (`Uid`)) comment = '用户表';
 
   CREATE TABLE `cse`.`hobby` (
-  `Hid` INT NOT NULL AUTO_INCREMENT,
-  `Description` VARCHAR(45) NULL,
-  `Name` VARCHAR(45) NULL,
-  `Type` VARCHAR(45) NULL,
-  `Model` JSON NULL,
-  `DeprecatedFlag` TINYINT NULL DEFAULT 0,
-  PRIMARY KEY (`Hid`));
+  `Hid` INT NOT NULL AUTO_INCREMENT comment '唯一id',
+  `Description` VARCHAR(45) NULL comment '爱好描述',
+  `Name` VARCHAR(45) NULL  comment '爱好名',
+  `Type` VARCHAR(45) NULL  comment '爱好类型',
+  `Model` JSON NULL  comment '爱好的推荐模型',
+  `DeprecatedFlag` TINYINT NULL DEFAULT 0  comment '废弃标识',
+  PRIMARY KEY (`Hid`)) comment = '爱好';
   
 CREATE TABLE `cse`.`user_hobby` (
-    `Uid` INT NOT NULL,
-    `Hid` INT NOT NULL,
+    `Uid` INT NOT NULL comment '用户id',
+    `Hid` INT NOT NULL comment '爱好id',
     `degree` ENUM('interested', 'common', 'uninterested') NULL DEFAULT 'common',
     PRIMARY KEY (`Uid` , `Hid`),
     INDEX `user_hobby_hid_idx` (`Hid` ASC) VISIBLE,
+    INDEX `user_hobby_uid_idx` (`Uid` ASC) VISIBLE,
     CONSTRAINT `user_hobby_hid`
       FOREIGN KEY (`Hid`)
       REFERENCES `cse`.`hobby` (`Hid`)
@@ -51,43 +53,44 @@ CREATE TABLE `cse`.`user_hobby` (
           REFERENCES `cse`.`user` (`Uid`)
           ON DELETE NO ACTION
           ON UPDATE NO ACTION
-);
+) comment = '用户的爱好索引表';
 
 CREATE TABLE `cse`.`message` (
-  `Mid` INT NOT NULL AUTO_INCREMENT,
-  `Title` VARCHAR(45) NOT NULL,
-  `ReleaseTime` DATETIME NULL,
-  `OutTime` DATETIME NULL,
-  `Time` JSON NULL,
-  `message` JSON NULL,
-  `AsBasicMessage` INT null DEFAULT 0,
-  `DeprecatedFlag` TINYINT NULL DEFAULT 0,
+  `Mid` INT NOT NULL AUTO_INCREMENT comment '唯一id',
+  `Title` VARCHAR(45) NOT NULL comment '标题',
+  `ReleaseTime` DATETIME NULL comment '消息录入时间',
+  `OutTime` DATETIME NULL comment '消息过时时间',
+  `Time` JSON NULL comment '消息占用的时间',
+  `message` JSON NULL comment '消息本体',
+  `AsBasicMessage` INT null DEFAULT 0 comment '是否被选为基本信息',
+  `DeprecatedFlag` TINYINT NULL DEFAULT 0 comment '废弃标志',
   PRIMARY KEY (`Mid`),
-  UNIQUE INDEX `Title_UNIQUE` (`Title` ASC) VISIBLE);
+  UNIQUE INDEX `Title_UNIQUE` (`Title` ASC) VISIBLE,
+  Index `ReleaseTime_idx` (`ReleaseTime`desc) visible) comment = '消息';
 
 CREATE TABLE `cse`.`message_out` (
-                                     `Mid` INT NOT NULL ,
-                                     `Title` VARCHAR(45) NOT NULL,
-                                     `ReleaseTime` DATETIME NULL,
-                                     `OutTime` DATETIME NULL,
-                                     `message` JSON NULL,
-                                     `DeprecatedFlag` TINYINT NULL DEFAULT 0,
+                                     `Mid` INT NOT NULL comment '唯一id',
+                                     `Title` VARCHAR(45) NOT NULL comment '标题',
+                                     `ReleaseTime` DATETIME NULL comment '消息录入时间',
+                                     `OutTime` DATETIME NULL comment '消息过时时间',
+                                     `message` JSON NULL comment '消息本体',
+                                     `DeprecatedFlag` TINYINT NULL DEFAULT 0 comment '废弃标志',
                                      PRIMARY KEY (`Mid`),
-                                     UNIQUE INDEX `Title_UNIQUE` (`Title` ASC) VISIBLE);
+                                     UNIQUE INDEX `Title_UNIQUE` (`Title` ASC) VISIBLE) comment = '过时消息';
 
 
 CREATE TABLE `cse`.`keyword_type` (
-    `Tid` INT NOT NULL AUTO_INCREMENT,
-    `TypeName` VARCHAR(45) NULL,
-    `TypeResume` VARCHAR(100) NULL,
+    `Tid` INT NOT NULL AUTO_INCREMENT comment '唯一id',
+    `TypeName` VARCHAR(45) NULL comment '关键词类型名',
+    `TypeResume` VARCHAR(100) NULL comment '类型简介',
     PRIMARY KEY (`Tid`)
-);
+) comment = '关键词类型';
 
 CREATE TABLE `cse`.`keyword` (
-    `Kid` INT NOT NULL AUTO_INCREMENT,
-    `KeyName` VARCHAR(45) NULL,
-    `KeywordType` INT NULL,
-    `KeyResume` VARCHAR(45) NULL,
+    `Kid` INT NOT NULL AUTO_INCREMENT comment '唯一id',
+    `KeyName` VARCHAR(45) NULL comment '关键词名',
+    `KeywordType` INT NULL comment '关键词类型id',
+    `KeyResume` VARCHAR(45) NULL  comment '关键词简介',
     PRIMARY KEY (`Kid`),
     INDEX `KeyWordType_idx` (`KeywordType` ASC) VISIBLE,
     CONSTRAINT `KeyWord_Type`
@@ -95,18 +98,18 @@ CREATE TABLE `cse`.`keyword` (
       REFERENCES `cse`.`keyword_type` (`Tid`)
       ON DELETE NO ACTION
       ON UPDATE NO ACTION
-);
+) comment = '关键词';
 
 
 CREATE TABLE `cse`.`location` (
-  `Lid` INT NOT NULL AUTO_INCREMENT,
-  `Name` VARCHAR(45) NOT NULL,
-  `Resume` VARCHAR(200) NULL,
-  `MapBelong` VARCHAR(200) NULL,
-  `BasicMessage` INT NULL,
-  `ImgHref` VARCHAR(200) NULL,
-  `X` INT NULL,
-  `Y` INT NULL,
+  `Lid` INT NOT NULL AUTO_INCREMENT comment '唯一id',
+  `Name` VARCHAR(45) NOT NULL comment '地点名',
+  `Resume` VARCHAR(200) NULL comment '地点简介',
+  `MapBelong` VARCHAR(200) NULL comment '所在地图',
+  `BasicMessage` INT NULL comment '简介消息id',
+  `ImgHref` VARCHAR(200) NULL comment '介绍图片',
+  `X` INT NULL comment '地图位置横轴',
+  `Y` INT NULL comment '地图位置纵轴',
   `DeprecatedFlag` TINYINT NULL DEFAULT 0,
   PRIMARY KEY (`Lid`),
   UNIQUE INDEX `Name_UNIQUE` (`Name` ASC) VISIBLE,
@@ -114,15 +117,15 @@ CREATE TABLE `cse`.`location` (
       FOREIGN KEY (`BasicMessage`)
           REFERENCES `cse`.`message` (`Mid`)
           ON DELETE NO ACTION
-          ON UPDATE NO ACTION);
+          ON UPDATE NO ACTION) comment = '地点类';
 
 CREATE TABLE `cse`.`information_class` (
-                                           `Cid` INT NOT NULL AUTO_INCREMENT,
-                                           `Name` VARCHAR(45) NOT NULL,
-                                           `Resume` VARCHAR(100) NULL,
-                                           `BasicMessage` INT NULL,
-                                           `Type` ENUM('比赛', '部门', '活动', '资源') NOT NULL,
-                                           `ImgHref` VARCHAR(200) NULL,
+                                           `Cid` INT NOT NULL AUTO_INCREMENT comment '唯一id',
+                                           `Name` VARCHAR(45) NOT NULL comment '信息类名',
+                                           `Resume` VARCHAR(100) NULL comment '简介',
+                                           `BasicMessage` INT NULL comment '简介消息id',
+                                           `Type` ENUM('比赛', '部门', '活动', '资源') NOT NULL comment '信息类类型',
+                                           `ImgHref` VARCHAR(200) NULL comment '介绍图片',
                                            `DeprecatedFlag` VARCHAR(45) NULL,
                                            PRIMARY KEY (`Cid`),
                                            UNIQUE INDEX `Name_UNIQUE` (`Name` ASC) VISIBLE,
@@ -130,11 +133,11 @@ CREATE TABLE `cse`.`information_class` (
                                                FOREIGN KEY (`BasicMessage`)
                                                    REFERENCES `cse`.`message` (`Mid`)
                                                    ON DELETE NO ACTION
-                                                   ON UPDATE NO ACTION);
+                                                   ON UPDATE NO ACTION) comment '信息类';
 
 CREATE TABLE `cse`.`information_class_location` (
-                                                    `Cid` INT NOT NULL,
-                                                    `Lid` INT NOT NULL,
+                                                    `Cid` INT NOT NULL comment '信息类id',
+                                                    `Lid` INT NOT NULL comment '地点类id',
                                                     PRIMARY KEY (`Cid`, `Lid`),
                                                     CONSTRAINT `informationClassToLocation`
                                                         FOREIGN KEY (`Lid`)
@@ -145,13 +148,13 @@ CREATE TABLE `cse`.`information_class_location` (
                                                         FOREIGN KEY (`Cid`)
                                                             REFERENCES `cse`.`information_class` (`Cid`)
                                                             ON DELETE NO ACTION
-                                                            ON UPDATE NO ACTION);
+                                                            ON UPDATE NO ACTION) comment = '地点类与信息类连接';
 
 CREATE TABLE `cse`.`surf_location` (
-                                       `id` INT NOT NULL AUTO_INCREMENT,
-                                       `Time` DATETIME NOT NULL default now(),
-                                       `Uid` INT  NULL,
-                                       `Surf` INT NOT NULL,
+                                       `id` INT NOT NULL AUTO_INCREMENT comment '唯一id',
+                                       `Time` DATETIME NOT NULL default now() comment '浏览时间',
+                                       `Uid` INT  NULL comment '浏览用户',
+                                       `Surf` INT NOT NULL comment '浏览地点id',
                                        PRIMARY KEY (`id`),
                                        CONSTRAINT `surf_location` FOREIGN KEY (`Surf`)
                                            REFERENCES `cse`.`location` (`Lid`)
@@ -159,13 +162,13 @@ CREATE TABLE `cse`.`surf_location` (
                                        CONSTRAINT `surfL_user` FOREIGN KEY (`Uid`)
                                            REFERENCES `cse`.`user` (`Uid`)
                                            ON DELETE NO ACTION ON UPDATE NO ACTION
-);
+) comment = '地点浏览表';
 
 CREATE TABLE `cse`.`surf_message` (
-                                      `id` INT NOT NULL AUTO_INCREMENT,
-                                      `Time` DATETIME NOT NULL default now(),
-                                      `Uid` INT NULL,
-                                      `Surf` INT NOT NULL,
+                                      `id` INT NOT NULL AUTO_INCREMENT comment '唯一id',
+                                      `Time` DATETIME NOT NULL default now() comment '浏览时间',
+                                      `Uid` INT  NULL comment '浏览用户',
+                                      `Surf` INT NOT NULL comment '浏览消息id',
                                       PRIMARY KEY (`id`),
                                       CONSTRAINT `surf_message` FOREIGN KEY (`Surf`)
                                           REFERENCES `cse`.`message` (`Mid`)
@@ -173,13 +176,13 @@ CREATE TABLE `cse`.`surf_message` (
                                       CONSTRAINT `surfM_user` FOREIGN KEY (`Uid`)
                                           REFERENCES `cse`.`user` (`Uid`)
                                           ON DELETE NO ACTION ON UPDATE NO ACTION
-);
+)comment = '消息浏览表';
 
 CREATE TABLE `cse`.`surf_information_class` (
-                                                `id` INT NOT NULL AUTO_INCREMENT,
-                                                `Time` DATETIME NOT NULL default now(),
-                                                `Uid` INT NULL,
-                                                `Surf` INT NOT NULL,
+                                                `id` INT NOT NULL AUTO_INCREMENT comment '唯一id',
+                                                `Time` DATETIME NOT NULL default now() comment '浏览时间',
+                                                `Uid` INT  NULL comment '浏览用户',
+                                                `Surf` INT NOT NULL comment '浏览信息类id',
                                                 PRIMARY KEY (`id`),
                                                 CONSTRAINT `surf_information_class` FOREIGN KEY (`Surf`)
                                                     REFERENCES `cse`.`information_class` (`Cid`)
@@ -187,11 +190,11 @@ CREATE TABLE `cse`.`surf_information_class` (
                                                 CONSTRAINT `surfC_user` FOREIGN KEY (`Uid`)
                                                     REFERENCES `cse`.`user` (`Uid`)
                                                     ON DELETE NO ACTION ON UPDATE NO ACTION
-);
+)comment = '信息类浏览表';
 
 CREATE TABLE `cse`.`location_key` (
-                                               `Lid` INT NOT NULL,
-                                               `Kid` INT NOT NULL,
+                                               `Lid` INT NOT NULL comment '地点类id',
+                                               `Kid` INT NOT NULL comment '关键词id',
                                                PRIMARY KEY (`Lid`, `Kid`),
                                                INDEX `LocationToKey_idx` (`Lid` ASC) VISIBLE,
                                                CONSTRAINT `LocationToKey`
@@ -203,11 +206,11 @@ CREATE TABLE `cse`.`location_key` (
                                                    FOREIGN KEY (`Lid`)
                                                        REFERENCES `cse`.`location` (`Lid`)
                                                        ON DELETE NO ACTION
-                                                       ON UPDATE NO ACTION);
+                                                       ON UPDATE NO ACTION) comment = '地点关键词表';
 
 CREATE TABLE `cse`.`information_class_key` (
-                                               `Cid` INT NOT NULL,
-                                               `Kid` INT NOT NULL,
+                                               `Cid` INT NOT NULL comment '信息类id',
+                                               `Kid` INT NOT NULL comment '关键词id',
                                                PRIMARY KEY (`Cid`, `Kid`),
                                                INDEX `InformationClassToKey_idx` (`Cid` ASC) VISIBLE,
                                                CONSTRAINT `InformationClassToKey`
@@ -219,24 +222,24 @@ CREATE TABLE `cse`.`information_class_key` (
                                                    FOREIGN KEY (`Cid`)
                                                        REFERENCES `cse`.`information_class` (`Cid`)
                                                        ON DELETE NO ACTION
-                                                       ON UPDATE NO ACTION);
+                                                       ON UPDATE NO ACTION) comment = '信息类关键词表';
 
 CREATE TABLE `cse`.`calender` (
-  `Uid` INT NOT NULL,
-  `Time` DATETIME NOT NULL,
-  `Description` VARCHAR(100) NULL,
-  `DeprecatedFlag` TINYINT NULL DEFAULT 0,
-  `RelationFunction` JSON NULL,
+  `Uid` INT NOT NULL comment '用户id',
+  `Time` DATETIME NOT NULL comment '事务时间',
+  `Description` VARCHAR(100) NULL comment '描述',
+  `DeprecatedFlag` TINYINT NULL DEFAULT 0 comment '废弃标识',
+  `RelationFunction` JSON NULL comment '关联信息的反序列化存储',
   PRIMARY KEY (`Uid`, `Time`),
   CONSTRAINT `CalenderToUser`
       FOREIGN KEY (`Uid`)
       REFERENCES `cse`.`user` (`Uid`)
       ON DELETE NO ACTION
-      ON UPDATE NO ACTION);
+      ON UPDATE NO ACTION) comment = '用户待办日历';
 
 CREATE TABLE `cse`.`message_information_class` (
-                                          `Mid` INT NOT NULL,
-                                          `Cid` INT NOT NULL,
+                                          `Mid` INT NOT NULL comment '消息id',
+                                          `Cid` INT NOT NULL comment '信息类id',
                                           PRIMARY KEY (`Mid` , `Cid`),
                                           CONSTRAINT `LinkInformationClassToMessage` FOREIGN KEY (`Mid`)
                                               REFERENCES `cse`.`message` (`Mid`)
@@ -244,11 +247,11 @@ CREATE TABLE `cse`.`message_information_class` (
                                           CONSTRAINT `LinkMessageToInformationClass` FOREIGN KEY (`Cid`)
                                               REFERENCES `cse`.`information_class` (`Cid`)
                                               ON DELETE NO ACTION ON UPDATE NO ACTION
-);
+) comment = '消息信息类索引表';
 
 CREATE TABLE `cse`.`message_location` (
-    `Mid` INT NOT NULL,
-    `Lid` INT NOT NULL,
+    `Mid` INT NOT NULL comment '消息id',
+    `Lid` INT NOT NULL comment '地点id',
     PRIMARY KEY (`Mid` , `Lid`),
     CONSTRAINT `LinkLocationToMessage` FOREIGN KEY (`Mid`)
         REFERENCES `cse`.`message` (`Mid`)
@@ -256,15 +259,16 @@ CREATE TABLE `cse`.`message_location` (
     CONSTRAINT `LinkMessageToLocation` FOREIGN KEY (`Lid`)
         REFERENCES `cse`.`Location` (`Lid`)
         ON DELETE NO ACTION ON UPDATE NO ACTION
-);
+)comment = '消息地点类索引表';
 
 
 CREATE TABLE `cse`.`favourite_location` (
-    `Uid` INT NOT NULL,
-    `like` INT  NULL,
-    `Time` DATETIME NOT NULL DEFAULT NOW(),
+    `Uid` INT NOT NULL comment '用户id',
+    `like` INT  NULL comment '地点id',
+    `Time` DATETIME NOT NULL DEFAULT NOW() comment '收藏时间',
     PRIMARY KEY (`Uid`, `Time`),
     INDEX `favouriteToLocation_idx` (`like` ASC) VISIBLE,
+    INDEX `locationToUser_idx` (`Uid` ASC ) visible,
     CONSTRAINT `favouriteToLocation`
         FOREIGN KEY (`like`)
             REFERENCES `cse`.`location` (`Lid`)
@@ -274,14 +278,15 @@ CREATE TABLE `cse`.`favourite_location` (
         FOREIGN KEY (`Uid`)
             REFERENCES `cse`.`user` (`Uid`)
             ON DELETE NO ACTION
-            ON UPDATE NO ACTION);
+            ON UPDATE NO ACTION) comment = '用户地点收藏';
 
 CREATE TABLE `cse`.`favourite_message` (
-   `Uid` INT NOT NULL,
-   `like` INT NOT NULL,
-   `Time` DATETIME NOT NULL DEFAULT NOW(),
+   `Uid` INT NOT NULL comment '用户id',
+   `like` INT NOT NULL comment '消息id',
+   `Time` DATETIME NOT NULL DEFAULT NOW() comment '收藏时间',
    PRIMARY KEY (`Uid`, `Time`),
    INDEX `favouriteToSection_idx` (`like` ASC) VISIBLE,
+   INDEX `MessageToUser_idx` (`Uid` ASC ) visible,
    CONSTRAINT `favouriteToMessage`
        FOREIGN KEY (`like`)
            REFERENCES `cse`.`message` (`Mid`)
@@ -291,12 +296,12 @@ CREATE TABLE `cse`.`favourite_message` (
        FOREIGN KEY (`Uid`)
            REFERENCES `cse`.`user` (`Uid`)
            ON DELETE NO ACTION
-           ON UPDATE NO ACTION);
+           ON UPDATE NO ACTION) comment = '用户消息收藏';
 
 CREATE TABLE `cse`.`favourite_information_class` (
-                                                     `Uid` INT NOT NULL,
-                                                     `like` INT NULL,
-                                                     `Time` DATETIME NOT NULL DEFAULT NOW(),
+                                                     `Uid` INT NOT NULL comment '用户id',
+                                                     `like` INT NULL comment '信息类id',
+                                                     `Time` DATETIME NOT NULL DEFAULT NOW() comment '收藏时间',
                                                      PRIMARY KEY (`Uid`, `Time`),
                                                      INDEX `favouriteToLocation_idx` (`like` ASC) VISIBLE,
                                                      CONSTRAINT `favouriteToInformationClass`
@@ -308,7 +313,7 @@ CREATE TABLE `cse`.`favourite_information_class` (
                                                          FOREIGN KEY (`Uid`)
                                                              REFERENCES `cse`.`user` (`Uid`)
                                                              ON DELETE NO ACTION
-                                                             ON UPDATE NO ACTION);
+                                                             ON UPDATE NO ACTION) comment = '用户信息类收藏';
 
 CREATE TABLE `cse`.`basic_model` (
                                      `Bid` INT NOT NULL AUTO_INCREMENT COMMENT '唯一标识id',
