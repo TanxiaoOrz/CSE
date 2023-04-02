@@ -2,34 +2,35 @@ INSERT INTO `cse`.`profession` (`ProfessionName`, `ProfessionDescription`, `Depr
 INSERT INTO `cse`.`profession` (`ProfessionName`, `ProfessionDescription`, `DeprecatedFlag`) VALUES ('数据科学与大数据技术', '暂无', '0');
 -- 专业的当前数据
 
-INSERT INTO cse.hobby (`Hid`,`Description`,`Name`,`Type`,`Model`,`DeprecatedFlag`) VALUES (1,'','考研','个人发展',NULL,0);
-INSERT INTO cse.hobby (`Hid`,`Description`,`Name`,`Type`,`Model`,`DeprecatedFlag`) VALUES (2,'','保研','个人发展',NULL,0);
-INSERT INTO cse.hobby (`Hid`,`Description`,`Name`,`Type`,`Model`,`DeprecatedFlag`) VALUES (3,'','竞赛','个人发展',NULL,0);
-INSERT INTO cse.hobby (`Hid`,`Description`,`Name`,`Type`,`Model`,`DeprecatedFlag`) VALUES (4,'','出国留学','个人发展',NULL,0);
-INSERT INTO cse.hobby (`Hid`,`Description`,`Name`,`Type`,`Model`,`DeprecatedFlag`) VALUES (5,'','课外实践','个人提升',NULL,0);
-INSERT INTO cse.hobby (`Hid`,`Description`,`Name`,`Type`,`Model`,`DeprecatedFlag`) VALUES (6,'','语言','个人提升',NULL,0);
-INSERT INTO cse.hobby (`Hid`,`Description`,`Name`,`Type`,`Model`,`DeprecatedFlag`) VALUES (7,'','证书考取','个人提升',NULL,0);
-INSERT INTO cse.hobby (`Hid`,`Description`,`Name`,`Type`,`Model`,`DeprecatedFlag`) VALUES (8,'','阅读','个人提升',NULL,0);
-INSERT INTO cse.hobby (`Hid`,`Description`,`Name`,`Type`,`Model`,`DeprecatedFlag`) VALUES (9,NULL,'前端设计','专业爱好',NULL,0);
-INSERT INTO cse.hobby (`Hid`,`Description`,`Name`,`Type`,`Model`,`DeprecatedFlag`) VALUES (10,NULL,'后端开发','专业爱好',NULL,0);
-INSERT INTO cse.hobby (`Hid`,`Description`,`Name`,`Type`,`Model`,`DeprecatedFlag`) VALUES (11,NULL,'数据挖掘','专业爱好',NULL,0);
-INSERT INTO cse.hobby (`Hid`,`Description`,`Name`,`Type`,`Model`,`DeprecatedFlag`) VALUES (12,NULL,'数据分析','专业爱好',NULL,0);
-INSERT INTO cse.hobby (`Hid`,`Description`,`Name`,`Type`,`Model`,`DeprecatedFlag`) VALUES (13,NULL,'Python语言','专业爱好',NULL,0);
-INSERT INTO cse.hobby (`Hid`,`Description`,`Name`,`Type`,`Model`,`DeprecatedFlag`) VALUES (14,NULL,'C语言','专业爱好',NULL,0);
-INSERT INTO cse.hobby (`Hid`,`Description`,`Name`,`Type`,`Model`,`DeprecatedFlag`) VALUES (15,NULL,'C++语言','专业爱好',NULL,0);
-INSERT INTO cse.hobby (`Hid`,`Description`,`Name`,`Type`,`Model`,`DeprecatedFlag`) VALUES (16,NULL,'Java语言','专业爱好',NULL,0);
-INSERT INTO cse.hobby (`Hid`,`Description`,`Name`,`Type`,`Model`,`DeprecatedFlag`) VALUES (17,NULL,'实习就业','个人发展',NULL,0);
-INSERT INTO cse.hobby (`Hid`,`Description`,`Name`,`Type`,`Model`,`DeprecatedFlag`) VALUES (18,NULL,'热爱实践，提高实践能力','性格偏好',NULL,0);
-INSERT INTO cse.hobby (`Hid`,`Description`,`Name`,`Type`,`Model`,`DeprecatedFlag`) VALUES (19,NULL,'热爱看世界，想要增加知识广度','性格偏好',NULL,0);
-INSERT INTO cse.hobby (`Hid`,`Description`,`Name`,`Type`,`Model`,`DeprecatedFlag`) VALUES (20,NULL,'寻觅志同道合的朋友，热爱社交','性格偏好',NULL,0);
-INSERT INTO cse.hobby (`Hid`,`Description`,`Name`,`Type`,`Model`,`DeprecatedFlag`) VALUES (21,NULL,'挑战自我，钟情于高难度比赛','学业偏好',NULL,0);
-INSERT INTO cse.hobby (`Hid`,`Description`,`Name`,`Type`,`Model`,`DeprecatedFlag`) VALUES (22,NULL,'渴望二进制世界，喜欢计算机技术','学业偏好',NULL,0);
-INSERT INTO cse.hobby (`Hid`,`Description`,`Name`,`Type`,`Model`,`DeprecatedFlag`) VALUES (23,NULL,'重在参与，不强求回报','活动偏好',NULL,0);
-INSERT INTO cse.hobby (`Hid`,`Description`,`Name`,`Type`,`Model`,`DeprecatedFlag`) VALUES (24,NULL,'高付出，高回报','活动偏好',NULL,0);
-INSERT INTO cse.hobby (`Hid`,`Description`,`Name`,`Type`,`Model`,`DeprecatedFlag`) VALUES (25,NULL,'沉浸式活动体验','活动偏好',NULL,0);
-INSERT INTO cse.hobby (`Hid`,`Description`,`Name`,`Type`,`Model`,`DeprecatedFlag`) VALUES (26,NULL,'沉浸式学习','学业偏好',NULL,0);
-INSERT INTO cse.hobby (`Hid`,`Description`,`Name`,`Type`,`Model`,`DeprecatedFlag`) VALUES (27,NULL,'稳中求进，保证获得资源','资源偏好',NULL,0);
-INSERT INTO cse.hobby (`Hid`,`Description`,`Name`,`Type`,`Model`,`DeprecatedFlag`) VALUES (28,NULL,'剑走偏锋，争取少数资源','资源偏好',NULL,0);
+INSERT INTO cse.hobby (`Hid`,`Description`,`Name`,`Type`,`Model`,`DeprecatedFlag`) VALUES (1,'','考研','个人发展','[{\"id\": 32, \"type\": \"keyword\", \"score\": 2}, {\"id\": 24, \"type\": \"keyword\", \"score\": 2}]',0);
+INSERT INTO cse.hobby (`Hid`,`Description`,`Name`,`Type`,`Model`,`DeprecatedFlag`) VALUES (2,'','保研','个人发展','[{\"id\": 32, \"type\": \"keyword\", \"score\": 2}, {\"id\": 24, \"type\": \"keyword\", \"score\": 2}]',0);
+INSERT INTO cse.hobby (`Hid`,`Description`,`Name`,`Type`,`Model`,`DeprecatedFlag`) VALUES (3,'','竞赛','个人发展','[{\"id\": 1, \"type\": \"keyword\", \"score\": 2}, {\"id\": 5, \"type\": \"keyword\", \"score\": 2}]',0);
+INSERT INTO cse.hobby (`Hid`,`Description`,`Name`,`Type`,`Model`,`DeprecatedFlag`) VALUES (4,'','出国留学','个人发展','[{\"id\": 27, \"type\": \"keyword\", \"score\": 2}, {\"id\": 33, \"type\": \"keyword\", \"score\": 2}]',0);
+INSERT INTO cse.hobby (`Hid`,`Description`,`Name`,`Type`,`Model`,`DeprecatedFlag`) VALUES (5,'','课外实践','个人提升','[{\"id\": 28, \"type\": \"keyword\", \"score\": 3}, {\"id\": 27, \"type\": \"keyword\", \"score\": 2}]',0);
+INSERT INTO cse.hobby (`Hid`,`Description`,`Name`,`Type`,`Model`,`DeprecatedFlag`) VALUES (6,'','语言','个人提升','[{\"id\": 7, \"type\": \"keyword\", \"score\": 3}, {\"id\": 26, \"type\": \"keyword\", \"score\": 2}]',0);
+INSERT INTO cse.hobby (`Hid`,`Description`,`Name`,`Type`,`Model`,`DeprecatedFlag`) VALUES (7,'','证书考取','个人提升','[{\"id\": 7, \"type\": \"keyword\", \"score\": 3}, {\"id\": 32, \"type\": \"keyword\", \"score\": 2}]',0);
+INSERT INTO cse.hobby (`Hid`,`Description`,`Name`,`Type`,`Model`,`DeprecatedFlag`) VALUES (8,'','阅读','个人提升','[{\"id\": 7, \"type\": \"keyword\", \"score\": 1}, {\"id\": 33, \"type\": \"keyword\", \"score\": 1}, {\"id\": 8, \"type\": \"keyword\", \"score\": 1}]',0);
+INSERT INTO cse.hobby (`Hid`,`Description`,`Name`,`Type`,`Model`,`DeprecatedFlag`) VALUES (9,NULL,'前端设计','专业爱好','[{\"id\": 24, \"type\": \"keyword\", \"score\": 1}, {\"id\": 23, \"type\": \"keyword\", \"score\": 1}, {\"id\": 1, \"type\": \"keyword\", \"score\": 1}]',0);
+INSERT INTO cse.hobby (`Hid`,`Description`,`Name`,`Type`,`Model`,`DeprecatedFlag`) VALUES (10,NULL,'后端开发','专业爱好','[{\"id\": 24, \"type\": \"keyword\", \"score\": 1}, {\"id\": 23, \"type\": \"keyword\", \"score\": 1}, {\"id\": 1, \"type\": \"keyword\", \"score\": 1}]',0);
+INSERT INTO cse.hobby (`Hid`,`Description`,`Name`,`Type`,`Model`,`DeprecatedFlag`) VALUES (11,NULL,'数据挖掘','专业爱好','[{\"id\": 24, \"type\": \"keyword\", \"score\": 1}, {\"id\": 23, \"type\": \"keyword\", \"score\": 1}]',0);
+INSERT INTO cse.hobby (`Hid`,`Description`,`Name`,`Type`,`Model`,`DeprecatedFlag`) VALUES (12,NULL,'数据分析','专业爱好','[{\"id\": 24, \"type\": \"keyword\", \"score\": 1}, {\"id\": 23, \"type\": \"keyword\", \"score\": 1}]',0);
+INSERT INTO cse.hobby (`Hid`,`Description`,`Name`,`Type`,`Model`,`DeprecatedFlag`) VALUES (13,NULL,'Python语言','专业爱好','[{\"id\": 6, \"type\": \"keyword\", \"score\": 1}, {\"id\": 23, \"type\": \"keyword\", \"score\": 1}]',0);
+INSERT INTO cse.hobby (`Hid`,`Description`,`Name`,`Type`,`Model`,`DeprecatedFlag`) VALUES (14,NULL,'C语言','专业爱好','[{\"id\": 6, \"type\": \"keyword\", \"score\": 1}, {\"id\": 22, \"type\": \"keyword\", \"score\": 1}]',0);
+INSERT INTO cse.hobby (`Hid`,`Description`,`Name`,`Type`,`Model`,`DeprecatedFlag`) VALUES (15,NULL,'C++语言','专业爱好','[{\"id\": 5, \"type\": \"keyword\", \"score\": 1}, {\"id\": 1, \"type\": \"keyword\", \"score\": 1}]',0);
+INSERT INTO cse.hobby (`Hid`,`Description`,`Name`,`Type`,`Model`,`DeprecatedFlag`) VALUES (16,NULL,'Java语言','专业爱好','[{\"id\": 16, \"type\": \"keyword\", \"score\": 1}, {\"id\": 18, \"type\": \"keyword\", \"score\": 1}]',0);
+INSERT INTO cse.hobby (`Hid`,`Description`,`Name`,`Type`,`Model`,`DeprecatedFlag`) VALUES (17,NULL,'实习就业','个人发展','[{\"id\": 24, \"type\": \"keyword\", \"score\": 1}, {\"id\": 34, \"type\": \"keyword\", \"score\": 1}]',0);
+INSERT INTO cse.hobby (`Hid`,`Description`,`Name`,`Type`,`Model`,`DeprecatedFlag`) VALUES (18,NULL,'热爱实践，提高实践能力','性格偏好','[{\"id\": 28, \"type\": \"keyword\", \"score\": 1}, {\"id\": 23, \"type\": \"keyword\", \"score\": 1}]',0);
+INSERT INTO cse.hobby (`Hid`,`Description`,`Name`,`Type`,`Model`,`DeprecatedFlag`) VALUES (19,NULL,'热爱看世界，想要增加知识广度','性格偏好','[{\"id\": 27, \"type\": \"keyword\", \"score\": 1}, {\"id\": 22, \"type\": \"keyword\", \"score\": 1}]',0);
+INSERT INTO cse.hobby (`Hid`,`Description`,`Name`,`Type`,`Model`,`DeprecatedFlag`) VALUES (20,NULL,'寻觅志同道合的朋友，热爱社交','性格偏好','[{\"id\": 26, \"type\": \"keyword\", \"score\": 1}, {\"id\": 33, \"type\": \"keyword\", \"score\": 1}]',0);
+INSERT INTO cse.hobby (`Hid`,`Description`,`Name`,`Type`,`Model`,`DeprecatedFlag`) VALUES (21,NULL,'挑战自我，钟情于高难度比赛','学业偏好','[{\"id\": 1, \"type\": \"keyword\", \"score\": 1}, {\"id\": 29, \"type\": \"keyword\", \"score\": 1}]',0);
+INSERT INTO cse.hobby (`Hid`,`Description`,`Name`,`Type`,`Model`,`DeprecatedFlag`) VALUES (22,NULL,'渴望二进制世界，喜欢计算机技术','学业偏好','[{\"id\": 5, \"type\": \"keyword\", \"score\": 1}, {\"id\": 16, \"type\": \"keyword\", \"score\": 1}, {\"id\": 6, \"type\": \"keyword\", \"score\": 1}, {\"id\": 18, \"type\": \"keyword\", \"score\": 1}]',0);
+INSERT INTO cse.hobby (`Hid`,`Description`,`Name`,`Type`,`Model`,`DeprecatedFlag`) VALUES (23,NULL,'重在参与，不强求回报','活动偏好','[{\"id\": 11, \"type\": \"keyword\", \"score\": 1}, {\"id\": 30, \"type\": \"keyword\", \"score\": 1}]',0);
+INSERT INTO cse.hobby (`Hid`,`Description`,`Name`,`Type`,`Model`,`DeprecatedFlag`) VALUES (24,NULL,'高付出，高回报','活动偏好','[{\"id\": 29, \"type\": \"keyword\", \"score\": 1}, {\"id\": 9, \"type\": \"keyword\", \"score\": 1}]',0);
+INSERT INTO cse.hobby (`Hid`,`Description`,`Name`,`Type`,`Model`,`DeprecatedFlag`) VALUES (25,NULL,'沉浸式活动体验','活动偏好','[{\"id\": 29, \"type\": \"keyword\", \"score\": 1}, {\"id\": 33, \"type\": \"keyword\", \"score\": 1}]',0);
+INSERT INTO cse.hobby (`Hid`,`Description`,`Name`,`Type`,`Model`,`DeprecatedFlag`) VALUES (26,NULL,'沉浸式学习','学业偏好','[{\"id\": 32, \"type\": \"keyword\", \"score\": 1}, {\"id\": 24, \"type\": \"keyword\", \"score\": 1}, {\"id\": 29, \"type\": \"keyword\", \"score\": 1}]',0);
+INSERT INTO cse.hobby (`Hid`,`Description`,`Name`,`Type`,`Model`,`DeprecatedFlag`) VALUES (27,NULL,'稳中求进，保证获得资源','资源偏好','[{\"id\": 20, \"type\": \"keyword\", \"score\": 1}, {\"id\": 15, \"type\": \"keyword\", \"score\": 1}]',0);
+INSERT INTO cse.hobby (`Hid`,`Description`,`Name`,`Type`,`Model`,`DeprecatedFlag`) VALUES (28,NULL,'剑走偏锋，争取少数资源','资源偏好','[{\"id\": 12, \"type\": \"keyword\", \"score\": 2}, {\"id\": 21, \"type\": \"keyword\", \"score\": 2}]',0);
+
 -- 当前兴趣爱好数据
 
 INSERT INTO `cse`.`user` (`UserCode`, `UserPass`, `UserName`, `Grade`, `Profession`, `Sex`) VALUES ('123456', '123456', 'testUser', '2020', '1', '男');
