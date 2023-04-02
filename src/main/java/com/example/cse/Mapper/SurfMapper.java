@@ -1,13 +1,11 @@
 package com.example.cse.Mapper;
 
 import com.example.cse.Dto.SurfCounts;
-import com.example.cse.Entity.InformationClass.Message;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 
-import java.util.HashMap;
 import java.util.List;
 
 @Mapper
@@ -39,24 +37,33 @@ public interface SurfMapper {
     @Select("select counts from surf_count_information_class where surf = #{surf}")
     Integer getSurfCountInformationClass(@Param("surf") Integer surf);
 
-    @Select("select Surf from surf_message where Uid = #{Uid} and Time > date_sub(now(),interval 1 week) group by Surf order by count(Surf) desc limit 5 ")
+    @Select("select Surf from surf_message where Uid = #{Uid} and Time > date_sub(now(),interval 1 year) group by Surf order by count(Surf) desc limit 5 ")
     List<Integer> getSurfMostMessages(@Param("Uid")Integer uid);
 
-    @Select("select Surf from surf_information_class where Uid = #{Uid} and Time > date_sub(now(),interval 1 week) group by Surf order by count(Surf) desc limit 5")
+    @Select("select Surf from surf_information_class where Uid = #{Uid} and Time > date_sub(now(),interval 1 year) group by Surf order by count(Surf) desc limit 5")
     List<Integer> getSurfMostInformationClasses(@Param("Uid")Integer uid);
 
-    @Select("select Surf from surf_location where Uid = #{Uid} and Time > date_sub(now(),interval 1 week) group by Surf order by count(Surf) desc limit 5")
+    @Select("select Surf from surf_location where Uid = #{Uid} and Time > date_sub(now(),interval 1 year) group by Surf order by count(Surf) desc limit 5")
     List<Integer> getSurfMostLocations(@Param("Uid")Integer uid);
 
 
-    @Select("select Surf as id,count(Surf) as counts  from surf_information_class where Uid = #{Uid} and Time > date_sub(now(),interval 1 week) group by Surf order by count(Surf) desc limit 5")
+    @Select("select Surf as id,count(Surf) as counts  from surf_information_class where Uid = #{Uid} and Time > date_sub(now(),interval 1 year) group by Surf order by count(Surf) desc limit 5")
     List<SurfCounts> getSurfMostInformationClassesCounts(@Param("Uid")Integer uid);
 
-    @Select("select Surf as id,count(Surf) as counts  from surf_location where Uid = #{Uid} and Time > date_sub(now(),interval 1 week) group by Surf order by count(Surf) desc limit 5")
+    @Select("select Surf as id,count(Surf) as counts  from surf_location where Uid = #{Uid} and Time > date_sub(now(),interval 1 year) group by Surf order by count(Surf) desc limit 5")
     List<SurfCounts> getSurfMostLocationsCounts(@Param("Uid")Integer uid);
 
-    @Select("select x.Kid as id,count(Surf) as counts  from surf_information_class,information_class_key as x where Surf in (select cid from information_class_key as link where link.Kid = x.kid and Uid = #{Uid}) group by x.kid")
+    @Select("select x.Kid as id,count(Surf) as counts  from surf_information_class,information_class_key as x where Surf in (select cid from information_class_key as link where link.Kid = x.kid) and Uid = #{Uid} and Time > date_sub(now(),interval 1 year) group by x.kid")
     List<SurfCounts> getSurfMostKeysCounts(@Param("Uid")Integer uid);
+
+    @Select("select Surf as id,count(Surf) as counts  from surf_information_class where Time > date_sub(now(),interval 1 year) group by Surf order by count(Surf) desc limit 5")
+    List<SurfCounts> getSurfMostInformationClassesCountsAll();
+
+    @Select("select Surf as id,count(Surf) as counts  from surf_location where Time > date_sub(now(),interval 1 year) group by Surf order by count(Surf) desc limit 5")
+    List<SurfCounts> getSurfMostLocationsCountsAll();
+
+    @Select("select x.Kid as id,count(Surf) as counts  from surf_information_class,information_class_key as x where Surf in (select cid from information_class_key as link where link.Kid = x.kid) and Time > date_sub(now(),interval 1 year) group by x.kid")
+    List<SurfCounts> getSurfMostKeysCountsAll();
 
 
     Integer getCountKeyByUser(@Param("Uids") List<Integer> uids,@Param("Kid") Integer kid);
