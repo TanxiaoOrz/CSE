@@ -53,7 +53,7 @@ public class MessageDtoFactory {
         Float average = surfMapper.getAverageSurfCountMessage();
         averageMessage = average!=null?average:0;
         for (Message message:messages) {
-            MessageDto messageDto = new MessageDto(message);
+            MessageDto messageDto = getMessageDto(message);
             messageDto.setRankScore(timeScore,messageModel!=null? messageModel.get(message.getMid()):0,calculateSurfScore(messageDto),outTimeScore);
             showMessages.add(messageDto);
 
