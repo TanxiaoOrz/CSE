@@ -44,9 +44,9 @@ public class ModelServiceImpl implements ModelService {
     static class RankObject<T> implements Comparable<RankObject<?>>{
         T owner;
         ModelDto model;
-        Integer score;
+        Float score;
 
-        public RankObject(T hobby, ModelDto model, Integer score) {
+        public RankObject(T hobby, ModelDto model, Float score) {
             this.owner = hobby;
             this.model = model;
             this.score = score;
@@ -74,7 +74,7 @@ public class ModelServiceImpl implements ModelService {
                 break;
             }
             List<Integer> userInterested = userMapper.getUidsByHobby(hobby.getHid(),"interested");
-            Integer surfInterestA = surfMapper.getCountKeyByUser(userInterested,null);
+            Integer surfInterestA =userInterested.size()== 0? 0: surfMapper.getCountKeyByUser(userInterested,null);
             for (ModelDto model:
                     hobby.getModel()) {
                 buildupRankList(hobby, rankKey, rankInformation, userInterested, surfInterestA, model);
@@ -113,15 +113,19 @@ public class ModelServiceImpl implements ModelService {
 
             for (Integer kid:
                  kids) {
-                int surfInterestedK = surfMapper.getCountKeyByUser(userInterested, kid);
-                float surfCommonK = surfMapper.getCountKeyByUser(userCommon, kid);
-                int surfUninterestedK = surfMapper.getCountKeyByUser(userUninterested, kid);
-                if ((surfInterestedK+surfUninterestedK)/surfCommonK>modelEffective) {
+                int surfInterestedK =userInterested.size()==0?0: surfMapper.getCountKeyByUser(userInterested, kid);
+                float surfCommonK =userCommon.size()==0?0: surfMapper.getCountKeyByUser(userCommon, kid);
+                int surfUninterestedK =userUninterested.size()==0?0: surfMapper.getCountKeyByUser(userUninterested, kid);
+                if (
+                        ((surfInterestedK/((float) userInterested.size()+1))+(surfUninterestedK/((float) userUninterested.size()+1)))
+                        /((surfCommonK/(float) userCommon.size()+1)+1)
+                                >modelEffective
+                ) {
                     ModelDto model = new ModelDto();
                     model.setType("keyword");
                     model.setId(kid);
-                    Integer surfInterestA = surfMapper.getCountKeyByUser(userInterested,null);
-                    rankKey.add(new RankObject<>(hobby, model, (surfInterestedK / surfInterestA)));
+                    Integer surfInterestA =userInterested.size()==0?0: surfMapper.getCountKeyByUser(userInterested,null);
+                    rankKey.add(new RankObject<>(hobby, model, (surfInterestedK /(float) (surfInterestA+1))));
                 }
                 logger.info("有效行计算进度："+ (++i) +" / "+all);
             }
@@ -132,7 +136,7 @@ public class ModelServiceImpl implements ModelService {
             updateModels(rankKey, hobbiesToUpdate);
             Gson gson = new Gson();
             logger.info("开始更新");
-            hobbiesToUpdate.forEach(e->hobbyMapper.updateHobbyModel(e.getHid(),gson.toJson(e.getModel())));
+            hobbiesToUpdate.forEach(e->hobbyMapper.updateHobbyModel(e.getHid(), gson.toJson(e.getModel())));
 
         }
 
@@ -150,7 +154,7 @@ public class ModelServiceImpl implements ModelService {
                 break;
             }
             List<Integer> userIn = userMapper.getUidsByPid(pid);
-            Integer surfInterestA = surfMapper.getCountKeyByUser(userIn,null);
+            Integer surfInterestA =userIn.size()==0?0: surfMapper.getCountKeyByUser(userIn,null);
             for (BasicModelDto model:
                     modelDtos) {
                 buildupRankList(model, rankKey, rankInformation, userIn,surfInterestA,model);
@@ -176,7 +180,7 @@ public class ModelServiceImpl implements ModelService {
                 break;
             }
             List<Integer> userIn = userMapper.getUidsByYear(String.valueOf(nowStudyYear-year));
-            Integer surfInterestA = surfMapper.getCountKeyByUser(userIn,null);
+            Integer surfInterestA =userIn.size()==0?0: surfMapper.getCountKeyByUser(userIn,null);
             for (BasicModelDto model:
                     modelDtos) {
                 buildupRankList(model, rankKey, rankInformation, userIn,surfInterestA,model);
@@ -198,12 +202,12 @@ public class ModelServiceImpl implements ModelService {
         Integer surfInterestedK;
         switch (model.getType()) {
             case "keyword":
-                surfInterestedK = surfMapper.getCountKeyByUser(userValue, model.getId());
-                rankKey.add(new RankObject<>(t, model, surfInterestedK / surfInterestA));
+                surfInterestedK =userValue.size()==0? 0: surfMapper.getCountKeyByUser(userValue, model.getId());
+                rankKey.add(new RankObject<>(t, model, surfInterestedK /((float) surfInterestA + 1)));
                 break;
             case "informationClass":
-                surfInterestedK = surfMapper.getCountKeyByUser(userValue, model.getId());
-                rankInformationClass.add(new RankObject<>(t, model, surfInterestedK / surfInterestA));
+                surfInterestedK =userValue.size()==0? 0: surfMapper.getCountKeyByUser(userValue, model.getId());
+                rankInformationClass.add(new RankObject<>(t, model, surfInterestedK /((float) surfInterestA + 1)));
                 break;
         }
     }
