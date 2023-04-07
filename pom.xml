@@ -135,7 +135,7 @@
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <version>2.3.7.RELEASE</version>
                 <configuration>
-                    <mainClass>org.demo.cse.CseApplication</mainClass>
+                    <mainClass>com.example.cse.CseApplication</mainClass>
                 </configuration>
                 <executions>
                     <execution>
