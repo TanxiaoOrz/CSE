@@ -20,11 +20,15 @@ public class FileServiceImpl implements FileService  {
     String url;
 
     public FileServiceImpl(@Value("${server.port}")String port) throws FileNotFoundException, UnknownHostException {
-        absolutePath = ResourceUtils.getURL("classpath:").getPath() +"static/files/";
-
+        absolutePath = System.getProperty("user.dir")+"/static/img";
+        File dir = new File(absolutePath);
+        System.out.println(absolutePath);
+        if(!dir.exists()){
+            dir.mkdirs();
+        }
         InetAddress localHost = InetAddress.getLocalHost();
         String hostAddress = localHost.getHostAddress();
-        url = "http://" + hostAddress + ":" + port+"/files/";
+        url = "http://" + hostAddress + ":" + port+"/static/img/";
 
     }
 

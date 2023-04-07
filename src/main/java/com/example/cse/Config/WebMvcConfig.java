@@ -27,6 +27,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupp
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.List;
@@ -245,6 +246,11 @@ public class WebMvcConfig extends WebMvcConfigurationSupport{
         registry.addResourceHandler("/swagger-ui/**")
                 .addResourceLocations("classpath:/META-INF/resources/webjars/springfox-swagger-ui/");
         registry.addResourceHandler("/**").addResourceLocations("classpath:/static/");
+
+
+        //appConfig.getResPhysicalPath() 这表示项目所在的文件夹，下面会有介绍
+
+        registry.addResourceHandler("/static/**").addResourceLocations("classpath:/static/","file:static/");
 
         super.addResourceHandlers(registry);
     }
