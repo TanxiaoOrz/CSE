@@ -33,7 +33,7 @@ INSERT INTO cse.hobby (`Hid`,`Description`,`Name`,`Type`,`Model`,`DeprecatedFlag
 
 -- 当前兴趣爱好数据
 
-INSERT INTO `cse`.`user` (`UserCode`, `UserPass`, `UserName`, `Grade`, `Profession`, `Sex`) VALUES ('123456', '123456', 'testUser', '2020', '1', '男');
+INSERT INTO `cse`.`user` (`UserCode`, `UserPass`, `UserName`, `Grade`, `Profession`, `Sex`, `UserModel`) VALUES ('123456', '123456', 'testUser', '2020', '1', '男','[{"id": 24, "type": "keyword", "score": 2}, {"id": 34, "type": "keyword", "score": 2}, {"id": 16, "type": "keyword", "score": 3}]');
 -- 默认用户
 
 INSERT INTO `cse`.`keyword_type` (`TypeName`, `TypeResume`) VALUES ('比赛等级', '一个比赛的等级划分，通常有国、市、校');

@@ -299,3 +299,33 @@ INSERT INTO cse.year_basic_model (Year, Bid) VALUES (4, '6');
 INSERT INTO cse.profession_basic_model (Pid, Bid) VALUES (1, 1);
 INSERT INTO cse.profession_basic_model (Pid, Bid) VALUES (2, 2);
 
+-- 添加实验用户关联信息
+INSERT INTO `cse`.`favourite_location` (`Uid`, `like`,`Time`) VALUES ('1', '1','2023-04-08 22:19:21');
+INSERT INTO `cse`.`favourite_location` (`Uid`, `like`,`Time`) VALUES ('1', '4','2023-04-08 22:19:10');
+INSERT INTO `cse`.`favourite_location` (`Uid`, `like`,`Time`) VALUES ('1', '9','2023-04-08 22:19:13');
+
+INSERT INTO `cse`.`favourite_information_class` (`Uid`, `like`, `Time`) VALUES ('1', '12', '2023-04-08 22:19:21');
+INSERT INTO `cse`.`favourite_information_class` (`Uid`, `like`, `Time`) VALUES ('1', '1', '2023-04-08 22:19:24');
+INSERT INTO `cse`.`favourite_information_class` (`Uid`, `like`, `Time`) VALUES ('1', '16', '2023-04-08 22:19:23');
+INSERT INTO `cse`.`favourite_information_class` (`Uid`, `like`, `Time`) VALUES ('1', '17', '2023-04-08 22:19:22');
+
+INSERT INTO `cse`.`favourite_message` (`Uid`, `like`, `Time`) VALUES ('1', '3', '2023-04-08 22:19:21');
+INSERT INTO `cse`.`favourite_message` (`Uid`, `like`, `Time`) VALUES ('1', '5', '2023-04-08 22:19:22');
+INSERT INTO `cse`.`favourite_message` (`Uid`, `like`, `Time`) VALUES ('1', '21', '2023-04-08 22:19:23');
+INSERT INTO `cse`.`favourite_message` (`Uid`, `like`, `Time`) VALUES ('1', '22', '2023-04-08 22:19:24');
+INSERT INTO `cse`.`favourite_message` (`Uid`, `like`, `Time`) VALUES ('1', '52', '2023-04-08 22:19:25');
+INSERT INTO `cse`.`favourite_message` (`Uid`, `like`, `Time`) VALUES ('1', '53', '2023-04-08 22:19:26');
+INSERT INTO `cse`.`favourite_message` (`Uid`, `like`, `Time`) VALUES ('1', '32', '2023-04-08 22:19:27');
+INSERT INTO `cse`.`favourite_message` (`Uid`, `like`, `Time`) VALUES ('1', '56', '2023-04-08 22:19:28');
+
+
+UPDATE `cse`.`user_hobby` SET `degree` = 'interested' WHERE (`Uid` = '1') and (`Hid` = '1');
+UPDATE `cse`.`user_hobby` SET `degree` = 'interested' WHERE (`Uid` = '1') and (`Hid` = '10');
+UPDATE `cse`.`user_hobby` SET `degree` = 'interested' WHERE (`Uid` = '1') and (`Hid` = '17');
+UPDATE `cse`.`user_hobby` SET `degree` = 'uninterested' WHERE (`Uid` = '1') and (`Hid` = '19');
+UPDATE `cse`.`user_hobby` SET `degree` = 'uninterested' WHERE (`Uid` = '1') and (`Hid` = '24');
+UPDATE `cse`.`user_hobby` SET `degree` = 'uninterested' WHERE (`Uid` = '1') and (`Hid` = '27');
+UPDATE `cse`.`user_hobby` SET `degree` = 'uninterested' WHERE (`Uid` = '1') and (`Hid` = '4');
+
+
+
