@@ -19,6 +19,7 @@ import javax.servlet.http.HttpServletRequest;
 @RestController
 @Api(tags = "管理员操作接口")
 @RequestMapping("/cse/Manager")
+@CrossOrigin
 public class ManagerController {
 
     @Autowired
