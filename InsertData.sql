@@ -93,6 +93,12 @@ INSERT INTO cse.location (`Lid`,`Name`,`Resume`,`MapBelong`,`BasicMessage`,`ImgH
 INSERT INTO cse.location (`Lid`,`Name`,`Resume`,`MapBelong`,`BasicMessage`,`ImgHref`,`X`,`Y`,`DeprecatedFlag`) VALUES (2,'图书馆','包含位于北校区的湛恩图书馆和334校区图书馆，预约功能完善，环境优美，体验沉浸式学习',NULL,NULL,NULL,NULL,NULL,0);
 INSERT INTO cse.location (`Lid`,`Name`,`Resume`,`MapBelong`,`BasicMessage`,`ImgHref`,`X`,`Y`,`DeprecatedFlag`) VALUES (3,'第一教学楼','简称“一教”，位于580校区毛像附近，设施齐全，承办大型考试，也用于同学自习',NULL,NULL,NULL,NULL,NULL,0);
 INSERT INTO cse.location (`Lid`,`Name`,`Resume`,`MapBelong`,`BasicMessage`,`ImgHref`,`X`,`Y`,`DeprecatedFlag`) VALUES (4,'公共服务中心','学校的大部分机关部门所在地，包含教务处，后勤管理处，财务处等重要部门',NULL,NULL,NULL,NULL,NULL,0);
+INSERT INTO cse.location (`Lid`,`Name`,`Resume`,`MapBelong`,`BasicMessage`,`ImgHref`,`X`,`Y`,`DeprecatedFlag`) VALUES (5,'思餐厅','学校人工智能设施最完备，餐品质量，种类俱佳的餐厅之一。',NULL,NULL,NULL,NULL,NULL,0);
+INSERT INTO cse.location (`Lid`,`Name`,`Resume`,`MapBelong`,`BasicMessage`,`ImgHref`,`X`,`Y`,`DeprecatedFlag`) VALUES (6,'五食堂','近期最新翻新修缮的食堂，新的五食堂环境干净整洁，特色菜品突出。',NULL,NULL,NULL,NULL,NULL,0);
+INSERT INTO cse.location (`Lid`,`Name`,`Resume`,`MapBelong`,`BasicMessage`,`ImgHref`,`X`,`Y`,`DeprecatedFlag`) VALUES (7,'一食堂','学校较老旧的食堂之一，但内设最受大家欢迎的面包房，餐品香醇美味又营养。',NULL,NULL,NULL,NULL,NULL,0);
+INSERT INTO cse.location (`Lid`,`Name`,`Resume`,`MapBelong`,`BasicMessage`,`ImgHref`,`X`,`Y`,`DeprecatedFlag`) VALUES (8,'综合楼','学校设施较老旧的一幢教学楼，但楼栋外观宏伟，且依然在承办各种大型考试，比如，专升本，四六级等。',NULL,NULL,NULL,NULL,NULL,0);
+INSERT INTO cse.location (`Lid`,`Name`,`Resume`,`MapBelong`,`BasicMessage`,`ImgHref`,`X`,`Y`,`DeprecatedFlag`) VALUES (9,'卓越楼','学校最新修缮的几幢教学楼之一，设施完备，环境优美，体验感超级赞！',NULL,NULL,NULL,NULL,NULL,0);
+INSERT INTO cse.location (`Lid`,`Name`,`Resume`,`MapBelong`,`BasicMessage`,`ImgHref`,`X`,`Y`,`DeprecatedFlag`) VALUES (10,'光电大楼','整个光电学院的老师的办公地点，也是整个光电学院研究生实验室所在地，外观宏伟大气，内里实验室严谨整洁。',NULL,NULL,NULL,NULL,NULL,0);
 -- 地点预填写
 
 INSERT INTO cse.information_class (`Cid`,`Name`,`Resume`,`BasicMessage`,`Type`,`ImgHref`,`DeprecatedFlag`) VALUES (1,'蓝桥杯','校级A类赛事，可加综测分，可认证学分',NULL,'比赛',NULL,'0');
