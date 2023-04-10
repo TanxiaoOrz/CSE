@@ -34,7 +34,7 @@ public class FavouriteController {
         return new Vo<>(favourite);
     }
 
-    @PutMapping("/{id}")
+    @PostMapping("/{id}")
     @ApiOperation(value = "用户新增喜欢",notes = "需要登录")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "id",value = "对应喜欢的编号",dataTypeClass = Integer.class,paramType = "path"),
