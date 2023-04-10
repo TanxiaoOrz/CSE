@@ -75,7 +75,7 @@ public class MessageServiceImpl implements MessageService {
     public Integer updateMessage(MessageIn message) throws WrongDataException {
         Message oldMessage;
         try {
-            oldMessage = messageMapper.getMessageByRule(message.getMid(),null,null).get(0);
+            oldMessage = messageMapper.getMessageByRule(message.getMid()==null?0:message.getMid(),null,null).get(0);
         }catch (IndexOutOfBoundsException e) {
             throw new WrongDataException("错误的编号");
         }
