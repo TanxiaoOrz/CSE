@@ -61,6 +61,9 @@ public class LocationDto  {
         setImgHref(location.getImgHref());
         setName(location.getName());
         setResume(location.getResume());
+        setMapBelong(location.getMapBelong());
+        setX(location.getX());
+        setY(location.getY());
     }
 
     public Integer getLid() {
