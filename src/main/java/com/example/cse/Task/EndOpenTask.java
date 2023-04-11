@@ -1,6 +1,8 @@
 package com.example.cse.Task;
 
 import com.example.cse.Config.WebMvcConfig;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.scheduling.annotation.EnableAsync;
@@ -18,16 +20,20 @@ public class EndOpenTask {
     @Autowired
     WebMvcConfig webMvcConfig;
 
+    Logger logger = LoggerFactory.getLogger(getClass());
+
     @Async
     @Scheduled(cron = "0 0 4 * * ?")
     public void Open() {
         webMvcConfig.setOpen(true);
+        logger.info("后端服务器回复运行");
     }
 
     @Async
     @Scheduled(cron = "0 0 3 * * ?")
     public void Shutdown() {
         webMvcConfig.setOpen(false);
+        logger.info("后端服务器休眠自检");
     }
 
     public boolean isSleepEnabled() {
