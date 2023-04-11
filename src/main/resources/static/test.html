@@ -13,20 +13,17 @@
 
          $.ajax(
              {
-                 type: "POST",
-                 url: "http://localhost:8080/cse/User",
+                 type: "Delete",
+                 url: "http://localhost:8080/cse/Message/Manager",
                  data:'{' +
-                     '  "grade": "1",' +
-                     '  "profession": 1,' +
-                     '  "sex": "男",' +
-                     '  "userCode": "3",' +
-                     '  "userName": "2",' +
-                     '  "userPass": "2"' +
+                     '  "mid": "1",' +
+                     '  "out": 0' +
                      '}',
                  success: function(data){
                      alert(data.status);
+                     alert(data.description)
                  },
-                 headers: { 'content-type': 'application/json ' },
+                 headers: { 'content-type': 'application/json ','token': 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0eXBlIjoxLCJleHAiOjE2ODEyMjU0NjQsInVzZXItYWdlbnQiOiIwOjA6MDowOjA6MDowOjEifQ.6VGMhxguJ7vD-IN-GMG-weTMt82kJ7Qg2lXe12jTylo'},
                  contentType:"application/json",
              }
          )

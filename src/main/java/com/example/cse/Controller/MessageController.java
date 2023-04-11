@@ -10,6 +10,7 @@ import com.example.cse.Service.impl.SurfServiceImpl;
 import com.example.cse.Utils.Exception.NoDataException;
 import com.example.cse.Utils.Exception.WrongDataException;
 import com.example.cse.Vo.LatestMessages;
+import com.example.cse.Vo.MessageDelete;
 import com.example.cse.Vo.MessageIn;
 import com.example.cse.Vo.Vo;
 import io.swagger.annotations.Api;
@@ -114,14 +115,11 @@ public class MessageController {
             return new Vo<>(Vo.WrongPostParameter,"未知错误");
     }
 
-    @DeleteMapping("/Manager/{id}")
-    @ApiOperation(value = "管理员删除message",notes = "需要传入id,需要管理员权限")
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "id",value = "要删除的message编号",dataTypeClass = Integer.class,paramType = "path"),
-            @ApiImplicitParam(name = "out",value = "是否是过时的消息,0代表不是",dataTypeClass = Integer.class,paramType = "query",example = "0")
-    })
-    public Vo<String> deleteMessage(@PathVariable Integer id,@RequestParam Integer out) {
-        Integer integer = messageService.deleteMessage(id,out!=0);
+    @DeleteMapping("/Manager")
+    @ApiOperation(value = "管理员删除message",notes = "需要管理员权限")
+    @ApiImplicitParam(name = "messageDelete",value = "要删除的message专用结构体",dataTypeClass = MessageDelete.class,paramType = "body")
+    public Vo<String> deleteMessage(@RequestBody MessageDelete messageDelete) {
+        Integer integer = messageService.deleteMessage(messageDelete.getMid(), messageDelete.getOut()!=0);
         if (integer==1)
             return new Vo<>("删除成功");
         else
