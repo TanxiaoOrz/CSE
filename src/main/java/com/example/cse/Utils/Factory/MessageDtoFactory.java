@@ -54,7 +54,7 @@ public class MessageDtoFactory {
         averageMessage = average!=null?average:0;
         for (Message message:messages) {
             MessageDto messageDto = getMessageDto(message);
-            messageDto.setRankScore(timeScore,messageModel!=null? messageModel.get(message.getMid()):0,calculateSurfScore(messageDto),outTimeScore);
+            messageDto.setRankScore(timeScore,messageModel!=null? messageModel.get(message.getMid()):null,calculateSurfScore(messageDto),outTimeScore);
             showMessages.add(messageDto);
 
             timeScore = timeScore>0 ? timeScore-1: 0;
