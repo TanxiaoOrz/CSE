@@ -62,6 +62,7 @@ CREATE TABLE `cse`.`message` (
   `OutTime` DATETIME NULL comment '消息过时时间',
   `Time` JSON NULL comment '消息占用的时间',
   `message` JSON NULL comment '消息本体',
+  `resume` varchar(100) null  comment '消息简介',
   `AsBasicMessage` INT null DEFAULT 0 comment '是否被选为基本信息',
   `DeprecatedFlag` TINYINT NULL DEFAULT 0 comment '废弃标志',
   PRIMARY KEY (`Mid`),

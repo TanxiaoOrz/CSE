@@ -20,7 +20,7 @@
     </select>
 
     <insert id="newMessage" useGeneratedKeys="true" keyProperty="mid">
-        insert into message (Title, ReleaseTime, OutTime, Time, message) VALUES (#{title}, #{releaseTime}, #{outTime}, #{time},#{message})
+        insert into message (Title, ReleaseTime, OutTime, Time, message,Resume) VALUES (#{title}, #{releaseTime}, #{outTime}, #{time},#{message},#{resume})
     </insert>
 
     <update id="updateMessage">
@@ -30,7 +30,8 @@
                 <if test="releaseTime != null"> ReleaseTime = #{releaseTime}, </if>
                 <if test="outTime != null"> OutTime = #{outTime}, </if>
                 <if test="time != null"> Time = #{time}, </if>
-                <if test="message != null"> message = #{message} </if>
+                <if test="message != null"> message = #{message} ,</if>
+                <if test="resume != null">Resume = #{resume}</if>
             </set>
         where Mid = #{mid};
     </update>
