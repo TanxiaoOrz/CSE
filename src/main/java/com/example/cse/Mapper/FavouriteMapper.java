@@ -36,7 +36,7 @@ public interface FavouriteMapper {
     Integer newFavouriteInformationClass(@Param("Uid") Integer Uid,@Param("Cid") Integer Cid);
 
     @Insert("insert into favourite_location (Uid, `like`) VALUES (#{Uid},#{Lid})")
-    Integer newFavouriteLocation(@Param("Uid") Integer Uid,@Param("Cid") Integer Lid);
+    Integer newFavouriteLocation(@Param("Uid") Integer Uid,@Param("Lid") Integer Lid);
 
     @Delete("delete from favourite_message where Uid = #{Uid} and `like`= #{Mid}")
     Integer deleteFavouriteMessage(@Param("Uid") Integer Uid,@Param("Mid") Integer Mid);
