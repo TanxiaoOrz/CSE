@@ -1,6 +1,8 @@
 package com.example.cse.Task;
 
 import com.example.cse.Service.impl.ModelServiceImpl;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.scheduling.annotation.EnableScheduling;
@@ -16,6 +18,8 @@ public class CalculateTask {
 
     private int calculateDegree = MODIFY_HOBBY;
 
+    Logger logger = LoggerFactory.getLogger(getClass());
+
     public final static int REGENERATE_ALL = 0;
     public final static int REGENERATE_HOBBY = 1;
     public final static int MODIFY_ALL = 2;
@@ -26,6 +30,10 @@ public class CalculateTask {
 
     @Scheduled(cron = "0 1 3 * * ?")
     public void calculateModel() {
+        if (!calculateEnabled) {
+            logger.info("计算选项未启用");
+            return;
+        }
         switch (calculateDegree) {
             case REGENERATE_ALL:
                 modelService.regenerateHobbyModel();

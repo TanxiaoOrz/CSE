@@ -35,6 +35,8 @@ public class DeleteTask {
             logger.info("删除地点类数量：" + deleteLocation);
             Integer deleteCalender = deleteMapper.deleteCalender();
             logger.info("删除代办事务数量：" + deleteCalender);
+        }else {
+            logger.info("删除选项未启用");
         }
     }
 

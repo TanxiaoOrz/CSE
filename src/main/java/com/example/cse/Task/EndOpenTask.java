@@ -32,6 +32,10 @@ public class EndOpenTask {
     @Async
     @Scheduled(cron = "0 0 3 * * ?")
     public void Shutdown() {
+        if (!sleepEnabled) {
+            logger.info("休眠选项未启用");
+            return;
+        }
         webMvcConfig.setOpen(false);
         logger.info("后端服务器休眠自检");
     }
