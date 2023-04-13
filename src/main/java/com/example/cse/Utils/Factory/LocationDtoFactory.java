@@ -40,8 +40,12 @@ public class LocationDtoFactory {
 
     public LocationDto getLocationDto(Location location) {
         LocationDto locationDto = new LocationDto(location);
-        if (location.getBasicMessage() != null) {
-            locationDto.setBasicMessage(messageMapper.getMessageByRule(location.getBasicMessage(),null,null).get(0));
+        if (location.getBasicMessage() != null ) {
+            try {
+                locationDto.setBasicMessage(messageMapper.getMessageByRule(location.getBasicMessage(), null, null).get(0));
+            }catch (IndexOutOfBoundsException ignored){
+
+            }
         }
 
         locationDto.setKeyAndTypes(keyTypeMapper.getKeyAndTypeByLid(locationDto.getLid()));

@@ -43,7 +43,11 @@ public class InformationClassDtoFactory {
     public InformationClassDto getInformationClassDto(InformationClass informationClass) {
         InformationClassDto informationClassDto = new InformationClassDto(informationClass);
         if (informationClass.getBasicMessage() != null) {
-            informationClassDto.setBasicMessage(messageMapper.getMessageByRule(informationClass.getBasicMessage(),null,null).get(0));
+            try {
+                informationClassDto.setBasicMessage(messageMapper.getMessageByRule(informationClass.getBasicMessage(), null, null).get(0));
+            }catch (IndexOutOfBoundsException ignored){
+
+            }
         }
 
         informationClassDto.setLocation(locationMapper.getLocationByCid(informationClassDto.getCid()));
