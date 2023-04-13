@@ -107,34 +107,24 @@ CREATE TABLE `cse`.`location` (
   `Name` VARCHAR(45) NOT NULL comment '地点名',
   `Resume` VARCHAR(200) NULL comment '地点简介',
   `MapBelong` VARCHAR(200) NULL comment '所在地图',
-  `BasicMessage` INT NULL comment '简介消息id',
+  `BasicMessage` INT default 0 comment '简介消息id',
   `ImgHref` VARCHAR(200) NULL comment '介绍图片',
   `X` INT NULL comment '地图位置横轴',
   `Y` INT NULL comment '地图位置纵轴',
   `DeprecatedFlag` TINYINT NULL DEFAULT 0,
   PRIMARY KEY (`Lid`),
-  UNIQUE INDEX `Name_UNIQUE` (`Name` ASC) VISIBLE,
-  CONSTRAINT `LocationToBasicMessage`
-      FOREIGN KEY (`BasicMessage`)
-          REFERENCES `cse`.`message` (`Mid`)
-          ON DELETE NO ACTION
-          ON UPDATE NO ACTION) comment = '地点类';
+  UNIQUE INDEX `Name_UNIQUE` (`Name` ASC) VISIBLE) comment = '地点类';
 
 CREATE TABLE `cse`.`information_class` (
                                            `Cid` INT NOT NULL AUTO_INCREMENT comment '唯一id',
                                            `Name` VARCHAR(45) NOT NULL comment '信息类名',
                                            `Resume` VARCHAR(100) NULL comment '简介',
-                                           `BasicMessage` INT NULL comment '简介消息id',
+                                           `BasicMessage` INT default  0 comment '简介消息id',
                                            `Type` ENUM('比赛', '部门', '活动', '资源') NOT NULL comment '信息类类型',
                                            `ImgHref` VARCHAR(200) NULL comment '介绍图片',
                                            `DeprecatedFlag` VARCHAR(45) NULL,
                                            PRIMARY KEY (`Cid`),
-                                           UNIQUE INDEX `Name_UNIQUE` (`Name` ASC) VISIBLE,
-                                           CONSTRAINT `InformationClassToBasicMessage`
-                                               FOREIGN KEY (`BasicMessage`)
-                                                   REFERENCES `cse`.`message` (`Mid`)
-                                                   ON DELETE NO ACTION
-                                                   ON UPDATE NO ACTION) comment '信息类';
+                                           UNIQUE INDEX `Name_UNIQUE` (`Name` ASC) VISIBLE) comment '信息类';
 
 CREATE TABLE `cse`.`information_class_location` (
                                                     `Cid` INT NOT NULL comment '信息类id',
