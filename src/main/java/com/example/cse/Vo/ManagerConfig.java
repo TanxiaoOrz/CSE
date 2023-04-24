@@ -23,7 +23,7 @@ public class ManagerConfig {
     private Integer calculateDegree;
 
     public void checkValue() throws WrongDataException {
-        if (sleepEnabled&&(deleteEnabled||calculateEnabled))
+        if (!(sleepEnabled&&(deleteEnabled||calculateEnabled)))
             throw new  WrongDataException("定时休眠未开启");
         if (calculateDegree<0 || calculateDegree >4) {
             throw new WrongDataException("错误的模型计算等级设定");
