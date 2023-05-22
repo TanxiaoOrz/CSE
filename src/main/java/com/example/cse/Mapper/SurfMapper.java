@@ -56,10 +56,10 @@ public interface SurfMapper {
     @Select("select x.Kid as id,count(Surf) as counts  from surf_information_class,information_class_key as x where Surf in (select cid from information_class_key as link where link.Kid = x.kid) and Uid = #{Uid} and Time > date_sub(now(),interval 1 year) group by x.kid")
     List<SurfCounts> getSurfMostKeysCounts(@Param("Uid")Integer uid);
 
-    @Select("select Surf as id,count(Surf) as counts  from surf_information_class where Time > date_sub(now(),interval 1 year) group by Surf order by count(Surf) desc limit 5")
+    @Select("select Surf as id,count(Surf) as counts  from surf_information_class where Time > date_sub(now(),interval 1 year) group by Surf order by count(Surf) desc limit 10")
     List<SurfCounts> getSurfMostInformationClassesCountsAll();
 
-    @Select("select Surf as id,count(Surf) as counts  from surf_location where Time > date_sub(now(),interval 1 year) group by Surf order by count(Surf) desc limit 5")
+    @Select("select Surf as id,count(Surf) as counts  from surf_location where Time > date_sub(now(),interval 1 year) group by Surf order by count(Surf) desc limit 10")
     List<SurfCounts> getSurfMostLocationsCountsAll();
 
     @Select("select x.Kid as id,count(Surf) as counts  from surf_information_class,information_class_key as x where Surf in (select cid from information_class_key as link where link.Kid = x.kid) and Time > date_sub(now(),interval 1 year) group by x.kid")

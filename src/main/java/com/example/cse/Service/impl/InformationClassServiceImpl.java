@@ -1,17 +1,16 @@
 package com.example.cse.Service.impl;
 
 import com.example.cse.Dto.InformationClassDto;
+import com.example.cse.Dto.SurfCounts;
 import com.example.cse.Dto.UserDto;
 import com.example.cse.Entity.InformationClass.InformationClass;
-import com.example.cse.Mapper.FavouriteMapper;
-import com.example.cse.Mapper.InformationClassMapper;
-import com.example.cse.Mapper.KeyTypeMapper;
-import com.example.cse.Mapper.LocationMapper;
+import com.example.cse.Mapper.*;
 import com.example.cse.Service.InformationClassService;
 import com.example.cse.Utils.Exception.WrongDataException;
 import com.example.cse.Utils.Factory.InformationClassDtoFactory;
 import com.example.cse.Utils.SearchUtils;
 import com.example.cse.Vo.InformationClassIn;
+import com.example.cse.Vo.Suggest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -30,6 +29,8 @@ public class InformationClassServiceImpl implements InformationClassService {
     LocationMapper locationMapper;
     @Autowired
     InformationClassDtoFactory informationClassDtoFactory;
+    @Autowired
+    SurfMapper surfMapper;
 
     @Override
     public InformationClassDto getInformationClass(UserDto userDto, Integer cid, Integer limit) {
@@ -144,5 +145,32 @@ public class InformationClassServiceImpl implements InformationClassService {
         List<InformationClass> informationClasses = informationClassMapper.searchInformationClass(type, defaults, adds, minuses);
 
         return informationClassDtoFactory.getInformationClassDtosByRankScore(informationClasses,null);
+    }
+
+    @Override
+    public List<Suggest> getInformationClassWordCloud(UserDto userDto, Integer count, String type) {
+        List<SurfCounts> counts;
+        if (userDto == null) {
+            counts = surfMapper.getSurfMostInformationClassesCountsAll();
+        }else {
+            counts = surfMapper.getSurfMostInformationClassesCounts(userDto.getUid());
+        }
+        ArrayList<Suggest> suggests = new ArrayList<>(counts.size());
+
+        if (count != null && count < 10 && count >0) {  //数量过滤
+            counts = counts.subList(0,count);
+        }
+
+        counts.forEach(surfCounts -> {
+            InformationClass informationClass = informationClassMapper.getInformationClassByRule(surfCounts.getId(), null, null).get(0);
+            if (type == null || type.equals(informationClass.getType())) {  //类型过滤
+                Suggest suggest = new Suggest();
+                suggest.setId(surfCounts.getId());
+                suggest.setValue(surfCounts.getCounts());
+                suggest.setName(informationClass.getName());
+                suggests.add(suggest);
+            }
+        });
+        return suggests;
     }
 }

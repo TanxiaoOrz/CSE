@@ -1,27 +1,22 @@
 package com.example.cse.Controller;
 
 import com.example.cse.Dto.InformationClassDto;
-import com.example.cse.Dto.LocationDto;
-import com.example.cse.Dto.MessageDto;
 import com.example.cse.Dto.UserDto;
-import com.example.cse.Entity.InformationClass.InformationClass;
 import com.example.cse.Entity.InformationClass.Location;
-import com.example.cse.Service.InformationClassService;
 import com.example.cse.Service.SurfService;
 import com.example.cse.Service.impl.InformationClassServiceImpl;
-import com.example.cse.Service.impl.MessageServiceImpl;
 import com.example.cse.Service.impl.SurfServiceImpl;
 import com.example.cse.Utils.Exception.WrongDataException;
 import com.example.cse.Vo.InformationClassIn;
-import com.example.cse.Vo.MessageIn;
+import com.example.cse.Vo.Suggest;
 import com.example.cse.Vo.Vo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.repository.query.Param;
 import org.springframework.web.bind.annotation.*;
+import springfox.documentation.annotations.ApiIgnore;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
@@ -119,5 +114,16 @@ public class InformationClassController {
             return new Vo<>("删除成功");
         else
             return new Vo<>(Vo.WrongPostParameter,"未知编号");
+    }
+
+    @GetMapping("/wordCloud")
+    @ApiOperation(value = "获取词云数据结构体",notes = "根据用户自己的浏览次数设置分值，未登录采用全局")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "count", value = "要展示informationClass数量,没有就是10", dataTypeClass = Integer.class, paramType = "query"),
+                    @ApiImplicitParam(name = "type", value = "要展示informationClass类型限定，没有就是不限", dataTypeClass = String.class, paramType = "query")
+    })
+    public Vo<List<Suggest>> getInformationClassWordCloud(@ApiIgnore @RequestAttribute(value = "UserDto",required = false)UserDto userDto,
+                                                          @RequestParam(required = false) Integer count,@RequestParam(required = false) String type) {
+        return new Vo<>(informationClassService.getInformationClassWordCloud(userDto,count,type));
     }
 }
