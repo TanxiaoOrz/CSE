@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 
+import java.util.HashMap;
 import java.util.List;
 
 @Mapper
@@ -65,6 +66,11 @@ public interface SurfMapper {
     @Select("select x.Kid as id,count(Surf) as counts  from surf_information_class,information_class_key as x where Surf in (select cid from information_class_key as link where link.Kid = x.kid) and Time > date_sub(now(),interval 1 year) group by x.kid")
     List<SurfCounts> getSurfMostKeysCountsAll();
 
+    @Select("select count(*) from surf_location where Time > date_add(date_sub(current_date(),interval #{Length}+1 day),interval #{Hours} hour) and Time <date_add(date_sub(current_date(),interval #{Length}+1 day),interval #{Hours}+1 hour)")
+    Integer getSurfTimesInDaysBefore(@Param("Length")Integer length,@Param("Hours")Integer hours);
+
+    @Select("select Surf as id,count(Surf) as counts  from surf_information_class where Time > date_sub(current_date(),interval #{Length}+1 day) and Time <date_sub(current_date(),interval #{Length} day) group by Surf order by Surf")
+    List<SurfCounts> getSurfTimesInformationClassInDaysBefore(@Param("Length")Integer length);
 
     Integer getCountKeyByUser(@Param("Uids") List<Integer> uids,@Param("Kid") Integer kid);
 }

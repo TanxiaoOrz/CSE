@@ -12,13 +12,14 @@ import com.example.cse.Task.EndOpenTask;
 import com.example.cse.Utils.Exception.WrongDataException;
 import com.example.cse.Vo.ManagerConfig;
 import com.example.cse.Vo.SurfMost;
+import com.example.cse.Vo.TimeSurfInformationClass;
 import com.example.cse.Vo.UserPass;
+import io.swagger.annotations.ApiModelProperty;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 @Service
 public class ManagerServiceImpl implements ManagerService {
@@ -117,7 +118,63 @@ public class ManagerServiceImpl implements ManagerService {
             informationClassCounts.add(informationClass.getCounts());
             informationClasses.add(informationClassMapper.getInformationClassByRule(informationClass.getId(),null,null).get(0));
         }
+
         return new SurfMost(informationClassCounts,locationCounts,keyCounts,informationClasses,locations,keyAndTypes);
+    }
+
+    @Override
+    public TimeSurfInformationClass getTimeChangeSurfInformationClass() {
+        TimeSurfInformationClass ret = new TimeSurfInformationClass();
+        Calendar calendar = Calendar.getInstance();
+        calendar.add(Calendar.DATE,-7);
+        List<String> timeName = new ArrayList<>(7);
+        List<List<Integer>> surfTimes = new ArrayList<>(7);
+        List<InformationClass> informationClasses = informationClassMapper.getInformationClassByRule(null,null,null);
+        for (int i = 6; i >= 0; i--) {
+            timeName.add(calendar.getTime().toString());
+            calendar.add(Calendar.DATE,1);
+            List<Integer> surfOfDay = new ArrayList<>(informationClasses.size());
+            List<SurfCounts> surfCountsList = surfMapper.getSurfTimesInformationClassInDaysBefore(i);
+            if (surfCountsList.size()==0) {
+                for (int j = 0; j < informationClasses.size(); j++) {
+                    surfOfDay.add(0);
+                }
+            }
+            surfCountsList.forEach(surfCounts -> {
+                while (surfOfDay.size()<surfCounts.getId()-1) {
+                    surfOfDay.add(0);
+                }
+                surfOfDay.add(surfCounts.getCounts());
+            });
+            surfTimes.add(surfOfDay);
+        }
+        ret.setInformationClasses(informationClasses);
+        ret.setSurfTimes(surfTimes);
+        ret.setTimeName(timeName);
+        return ret;
+    }
+
+    @Override
+    public List<List<Integer>> getSurfTime() {
+        Calendar calendar = Calendar.getInstance();
+        int i = calendar.get(Calendar.DAY_OF_WEEK);
+        ArrayList<List<Integer>> ret = new ArrayList<>(7*24);
+        for (int weekDay = 0; weekDay < 7; weekDay++) {
+            for (int hour = 0; hour < 24; hour++) {
+                ArrayList<Integer> hourGroup = new ArrayList<>(3);
+                int length =(7 + i - weekDay) % 7;
+                hourGroup.add(weekDay);
+                hourGroup.add(hour);
+                Integer times = surfMapper.getSurfTimesInDaysBefore(length, hour);
+                if (times==0)
+                    hourGroup.add(0);
+                else {
+                    hourGroup.add((int) Math.log(times));
+                }
+                ret.add(hourGroup);
+            }
+        }
+        return ret;
     }
 
 
