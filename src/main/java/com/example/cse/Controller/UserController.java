@@ -1,22 +1,22 @@
 package com.example.cse.Controller;
 
 import com.example.cse.Dto.UserDto;
+import com.example.cse.Entity.UserClass.User;
 import com.example.cse.Service.impl.UserServiceImpl;
 import com.example.cse.Utils.Exception.NoDataException;
-import com.example.cse.Vo.SurfMost;
-import com.example.cse.Vo.UserCreate;
-import com.example.cse.Vo.UserBasic;
-import com.example.cse.Vo.Vo;
+import com.example.cse.Vo.*;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import springfox.documentation.annotations.ApiIgnore;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 @RestController
-@Api(tags = "User接口", description = "除新建外需要Token验证")
+@Api(tags = "User接口")
 @RequestMapping("/cse/User")
 @CrossOrigin
 public class UserController {
@@ -55,5 +55,11 @@ public class UserController {
     @ApiOperation(value = "获取访问最多的数据",notes = "需要经过token验证")
     public Vo<SurfMost> getUserMost(HttpServletRequest request) {
         return new Vo<>(userService.getUserSurfMost((UserDto) request.getAttribute("UserDto")));
+    }
+
+    @GetMapping("/suggest")
+    @ApiOperation(value = "获得推荐模型可视化数据:关键词",notes = "需要经过token验证")
+    public Vo<List<Suggest>> getUserSuggestKey(@ApiIgnore @RequestAttribute("UserDto")UserDto userDto) {
+        return new Vo<>(userService.getUserSuggestKey(userDto));
     }
 }

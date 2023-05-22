@@ -3,11 +3,10 @@ package com.example.cse.Service;
 import com.example.cse.Dto.SurfCounts;
 import com.example.cse.Dto.UserDto;
 import com.example.cse.Utils.Exception.NoDataException;
-import com.example.cse.Vo.SurfMost;
-import com.example.cse.Vo.UserBasic;
-import com.example.cse.Vo.UserCreate;
-import com.example.cse.Vo.UserPass;
+import com.example.cse.Vo.*;
 import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 public interface UserService {
 
@@ -20,5 +19,7 @@ public interface UserService {
     Integer updateUser(UserBasic newUser, UserDto oldUser) throws NoDataException;
 
     SurfMost getUserSurfMost(UserDto userDto);
+
+    List<Suggest> getUserSuggestKey(UserDto userDto);
 
 }

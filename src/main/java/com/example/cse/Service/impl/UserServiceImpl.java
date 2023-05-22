@@ -23,6 +23,7 @@ import org.springframework.util.StringUtils;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.concurrent.ConcurrentHashMap;
 
 
 @Service
@@ -169,6 +170,22 @@ public class UserServiceImpl implements UserService{
             informationClasses.add(informationClassMapper.getInformationClassByRule(informationClass.getId(),null,null).get(0));
         }
         return new SurfMost(informationClassCounts,locationCounts,keyCounts,informationClasses,locations,keyAndTypes);
+    }
+
+    @Override
+    public List<Suggest> getUserSuggestKey(UserDto userDto) {
+        ConcurrentHashMap<Integer, Integer> keywordModels = userDto.getKeywordModels();
+
+        ArrayList<Suggest> keys = new ArrayList<>();
+        for (Integer kid:
+        keywordModels.keySet()) {
+            Suggest suggest = new Suggest();
+            suggest.setId(kid);
+            suggest.setName(keyTypeMapper.getKeyNameByKid(kid));
+            suggest.setValue(keywordModels.get(kid));
+            keys.add(suggest);
+        }
+        return keys;
     }
 
 
