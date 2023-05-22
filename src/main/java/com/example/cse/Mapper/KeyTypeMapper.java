@@ -18,7 +18,7 @@ public interface KeyTypeMapper {
     @Select("select keyword.Kid, keyword.KeyResume, keyword.KeyName, TypeName,TypeResume from keyword,keyword_type where Kid = #{Kid} and keyword.KeywordType = keyword_type.Tid")
     KeyAndType getKeyAndTypeByKid(@Param("Kid")Integer Kid);
 
-    @Select("select keyword.KeyName from keyword where Kid = #{Kid}")
+    @Select("select concat(keyword_type.TypeName,':',keyword.KeyName) from keyword,keyword_type where Kid = #{Kid} and keyword.KeywordType = keyword_type.Tid")
     String getKeyNameByKid(@Param("Kid")Integer Kid);
 
     @Insert("insert into information_class_key (Cid, Kid) VALUES (#{Cid}, #{Kid})")
