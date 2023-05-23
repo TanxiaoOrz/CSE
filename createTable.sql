@@ -326,6 +326,18 @@ CREATE TABLE `cse`.`year_basic_model` (
                                           PRIMARY KEY (`Year`, `Bid`))
     COMMENT = '年级对应的模型表';
 
+CREATE TABLE `cse`.`information_class_echarts` (
+    `Cid` Int not null comment `对应信息类的唯一id`,
+    `Lists` JSON not null comment `echarts图标数据的json格式化`,
+    `StartYear` int null comment `比赛类的开始年份`,
+    PRIMARY Key(`Cid`),
+    CONSTRAINT `EchartsToInformationClass`
+        FOREIGN Key(`Cid`)
+            REFERENCES `cse`.`information_class` (`Cid`)
+            ON DELETE No ACTION
+            ON UPDATE No ACTION) comment = '信息类的echarts可视化存储表';
+)
+
 
 -- 触发器创建
 DELIMITER $$
