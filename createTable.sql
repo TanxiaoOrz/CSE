@@ -336,7 +336,6 @@ CREATE TABLE `cse`.`information_class_echarts` (
             REFERENCES `cse`.`information_class` (`Cid`)
             ON DELETE No ACTION
             ON UPDATE No ACTION) comment = '信息类的echarts可视化存储表';
-)
 
 
 -- 触发器创建
