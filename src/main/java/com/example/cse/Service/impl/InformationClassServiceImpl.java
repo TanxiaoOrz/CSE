@@ -191,6 +191,7 @@ public class InformationClassServiceImpl implements InformationClassService {
             return null;
         }
         switch (type) {
+            case "资源":
             case "活动":
                 ret.setList(echartData);
                 break;
@@ -208,7 +209,6 @@ public class InformationClassServiceImpl implements InformationClassService {
                 }
                 ret.setListGroup(echartData);
                 break;
-            case "资源":
             case "部门":
                 ret.setListGroup(echartData);
                 break;
