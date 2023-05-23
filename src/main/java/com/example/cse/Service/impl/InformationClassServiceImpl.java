@@ -201,9 +201,9 @@ public class InformationClassServiceImpl implements InformationClassService {
                     return null;
                 } else {
                     ArrayList<String> years = new ArrayList<>();
-                    int i = Calendar.getInstance().get(Calendar.YEAR);
-                    for (int j = startYear; j <= i; j++) {
-                        years.add(String.valueOf(j));
+                    int size = new Gson().fromJson(echartData,Integer[][].class).length;
+                    for (int j = 0; j < size; j++) {
+                        years.add(String.valueOf(j+startYear));
                     }
                     ret.setNameList(new Gson().toJson(years));
                 }

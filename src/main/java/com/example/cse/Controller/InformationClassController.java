@@ -139,7 +139,7 @@ public class InformationClassController {
     @ApiOperation(value = "获取该id对象的echarts图标数据", notes = "无需验证，可能会data是null代表该id无对应类型的图表数据")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "id", value = "对应InformationClass的编号", dataTypeClass = Integer.class, paramType = "path"),
-            @ApiImplicitParam(name = "type", value = "信息类中类型限定,可以没有", dataTypeClass = String.class, paramType = "query")
+            @ApiImplicitParam(name = "type", value = "信息类中类型限定", dataTypeClass = String.class, paramType = "query")
     })
     public Vo<InformationClassEcharts> getInformationClassEcharts(@PathVariable Integer id, @RequestParam String type)
             throws WrongDataException {
