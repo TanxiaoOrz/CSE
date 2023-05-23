@@ -4,6 +4,7 @@ import com.example.cse.Dto.InformationClassDto;
 import com.example.cse.Dto.UserDto;
 import com.example.cse.Entity.InformationClass.InformationClass;
 import com.example.cse.Utils.Exception.WrongDataException;
+import com.example.cse.Vo.InformationClassEcharts;
 import com.example.cse.Vo.InformationClassIn;
 import com.example.cse.Vo.Suggest;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -19,9 +20,12 @@ public interface InformationClassService {
 
     Integer deleteInformationClass(Integer cid);
 
-    List<InformationClassDto> getInformationClassesShow(UserDto userDto, Integer classLimit, Integer messageLimit, String type);
+    List<InformationClassDto> getInformationClassesShow(UserDto userDto, Integer classLimit, Integer messageLimit,
+            String type);
 
-    List<InformationClassDto> searchInformationClasses(String type,String search);
+    List<InformationClassDto> searchInformationClasses(String type, String search);
 
     List<Suggest> getInformationClassWordCloud(UserDto userDto, Integer count, String type);
+
+    InformationClassEcharts getEcharts(Integer id, String type) throws WrongDataException;
 }

@@ -6,15 +6,20 @@ import com.example.cse.Dto.UserDto;
 import com.example.cse.Entity.InformationClass.InformationClass;
 import com.example.cse.Mapper.*;
 import com.example.cse.Service.InformationClassService;
+import com.example.cse.Utils.Exception.NoDataException;
 import com.example.cse.Utils.Exception.WrongDataException;
 import com.example.cse.Utils.Factory.InformationClassDtoFactory;
 import com.example.cse.Utils.SearchUtils;
+import com.example.cse.Vo.InformationClassEcharts;
 import com.example.cse.Vo.InformationClassIn;
 import com.example.cse.Vo.Suggest;
+import com.google.gson.Gson;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 @Service
@@ -34,15 +39,17 @@ public class InformationClassServiceImpl implements InformationClassService {
 
     @Override
     public InformationClassDto getInformationClass(UserDto userDto, Integer cid, Integer limit) {
-        InformationClass informationClass = informationClassMapper.getInformationClassByRule(cid,null,null).get(0);
+        InformationClass informationClass = informationClassMapper.getInformationClassByRule(cid, null, null).get(0);
 
         InformationClassDto informationClassDto = informationClassDtoFactory.getInformationClassDto(informationClass);
 
-        informationClassDtoFactory.calculateShowMessages(informationClassDto,userDto,limit);
+        informationClassDtoFactory.calculateShowMessages(informationClassDto, userDto, limit);
         if (userDto == null) {
             informationClassDto.setIsFavourite(0);
-        }else
-            informationClassDto.setIsFavourite(favouriteMapper.getFavouriteCidByUid(userDto.getUid()).contains(informationClassDto.getCid())?1:0);
+        } else
+            informationClassDto.setIsFavourite(
+                    favouriteMapper.getFavouriteCidByUid(userDto.getUid()).contains(informationClassDto.getCid()) ? 1
+                            : 0);
         return informationClassDto;
     }
 
@@ -51,8 +58,8 @@ public class InformationClassServiceImpl implements InformationClassService {
         informationClass.setZeroToNull();
 
         Integer integer = informationClassMapper.newInformationClass(informationClass);
-        for (Integer kid:informationClass.getKeyAndTypes()) {
-            keyTypeMapper.newKeyAndTypeLink(informationClass.getCid(),kid);
+        for (Integer kid : informationClass.getKeyAndTypes()) {
+            keyTypeMapper.newKeyAndTypeLink(informationClass.getCid(), kid);
         }
         return integer;
     }
@@ -74,10 +81,10 @@ public class InformationClassServiceImpl implements InformationClassService {
             ArrayList<Integer> insert = new ArrayList<>(keys);
             insert.removeAll(olds);
             for (Integer kid : delete) {
-                integer += keyTypeMapper.deleteKeyAndTypeLink(informationClass.getCid(),kid);
+                integer += keyTypeMapper.deleteKeyAndTypeLink(informationClass.getCid(), kid);
             }
             for (Integer kid : insert) {
-                integer += keyTypeMapper.newKeyAndTypeLink(informationClass.getCid(),kid);
+                integer += keyTypeMapper.newKeyAndTypeLink(informationClass.getCid(), kid);
             }
         }
 
@@ -105,7 +112,8 @@ public class InformationClassServiceImpl implements InformationClassService {
     }
 
     @Override
-    public List<InformationClassDto> getInformationClassesShow(UserDto userDto, Integer classLimit, Integer messageLimit, String type) {
+    public List<InformationClassDto> getInformationClassesShow(UserDto userDto, Integer classLimit,
+            Integer messageLimit, String type) {
 
         List<InformationClass> types = informationClassMapper.searchInformationClass(type, null, null, null);
         List<InformationClassDto> dtos = informationClassDtoFactory.getInformationClassDtosByRankScore(types, userDto);
@@ -113,10 +121,10 @@ public class InformationClassServiceImpl implements InformationClassService {
 
         int count = 0;
 
-        for (InformationClassDto informationClassDto: dtos) {
-            if (informationClassDtoFactory.calculateShowMessages(informationClassDto,userDto,messageLimit)) {
+        for (InformationClassDto informationClassDto : dtos) {
+            if (informationClassDtoFactory.calculateShowMessages(informationClassDto, userDto, messageLimit)) {
                 count++;
-            }else {
+            } else {
                 deletes.add(informationClassDto);
             }
             if (count == classLimit)
@@ -126,13 +134,12 @@ public class InformationClassServiceImpl implements InformationClassService {
         if (!deletes.isEmpty())
             dtos.removeAll(deletes);
 
-        if (dtos.size()<classLimit)
+        if (dtos.size() < classLimit)
             return dtos;
         else
-            return dtos.subList(0,classLimit);
+            return dtos.subList(0, classLimit);
 
     }
-
 
     @Override
     public List<InformationClassDto> searchInformationClasses(String type, String search) {
@@ -140,11 +147,12 @@ public class InformationClassServiceImpl implements InformationClassService {
         List<String> minuses = new ArrayList<>();
         List<String> defaults = new ArrayList<>();
 
-        SearchUtils.splitSearch(search,adds,minuses,defaults);
+        SearchUtils.splitSearch(search, adds, minuses, defaults);
 
-        List<InformationClass> informationClasses = informationClassMapper.searchInformationClass(type, defaults, adds, minuses);
+        List<InformationClass> informationClasses = informationClassMapper.searchInformationClass(type, defaults, adds,
+                minuses);
 
-        return informationClassDtoFactory.getInformationClassDtosByRankScore(informationClasses,null);
+        return informationClassDtoFactory.getInformationClassDtosByRankScore(informationClasses, null);
     }
 
     @Override
@@ -152,18 +160,19 @@ public class InformationClassServiceImpl implements InformationClassService {
         List<SurfCounts> counts;
         if (userDto == null) {
             counts = surfMapper.getSurfMostInformationClassesCountsAll();
-        }else {
+        } else {
             counts = surfMapper.getSurfMostInformationClassesCounts(userDto.getUid());
         }
         ArrayList<Suggest> suggests = new ArrayList<>(counts.size());
 
-        if (count != null && count < 10 && count >0) {  //数量过滤
-            counts = counts.subList(0,count);
+        if (count != null && count < 10 && count > 0) { // 数量过滤
+            counts = counts.subList(0, count);
         }
 
         counts.forEach(surfCounts -> {
-            InformationClass informationClass = informationClassMapper.getInformationClassByRule(surfCounts.getId(), null, null).get(0);
-            if (type == null || type.equals(informationClass.getType())) {  //类型过滤
+            InformationClass informationClass = informationClassMapper
+                    .getInformationClassByRule(surfCounts.getId(), null, null).get(0);
+            if (type == null || type.equals(informationClass.getType())) { // 类型过滤
                 Suggest suggest = new Suggest();
                 suggest.setId(surfCounts.getId());
                 suggest.setValue(surfCounts.getCounts());
@@ -172,5 +181,40 @@ public class InformationClassServiceImpl implements InformationClassService {
             }
         });
         return suggests;
+    }
+
+    @Override
+    public InformationClassEcharts getEcharts(Integer id, String type) throws WrongDataException {
+        InformationClassEcharts ret = new InformationClassEcharts();
+        String echartData = informationClassMapper.getEchartData(id);
+        if (echartData == null) {
+            return null;
+        }
+        switch (type) {
+            case "活动":
+                ret.setList(echartData);
+                break;
+            case "比赛":
+                Integer startYear = informationClassMapper.getEchartStartYear(id);
+                if (startYear == null) {
+                    return null;
+                } else {
+                    ArrayList<String> years = new ArrayList<>();
+                    int i = Calendar.getInstance().get(Calendar.YEAR);
+                    for (int j = startYear; j <= i; j++) {
+                        years.add(String.valueOf(j));
+                    }
+                    ret.setNameList(new Gson().toJson(years));
+                }
+                ret.setListGroup(echartData);
+                break;
+            case "资源":
+            case "部门":
+                ret.setListGroup(echartData);
+                break;
+            default:
+                throw new WrongDataException("错误的类型选择" + type);
+        }
+        return ret;
     }
 }
