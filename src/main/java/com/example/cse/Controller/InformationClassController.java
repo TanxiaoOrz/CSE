@@ -76,12 +76,14 @@ public class InformationClassController {
     @ApiOperation(value = "获取全部information接口", notes = "获取informationClass的展示结构体,如果有搜索字符串按字符串规则筛选")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "search", value = "搜索字符串", dataTypeClass = String.class, paramType = "query"),
-            @ApiImplicitParam(name = "type", value = "类型限定", dataTypeClass = String.class, paramType = "query")
+            @ApiImplicitParam(name = "type", value = "类型限定", dataTypeClass = String.class, paramType = "query"),
+            @ApiImplicitParam(name = "keyId", value = "关键词限定id", dataTypeClass = Integer.class, paramType = "query")
     })
-
     public Vo<List<InformationClassDto>> searchInformationClass(@RequestParam(required = false) String search,
-            @RequestParam(required = false) String type) {
-        List<InformationClassDto> informationClassDtos = informationClassService.searchInformationClasses(type, search);
+            @RequestParam(required = false) String type,
+            @RequestParam(required = false) Integer keyId) {
+        List<InformationClassDto> informationClassDtos = informationClassService.searchInformationClasses(type, search,
+                keyId);
         return new Vo<>(informationClassDtos);
     }
 

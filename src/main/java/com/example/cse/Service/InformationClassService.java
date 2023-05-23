@@ -23,7 +23,7 @@ public interface InformationClassService {
     List<InformationClassDto> getInformationClassesShow(UserDto userDto, Integer classLimit, Integer messageLimit,
             String type);
 
-    List<InformationClassDto> searchInformationClasses(String type, String search);
+    List<InformationClassDto> searchInformationClasses(String type, String search, Integer keyId);
 
     List<Suggest> getInformationClassWordCloud(UserDto userDto, Integer count, String type);
 

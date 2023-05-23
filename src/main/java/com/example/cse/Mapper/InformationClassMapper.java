@@ -21,7 +21,8 @@ public interface InformationClassMapper {
         List<InformationClass> searchInformationClass(@Param("Type") String type,
                         @Param("Defaults") List<String> defaults,
                         @Param("Adds") List<String> adds,
-                        @Param("Minuses") List<String> minuses);
+                        @Param("Minuses") List<String> minuses,
+                        @Param("KeyId") Integer keyId);
 
         @Insert("insert into information_class_location (Cid, Lid) VALUES (#{Cid}, #{Lid})")
         Integer newInformationClassRelationLocation(@Param("Lid") Integer lid, @Param("Cid") Integer cid);

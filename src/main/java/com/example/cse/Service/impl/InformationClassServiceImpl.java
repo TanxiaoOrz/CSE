@@ -115,7 +115,7 @@ public class InformationClassServiceImpl implements InformationClassService {
     public List<InformationClassDto> getInformationClassesShow(UserDto userDto, Integer classLimit,
             Integer messageLimit, String type) {
 
-        List<InformationClass> types = informationClassMapper.searchInformationClass(type, null, null, null);
+        List<InformationClass> types = informationClassMapper.searchInformationClass(type, null, null, null, null);
         List<InformationClassDto> dtos = informationClassDtoFactory.getInformationClassDtosByRankScore(types, userDto);
         List<InformationClassDto> deletes = new ArrayList<>();
 
@@ -142,7 +142,7 @@ public class InformationClassServiceImpl implements InformationClassService {
     }
 
     @Override
-    public List<InformationClassDto> searchInformationClasses(String type, String search) {
+    public List<InformationClassDto> searchInformationClasses(String type, String search, Integer keyId) {
         List<String> adds = new ArrayList<>();
         List<String> minuses = new ArrayList<>();
         List<String> defaults = new ArrayList<>();
@@ -150,7 +150,7 @@ public class InformationClassServiceImpl implements InformationClassService {
         SearchUtils.splitSearch(search, adds, minuses, defaults);
 
         List<InformationClass> informationClasses = informationClassMapper.searchInformationClass(type, defaults, adds,
-                minuses);
+                minuses, keyId);
 
         return informationClassDtoFactory.getInformationClassDtosByRankScore(informationClasses, null);
     }

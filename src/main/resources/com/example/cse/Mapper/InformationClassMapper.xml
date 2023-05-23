@@ -39,6 +39,9 @@
             <if test="Type!=null">
                 Type = #{Type}
             </if>
+            <if test="KeyId!=null">
+                Cid in (select Cid from information_class_key where Kid = #{KeyId})
+            </if>
             <if test="Adds!=null and Adds.size > 0" >
                  <foreach collection="Adds" item="Add" open="and concat(Name,Resume) regexp concat_ws('&amp;'," close=")" separator=",">
                     #{Add}
