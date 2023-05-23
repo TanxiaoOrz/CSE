@@ -2,12 +2,10 @@ package com.example.cse.Service;
 
 import com.example.cse.Dto.InformationClassDto;
 import com.example.cse.Dto.UserDto;
-import com.example.cse.Entity.InformationClass.InformationClass;
 import com.example.cse.Utils.Exception.WrongDataException;
 import com.example.cse.Vo.InformationClassEcharts;
 import com.example.cse.Vo.InformationClassIn;
 import com.example.cse.Vo.Suggest;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 

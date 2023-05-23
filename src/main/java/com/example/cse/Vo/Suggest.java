@@ -1,10 +1,7 @@
 package com.example.cse.Vo;
 
-import com.example.cse.Entity.Recommend.KeyAndType;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-
-import java.util.List;
 
 @ApiModel(value = "Suggest",description = "推荐制表返回实体")
 public class Suggest {

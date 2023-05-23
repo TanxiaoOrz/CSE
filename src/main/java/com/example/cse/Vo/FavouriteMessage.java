@@ -1,6 +1,5 @@
 package com.example.cse.Vo;
 
-import com.example.cse.Entity.InformationClass.Message;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 

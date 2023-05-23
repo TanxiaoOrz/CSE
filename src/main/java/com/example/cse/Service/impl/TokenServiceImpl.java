@@ -8,12 +8,9 @@ import com.example.cse.Dto.UserDto;
 import com.example.cse.Mapper.UserMapper;
 import com.example.cse.Service.TokenService;
 import com.example.cse.Utils.CacheUtils;
-import com.google.gson.Gson;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.data.redis.core.StringRedisTemplate;
-import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;

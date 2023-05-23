@@ -1,9 +1,7 @@
 package com.example.cse.Service;
 
-import com.example.cse.Dto.InformationClassDto;
 import com.example.cse.Dto.LocationDto;
 import com.example.cse.Dto.UserDto;
-import com.example.cse.Entity.InformationClass.Location;
 import com.example.cse.Utils.Exception.WrongDataException;
 import com.example.cse.Vo.LocationIn;
 

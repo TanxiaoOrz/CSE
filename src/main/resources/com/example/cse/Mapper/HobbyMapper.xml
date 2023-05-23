@@ -4,7 +4,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.cse.Mapper.HobbyMapper">
     <insert id="newHobby">
-        insert into cse.hobby (Description, Name, Type, HobbyModel) VALUES (#{Description}, #{Name}, #{Type}, #{HobbyModel})
+        insert into cse.hobby (Description, Name, Type, Model) VALUES (#{Description}, #{Name}, #{Type}, #{HobbyModel})
     </insert>
     <select id="getHobbyByRule" resultType="com.example.cse.Entity.Recommend.Hobby">
         select * from hobby

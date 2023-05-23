@@ -6,7 +6,6 @@ import com.example.cse.Dto.UserDto;
 import com.example.cse.Entity.InformationClass.InformationClass;
 import com.example.cse.Mapper.*;
 import com.example.cse.Service.InformationClassService;
-import com.example.cse.Utils.Exception.NoDataException;
 import com.example.cse.Utils.Exception.WrongDataException;
 import com.example.cse.Utils.Factory.InformationClassDtoFactory;
 import com.example.cse.Utils.SearchUtils;
@@ -19,7 +18,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 
 @Service
@@ -186,14 +184,14 @@ public class InformationClassServiceImpl implements InformationClassService {
     @Override
     public InformationClassEcharts getEcharts(Integer id, String type) throws WrongDataException {
         InformationClassEcharts ret = new InformationClassEcharts();
-        String echartData = informationClassMapper.getEchartData(id);
-        if (echartData == null) {
+        String chartData = informationClassMapper.getEchartData(id);
+        if (chartData == null) {
             return null;
         }
         switch (type) {
             case "资源":
             case "活动":
-                ret.setList(echartData);
+                ret.setList(chartData);
                 break;
             case "比赛":
                 Integer startYear = informationClassMapper.getEchartStartYear(id);
@@ -201,16 +199,16 @@ public class InformationClassServiceImpl implements InformationClassService {
                     return null;
                 } else {
                     ArrayList<String> years = new ArrayList<>();
-                    int size = new Gson().fromJson(echartData,Integer[][].class).length;
+                    int size = new Gson().fromJson(chartData,Integer[][].class).length;
                     for (int j = 0; j < size; j++) {
                         years.add(String.valueOf(j+startYear));
                     }
                     ret.setNameList(new Gson().toJson(years));
                 }
-                ret.setListGroup(echartData);
+                ret.setListGroup(chartData);
                 break;
             case "部门":
-                ret.setListGroup(echartData);
+                ret.setListGroup(chartData);
                 break;
             default:
                 throw new WrongDataException("错误的类型选择" + type);

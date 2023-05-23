@@ -4,7 +4,6 @@ import com.example.cse.Dto.InformationClassDto;
 import com.example.cse.Dto.MessageDto;
 import com.example.cse.Dto.UserDto;
 import com.example.cse.Entity.InformationClass.InformationClass;
-import com.example.cse.Entity.InformationClass.Message;
 import com.example.cse.Mapper.KeyTypeMapper;
 import com.example.cse.Mapper.LocationMapper;
 import com.example.cse.Mapper.MessageMapper;
@@ -14,7 +13,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 @Component

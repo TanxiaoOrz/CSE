@@ -2,7 +2,6 @@ package com.example.cse.Service;
 
 import com.auth0.jwt.interfaces.DecodedJWT;
 import com.example.cse.Dto.UserDto;
-import com.example.cse.Entity.UserClass.User;
 
 import javax.servlet.http.HttpServletRequest;
 

@@ -13,10 +13,7 @@ import com.example.cse.Utils.CacheUtils;
 import com.example.cse.Utils.Exception.NoDataException;
 import com.example.cse.Utils.Factory.ModelDtoFactory;
 import com.example.cse.Vo.*;
-import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.redis.core.StringRedisTemplate;
-import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 

@@ -1,8 +1,6 @@
 package com.example.cse.Vo;
 
 import com.example.cse.Dto.HobbyDto;
-import com.example.cse.Entity.Recommend.Hobby;
-import com.example.cse.Mapper.HobbyMapper;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 

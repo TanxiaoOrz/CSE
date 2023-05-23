@@ -14,7 +14,6 @@ import com.example.cse.Vo.ManagerConfig;
 import com.example.cse.Vo.SurfMost;
 import com.example.cse.Vo.TimeSurfInformationClass;
 import com.example.cse.Vo.UserPass;
-import io.swagger.annotations.ApiModelProperty;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;

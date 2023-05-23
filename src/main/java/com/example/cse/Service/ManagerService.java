@@ -1,6 +1,5 @@
 package com.example.cse.Service;
 
-import com.example.cse.Dto.UserDto;
 import com.example.cse.Utils.Exception.WrongDataException;
 import com.example.cse.Vo.ManagerConfig;
 import com.example.cse.Vo.SurfMost;

@@ -2,7 +2,6 @@ package com.example.cse.Service.impl;
 
 import com.example.cse.Dto.LocationDto;
 import com.example.cse.Dto.UserDto;
-import com.example.cse.Entity.InformationClass.InformationClass;
 import com.example.cse.Entity.InformationClass.Location;
 import com.example.cse.Mapper.FavouriteMapper;
 import com.example.cse.Mapper.KeyTypeMapper;

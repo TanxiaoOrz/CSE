@@ -1,11 +1,9 @@
 package com.example.cse.Vo;
 
 import com.example.cse.Dto.UserDto;
-import com.example.cse.Entity.UserClass.Profession;
 import com.example.cse.Utils.Exception.WrongDataException;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import io.swagger.models.auth.In;
 
 @ApiModel(description = "用户基本信息的结构体")
 public class UserBasic {

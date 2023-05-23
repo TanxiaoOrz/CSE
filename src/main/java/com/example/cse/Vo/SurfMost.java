@@ -2,7 +2,6 @@ package com.example.cse.Vo;
 
 import com.example.cse.Entity.InformationClass.InformationClass;
 import com.example.cse.Entity.InformationClass.Location;
-import com.example.cse.Entity.InformationClass.Message;
 import com.example.cse.Entity.Recommend.KeyAndType;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;

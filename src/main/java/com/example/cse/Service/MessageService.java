@@ -2,7 +2,6 @@ package com.example.cse.Service;
 
 import com.example.cse.Dto.MessageDto;
 import com.example.cse.Dto.UserDto;
-import com.example.cse.Entity.InformationClass.Message;
 import com.example.cse.Utils.Exception.WrongDataException;
 import com.example.cse.Vo.LatestMessages;
 import com.example.cse.Vo.MessageIn;
