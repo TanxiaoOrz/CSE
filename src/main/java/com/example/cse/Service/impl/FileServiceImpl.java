@@ -14,32 +14,31 @@ import java.net.InetAddress;
 import java.net.UnknownHostException;
 
 @Service
-public class FileServiceImpl implements FileService  {
+public class FileServiceImpl implements FileService {
 
     String absolutePath;
     String url;
 
-    public FileServiceImpl(@Value("${server.port}")String port) throws FileNotFoundException, UnknownHostException {
-        absolutePath = System.getProperty("user.dir")+"/static/img";
+    public FileServiceImpl(@Value("${server.port}") String port) throws FileNotFoundException, UnknownHostException {
+        absolutePath = System.getProperty("user.dir") + "/static/img";
         File dir = new File(absolutePath);
-        System.out.println(absolutePath);
-        if(!dir.exists()){
+        if (!dir.exists()) {
             dir.mkdirs();
         }
         InetAddress localHost = InetAddress.getLocalHost();
         String hostAddress = localHost.getHostAddress();
-        url = "http://" + hostAddress + ":" + port+"/static/img/";
+        url = "http://" + hostAddress + ":" + port + "/static/img/";
 
     }
 
     @Override
     public String upload(MultipartFile multipartFile) throws WrongDataException, IOException {
 
-        File file = new File(absolutePath,multipartFile.getOriginalFilename());
+        File file = new File(absolutePath, multipartFile.getOriginalFilename());
         if (file.exists())
             throw new WrongDataException("该文件名已存在");
         else {
-            //file.mkdir();
+            // file.mkdir();
             file.createNewFile();
             multipartFile.transferTo(file);
         }
