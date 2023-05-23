@@ -327,9 +327,9 @@ CREATE TABLE `cse`.`year_basic_model` (
     COMMENT = '年级对应的模型表';
 
 CREATE TABLE `cse`.`information_class_echarts` (
-    `Cid` Int not null comment `对应信息类的唯一id`,
-    `Lists` JSON not null comment `echarts图标数据的json格式化`,
-    `StartYear` int null comment `比赛类的开始年份`,
+    `Cid` Int not null comment '对应信息类的唯一id',
+    `Lists` JSON not null comment 'echarts图标数据的json格式化',
+    `StartYear` int null comment '比赛类的开始年份',
     PRIMARY Key(`Cid`),
     CONSTRAINT `EchartsToInformationClass`
         FOREIGN Key(`Cid`)
