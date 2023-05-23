@@ -4,7 +4,6 @@ import com.example.cse.Service.FileService;
 import com.example.cse.Utils.Exception.WrongDataException;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-import org.springframework.util.ResourceUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
@@ -38,7 +37,6 @@ public class FileServiceImpl implements FileService {
         if (file.exists())
             throw new WrongDataException("该文件名已存在");
         else {
-            // file.mkdir();
             file.createNewFile();
             multipartFile.transferTo(file);
         }

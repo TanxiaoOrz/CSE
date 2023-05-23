@@ -5,14 +5,13 @@ import com.example.cse.Entity.InformationClass.Location;
 import com.example.cse.Entity.InformationClass.Message;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import io.swagger.annotations.ApiOperation;
 
 import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 
 @ApiModel(description = "消息的包装类,附带了地点与信息类和分数")
-public class MessageDto extends Message{
+public class MessageDto extends Message {
 
     public static class ScoreComparator implements Comparator<MessageDto> {
         @Override
@@ -46,13 +45,12 @@ public class MessageDto extends Message{
         setTime(message.getTime());
     }
 
-
-    public void setRankScore(Integer timeScore, Integer userScore,Integer surfScore, Integer outTimeScore) {
+    public void setRankScore(Integer timeScore, Integer userScore, Integer surfScore, Integer outTimeScore) {
         if (userScore == null) {
             userScore = 0;
         }
         rankScore = timeScore + userScore + surfScore;
-        if (getOutTime().compareTo(new Date()) >= 0) //过期扣分
+        if (getOutTime().compareTo(new Date()) >= 0) // 过期扣分
             rankScore -= outTimeScore;
     }
 

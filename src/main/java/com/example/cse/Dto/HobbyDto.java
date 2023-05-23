@@ -1,10 +1,6 @@
 package com.example.cse.Dto;
 
 import com.example.cse.Entity.Recommend.Hobby;
-import com.google.gson.Gson;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonParser;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
@@ -25,7 +21,7 @@ public class HobbyDto {
     @ApiModelProperty("附属的推荐模型")
     private List<ModelDto> modelDtos;
 
-    public HobbyDto(Hobby hobby){
+    public HobbyDto(Hobby hobby) {
         Hid = hobby.getHid();
         name = hobby.getName();
         description = hobby.getDescription();
@@ -35,9 +31,9 @@ public class HobbyDto {
         }
     }
 
-    public static List<HobbyDto> createHobbyDtoList(List<Hobby> hobbies){
+    public static List<HobbyDto> createHobbyDtoList(List<Hobby> hobbies) {
         List<HobbyDto> hobbyOuts = new ArrayList<>();
-        for (Hobby hobby: hobbies) {
+        for (Hobby hobby : hobbies) {
             hobbyOuts.add(new HobbyDto(hobby));
         }
         return hobbyOuts;

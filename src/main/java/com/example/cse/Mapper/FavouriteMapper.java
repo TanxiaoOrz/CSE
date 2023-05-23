@@ -1,6 +1,5 @@
 package com.example.cse.Mapper;
 
-import com.example.cse.Entity.InformationClass.Location;
 import com.example.cse.Vo.FavouriteInformationClass;
 import com.example.cse.Vo.FavouriteLocation;
 import com.example.cse.Vo.FavouriteMessage;
@@ -30,22 +29,22 @@ public interface FavouriteMapper {
     List<FavouriteLocation> getFavouriteLocationByUser(@Param("Uid") Integer Uid);
 
     @Insert("insert into favourite_message (Uid, `like`) VALUES (#{Uid},#{Mid})")
-    Integer newFavouriteMessage(@Param("Uid") Integer Uid,@Param("Mid") Integer Mid);
+    Integer newFavouriteMessage(@Param("Uid") Integer Uid, @Param("Mid") Integer Mid);
 
     @Insert("insert into favourite_information_class (Uid, `like`) VALUES (#{Uid},#{Cid})")
-    Integer newFavouriteInformationClass(@Param("Uid") Integer Uid,@Param("Cid") Integer Cid);
+    Integer newFavouriteInformationClass(@Param("Uid") Integer Uid, @Param("Cid") Integer Cid);
 
     @Insert("insert into favourite_location (Uid, `like`) VALUES (#{Uid},#{Lid})")
-    Integer newFavouriteLocation(@Param("Uid") Integer Uid,@Param("Lid") Integer Lid);
+    Integer newFavouriteLocation(@Param("Uid") Integer Uid, @Param("Lid") Integer Lid);
 
     @Delete("delete from favourite_message where Uid = #{Uid} and `like`= #{Mid}")
-    Integer deleteFavouriteMessage(@Param("Uid") Integer Uid,@Param("Mid") Integer Mid);
+    Integer deleteFavouriteMessage(@Param("Uid") Integer Uid, @Param("Mid") Integer Mid);
 
     @Delete("delete from favourite_information_class where Uid = #{Uid} and `like`= #{Cid}")
-    Integer deleteFavouriteInformationClass(@Param("Uid") Integer Uid,@Param("Cid") Integer Cid);
+    Integer deleteFavouriteInformationClass(@Param("Uid") Integer Uid, @Param("Cid") Integer Cid);
 
     @Delete("delete from favourite_location where Uid = #{Uid} and `like`= #{Lid}")
-    Integer deleteFavouriteLocation(@Param("Uid") Integer Uid,@Param("Mid") Integer Lid);
+    Integer deleteFavouriteLocation(@Param("Uid") Integer Uid, @Param("Mid") Integer Lid);
 
     @Delete("delete from favourite_message where Uid = #{Uid} and `like`is null")
     Integer deleteFavouriteMessageNull(@Param("Uid") Integer Uid);
@@ -55,7 +54,5 @@ public interface FavouriteMapper {
 
     @Delete("delete from favourite_location where Uid = #{Uid} and `like` is null")
     Integer deleteFavouriteLocationNull(@Param("Uid") Integer Uid);
-
-
 
 }

@@ -1,6 +1,5 @@
 package com.example.cse.Entity.InformationClass;
 
-import com.example.cse.Entity.Recommend.KeyWord;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import org.springframework.util.StringUtils;
@@ -8,7 +7,7 @@ import org.springframework.util.StringUtils;
 @ApiModel(description = "地点的实体类")
 public class Location {
     @ApiModelProperty("唯一id标识")
-    private Integer lid;//唯一标识
+    private Integer lid;// 唯一标识
     @ApiModelProperty("地点名")
     private String name;
     @ApiModelProperty("地点简介")
@@ -18,18 +17,18 @@ public class Location {
     @ApiModelProperty("所属地图的路径")
     private String mapBelong;
     @ApiModelProperty("图片的路径")
-    private String imgHref;//所携带的图片
+    private String imgHref;// 所携带的图片
     @ApiModelProperty("横坐标的偏移量")
-    private Integer x;//所在地图坐标
+    private Integer x;// 所在地图坐标
     @ApiModelProperty("纵坐标的偏移量")
     private Integer y;
 
     public void checkZeroToNull() {
         if (!StringUtils.hasText(mapBelong)) {
-            mapBelong =null;
+            mapBelong = null;
         }
 
-        if (basicMessage !=null && basicMessage == 0) {
+        if (basicMessage != null && basicMessage == 0) {
             basicMessage = null;
         }
         if (!StringUtils.hasText(imgHref)) {
@@ -61,7 +60,7 @@ public class Location {
         if (imgHref != null) {
             update &= imgHref.equals(old.imgHref);
         }
-        return  update;
+        return update;
     }
 
     public Integer getLid() {
@@ -87,7 +86,6 @@ public class Location {
     public void setResume(String resume) {
         this.resume = resume;
     }
-
 
     public Integer getBasicMessage() {
         return basicMessage;
